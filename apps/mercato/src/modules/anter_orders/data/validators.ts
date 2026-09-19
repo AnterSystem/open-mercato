@@ -67,3 +67,45 @@ export const anterStockItemListSchema = paginationSchema.extend({
   sortField: z.enum(['id', 'product_id', 'created_at']).optional().default('created_at'),
   sortDir: z.enum(['asc', 'desc']).optional().default('desc'),
 })
+
+export const anterOrderListSchema = paginationSchema.extend({
+  id: z.string().uuid().optional(),
+  customerEntityId: z.string().uuid().optional(),
+  status: z.string().optional(),
+  sortField: z.enum(['id', 'order_number', 'created_at', 'placed_at']).optional().default('created_at'),
+  sortDir: z.enum(['asc', 'desc']).optional().default('desc'),
+})
+
+export type AnterOrderListQuery = z.infer<typeof anterOrderListSchema>
+
+export const anterOrderPlaceLineSchema = z.object({
+  productId: z.string().uuid(),
+  productVariantId: z.string().uuid().nullable().optional(),
+  sku: z.string().trim().max(128).nullable().optional(),
+  nameSnapshot: z.string().trim().min(1).max(256),
+  variantSnapshot: z.record(z.string(), z.unknown()).nullable().optional(),
+  quantity: z.coerce.number().positive(),
+  unitCode: z.string().trim().max(32).nullable().optional(),
+  listUnitPriceNet: z.coerce.number().min(0),
+  unitPriceNet: z.coerce.number().min(0),
+  taxRate: z.coerce.number().min(0).max(1).default(0),
+})
+
+export const anterOrderPlaceSchema = z.object({
+  organizationId: z.string().uuid(),
+  tenantId: z.string().uuid(),
+  customerEntityId: z.string().uuid(),
+  customerUserId: z.string().uuid(),
+  currencyCode: z.string().trim().length(3),
+  deliveryMode: z.enum(['partner_warehouse', 'end_customer', 'self_collection']),
+  deliveryAddressSnapshot: z.record(z.string(), z.unknown()).nullable().optional(),
+  paymentTermsDays: z.coerce.number().int().min(0).default(0),
+  shippingNetAmount: z.coerce.number().min(0).default(0),
+  partnerReference: z.string().trim().max(64).nullable().optional(),
+  notes: z.string().trim().max(2000).nullable().optional(),
+  sourceCartId: z.string().uuid().nullable().optional(),
+  lines: z.array(anterOrderPlaceLineSchema).min(1),
+})
+
+export type AnterOrderPlaceInput = z.infer<typeof anterOrderPlaceSchema>
+export type AnterOrderPlaceLineInput = z.infer<typeof anterOrderPlaceLineSchema>

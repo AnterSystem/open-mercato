@@ -25,7 +25,7 @@ import { AnterPartnerTerms } from '../data/entities'
  * - No partner terms for that customer → not an Anter partner.
  * - No matching list price row → nothing to discount.
  */
-async function anterPartnerPricingResolver(rows: PriceRow[], ctx: PricingContext): Promise<PriceRow | null | undefined> {
+export async function anterPartnerPricingResolver(rows: PriceRow[], ctx: PricingContext): Promise<PriceRow | null | undefined> {
   if (!ctx.customerId) return undefined
 
   const em = RequestContext.getEntityManager() as EntityManager | undefined

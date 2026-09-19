@@ -7,7 +7,8 @@ import { extractUndoPayload } from '@open-mercato/shared/lib/commands/undo'
 import { CrudHttpError } from '@open-mercato/shared/lib/crud/errors'
 import { createLogger } from '@open-mercato/shared/lib/logger'
 import type { SalesLineSnapshot } from '@open-mercato/core/modules/sales/lib/types'
-import { AnterOrder, AnterOrderLine } from '../data/entities'
+import { AnterOrder, AnterOrderLine, AnterStockAllocation } from '../data/entities'
+import { allocateOrderLineBestEffort, deriveOrderStatusAfterAllocation } from '../lib/stockAllocation'
 import { anterOrderPlaceSchema, type AnterOrderPlaceInput } from '../data/validators'
 import type { AnterOrderNumberService } from '../services/anterOrderNumberService'
 import { createAnterFallbackCalculationService, type OrderCalculationService } from '../services/anterFallbackCalculationService'
@@ -99,9 +100,11 @@ async function loadOrderSnapshot(em: EntityManager, orderId: string): Promise<Or
  * succeeds. This keeps the FK-id + snapshot pattern (no ORM relation, no
  * cross-module write) intact in both directions.
  *
- * Phase A explicitly excludes stock allocation (`AnterStockAllocation` does
- * not exist yet) — lines are created with the entity's default
- * `line_status = 'awaiting_stock'` and no allocation/release logic runs here.
+ * Phase B adds best-effort stock allocation (§Edge Cases "Stock oversold by
+ * concurrent placement") as a second flush-boundary phase, inside the same
+ * transaction: each line takes a row lock on its `anter_stock_items` row,
+ * allocates what it can, and a shortfall keeps the line/order `awaiting_stock`
+ * rather than failing the whole placement.
  */
 const orderPlaceCommand: CommandHandler<unknown, OrderPlaceResult> = {
   id: 'anter_orders.order.place',
@@ -203,6 +206,23 @@ const orderPlaceCommand: CommandHandler<unknown, OrderPlaceResult> = {
           orderLines.push(lineEntity)
         })
       },
+      // Separate flush boundary (SPEC-018): allocation reads must see the
+      // just-flushed order/line rows before taking their own row lock.
+      async () => {
+        const lineStatuses: string[] = []
+        for (const lineEntity of orderLines) {
+          const result = await allocateOrderLineBestEffort(em, lineEntity, {
+            orderLineId: lineEntity.id,
+            productId: lineEntity.productId,
+            variantId: lineEntity.productVariantId ?? null,
+            quantity: Number(lineEntity.quantity),
+            scope: { organizationId: parsed.organizationId, tenantId: parsed.tenantId },
+          })
+          lineStatuses.push(lineEntity.lineStatus)
+          void result
+        }
+        order.status = deriveOrderStatusAfterAllocation(lineStatuses)
+      },
     ], { transaction: true, label: 'anter_orders.order.place' })
 
     await emitAnterOrdersEvent('anter_orders.order.placed', {
@@ -258,6 +278,9 @@ const orderPlaceCommand: CommandHandler<unknown, OrderPlaceResult> = {
     if (!order) return
 
     const lines = await em.find(AnterOrderLine, { orderId: order.id })
+    const allocations = lines.length
+      ? await em.find(AnterStockAllocation, { orderLineId: { $in: lines.map((line) => line.id) } })
+      : []
     const identifiers = {
       id: order.id,
       organizationId: order.organizationId,
@@ -265,6 +288,12 @@ const orderPlaceCommand: CommandHandler<unknown, OrderPlaceResult> = {
     }
 
     await withAtomicFlush(em, [
+      () => {
+        // §API Contracts undo column: "release allocations" — removed
+        // outright (not merely `released`) since the order/lines are also
+        // deleted, not archived.
+        for (const allocation of allocations) em.remove(allocation)
+      },
       () => {
         for (const line of lines) em.remove(line)
       },

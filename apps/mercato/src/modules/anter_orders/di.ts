@@ -3,11 +3,13 @@ import type { AppContainer } from '@open-mercato/shared/lib/di/container'
 import { createAnterPartnerTermsService } from './services/anterPartnerTermsService'
 import { createAnterPartnerPricingService } from './services/anterPartnerPricingService'
 import { createAnterOrderNumberService } from './services/anterOrderNumberService'
+import { createAnterOrderReadService } from './services/anterOrderReadService'
 import { registerAnterPartnerPricingResolver } from './lib/pricingResolver'
 
 export const ANTER_PARTNER_TERMS_SERVICE = 'anterPartnerTermsService' as const
 export const ANTER_PARTNER_PRICING_SERVICE = 'anterPartnerPricingService' as const
 export const ANTER_ORDER_NUMBER_SERVICE = 'anterOrderNumberService' as const
+export const ANTER_ORDER_READ_SERVICE = 'anterOrderReadService' as const
 
 // Runs once per module import (module-level side effect), not per request —
 // `registerCatalogPricingResolver` has no dedup key, so calling it from inside
@@ -20,6 +22,7 @@ export function register(container: AppContainer) {
     [ANTER_PARTNER_TERMS_SERVICE]: asFunction(createAnterPartnerTermsService).scoped(),
     [ANTER_PARTNER_PRICING_SERVICE]: asFunction(createAnterPartnerPricingService).scoped(),
     [ANTER_ORDER_NUMBER_SERVICE]: asFunction(createAnterOrderNumberService).scoped(),
+    [ANTER_ORDER_READ_SERVICE]: asFunction(createAnterOrderReadService).scoped(),
   })
 }
 

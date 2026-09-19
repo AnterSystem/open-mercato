@@ -3,6 +3,7 @@ import type { AppContainer } from '@open-mercato/shared/lib/di/container'
 import { CrudHttpError } from '@open-mercato/shared/lib/crud/errors'
 import { withAtomicFlush } from '@open-mercato/shared/lib/commands/flush'
 import { enforceCommandOptimisticLock } from '@open-mercato/shared/lib/crud/optimistic-lock-command'
+import { findOneWithDecryption } from '@open-mercato/shared/lib/encryption/find'
 import type { CommandBus } from '@open-mercato/shared/lib/commands/command-bus'
 import type { CommandRuntimeContext } from '@open-mercato/shared/lib/commands'
 import type { CatalogPricingService } from '@open-mercato/core/modules/catalog/services/catalogPricingService'
@@ -180,13 +181,15 @@ export function createAnterCheckoutService(deps: {
   }
 
   async function placeOrder(scope: CheckoutScope, principal: CheckoutPrincipal, request: Request, input: CheckoutInput): Promise<CheckoutResult> {
-    const cart = await em.findOne(AnterCart, {
+    // `delivery_address_snapshot` is encrypted at rest (spec Data Model
+    // §Sensitive data) — every read goes through `findOneWithDecryption`.
+    const cart = await findOneWithDecryption(em, AnterCart, {
       customerUserId: principal.customerUserId,
       organizationId: scope.organizationId,
       tenantId: scope.tenantId,
       status: 'active',
       deletedAt: null,
-    })
+    }, undefined, { tenantId: scope.tenantId, organizationId: scope.organizationId })
     if (!cart) throw new CrudHttpError(422, { error: '[internal] anter_portal cart is empty' })
 
     enforceCommandOptimisticLock({ resourceKind: CART_RESOURCE_KIND, resourceId: cart.id, current: cart.updatedAt, request })

@@ -109,6 +109,40 @@ export class AnterStockItem {
   deletedAt?: Date | null
 }
 
+@Entity({ tableName: 'anter_stock_allocations' })
+@Index({ properties: ['stockItemId', 'status'] })
+@Index({ properties: ['orderLineId'] })
+export class AnterStockAllocation {
+  [OptionalProps]?: 'status' | 'createdAt' | 'updatedAt'
+
+  @PrimaryKey({ type: 'uuid', defaultRaw: 'gen_random_uuid()' })
+  id!: string
+
+  @Property({ name: 'order_line_id', type: 'uuid' })
+  orderLineId!: string
+
+  @Property({ name: 'stock_item_id', type: 'uuid' })
+  stockItemId!: string
+
+  @Property({ type: 'numeric', precision: 16, scale: 4 })
+  quantity!: string
+
+  @Property({ type: 'text', default: 'allocated' })
+  status: string = 'allocated'
+
+  @Property({ name: 'organization_id', type: 'uuid' })
+  organizationId!: string
+
+  @Property({ name: 'tenant_id', type: 'uuid' })
+  tenantId!: string
+
+  @Property({ name: 'created_at', type: Date, onCreate: () => new Date() })
+  createdAt: Date = new Date()
+
+  @Property({ name: 'updated_at', type: Date, onUpdate: () => new Date() })
+  updatedAt: Date = new Date()
+}
+
 @Entity({ tableName: 'anter_orders' })
 @Index({ properties: ['customerEntityId'] })
 @Unique({ properties: ['orderNumber', 'tenantId'] })

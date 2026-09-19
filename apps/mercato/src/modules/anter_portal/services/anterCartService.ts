@@ -3,6 +3,7 @@ import type { EntityManager } from '@mikro-orm/postgresql'
 import { CrudHttpError } from '@open-mercato/shared/lib/crud/errors'
 import { withAtomicFlush } from '@open-mercato/shared/lib/commands/flush'
 import { enforceCommandOptimisticLock } from '@open-mercato/shared/lib/crud/optimistic-lock-command'
+import { findOneWithDecryption } from '@open-mercato/shared/lib/encryption/find'
 import {
   CatalogProduct,
   CatalogProductVariant,
@@ -199,13 +200,15 @@ async function assertAvailable(
 }
 
 async function findActiveCart(em: EntityManager, scope: CartScope, principal: CartPrincipal): Promise<AnterCart | null> {
-  return em.findOne(AnterCart, {
+  // `delivery_address_snapshot` is encrypted at rest (spec Data Model §Sensitive
+  // data) — every read goes through `findOneWithDecryption`, never a plain find.
+  return findOneWithDecryption(em, AnterCart, {
     customerUserId: principal.customerUserId,
     organizationId: scope.organizationId,
     tenantId: scope.tenantId,
     status: 'active',
     deletedAt: null,
-  })
+  }, undefined, { tenantId: scope.tenantId, organizationId: scope.organizationId })
 }
 
 async function getOrCreateActiveCart(em: EntityManager, scope: CartScope, principal: CartPrincipal): Promise<AnterCart> {

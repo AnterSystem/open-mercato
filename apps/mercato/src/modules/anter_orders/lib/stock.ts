@@ -1,5 +1,5 @@
 import type { EntityManager } from '@mikro-orm/postgresql'
-import { AnterStockItem } from '../data/entities'
+import { AnterStockItem, AnterStockAllocation } from '../data/entities'
 
 export type StockScope = { organizationId: string; tenantId: string }
 
@@ -12,11 +12,13 @@ export type AvailabilityResult = {
   expectedRestockAt: Date | null
 }
 
+const LIVE_ALLOCATION_STATUSES = ['allocated', 'packed'] as const
+
 /**
- * Derives sellable availability for a product/variant as `on_hand - allocated`.
- * Phase A has no allocations table yet, so `allocated` always resolves to 0
- * and this degenerates to `on_hand` — the shape is kept future-proof so a
- * later allocations ledger can be summed in without changing call sites.
+ * Derives sellable availability for a product/variant as `on_hand - Σ(live
+ * allocations)` — Data Model §"Available quantity is derived, never stored".
+ * Only `allocated`/`packed` rows count; `shipped`/`released` are excluded so
+ * the sum never grows unbounded over terminal allocations (§Performance).
  */
 export async function resolveStockAvailability(
   em: EntityManager,
@@ -32,7 +34,16 @@ export async function resolveStockAvailability(
     deletedAt: null,
   })
   const onHand = item?.onHand ?? 0
-  const allocated = 0
+  let allocated = 0
+  if (item) {
+    const allocations = await em.find(AnterStockAllocation, {
+      stockItemId: item.id,
+      organizationId: scope.organizationId,
+      tenantId: scope.tenantId,
+      status: { $in: [...LIVE_ALLOCATION_STATUSES] },
+    })
+    allocated = allocations.reduce((sum, allocation) => sum + Number(allocation.quantity), 0)
+  }
   return {
     productId,
     variantId: variantId ?? null,
@@ -56,18 +67,33 @@ export async function resolveStockAvailabilityBatch(
     tenantId: scope.tenantId,
     deletedAt: null,
   })
+  const itemIds = items.map((item) => item.id)
+  const allocations = itemIds.length
+    ? await em.find(AnterStockAllocation, {
+        stockItemId: { $in: itemIds },
+        organizationId: scope.organizationId,
+        tenantId: scope.tenantId,
+        status: { $in: [...LIVE_ALLOCATION_STATUSES] },
+      })
+    : []
+  const allocatedByItem = new Map<string, number>()
+  for (const allocation of allocations) {
+    allocatedByItem.set(allocation.stockItemId, (allocatedByItem.get(allocation.stockItemId) ?? 0) + Number(allocation.quantity))
+  }
+
   const byKey = new Map(items.map((item) => [`${item.productId}:${item.variantId ?? ''}`, item]))
   const result = new Map<string, AvailabilityResult>()
   for (const entry of entries) {
     const key = `${entry.productId}:${entry.variantId ?? ''}`
     const item = byKey.get(key)
     const onHand = item?.onHand ?? 0
+    const allocated = item ? allocatedByItem.get(item.id) ?? 0 : 0
     result.set(key, {
       productId: entry.productId,
       variantId: entry.variantId ?? null,
       onHand,
-      allocated: 0,
-      available: onHand,
+      allocated,
+      available: onHand - allocated,
       expectedRestockAt: item?.expectedRestockAt ?? null,
     })
   }

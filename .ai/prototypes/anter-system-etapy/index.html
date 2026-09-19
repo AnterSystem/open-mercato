@@ -60,7 +60,7 @@
   <strong style="font-size:0.875rem">Anter System — etapy 0–6</strong>
   <nav class="screen-nav" aria-label="Ekrany">
     <div class="nav-section">
-      <span class="nav-section-label">Backoffice Anter <span class="nav-section-count">· 24</span></span>
+      <span class="nav-section-label">Backoffice Anter <span class="nav-section-count">· 25</span></span>
       <div class="nav-section-links">
         <a href="#s1">0 · Leady</a>
         <a href="#s2">0 · Kwalifikacja</a>
@@ -84,6 +84,7 @@
         <a href="#s23">5 · Przesyłki</a>
         <a href="#s43">4 · Zamówienia BO</a>
         <a href="#s44">4 · Produkcja lista</a>
+        <a href="#s46">2 · Zgłoszenia konfig.</a>
         <a href="#s40">5 · Zwolnienia</a>
         <a href="#s41">5 · Wysyłka częściowa</a>
       </div>
@@ -2021,7 +2022,7 @@
                 <div class="separator"></div>
                 <div class="row between"><span class="t-body">Szacowany termin</span><span class="badge badge-warning"><span class="dot"></span> 21 dni rob.</span></div>
                 <button class="btn btn-primary" data-goto="s37"><svg><use href="#ic-cart"/></svg> Dodaj do koszyka</button>
-                <p class="t-hint" style="margin:0">Zestawienie powstaje z narysowanej geometrii. Zmiana na planie przelicza je od razu.</p>
+                <p class="t-hint" style="margin:0">Zestawienie powstaje z narysowanej geometrii. Po złożeniu zamówienia projekt trafia do <a href="#s46" data-goto="s46">rewizji technicznej</a> — konstruktor potwierdza wykonalność. Wyceny nie ma, bo cena jest już znana.</p>
               </div>
 
               <div class="card card-pad stack-3">
@@ -2204,7 +2205,7 @@
                 <div class="separator"></div>
                 <div class="row between"><span class="t-body">Wartość</span><span class="t-hint">wycena po stronie Anter</span></div>
                 <button class="btn btn-primary" data-goto="s15"><svg><use href="#ic-mail"/></svg> Wyślij zapytanie o wycenę</button>
-                <p class="t-hint" style="margin:0">Zestawienie wychodzi z geometrii tak samo jak na koncie pełnym. Różnica dotyczy wyłącznie kolumny z ceną.</p>
+                <p class="t-hint" style="margin:0">Zestawienie wychodzi z geometrii tak samo jak na koncie pełnym. Zapytanie przechodzi <a href="#s46" data-goto="s46">rewizję techniczną, a potem wycenę</a> — wrócisz z ofertą, nie z gotowym zamówieniem.</p>
               </div>
 
               <div class="card card-pad stack-3">
@@ -6316,6 +6317,162 @@ ul. Przemysłowa 44
     <div class="note"><b>2</b><span>Kolumna „Parametry" wchodzi w miejsce zwolnione przez ceny. Bez cen partner potrzebuje innego kryterium porównania produktów, a parametry techniczne są nim naturalnie.</span></div>
     <div class="note"><b>3</b><span>Każdy wiersz kieruje do konfiguratora, a nie do formularza zapytania. Zapytanie wysłane z rysunku niesie ilości policzone z geometrii; zapytanie „chcę wycenę na słupki" nie niesie nic i wraca do partnera z pytaniem o szczegóły.</span></div>
     <div class="note"><b>4</b><span>Widoczność cen przełącza opiekun na karcie partnera (ekran 17). Zmiana typu konta na „pełne" odsłania obie kolumny cenowe i koszyk; nic innego się nie zmienia.</span></div>
+  </div>
+</section>
+
+<section class="screen" id="s46">
+  <div class="screen-meta">
+    <h2>46. Backoffice — zgłoszenia z konfiguratora: akceptacja i wycena</h2>
+    <p>Zamówienie z konfiguratora nie idzie prosto na produkcję. Konfiguracja z ceną przechodzi wyłącznie rewizję techniczną konstruktora; konfiguracja bez ceny wymaga dodatkowo wyceny po stronie Anter.</p>
+    <div class="screen-refs"><span class="ref">§Konfigurator</span><span class="ref">§Platforma B2B → Typy kont</span><span class="ref">US-2.3</span><span class="ref">US-3.2</span><span class="ref">US-4.6</span><span class="ref">CC-5</span></div>
+  </div>
+
+  <div class="frame">
+    <div class="frame-bar">
+      <div class="frame-dots"><i></i><i></i><i></i></div>
+      <span class="frame-url">/backend/konfigurator/zgloszenia</span>
+    </div>
+    <div class="app app-tall">
+      <aside class="sidebar">
+        <div class="sidebar-brand"><span class="brand-mark">AS</span> <span class="ellipsis">Anter System</span></div>
+        <div class="sidebar-search"><svg><use href="#ic-search"/></svg> Szukaj</div>
+        <nav class="sidebar-nav">
+          <div class="nav-group"><span>Sprzedaż</span><svg><use href="#ic-chevron-down"/></svg></div>
+          <div class="nav-items">
+            <a class="nav-item" href="#s1" data-goto="s1"><svg><use href="#ic-mail"/></svg> Leady</a>
+            <a class="nav-item" href="#s16" data-goto="s16"><svg><use href="#ic-users"/></svg> Partnerzy</a>
+            <span class="nav-item active"><svg><use href="#ic-check"/></svg> Zgłoszenia <span class="count">7</span></span>
+          </div>
+          <div class="nav-group"><span>Realizacja</span><svg><use href="#ic-chevron-down"/></svg></div>
+          <div class="nav-items">
+            <a class="nav-item" href="#s43" data-goto="s43"><svg><use href="#ic-cart"/></svg> Zamówienia <span class="count">31</span></a>
+            <a class="nav-item" href="#s18" data-goto="s18"><svg><use href="#ic-factory"/></svg> Produkcja</a>
+          </div>
+        </nav>
+      </aside>
+      <div class="main">
+        <header class="topbar">
+          <div class="topbar-left"><div class="crumbs"><svg><use href="#ic-home"/></svg><svg><use href="#ic-chevron-right"/></svg><span>Konfigurator</span><svg><use href="#ic-chevron-right"/></svg><span class="here">Zgłoszenia</span></div></div>
+          <div class="topbar-right"><button class="icon-btn" aria-label="Powiadomienia"><svg><use href="#ic-bell"/></svg></button><span class="avatar">AŚ</span></div>
+        </header>
+        <main class="page">
+          <div class="page-head">
+            <div><h1 class="t-page-title">Zgłoszenia z konfiguratora</h1><p>7 w obiegu · 2 czekają dłużej niż 2 dni robocze</p></div>
+          </div>
+
+          <div class="kpis">
+            <div class="kpi"><span class="t-label">Do rewizji technicznej</span><span class="v num">4</span><span class="t-hint">konstruktor</span></div>
+            <div class="kpi"><span class="t-label">Do wyceny</span><span class="v num">3</span><span class="t-hint">backoffice</span></div>
+            <div class="kpi"><span class="t-label">Po terminie</span><span class="v num">2</span></div>
+            <div class="kpi"><span class="t-label">Domknięte dziś</span><span class="v num">5</span></div>
+          </div>
+
+          <div class="split split-2" style="margin-top:0.75rem">
+            <div class="card card-pad stack-3">
+              <span class="t-card-title">Konfiguracja z ceną</span>
+              <div class="stack-2">
+                <div class="row"><span class="badge badge-success"><span class="dot"></span> 1. Rewizja techniczna</span> <span class="t-hint">konstruktor</span></div>
+                <div class="row"><span class="badge badge-neutral"><span class="dot"></span> 2. Zamówienie</span></div>
+              </div>
+              <p class="t-hint" style="margin:0">Partner złożył zamówienie po swojej cenie z cennika. Nie ma czego wyceniać — konstruktor potwierdza wyłącznie, że rozwiązanie da się wykonać tak, jak narysowane.</p>
+            </div>
+            <div class="card card-pad stack-3">
+              <span class="t-card-title">Konfiguracja bez ceny</span>
+              <div class="stack-2">
+                <div class="row"><span class="badge badge-success"><span class="dot"></span> 1. Rewizja techniczna</span> <span class="t-hint">konstruktor</span></div>
+                <div class="row"><span class="badge badge-warning"><span class="dot"></span> 2. Wycena</span> <span class="t-hint">backoffice</span></div>
+                <div class="row"><span class="badge badge-neutral"><span class="dot"></span> 3. Oferta i zamówienie</span></div>
+              </div>
+              <p class="t-hint" style="margin:0">Konto bez cen wysłało specyfikację, nie zamówienie. Po akceptacji technicznej wycenę przygotowuje opiekun i wydaje ofertę, na którą partner odpowiada zamówieniem.</p>
+            </div>
+          </div>
+
+          <div class="dt" style="margin-top:0.75rem">
+            <div class="dt-head">
+              <div class="dt-head-row">
+                <h2 class="t-table-title">W obiegu</h2>
+              </div>
+              <div class="dt-toolbar">
+                <div class="dt-toolbar-row">
+                  <div class="dt-search"><span class="input-group"><span class="addon"><svg><use href="#ic-search"/></svg></span><input class="input" type="search" aria-label="Szukaj zgłoszeń" placeholder="Numer, partner, projekt" /></span></div>
+                  <div class="dt-toolbar-right">
+                    <select class="input" aria-label="Krok obiegu" id="krok-filtr" style="width:13rem;flex:none">
+                      <option selected>Wszystkie kroki</option>
+                      <option>Do rewizji technicznej</option>
+                      <option>Do wyceny</option>
+                      <option>Domknięte</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="scroll-x">
+              <table class="table">
+                <thead>
+                  <tr><th>Zgłoszenie</th><th>Partner</th><th>Konfiguracja</th><th>Obieg</th><th>Czeka</th><th style="width:0"></th></tr>
+                </thead>
+                <tbody>
+                  <tr class="clickable" data-goto="s13">
+                    <td><span class="t-mono">KNF-2026-0412</span><br /><span class="t-hint">Magazyn DC Alfa</span></td>
+                    <td>Stalmont Sp. z o.o.<br /><span class="t-hint">konto pełne</span></td>
+                    <td><span class="badge badge-success"><span class="dot"></span> Z ceną</span><br /><span class="t-hint num">52 221,12</span></td>
+                    <td><span class="badge badge-warning"><span class="dot"></span> Rewizja techniczna</span><br /><span class="t-hint">bez kroku wyceny</span></td>
+                    <td class="t-hint num">1 dzień</td>
+                    <td><button class="btn btn-primary btn-xs">Przejmij</button></td>
+                  </tr>
+                  <tr class="clickable" data-goto="s14">
+                    <td><span class="t-mono">KNF-2026-0410</span><br /><span class="t-hint">Hala Beta — ciąg pieszy</span></td>
+                    <td>Profilex Sp.j.<br /><span class="t-hint">konto bez cen</span></td>
+                    <td><span class="badge badge-info"><span class="dot"></span> Bez ceny</span><br /><span class="t-hint">49 pozycji</span></td>
+                    <td><span class="badge badge-warning"><span class="dot"></span> Wycena</span><br /><span class="t-hint">rewizja zaakceptowana 18.09</span></td>
+                    <td class="t-hint num">2 dni</td>
+                    <td><button class="btn btn-primary btn-xs" data-goto="s11">Wyceń</button></td>
+                  </tr>
+                  <tr class="clickable" data-goto="s14">
+                    <td><span class="t-mono">KNF-2026-0409</span><br /><span class="t-hint">Rozbudowa strefy przyjęć</span></td>
+                    <td>Profilex Sp.j.<br /><span class="t-hint">konto bez cen</span></td>
+                    <td><span class="badge badge-info"><span class="dot"></span> Bez ceny</span><br /><span class="t-hint">22 pozycje</span></td>
+                    <td><span class="badge badge-error"><span class="dot"></span> Rewizja techniczna</span><br /><span class="t-hint">po terminie · potem wycena</span></td>
+                    <td class="t-hint num">4 dni</td>
+                    <td><button class="btn btn-outline btn-xs">Przejmij</button></td>
+                  </tr>
+                  <tr>
+                    <td><span class="t-mono">KNF-2026-0405</span><br /><span class="t-hint">Bramki serwisowe</span></td>
+                    <td>Stalmont Sp. z o.o.<br /><span class="t-hint">konto pełne</span></td>
+                    <td><span class="badge badge-success"><span class="dot"></span> Z ceną</span><br /><span class="t-hint num">21 340,80</span></td>
+                    <td><span class="badge badge-success"><span class="dot"></span> Domknięte</span><br /><span class="t-hint">zamówienie ZAM-2026-1187</span></td>
+                    <td class="t-hint">—</td>
+                    <td><button class="btn btn-ghost btn-xs" data-goto="s43">Zamówienie</button></td>
+                  </tr>
+                  <tr>
+                    <td><span class="t-mono">KNF-2026-0401</span><br /><span class="t-hint">Terminal Gamma</span></td>
+                    <td>Metalbud S.A.<br /><span class="t-hint">konto bez cen</span></td>
+                    <td><span class="badge badge-info"><span class="dot"></span> Bez ceny</span><br /><span class="t-hint">64 pozycje</span></td>
+                    <td><span class="badge badge-success"><span class="dot"></span> Domknięte</span><br /><span class="t-hint">oferta OF-2026-0418 wysłana</span></td>
+                    <td class="t-hint">—</td>
+                    <td><button class="btn btn-ghost btn-xs" data-goto="s11">Oferta</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="dt-foot"><span class="t-hint num">Pozycje 1–5 z 12</span></div>
+          </div>
+
+          <div class="card card-pad stack-2" style="margin-top:0.75rem">
+            <span class="t-card-title">Dlaczego rewizja techniczna jest w obu torach</span>
+            <p class="t-hint" style="margin:0;max-width:75ch">Konfigurator liczy ilości z geometrii, ale nie rozstrzyga, czy rozwiązanie da się wykonać w tym miejscu: mocowanie do posadzki, kolizja z instalacją, wysokość przeszkody, dostęp do serwisu. Dlatego konstruktor potwierdza każdy projekt z konfiguratora — także ten, który ma już cenę i nie wymaga wyceny. To ten sam krok, który w działającej aplikacji nazywa się akceptacją techniczną (ekran 29).</p>
+          </div>
+        </main>
+        <footer class="app-foot"><span>Prototyp · dane fikcyjne</span><nav class="row-3"><span>Etap 2</span><span>US-4.6</span><span>CC-5</span></nav></footer>
+      </div>
+    </div>
+  </div>
+
+  <div class="notes">
+    <div class="note"><b>1</b><span><span class="strong">Liczba kroków zależy od tego, czy konfiguracja miała cenę.</span> Konto pełne rysuje po swoim cenniku, więc wartość jest znana w chwili złożenia i zostaje tylko rewizja techniczna. Konto bez cen wysyła specyfikację — wycena jest osobnym krokiem po akceptacji konstruktora, a jej wynikiem jest oferta, nie zamówienie.</span></div>
+    <div class="note"><b>2</b><span>Kolejność w torze bez ceny jest celowa: <span class="strong">najpierw technika, potem pieniądze</span>. Wycena projektu, który konstruktor i tak każe przerysować, jest pracą do wyrzucenia.</span></div>
+    <div class="note"><b>3</b><span>Ten obieg rozstrzyga lukę odnotowaną przy pierwszej rewizji prototypu: dokument architektury wskazywał obieg akceptacji oferty jako rzecz do doprecyzowania i nie opisywał, kto i kiedy zatwierdza konfigurację. <span class="strong">To decyzja właściciela produktu (A-29)</span>, nie odczyt z dokumentu.</span></div>
+    <div class="note"><b>4</b><span>Nierozstrzygnięte zostaje, co się dzieje, gdy konstruktor odrzuci rewizję po tym, jak partner już złożył zamówienie z ceną: czy zamówienie wraca do partnera do poprawy, czy opiekun negocjuje zmianę. Prototyp pokazuje wyłącznie tor zgodny.</span></div>
   </div>
 </section>
 

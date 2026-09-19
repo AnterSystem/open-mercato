@@ -9,22 +9,22 @@
   "storyMap": "story-map.md",
   "secondarySource": "anter-site-configurator (localhost:5173 SSR + kod źródłowy)",
   "flow": "Wszystkie etapy wdrożenia 0-6, odtworzenie stanu bieżącego konfiguratora oraz ścieżka zamawiania w portalu dystrybutora",
-  "screens": 45,
+  "screens": 46,
   "panelReport": null,
   "verification": "incomplete",
   "verificationNote": "Kontrole statyczne przeszły w komplecie. Renderowanie ekranów 33-39 i 13 zweryfikowane zrzutami z lokalnego Chrome headless (evidence/). Przejście klikane, motyw ciemny, tryb prezentacji i tryb komentarzy pozostają niesprawdzone - brak Playwrighta.",
   "files": [
     {
       "path": "index.html",
-      "sha256": "7f3cc9ec758ecd943bc1b67193df487579911549bec792b3a2e200e13aa83fb2"
+      "sha256": "4f79009eea34a3c2518a4a9ef2419f3fa6d2b32bbbc8114f1ea8415ca1702c54"
     },
     {
       "path": "README.md",
-      "sha256": "4a677eb6bf6e45b4e085d4f709c5562ffc94f6d4310bb7c816147aae07a7e178"
+      "sha256": "798018c2c7f3f26033ed121049352ae648f525db2f8bcb05dce38e36c447e611"
     },
     {
       "path": "story-map.md",
-      "sha256": "bea8867d145b970d20a7834331ef4f7432dcecf313d38e9a87798d937535b912"
+      "sha256": "d312f55f5fa48d1162927f0fa3473e309ffdc088aa81415eb0d6a8f2faf098ef"
     },
     {
       "path": "tokens.css",
@@ -135,6 +135,10 @@
       "sha256": "faac7566ff085bcdf3ff27ff7cad3009c813251d330f52c8a4875b929d390a90"
     },
     {
+      "path": "evidence/s46-obieg-akceptacji.png",
+      "sha256": "077117afbe0a8d4590d2df8e63120fb687edea0a76d7b84bd2d19bc769117365"
+    },
+    {
       "path": "evidence/s9-konfigurator-wewnetrzny.png",
       "sha256": "92d949164e091d72c8f3d689777158cbc560e683468c398e76effd53c48f1042"
     }
@@ -145,7 +149,7 @@
       {
         "id": "backoffice",
         "label": "Backoffice Anter",
-        "screens": 24
+        "screens": 25
       },
       {
         "id": "portal",

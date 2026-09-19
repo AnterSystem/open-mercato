@@ -25,7 +25,7 @@ różnych powierzchni i mieszanie ich w jednej liście zacierało granicę:
 
 | Grupa | Ekrany | Co to jest |
 | --- | --- | --- |
-| Backoffice Anter | 24 | Wnętrze firmy: CRM, baza produktów, konfigurator wewnętrzny, ERP, transport |
+| Backoffice Anter | 25 | Wnętrze firmy: CRM, baza produktów, konfigurator wewnętrzny, ERP, transport |
 | Portal dystrybutora | 13 | Powierzchnia partnerska — jedyne ekrany widziane spoza Anter System (wyróżnione obwódką) |
 | Stan bieżący | 8 | Odtworzenie działającej aplikacji Anter Site Configurator, nie propozycja projektowa |
 
@@ -95,6 +95,32 @@ sugerowałoby domknięcie, którego nie ma. Oś realizacji ma więc teraz siedem
 rozstrzygnięcie), a 15, 34 i 39 jej skutek kilka dni później. To celowe przed/po na tym samym
 zamówieniu, nie rozjazd danych. Ekran 21 trzyma status sprzed wysyłki (17.09), bo ilustruje
 kolejkę zdarzeń zablokowanych przez zerwaną integrację.
+
+### Obieg akceptacji zamówienia z konfiguratora
+
+**Liczba kroków zależy od tego, czy konfiguracja miała cenę.**
+
+| Tor | Kroki |
+| --- | --- |
+| Konfiguracja **z ceną** (konto pełne) | rewizja techniczna → zamówienie |
+| Konfiguracja **bez ceny** (konto bez cen) | rewizja techniczna → wycena w backoffice → oferta → zamówienie |
+
+Konto pełne rysuje po swoim cenniku, więc wartość jest znana w chwili złożenia i nie ma czego
+wyceniać. Konto bez cen wysyła specyfikację — wycena jest osobnym krokiem, a jej wynikiem jest
+oferta, na którą partner odpowiada zamówieniem.
+
+**Rewizja techniczna jest w obu torach.** Konfigurator liczy ilości z geometrii, ale nie
+rozstrzyga, czy rozwiązanie da się wykonać w danym miejscu: mocowanie do posadzki, kolizja
+z instalacją, dostęp do serwisu. Dlatego konstruktor potwierdza każdy projekt — także ten,
+który ma już cenę.
+
+Kolejność w torze bez ceny jest celowa: **najpierw technika, potem pieniądze**. Wycena
+projektu, który konstruktor i tak każe przerysować, jest pracą do wyrzucenia.
+
+Ekran 46 pokazuje kolejkę obu torów. To rozstrzygnięcie luki odnotowanej przy pierwszej
+rewizji prototypu — dokument architektury wskazywał obieg akceptacji jako rzecz do
+doprecyzowania (A-29). Otwarte zostaje, co dzieje się z zamówieniem złożonym z ceną, gdy
+konstruktor odrzuci rewizję.
 
 ### Konfigurator rysuje po planie obiektu
 
@@ -355,6 +381,7 @@ historyjka dotyka nierozstrzygniętej kwestii, są w niej oznaczone `[DO ROZSTRZ
 | s45 | portal | Katalog na koncie bez cen | 3 | US-3.2, CC-3 | s14, s36 |
 | s43 | backoffice | Backoffice — zamówienia (nagłówki) | 4 | US-4.1, US-4.5 | s44 |
 | s44 | backoffice | Produkcja — lista zamówień z pozycjami | 4 | US-4.1, US-4.5, CC-1, CC-7 | s18, s19, s41 |
+| s46 | backoffice | Zgłoszenia z konfiguratora: akceptacja i wycena | 2 | US-2.3, US-3.2, US-4.6, CC-5 | s13, s14, s11, s43 |
 
 Stany brzegowe rozłożone na ekranach: pusty (s8), brak uprawnień (s12), konflikt reguł
 (s6, s9), wyjście poza automatyzację (s10, s22, s35 w wierszu bramy przesuwnej), błąd
@@ -473,6 +500,7 @@ z odpornością produktów z biblioteki.
 | A-26 | Widok kafli ma sens tylko przy kompletnych zdjęciach produktów (s42) | Kafel bez zdjęcia niesie mniej informacji niż wiersz listy, więc traci rację bytu | Ile rekordów w bazie produktów ma dziś zdjęcia — do sprawdzenia przed decyzją o tym widoku |
 | A-27 | Zlecenie produkcyjne dla pozycji wymagającej produkcji nie powstaje automatycznie — jest stan „czeka na zlecenie" (s43) | Trzeba było rozstrzygnąć, czy przyjęcie zamówienia od razu tworzy zlecenie | Decyzja produkcji i IT: automat przyspiesza, ale odbiera kontrolę nad kolejnością i terminami |
 | A-28 | Zamówienia partnera są dostępne przez filtr kontrahenta na liście zamówień, a nie jako sekcja na karcie partnera (s16, s43) | Karta partnera pokazuje obrót i liczbę zamówień, ale nie ich listę | Do rozstrzygnięcia, czy opiekun ma widzieć zamówienia bez opuszczania karty partnera |
+| A-29 | Obieg akceptacji: konfiguracja z ceną przechodzi tylko rewizję techniczną, bez ceny dodatkowo wycenę (s46) | Dokument wskazywał obieg akceptacji jako rzecz do doprecyzowania i nie mówił, kto zatwierdza konfigurację | **Rozstrzygnięte przez właściciela produktu.** Otwarte zostaje, co przy odrzuceniu rewizji dla zamówienia złożonego z ceną |
 
 ## Sprzeczności i braki wykryte przy rysowaniu przepływu
 
@@ -515,7 +543,7 @@ z odpornością produktów z biblioteki.
 | Wszystkie cele `data-goto` wskazują na istniejące ekrany | OK, 0 błędnych |
 | Wszystkie odnośniki `href="#sN"` wskazują na istniejące ekrany | OK, 0 błędnych |
 | Nawigacja paska pokrywa komplet 39 ekranów, bez duplikatów | OK |
-| Pasek podzielony na trzy grupy (24 + 13 + 8 = 45) | OK |
+| Pasek podzielony na trzy grupy (25 + 13 + 8 = 46) | OK |
 | Podświetlenie bieżącego ekranu: wejście z adresu, przejście w mockupie, przewijanie | OK |
 | Brak poziomów certyfikacji i sugestii wpływu szkoleń na rabat | OK |
 | Status wysyłki częściowej spójny w liście, pulpicie i szczegółach zamówienia | OK |

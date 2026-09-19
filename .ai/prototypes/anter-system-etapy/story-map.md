@@ -225,6 +225,19 @@ ze sposobem ich realizacji, żeby wiedzieć, co wydać z magazynu, a co musi zos
 - Pozycja wymagająca produkcji bez zlecenia jest wyróżniona jako stan wymagający decyzji.
 - `[DO ROZSTRZYGNIĘCIA]` Czy zlecenie produkcyjne powstaje automatycznie przy przyjęciu zamówienia, czy świadomie ręcznie.
 
+**US-4.6** · Jako konstruktor chcę zatwierdzić technicznie każdy projekt z konfiguratora,
+zanim trafi na produkcję, żeby nie wykonywać rozwiązań niemożliwych do zamontowania w tym miejscu.
+
+- Każdy projekt z konfiguratora przechodzi rewizję techniczną, także ten złożony z ceną z cennika.
+- Konfigurator liczy ilości z geometrii, ale nie rozstrzyga mocowania, kolizji z instalacją ani dostępu serwisowego.
+- Konfiguracja z ceną kończy obieg na rewizji technicznej i staje się zamówieniem.
+- Konfiguracja bez ceny przechodzi po rewizji dodatkowy krok wyceny po stronie Anter; jej wynikiem jest oferta, nie zamówienie.
+- Kolejność jest stała: najpierw technika, potem wycena — wycena projektu do przerysowania byłaby pracą do wyrzucenia.
+- `[DO ROZSTRZYGNIĘCIA]` Co dzieje się z zamówieniem złożonym z ceną, gdy konstruktor odrzuci rewizję.
+
+> Rozstrzygnięte przez właściciela produktu w rewizji 2. Dokument architektury wskazywał obieg
+> akceptacji jako rzecz do doprecyzowania i nie opisywał, kto zatwierdza konfigurację.
+
 ## EP-5 · Transport i domknięcie do dostawy (etap 5)
 
 Cel etapu: zamknięcie procesu do dostawy. Warunek wejścia: etap 4.

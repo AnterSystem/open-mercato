@@ -60,7 +60,7 @@
   <strong style="font-size:0.875rem">Anter System — etapy 0–6</strong>
   <nav class="screen-nav" aria-label="Ekrany">
     <div class="nav-section">
-      <span class="nav-section-label">Backoffice Anter <span class="nav-section-count">· 20</span></span>
+      <span class="nav-section-label">Backoffice Anter <span class="nav-section-count">· 22</span></span>
       <div class="nav-section-links">
         <a href="#s1">0 · Leady</a>
         <a href="#s2">0 · Kwalifikacja</a>
@@ -82,6 +82,8 @@
         <a href="#s21">4 · Awaria ERP</a>
         <a href="#s22">5 · Transport</a>
         <a href="#s23">5 · Przesyłki</a>
+        <a href="#s40">5 · Zwolnienia</a>
+        <a href="#s41">5 · Wysyłka częściowa</a>
       </div>
     </div>
     <div class="nav-section nav-section-portal">
@@ -2411,6 +2413,8 @@ ul. Przemysłowa 44
           <div class="nav-items">
             <a class="nav-item active" href="#s18" data-goto="s18"><svg><use href="#ic-factory"/></svg> Zlecenia</a>
             <a class="nav-item" href="#s20" data-goto="s20"><svg><use href="#ic-box"/></svg> Zapotrzebowanie</a>
+            <a class="nav-item" href="#s40" data-goto="s40"><svg><use href="#ic-check"/></svg> Zwolnienia <span class="count">2</span></a>
+            <a class="nav-item" href="#s22" data-goto="s22"><svg><use href="#ic-truck"/></svg> Transport</a>
           </div>
         </nav>
       </aside>
@@ -2472,6 +2476,7 @@ ul. Przemysłowa 44
                     <tr><td>W produkcji</td><td><svg style="width:1rem;height:1rem;color:var(--status-success-icon)"><use href="#ic-check"/></svg></td><td><svg style="width:1rem;height:1rem;color:var(--status-success-icon)"><use href="#ic-check"/></svg></td></tr>
                     <tr><td>Oczekuje na komponent</td><td><svg style="width:1rem;height:1rem;color:var(--status-success-icon)"><use href="#ic-check"/></svg></td><td><span class="t-hint">opcjonalnie, z terminem</span></td></tr>
                     <tr><td>Gotowe do wysyłki</td><td><svg style="width:1rem;height:1rem;color:var(--status-success-icon)"><use href="#ic-check"/></svg></td><td><svg style="width:1rem;height:1rem;color:var(--status-success-icon)"><use href="#ic-check"/></svg></td></tr>
+                    <tr><td>Wysłane częściowo <span class="badge badge-warning">nowy</span></td><td><svg style="width:1rem;height:1rem;color:var(--status-success-icon)"><use href="#ic-check"/></svg></td><td><span class="t-hint">z numerem przesyłki i terminem reszty</span></td></tr>
                     <tr><td>Wysłane</td><td><svg style="width:1rem;height:1rem;color:var(--status-success-icon)"><use href="#ic-check"/></svg></td><td><span class="t-hint">z numerem przesyłki</span></td></tr>
                     <tr><td>Dostarczone</td><td><svg style="width:1rem;height:1rem;color:var(--status-success-icon)"><use href="#ic-check"/></svg></td><td><svg style="width:1rem;height:1rem;color:var(--status-success-icon)"><use href="#ic-check"/></svg></td></tr>
                   </tbody>
@@ -2488,6 +2493,7 @@ ul. Przemysłowa 44
   <div class="notes">
     <div class="note"><b>1</b><span>Utrwalenie struktury w momencie wystawienia zlecenia jest założeniem prototypu. Dokument mówi tylko, że ERP czyta strukturę z bazy produktów, nie rozstrzyga zachowania przy późniejszej zmianie rekordu.</span></div>
     <div class="note"><b>2</b><span>Tabela widoczności statusów jest tu widoczna dla planisty celowo: to on decyduje o zmianie statusu i powinien wiedzieć, kto ją zobaczy.</span></div>
+    <div class="note"><b>3</b><span>Status „wysłane częściowo" jest <span class="strong">rozszerzeniem listy sześciu statusów z dokumentu (A-25)</span>, wymuszonym przez wysyłkę częściową (ekran 41). Bez niego „wysłane" nieprawdziwie sugerowałoby komplet.</span></div>
   </div>
 </section>
 
@@ -4902,6 +4908,305 @@ ul. Przemysłowa 44
     <div class="note"><b>2</b><span>Statusy pozycji („Gotowe" / „Oczekuje") są <span class="strong">założeniem</span> (A-20). Ujawniają więcej niż status całego zamówienia i mogą naruszać granicę wewnętrzności ERP. Alternatywa: pokazywać status wyłącznie na poziomie zamówienia. Decyzja do podjęcia razem z zakresem statusów zwrotnych.</span></div>
     <div class="note"><b>3</b><span>Korekta pozycji w podsumowaniu wartości nie ma w dokumencie modelu — pokazuje tylko, że wartość końcowa potrafi odbiegać od złożonego zamówienia. Skąd bierze się korekta i kto ją zatwierdza, pozostaje nierozstrzygnięte.</span></div>
     <div class="note"><b>4</b><span>„Ponów to zamówienie" zamyka pętlę z pulpitem: powtarzalne zamówienie ma wracać jednym kliknięciem, bez przechodzenia przez katalog.</span></div>
+  </div>
+</section>
+
+<section class="screen" id="s40">
+  <div class="screen-meta">
+    <h2>40. Zwolnienie do wysyłki — kolejka</h2>
+    <p>Zamówienie gotowe w komplecie idzie do wysyłki samo. Gotowe częściowo zatrzymuje się i czeka na decyzję pracownika: wysyłamy część szybciej czy czekamy na całość.</p>
+    <div class="screen-refs"><span class="ref">§ERP → Statusy zwrotne</span><span class="ref">§Logistyka</span><span class="ref">US-5.3</span><span class="ref">US-5.4</span><span class="ref">Etap 5</span></div>
+  </div>
+
+  <div class="frame">
+    <div class="frame-bar">
+      <div class="frame-dots"><i></i><i></i><i></i></div>
+      <span class="frame-url">/backend/transport/zwolnienia</span>
+    </div>
+    <div class="app app-tall">
+      <aside class="sidebar">
+        <div class="sidebar-brand"><span class="brand-mark">AS</span> <span class="ellipsis">Anter System</span></div>
+        <div class="sidebar-search"><svg><use href="#ic-search"/></svg> Szukaj</div>
+        <nav class="sidebar-nav">
+          <div class="nav-group"><span>Realizacja</span><svg><use href="#ic-chevron-down"/></svg></div>
+          <div class="nav-items">
+            <a class="nav-item" href="#s18" data-goto="s18"><svg><use href="#ic-factory"/></svg> Zlecenia</a>
+            <a class="nav-item" href="#s20" data-goto="s20"><svg><use href="#ic-box"/></svg> Zapotrzebowanie</a>
+            <span class="nav-item active"><svg><use href="#ic-check"/></svg> Zwolnienia <span class="count">2</span></span>
+            <a class="nav-item" href="#s22" data-goto="s22"><svg><use href="#ic-truck"/></svg> Transport</a>
+            <a class="nav-item" href="#s23" data-goto="s23"><svg><use href="#ic-box"/></svg> Przesyłki <span class="count">12</span></a>
+          </div>
+        </nav>
+      </aside>
+      <div class="main">
+        <header class="topbar">
+          <div class="topbar-left"><div class="crumbs"><svg><use href="#ic-home"/></svg><svg><use href="#ic-chevron-right"/></svg><span>Transport</span><svg><use href="#ic-chevron-right"/></svg><span class="here">Zwolnienia</span></div></div>
+          <div class="topbar-right"><button class="icon-btn" aria-label="Powiadomienia"><svg><use href="#ic-bell"/></svg></button><span class="avatar">AŚ</span></div>
+        </header>
+        <main class="page">
+          <div class="page-head">
+            <div><h1 class="t-page-title">Zwolnienia do wysyłki</h1><p>Dzisiaj · 19.09.2026</p></div>
+          </div>
+
+          <div class="kpis">
+            <div class="kpi"><span class="t-label">Zwolnione automatem</span><span class="v num">6</span><span class="t-hint">komplet gotowy</span></div>
+            <div class="kpi"><span class="t-label">Czeka na decyzję</span><span class="v num">2</span><span class="t-hint">gotowe częściowo</span></div>
+            <div class="kpi"><span class="t-label">Wysyłki częściowe</span><span class="v num">4</span><span class="t-hint">we wrześniu</span></div>
+            <div class="kpi"><span class="t-label">Wciąż w produkcji</span><span class="v num">11</span></div>
+          </div>
+
+          <div class="alert alert-info" style="margin-top:0.75rem">
+            <svg><use href="#ic-info"/></svg>
+            <div>
+              <div class="alert-title">Komplet gotowy nie wymaga decyzji</div>
+              <p class="t-hint" style="margin:0">Zlecenie, w którym wszystkie pozycje są gotowe, przechodzi do wyceny przewozu automatycznie i zmienia status na „gotowe do wysyłki". Decyzja człowieka jest potrzebna tylko wtedy, gdy część pozycji jeszcze nie jest gotowa.</p>
+            </div>
+          </div>
+
+          <div class="dt" style="margin-top:0.75rem">
+            <div class="dt-head">
+              <div class="dt-head-row">
+                <h2 class="t-table-title">Zlecenia gotowe i częściowo gotowe</h2>
+                <div class="dt-head-actions"><button class="btn btn-outline btn-sm"><svg><use href="#ic-filter"/></svg> Filtry</button></div>
+              </div>
+            </div>
+            <div class="dt-chips">
+              <span class="chip chip-active">Stan: do zwolnienia <svg><use href="#ic-x"/></svg></span>
+              <button class="chip chip-dashed" type="button"><svg><use href="#ic-plus"/></svg> Filtr</button>
+            </div>
+            <div class="scroll-x">
+              <table class="table">
+                <thead>
+                  <tr><th>Zlecenie</th><th>Zamówienie</th><th>Kontrahent</th><th>Gotowość</th><th>Stan</th><th style="width:0"></th></tr>
+                </thead>
+                <tbody>
+                  <tr class="clickable" data-goto="s41">
+                    <td class="t-mono">ZLC-2026-0571</td>
+                    <td class="t-mono">ZAM-2026-1140</td>
+                    <td>Stalmont Sp. z o.o.</td>
+                    <td><span class="strong">2 z 3 pozycji</span><br /><span class="t-hint">brakuje bariery GB-200</span></td>
+                    <td><span class="badge badge-warning"><span class="dot"></span> Czeka na decyzję</span></td>
+                    <td><button class="btn btn-primary btn-xs" data-goto="s41">Rozstrzygnij</button></td>
+                  </tr>
+                  <tr class="clickable" data-goto="s41">
+                    <td class="t-mono">ZLC-2026-0701</td>
+                    <td class="t-mono">ZAM-2026-1198</td>
+                    <td>Profilex Sp.j.</td>
+                    <td><span class="strong">1 z 5 pozycji</span><br /><span class="t-hint">4 pozycje w produkcji</span></td>
+                    <td><span class="badge badge-warning"><span class="dot"></span> Czeka na decyzję</span></td>
+                    <td><button class="btn btn-outline btn-xs" data-goto="s41">Rozstrzygnij</button></td>
+                  </tr>
+                  <tr>
+                    <td class="t-mono">ZLC-2026-0642</td>
+                    <td class="t-mono">ZAM-2026-1187</td>
+                    <td>Stalmont Sp. z o.o.</td>
+                    <td><span class="strong">12 z 12 pozycji</span><br /><span class="t-hint">komplet</span></td>
+                    <td><span class="badge badge-success"><span class="dot"></span> Zwolnione automatem</span><br /><span class="t-hint num">19.09 · 08:14</span></td>
+                    <td><button class="btn btn-ghost btn-xs" data-goto="s22">Wycena przewozu</button></td>
+                  </tr>
+                  <tr>
+                    <td class="t-mono">ZLC-2026-0688</td>
+                    <td class="t-mono">ZAM-2026-1203</td>
+                    <td>Metalbud S.A.</td>
+                    <td><span class="strong">4 z 4 pozycji</span><br /><span class="t-hint">komplet</span></td>
+                    <td><span class="badge badge-success"><span class="dot"></span> Zwolnione automatem</span><br /><span class="t-hint num">19.09 · 11:02</span></td>
+                    <td><button class="btn btn-ghost btn-xs" data-goto="s22">Wycena przewozu</button></td>
+                  </tr>
+                  <tr>
+                    <td class="t-mono t-hint">ZLC-2026-0655</td>
+                    <td class="t-mono t-hint">ZAM-2026-1164</td>
+                    <td class="t-hint">Stalmont Sp. z o.o.</td>
+                    <td><span class="t-hint">0 z 2 pozycji</span></td>
+                    <td><span class="badge badge-neutral"><span class="dot"></span> W produkcji</span></td>
+                    <td><span class="t-hint">—</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="dt-foot"><span class="t-hint num">Pozycje 1–5 z 19</span></div>
+          </div>
+        </main>
+        <footer class="app-foot"><span>Prototyp · dane fikcyjne</span><nav class="row-3"><span>Etap 5</span><span>US-5.4</span></nav></footer>
+      </div>
+    </div>
+  </div>
+
+  <div class="notes">
+    <div class="note"><b>1</b><span>Rozdzielenie dwóch ścieżek jest sednem tego ekranu: komplet nie zatrzymuje się na człowieku, więc planista widzi wyłącznie te zlecenia, w których naprawdę ma coś do rozstrzygnięcia. Wiersze zwolnione automatem zostają na liście jako zapis, nie jako zadanie.</span></div>
+    <div class="note"><b>2</b><span>Zlecenie bez żadnej gotowej pozycji (ostatni wiersz) nie jest decyzją do podjęcia — jest tu wyszarzone, żeby planista wiedział, że system o nim pamięta.</span></div>
+    <div class="note"><b>3</b><span>Progi „ile pozycji musi być gotowych, żeby w ogóle proponować wysyłkę częściową" nie są ustalone. Prototyp pokazuje każde zlecenie z co najmniej jedną gotową pozycją.</span></div>
+  </div>
+</section>
+
+<section class="screen" id="s41">
+  <div class="screen-meta">
+    <h2>41. Wysyłka częściowa — wybór pozycji</h2>
+    <p>Pracownik Anter System ręcznie decyduje, które pozycje jadą teraz, a które czekają na komplet. Decyzja jest świadoma, bo widać jej koszt i to, co zobaczy partner.</p>
+    <div class="screen-refs"><span class="ref">§Logistyka</span><span class="ref">§ERP → Statusy zwrotne</span><span class="ref">US-5.4</span><span class="ref">CC-2</span><span class="ref">CC-5</span></div>
+  </div>
+
+  <div class="frame">
+    <div class="frame-bar">
+      <div class="frame-dots"><i></i><i></i><i></i></div>
+      <span class="frame-url">/backend/transport/zwolnienia/ZLC-2026-0571</span>
+    </div>
+    <div class="app app-tall">
+      <aside class="sidebar">
+        <div class="sidebar-brand"><span class="brand-mark">AS</span> <span class="ellipsis">Anter System</span></div>
+        <div class="sidebar-search"><svg><use href="#ic-search"/></svg> Szukaj</div>
+        <nav class="sidebar-nav">
+          <div class="nav-group"><span>Realizacja</span><svg><use href="#ic-chevron-down"/></svg></div>
+          <div class="nav-items">
+            <a class="nav-item" href="#s18" data-goto="s18"><svg><use href="#ic-factory"/></svg> Zlecenia</a>
+            <a class="nav-item" href="#s20" data-goto="s20"><svg><use href="#ic-box"/></svg> Zapotrzebowanie</a>
+            <a class="nav-item active" href="#s40" data-goto="s40"><svg><use href="#ic-check"/></svg> Zwolnienia <span class="count">2</span></a>
+            <a class="nav-item" href="#s22" data-goto="s22"><svg><use href="#ic-truck"/></svg> Transport</a>
+            <a class="nav-item" href="#s23" data-goto="s23"><svg><use href="#ic-box"/></svg> Przesyłki <span class="count">12</span></a>
+          </div>
+        </nav>
+      </aside>
+      <div class="main">
+        <header class="topbar">
+          <div class="topbar-left"><div class="crumbs"><svg><use href="#ic-home"/></svg><svg><use href="#ic-chevron-right"/></svg><a href="#s40" data-goto="s40">Zwolnienia</a><svg><use href="#ic-chevron-right"/></svg><span class="here">ZLC-2026-0571</span></div></div>
+          <div class="topbar-right"><span class="avatar">AŚ</span></div>
+        </header>
+        <main class="page">
+          <a class="back-link" href="#s40" data-goto="s40"><svg><use href="#ic-chevron-left"/></svg> Wróć do kolejki</a>
+
+          <div class="page-head">
+            <div>
+              <h1 class="t-page-title">ZLC-2026-0571 — wysyłka częściowa</h1>
+              <p>Zamówienie <span class="t-mono">ZAM-2026-1140</span> · Stalmont Sp. z o.o. <span class="t-mono">KTR-10422</span> · dostawa: Magazyn Poznań</p>
+            </div>
+          </div>
+
+          <div class="alert alert-warning">
+            <svg><use href="#ic-warn"/></svg>
+            <div>
+              <div class="alert-title">Gotowe 2 z 3 pozycji</div>
+              <p class="t-hint" style="margin:0">Bariera GB-200 czeka na profil PRF-60X40-2, przewidywany termin 06.10.2026. Pozostałe pozycje są spakowane i mogą jechać dziś.</p>
+            </div>
+          </div>
+
+          <div class="split split-side" style="margin-top:0.75rem">
+            <div class="stack-3">
+              <div class="card">
+                <div class="card-head">
+                  <span class="t-card-title">Co wysyłamy teraz</span>
+                  <span class="t-hint">zaznacz pozycje i podaj ilości</span>
+                </div>
+                <div class="card-body">
+                  <div class="scroll-x">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th style="width:2rem"><span class="check" role="checkbox" aria-checked="false" aria-label="Zaznacz wszystkie gotowe"><svg><use href="#ic-check"/></svg></span></th>
+                          <th>Pozycja</th>
+                          <th class="right">Zamówiono</th>
+                          <th class="right">Gotowe</th>
+                          <th style="width:7rem">Do wysyłki</th>
+                          <th>Stan</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><span class="check" role="checkbox" aria-checked="true" aria-label="Wyślij słupek odbojowy"><svg><use href="#ic-check"/></svg></span></td>
+                          <td><span class="strong">Słupek odbojowy Ø108</span><br /><span class="t-mono t-hint">SLP-ODB-108 · RAL 1023</span></td>
+                          <td class="right num">48 szt.</td>
+                          <td class="right num">48 szt.</td>
+                          <td><input class="input num" aria-label="Ilość do wysyłki — słupek odbojowy" value="48" /></td>
+                          <td><span class="badge badge-success"><span class="dot"></span> Spakowane</span></td>
+                        </tr>
+                        <tr>
+                          <td><span class="check" role="checkbox" aria-checked="true" aria-label="Wyślij osłonę słupa"><svg><use href="#ic-check"/></svg></span></td>
+                          <td><span class="strong">Osłona słupa RAL Column Guard</span><br /><span class="t-mono t-hint">RAL-X3 · RAL 1023</span></td>
+                          <td class="right num">14 szt.</td>
+                          <td class="right num">14 szt.</td>
+                          <td><input class="input num" aria-label="Ilość do wysyłki — osłona słupa" value="14" /></td>
+                          <td><span class="badge badge-success"><span class="dot"></span> Spakowane</span></td>
+                        </tr>
+                        <tr>
+                          <td><span class="check" role="checkbox" aria-checked="false" aria-disabled="true" aria-label="Bariera niedostępna do wysyłki"><svg><use href="#ic-check"/></svg></span></td>
+                          <td><span class="t-hint">Bariera wewnętrzna GB-200</span><br /><span class="t-mono t-hint">GB-200 · RAL 1023</span></td>
+                          <td class="right num t-hint">80 mb</td>
+                          <td class="right num t-hint">0 mb</td>
+                          <td><span class="t-hint">—</span></td>
+                          <td><span class="badge badge-error"><span class="dot"></span> Oczekuje na komponent</span><br /><span class="t-hint num">termin 06.10.2026</span></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <p class="t-hint" style="margin:0.75rem 0 0">Pozycję gotową częściowo możesz podzielić: wpisz ilość mniejszą niż gotowa, a reszta zostanie w zamówieniu razem z pozycjami oczekującymi.</p>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-head"><span class="t-card-title">Co zostaje w zamówieniu</span><span class="badge badge-warning">1 pozycja</span></div>
+                <div class="card-body">
+                  <table class="table">
+                    <thead><tr><th>Pozycja</th><th class="right">Ilość</th><th>Przewidywany termin</th><th>Wysyłka</th></tr></thead>
+                    <tbody>
+                      <tr><td>Bariera wewnętrzna GB-200</td><td class="right num">80 mb</td><td class="num">06.10.2026</td><td><span class="badge badge-neutral">druga przesyłka</span></td></tr>
+                    </tbody>
+                  </table>
+                  <p class="t-hint" style="margin:0.75rem 0 0">Zamówienie pozostaje otwarte do czasu wysłania ostatniej pozycji. Dopiero wtedy przechodzi w status „dostarczone".</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="stack-3">
+              <div class="card card-pad stack-3">
+                <span class="t-card-title">Przesyłka teraz</span>
+                <div class="stack-2">
+                  <div class="row between"><span class="t-body">Pozycje</span><span class="num">2 z 3</span></div>
+                  <div class="row between"><span class="t-body">Waga</span><span class="num">1 147 kg</span></div>
+                  <div class="row between"><span class="t-body">Paczki</span><span class="num">9</span></div>
+                  <div class="separator"></div>
+                  <div class="row between"><span class="t-body">Wartość pozycji netto</span><span class="num">20 127,84</span></div>
+                  <div class="row between"><span class="t-body">Transport tej przesyłki</span><span class="num">720,00</span></div>
+                </div>
+              </div>
+
+              <div class="card card-pad stack-3">
+                <span class="t-card-title">Koszt podziału</span>
+                <div class="stack-2">
+                  <div class="row between"><span class="t-body">W ofercie, za całość</span><span class="num" style="white-space:nowrap">1 420,00</span></div>
+                  <div class="row between"><span class="t-body">Ta przesyłka</span><span class="num" style="white-space:nowrap">720,00</span></div>
+                  <div class="row between"><span class="t-body">Druga, szacunek</span><span class="num" style="white-space:nowrap">890,00</span></div>
+                  <div class="separator"></div>
+                  <div class="row between"><span class="strong">Różnica</span><span class="num strong" style="white-space:nowrap">+190,00</span></div>
+                </div>
+                <p class="t-hint" style="margin:0">Dwie wysyłki kosztują więcej niż jedna. Prototyp nie rozstrzyga, kto pokrywa różnicę.</p>
+              </div>
+
+              <div class="card card-pad stack-3">
+                <span class="t-card-title">Co zobaczy partner</span>
+                <div class="stack-2">
+                  <div class="row between"><span class="t-body">Status zamówienia</span><span class="badge badge-info">Wysłane częściowo</span></div>
+                  <div class="row between"><span class="t-body">Numer przesyłki</span><span class="t-body">dla wysłanej części</span></div>
+                  <div class="row between"><span class="t-body">Pozycja oczekująca</span><span class="t-body">z terminem 06.10</span></div>
+                </div>
+                <p class="t-hint" style="margin:0">Partner nie zobaczy, którego komponentu brakuje ani dlaczego. Na zewnątrz wychodzi status i termin, nigdy przyczyna (CC-2).</p>
+              </div>
+
+              <div class="card card-pad stack-2">
+                <div><button class="btn btn-primary" data-goto="s22"><svg><use href="#ic-truck"/></svg> Zwolnij do wysyłki</button></div>
+                <div><button class="btn btn-outline btn-sm" data-goto="s40"><svg><use href="#ic-clock"/></svg> Czekaj na komplet</button></div>
+                <p class="t-hint" style="margin:0">„Czekaj na komplet" zostawia zlecenie w kolejce i nie zmienia statusu w panelu partnera.</p>
+              </div>
+            </div>
+          </div>
+        </main>
+        <footer class="app-foot"><span>Prototyp · dane fikcyjne</span><nav class="row-3"><span>Etap 5</span><span>US-5.4</span><span>CC-2</span></nav></footer>
+      </div>
+    </div>
+  </div>
+
+  <div class="notes">
+    <div class="note"><b>1</b><span>Decyzja należy wyłącznie do pracownika Anter System. Partner jej nie podejmuje i nie jest o nią pytany — dowiaduje się o skutku, gdy przesyłka rusza. To <span class="strong">założenie A-23</span>: alternatywą byłoby pytanie partnera, czy woli część szybciej, ale wydłużyłoby to proces o rundę oczekiwania na odpowiedź.</span></div>
+    <div class="note"><b>2</b><span>Ekran pokazuje koszt podziału, zanim decyzja zapadnie, bo bez tego „wyślijmy część" wygląda na darmową uprzejmość. Kto pokrywa różnicę <span class="strong">(A-24)</span>, pozostaje nierozstrzygnięte — tak samo jak różnica między wstępną a rzeczywistą stawką transportu (A-8).</span></div>
+    <div class="note"><b>3</b><span>Status „wysłane częściowo" nie występuje w tabeli sześciu statusów zwrotnych z dokumentu. Wysyłka częściowa go wymaga, bo „wysłane" nieprawdziwie sugerowałoby komplet. To rozszerzenie listy statusów <span class="strong">(A-25)</span> i wymaga decyzji przy projektowaniu integracji ERP.</span></div>
+    <div class="note"><b>4</b><span>Podział pozycji na mniejszą ilość jest zilustrowany, nie zaimplementowany: pola ilości nie przeliczają wagi, liczby paczek ani kosztu przesyłki.</span></div>
   </div>
 </section>
 

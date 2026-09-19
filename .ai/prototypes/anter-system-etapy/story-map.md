@@ -239,6 +239,19 @@ zapytanie, zamiast dostać fikcyjną stawkę z tabeli (CC-5).
 - Zlecenie przewozu powstaje po zwolnieniu towaru przez ERP.
 - Numer przesyłki i statusy są widoczne w CRM i w panelu B2B; dokumenty przewozowe są dostępne przy zamówieniu.
 
+**US-5.4** · Jako pracownik Anter System chcę zdecydować, czy wysłać gotową część zamówienia
+wcześniej, żeby partner nie czekał na całość przez jeden brakujący komponent.
+
+- Zamówienie gotowe w komplecie jest zwalniane do wysyłki automatycznie i nie trafia na biurko człowieka.
+- Zamówienie gotowe częściowo zatrzymuje się i czeka na decyzję: wysyłamy część czy czekamy na komplet.
+- Decydujący ręcznie wskazuje pozycje i ilości do wysłania; pozycja gotowa częściowo może zostać podzielona.
+- Przed decyzją widać koszt podziału: dwie przesyłki kosztują więcej niż jedna.
+- Zamówienie pozostaje otwarte do wysłania ostatniej pozycji.
+- Partner widzi status „wysłane częściowo", numer przesyłki wysłanej części i termin reszty — nigdy przyczyny braku (CC-2).
+- `[DO ROZSTRZYGNIĘCIA]` Kto pokrywa różnicę kosztu drugiej przesyłki.
+- `[DO ROZSTRZYGNIĘCIA]` Czy partner ma być pytany o zgodę na podział, czy tylko informowany o skutku.
+- `[DO ROZSTRZYGNIĘCIA]` Status „wysłane częściowo" rozszerza listę sześciu statusów zwrotnych z dokumentu.
+
 ## EP-6 · Moduł learning (etap 6)
 
 Cel etapu: mniej pytań do działu handlowego, lepsze zapytania partnerów.

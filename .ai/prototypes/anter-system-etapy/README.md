@@ -5,7 +5,7 @@ Statyczny, przedwdrożeniowy prototyp wyprowadzony z `docs/anter-system-architek
 - **Źródło wymagań:** `docs/anter-system-architektura-docelowa.md` (2026-09-18, Jakub Zygadło)
 - **Drugie źródło:** działająca aplikacja Anter Site Configurator, odczytana z `localhost:5173` oraz z repozytorium `~/Documents/github-repo/anter-site-configurator`
 - **Story mapa:** `story-map.md` w tym katalogu — **wygenerowana propozycja**, nie zatwierdzone wymaganie
-- **Zakres:** wszystkie etapy wdrożenia 0–6 z tabeli „Etapy wdrożenia i zależności" (ekrany 1–24), odtworzenie stanu bieżącego konfiguratora (ekrany 25–32) oraz pogłębiona ścieżka zamawiania w portalu dystrybutora (ekrany 33–39)
+- **Zakres:** wszystkie etapy wdrożenia 0–6 z tabeli „Etapy wdrożenia i zależności" (ekrany 1–24), odtworzenie stanu bieżącego konfiguratora (ekrany 25–32) pogłębiona ścieżka zamawiania w portalu dystrybutora (ekrany 33–39) oraz zwolnienie do wysyłki z obsługą wysyłki częściowej (ekrany 40–41)
 - **Data:** 2026-09-19 · rewizja 2 · poprzednia rewizja: commit `bbdab8545` (rewizja 1, 32 ekrany)
 
 ## Co przybyło w rewizji 2
@@ -25,7 +25,7 @@ różnych powierzchni i mieszanie ich w jednej liście zacierało granicę:
 
 | Grupa | Ekrany | Co to jest |
 | --- | --- | --- |
-| Backoffice Anter | 20 | Wnętrze firmy: CRM, baza produktów, konfigurator wewnętrzny, ERP, transport |
+| Backoffice Anter | 22 | Wnętrze firmy: CRM, baza produktów, konfigurator wewnętrzny, ERP, transport |
 | Portal dystrybutora | 11 | Powierzchnia partnerska — jedyne ekrany widziane spoza Anter System (wyróżnione obwódką) |
 | Stan bieżący | 8 | Odtworzenie działającej aplikacji Anter Site Configurator, nie propozycja projektowa |
 
@@ -52,6 +52,32 @@ Co konkretnie się zmieniło:
 | Ekran 24, „Otwarta kwestia" | pytanie, czy wiązać certyfikację z cennikiem | „Granica modułu" — rozstrzygnięcie, że rabat wynika wyłącznie z umowy |
 | Ekran 16, karta w CRM | „Moduł learning" z poziomem certyfikacji firmy | „Postęp szkoleniowy" — sama kompetencja zespołu |
 | Ekran 34, pulpit | pasek postępu certyfikacji | karta usunięta w całości |
+
+### Wysyłka częściowa (ekrany 40–41)
+
+Nowa reguła: **zamówienie gotowe w komplecie jedzie do wysyłki automatycznie, gotowe
+częściowo zatrzymuje się i czeka na decyzję pracownika Anter System.** Decydujący ręcznie
+wskazuje, które pozycje wysłać teraz.
+
+Dwa ekrany:
+
+- **40 — kolejka zwolnień.** Rozdziela obie ścieżki: komplet pokazuje się jako „zwolnione automatem" (zapis, nie zadanie), gotowe częściowo jako „czeka na decyzję" z przyciskiem. Planista widzi wyłącznie to, w czym naprawdę ma coś rozstrzygnąć.
+- **41 — wybór pozycji.** Tabela pozycji z zaznaczeniem i ilością; pozycja niegotowa jest zablokowana i opisana terminem. Obok: waga i liczba paczek przesyłki, co zostaje w zamówieniu, oraz to, co zobaczy partner.
+
+Trzy rzeczy, które ten przepływ wymusił:
+
+1. **Koszt podziału jest pokazany przed decyzją.** Dwie przesyłki kosztują więcej niż jedna (w prototypie 720 + 890 wobec 1 420 w ofercie). Bez tej liczby „wyślijmy część" wygląda na darmową uprzejmość. Kto pokrywa różnicę — nierozstrzygnięte (A-24).
+2. **Potrzebny jest nowy status „wysłane częściowo"** — dopisany do tabeli widoczności statusów na ekranie 19. Lista sześciu statusów z dokumentu go nie ma, a „wysłane" nieprawdziwie sugerowałoby komplet (A-25).
+3. **Zamówienie pozostaje otwarte** do wysłania ostatniej pozycji i dopiero wtedy przechodzi w „dostarczone".
+
+Partner widzi skutek, nie decyzję: status, numer przesyłki wysłanej części i termin reszty —
+nigdy informacji, którego komponentu brakuje (CC-2). Czy powinien być pytany o zgodę zamiast
+tylko informowany, pozostaje otwarte (A-23).
+
+**Czego jeszcze nie ma:** portalowa strona tego statusu. Ekrany 15 i 39 pokazują zamówienie
+ZAM-2026-1140 w stanie sprzed decyzji („oczekuje na komponent"), więc „wysłane częściowo"
+nie występuje jeszcze w żadnym widoku partnera. To celowa granica tej iteracji — ekran 41
+opisuje, co partner zobaczy, ale nie rysuje tego widoku.
 
 ### Faktura zamiast kolumny dokumentów (ekran 15)
 
@@ -144,6 +170,8 @@ historyjka dotyka nierozstrzygniętej kwestii, są w niej oznaczone `[DO ROZSTRZ
 | s37 | portal | Portal dystrybutora — koszyk i podsumowanie | 3 | US-3.7, CC-5 | s35, s38 |
 | s38 | portal | Portal dystrybutora — zamówienie złożone | 3 | US-3.1, US-3.4, CC-6 | s39, s15, s35 |
 | s39 | portal | Portal dystrybutora — szczegóły zamówienia | 3 | US-3.3, CC-2 | s15 |
+| s40 | backoffice | Zwolnienie do wysyłki — kolejka | 5 | US-5.3, US-5.4 | s41, s22 |
+| s41 | backoffice | Wysyłka częściowa — wybór pozycji | 5 | US-5.4, CC-2, CC-5 | s22, s40 |
 
 Stany brzegowe rozłożone na ekranach: pusty (s8), brak uprawnień (s12), konflikt reguł
 (s6, s9), wyjście poza automatyzację (s10, s22, s35 w wierszu bramy przesuwnej), błąd
@@ -256,6 +284,9 @@ z odpornością produktów z biblioteki.
 | A-20 | Zamówienie pokazuje status pojedynczej pozycji, nie tylko status całości (s39) | Zamówienie częściowo gotowe musiało jakoś wyglądać | Ujawnia więcej niż status zamówienia i może naruszać granicę wewnętrzności ERP (CC-2). Do rozstrzygnięcia razem z zakresem statusów zwrotnych |
 | A-21 | Ścieżka katalogowa istnieje obok konfiguratora, a pozycja bez ceny katalogowej kieruje do konfiguratora (s35, s37) | Dokument opisuje panel przez konfigurator, ale uzasadnia go zamówieniami powtarzalnymi | Do potwierdzenia: ile pozycji realnie da się sprzedać z cennika bez konfiguracji. Wiąże się z pytaniem otwartym o liczbę produktów na start |
 | A-22 | Limit kupiecki jest widoczny partnerowi wraz z procentem wykorzystania (s37) | Blokada konta z dokumentu musiała mieć widoczną przyczynę przed jej wystąpieniem | Dokument wymienia blokadę przy przeterminowanych płatnościach, ale nie limit kupiecki. Decyzja finansów |
+| A-23 | Decyzję o wysyłce częściowej podejmuje wyłącznie pracownik Anter System; partner nie jest o nią pytany (s41) | Ktoś musi rozstrzygać, a pytanie partnera wydłuża proces o rundę oczekiwania | Decyzja procesowa: kto ponosi skutek, gdy partner wolałby komplet w jednej dostawie |
+| A-24 | Różnica kosztu drugiej przesyłki jest pokazana, ale nikomu nieprzypisana (s41) | Dwie wysyłki kosztują więcej niż jedna i decydujący musi to widzieć | Kto pokrywa różnicę — decyzja sprzedaży i finansów, ta sama luka co A-8 |
+| A-25 | Status „wysłane częściowo" rozszerza listę sześciu statusów zwrotnych (s19, s41) | „Wysłane" nieprawdziwie sugerowałoby komplet | Wymaga decyzji przy projektowaniu integracji ERP i uzgodnienia z dokumentem |
 
 ## Sprzeczności i braki wykryte przy rysowaniu przepływu
 

@@ -576,6 +576,12 @@ pokazującą jeden ekran. Kopia została usunięta po weryfikacji.
 | Ekran 13 po uspójnieniu nawigacji | OK |
 | Brak przycinania kart, tabel i paneli bocznych | OK |
 | Czytelność notatek pod ekranami | OK, po naprawie kolizji `<b>` |
+| Warstwa marki w motywie jasnym (ekran 35) | OK, `evidence/brand-warstwa-marki.png` |
+| Warstwa marki w motywie ciemnym | OK, po podbiciu kontrastu przycisku głównego |
+| Znak firmowy i krój Montserrat na elementach DS | OK |
+| Pełny logotyp w pasku bocznym backoffice'u, oba motywy | OK, `evidence/brand-logo-backoffice.png` |
+| Logotyp na ekranie logowania portalu | OK, `evidence/brand-logowanie-portal.png` |
+| Logotyp z nazwą partnera w pasku bocznym portalu | OK, `evidence/brand-warstwa-marki.png` |
 
 **Usterki znalezione i naprawione dzięki tym zrzutom:**
 
@@ -589,9 +595,45 @@ nawigacja klawiaturą, motyw ciemny, zachowanie przy wąskim oknie, przycinanie 
 i okna modalnego (s10). Do ich domknięcia nadal potrzebna jest sesja w przeglądarce
 z Playwrightem.
 
+## Warstwa marki Anter
+
+Do rewizji 2 dołożony został plik `brand-anter.css`, ładowany jako ostatni arkusz.
+Źródłem jest `docs/anter-system/brand_book_anter_system.pdf`.
+
+| Element brand booka | Odwzorowanie w prototypie |
+| --- | --- |
+| Anter Navy Blue `#164194` jako kolor główny i jego rozjaśnienia (str. 7) | `--primary`, `--ring`, `--border`, `--input`, `--accent`, `--muted`, `--secondary`, tokeny paska bocznego oraz `--chart-*` |
+| Anter Yellow `#FFCC00` jako kolor akcentu (str. 7) | Wskaźnik aktywnej pozycji nawigacji, podkreślenie bieżącego ekranu w pasku, pierścień focusu przycisku głównego, `--badge-yellow-solid` |
+| Teksty 100% K i biel na ciemnym tle (str. 7) | Bez zmian — kolory tekstu zostały przy tokenach DS |
+| Montserrat w wielu odmianach (str. 8–10) | `--font-geist-sans`, wagi 300–900 z Google Fonts |
+| Nagłówki wyraźnie większe i grubsze od tekstu (str. 10) | `.t-page-title` 700, `.t-section` / `.t-table-title` 700, `.doc-head h1` 800 |
+| Podstawowa wersja kolorystyczna logotypu, sygnet + nazwa (str. 3) | Pełny logotyp z pliku: `anter-logo.png` w motywie jasnym, `anter-logo-white.png` w ciemnym. Oba przeskalowane do 560 px szerokości z oryginałów w `docs/anter-system/` |
+| Znak firmowy jako element samodzielny (str. 5) | `.brand-mark` renderuje geometrię sygnetu jako inline SVG — został już tylko na czterech ekranach „Stan bieżący", gdzie odtwarzamy działającą aplikację Site Configurator |
+
+Gdzie stoi logotyp:
+
+| Miejsce | Co widać |
+| --- | --- |
+| Backoffice Anter, 25 ekranów | Sam logotyp Anter System |
+| Portal dystrybutora, ekran logowania | Sam logotyp Anter System, w karcie logowania |
+| Portal dystrybutora, 12 pozostałych ekranów | Trzy wyśrodkowane linie: logotyp Anter System, znak `×`, nazwa partnera |
+| Stan bieżący, 4 ekrany | Bez zmian: sygnet i napis `SITE CONFIGURATOR` — to odtworzenie istniejącej aplikacji |
+| Rysunek techniczny: linia, wymiarowanie, żółte profile, czarne łączniki, linia przerywana części ruchomych (str. 15–16) | Tokeny `--anter-draw-*` gotowe do użycia przez ekrany konfiguratora; żaden ekran jeszcze z nich nie korzysta |
+
+Kolory statusowe (błąd, sukces, ostrzeżenie, informacja) **nie** zostały zmienione — są
+nośnikiem znaczenia, a nie marki, i brand book ich nie reguluje.
+
+`tokens.css` pozostaje nietknięty i nadal jest generowany z `globals.css`. Cała marka żyje
+w jednym pliku nadpisującym wartości zmiennych, więc da się ją wyłączyć jedną linią w `<head>`.
+
+Motyw ciemny ma własny zestaw nadpisań: granat rozjaśniony na tyle, by tekst przycisku
+głównego utrzymał kontrast powyżej 4,5:1, żółty akcent bez zmian.
+
 ## Ograniczenia
 
 - HTML ilustruje przepływ i układ; to nie jest implementacja produkcyjna.
+- `brand-anter.css` pobiera Montserrat z Google Fonts. Bez dostępu do sieci prototyp zejdzie na krój systemowy i typografia przestanie odpowiadać brand bookowi.
+- Warstwa marki odbiera prototypowi neutralność low-fi. Uwagi o estetyce będą się teraz mieszać z uwagami o przepływie — przy testach z użytkownikami warto o tym pamiętać.
 - Ikony używają wbudowanego sprite'a SVG zamiast `lucide-react` — wzorzec zakazany w kodzie produkcyjnym.
 - Teksty są wpisane na sztywno zamiast przechodzić przez `useT()` — również zakazane w produkcji.
 - Wszystkie rekordy są fikcyjne. Żadna nazwa firmy, osoby, indeks, numer ani kwota nie pochodzi z Anter System.

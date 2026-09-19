@@ -16,11 +16,11 @@
   "files": [
     {
       "path": "index.html",
-      "sha256": "4f79009eea34a3c2518a4a9ef2419f3fa6d2b32bbbc8114f1ea8415ca1702c54"
+      "sha256": "ccb052cb53efd1a0171d05b05509c2a5daeb19e83a83a2c16e257a31615bb52e"
     },
     {
       "path": "README.md",
-      "sha256": "798018c2c7f3f26033ed121049352ae648f525db2f8bcb05dce38e36c447e611"
+      "sha256": "b6da6cf5c606993122b9554e82f9f173d08fa4097bf9f36dc4543514ccd91ef6"
     },
     {
       "path": "story-map.md",
@@ -39,6 +39,18 @@
       "sha256": "e5bb1bf19836d93e7fd505aad11a295988d0052c2d20ef9614eb5325da3a039d"
     },
     {
+      "path": "brand-anter.css",
+      "sha256": "aaf20213d0e1ba3c0c7c6a39b503e9c2d39d1287a170635877dac421db106c98"
+    },
+    {
+      "path": "anter-logo.png",
+      "sha256": "d0a09c1c95b8470886767cbca1dfb83d83e93a9b95ebe0c546bbaea0e016be98"
+    },
+    {
+      "path": "anter-logo-white.png",
+      "sha256": "1d5ee8256a90f25e8f2382987cf539035b1f8f34ebb932c3d36160255b9f0fe3"
+    },
+    {
       "path": "prototype.css",
       "sha256": "d3e65c73f0365684f2c4bff4689c5df627c4ea75ea3250e02013e3ffcc30b783"
     },
@@ -49,6 +61,18 @@
     {
       "path": "comments.js",
       "sha256": "7d254afd29393199cb17038b7df1619bb74845f436e81f7ed24aa66c5984fa55"
+    },
+    {
+      "path": "evidence/brand-logo-backoffice.png",
+      "sha256": "7a49c2cb785ef20d81b9886bb8259ec1c6e0dc1df049a5a1ec856cdc3ceb2b2c"
+    },
+    {
+      "path": "evidence/brand-logowanie-portal.png",
+      "sha256": "bac7853f835126fced77690e63e49bcc97a7deb9776c1d9df33ef9352fb28af9"
+    },
+    {
+      "path": "evidence/brand-warstwa-marki.png",
+      "sha256": "66ed32afa848f651473919afc0cb09402ca8e1aaf23f4830c0429b277252a5cc"
     },
     {
       "path": "evidence/pasek-nawigacji.png",

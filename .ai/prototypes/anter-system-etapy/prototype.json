@@ -16,11 +16,11 @@
   "files": [
     {
       "path": "index.html",
-      "sha256": "864cc778b669138a7c7fa664752d6caa44bf9382786f353cc7f97b98d1e8c63d"
+      "sha256": "a999175f45811307e3ca548a77d5820dff07ff91f193343d1710c04c1b4e596f"
     },
     {
       "path": "README.md",
-      "sha256": "13fcacd1f31733592cafe1cd2495abff280b53af2d82919233631a085379135b"
+      "sha256": "c54ab5541584be4fbb2790b58ed0b09b9252c0bebb9e097df5835303d45680f0"
     },
     {
       "path": "story-map.md",
@@ -60,7 +60,7 @@
     },
     {
       "path": "evidence/s15-zamowienia.png",
-      "sha256": "8bb375fa7f35adc82f54ca6b18a099bb742f5f40120fb3232e981b6c5fa9918f"
+      "sha256": "488703d5f0a8a263dce98d56934f2a5a2af680ba4cb3f9447a304aa53df60573"
     },
     {
       "path": "evidence/s16-karta-partnera.png",
@@ -96,7 +96,7 @@
     },
     {
       "path": "evidence/s39-szczegoly-zamowienia.png",
-      "sha256": "5fa167d4d49cb61c164c5050b869043494f715d74a4270e4eea985654f3e0fb3"
+      "sha256": "86582b3edba4735ec0b76642876a31e1f303a32acff91ef9f7967c0b6140a3a4"
     },
     {
       "path": "evidence/s40-zwolnienia-kolejka.png",

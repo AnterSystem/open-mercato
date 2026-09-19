@@ -85,6 +85,29 @@ ZAM-2026-1140 w stanie sprzed decyzji („oczekuje na komponent"), więc „wys�
 nie występuje jeszcze w żadnym widoku partnera. To celowa granica tej iteracji — ekran 41
 opisuje, co partner zobaczy, ale nie rysuje tego widoku.
 
+### Ponowienie zamówienia jako akcja koszyka
+
+**„Ponów zamówienie" dodaje pozycje zamówienia do koszyka** w tych samych ilościach i przenosi
+tam partnera — nie składa zamówienia od razu. Powód: ceny mogły się zmienić od poprzedniego
+razu, a ilości przy kolejnym zamówieniu bywają inne. Koszyk jest miejscem, gdzie partner to
+sprawdza i koryguje, zanim potwierdzi.
+
+Akcja jest w dwóch miejscach, zgodnie z tym, skąd partner do niej sięga:
+
+| Miejsce | Zasięg akcji |
+| --- | --- |
+| Lista zamówień (ekran 15) | przycisk „Ponów" przy każdym wierszu — całe zamówienie |
+| Szczegóły zamówienia (ekran 39) | główna akcja ekranu — całe zamówienie |
+| Pulpit, „Zamów ponownie" (ekran 34) | pojedyncze, regularnie zamawiane pozycje |
+
+Na liście jest dostępna przy każdym zamówieniu, także tym w produkcji i oczekującym na
+komponent — powtórzenie nie zależy od tego, czy poprzednie zostało dostarczone.
+
+**Potwierdzenie zamówienia zniknęło ze szczegółów** (ekran 39): z nagłówka i z listy
+dokumentów. Idzie mailem przy złożeniu i tyle wystarczy; komunikat na liście zamówień odsyła
+teraz do maila, a nie do panelu. W dokumentach zamówienia zostają oferta, faktura i list
+przewozowy.
+
 ### Filtr po kategorii produktu, bez limitu kupieckiego
 
 **Filtrowanie w katalogu jest teraz jawnie po kategorii produktu.** Wcześniejszy przycisk
@@ -357,7 +380,7 @@ z odpornością produktów z biblioteki.
 - Usunięcie pozycji z koszyka (s37).
 - Logowanie (s33) przechodzi do pulpitu niezależnie od treści pól; nie ma walidacji ani stanu błędnych danych.
 - Wyszukiwanie, filtry i stronicowanie katalogu (s35) są statyczne.
-- „Ponów to zamówienie" (s39) i „Zamów ponownie" (s34) nie tworzą koszyka z historii.
+- „Ponów zamówienie" (s15, s39) i „Zamów ponownie" (s34) przenoszą do koszyka, ale nie podmieniają jego zawartości — koszyk ma stałe trzy pozycje, więc nie odzwierciedla ponowionego zamówienia.
 
 ## Weryfikacja
 

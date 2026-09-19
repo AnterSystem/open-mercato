@@ -85,6 +85,21 @@ ZAM-2026-1140 w stanie sprzed decyzji („oczekuje na komponent"), więc „wys�
 nie występuje jeszcze w żadnym widoku partnera. To celowa granica tej iteracji — ekran 41
 opisuje, co partner zobaczy, ale nie rysuje tego widoku.
 
+### Filtr po kategorii produktu, bez limitu kupieckiego
+
+**Filtrowanie w katalogu jest teraz jawnie po kategorii produktu.** Wcześniejszy przycisk
+„Filtry" z licznikiem nie mówił, po czym filtruje, a aktywny chip deklarował kategorię
+„zabezpieczenia wewnętrzne", której nie było wśród kategorii w tabeli — te brzmią Bramki,
+Bramy, Bariery, Słupki, Osłony, Akcesoria. Filtr i dane się więc rozjeżdżały.
+
+Zastąpił je wybór kategorii z listy pokrywającej dokładnie te sześć wartości, obecny w obu
+widokach katalogu (ekran 35 i 42), domyślnie „Wszystkie kategorie".
+
+**Limit kupiecki został usunięty z prototypu w całości** — z koszyka (ekran 37) i z warunków
+handlowych w CRM (ekran 17). Zostawienie go po jednej stronie, gdy druga go nie pokazuje,
+byłoby niespójne. Blokada konta za przeterminowane płatności zostaje: ona wynika wprost
+z dokumentu źródłowego, limit był założeniem prototypu (A-22, wycofane).
+
 ### Katalog w widoku kafli (ekran 42)
 
 Przełącznik Lista / Kafle na ekranie 35 był dotąd martwy. Teraz prowadzi do ekranu 42 i z
@@ -308,7 +323,7 @@ z odpornością produktów z biblioteki.
 | A-19 | Partner podaje własny numer zamówienia, który trafia na wszystkie dokumenty (s37, s38, s39) | Bez tego partner nie połączy dostawy z własnym zleceniem u swojego klienta | Do potwierdzenia z dystrybutorami; wpływa na numerację dokumentów i ERP |
 | A-20 | Zamówienie pokazuje status pojedynczej pozycji, nie tylko status całości (s39) | Zamówienie częściowo gotowe musiało jakoś wyglądać | Ujawnia więcej niż status zamówienia i może naruszać granicę wewnętrzności ERP (CC-2). Do rozstrzygnięcia razem z zakresem statusów zwrotnych |
 | A-21 | Ścieżka katalogowa istnieje obok konfiguratora, a pozycja bez ceny katalogowej kieruje do konfiguratora (s35, s37) | Dokument opisuje panel przez konfigurator, ale uzasadnia go zamówieniami powtarzalnymi | Do potwierdzenia: ile pozycji realnie da się sprzedać z cennika bez konfiguracji. Wiąże się z pytaniem otwartym o liczbę produktów na start |
-| A-22 | Limit kupiecki jest widoczny partnerowi wraz z procentem wykorzystania (s37) | Blokada konta z dokumentu musiała mieć widoczną przyczynę przed jej wystąpieniem | Dokument wymienia blokadę przy przeterminowanych płatnościach, ale nie limit kupiecki. Decyzja finansów |
+| ~~A-22~~ | ~~Limit kupiecki widoczny partnerowi~~ | **Wycofane** — decyzja właściciela produktu: limit kupiecki znika z prototypu w całości (koszyk i warunki handlowe w CRM) | — |
 | A-23 | Decyzję o wysyłce częściowej podejmuje wyłącznie pracownik Anter System; partner nie jest o nią pytany (s41) | Ktoś musi rozstrzygać, a pytanie partnera wydłuża proces o rundę oczekiwania | Decyzja procesowa: kto ponosi skutek, gdy partner wolałby komplet w jednej dostawie |
 | A-24 | Różnica kosztu drugiej przesyłki jest pokazana, ale nikomu nieprzypisana (s41) | Dwie wysyłki kosztują więcej niż jedna i decydujący musi to widzieć | Kto pokrywa różnicę — decyzja sprzedaży i finansów, ta sama luka co A-8 |
 | A-25 | Status „wysłane częściowo" rozszerza listę sześciu statusów zwrotnych (s19, s41) | „Wysłane" nieprawdziwie sugerowałoby komplet | Wymaga decyzji przy projektowaniu integracji ERP i uzgodnienia z dokumentem |

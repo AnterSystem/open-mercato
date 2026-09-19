@@ -16,11 +16,11 @@
   "files": [
     {
       "path": "index.html",
-      "sha256": "1f14a42cafaea503512b36924df0abde217184dd5014758705f03ce05eee175d"
+      "sha256": "c5e2934a160dee4d18244a0e1106f494eebfdbeb3bbf7a98fd2a03f911756579"
     },
     {
       "path": "README.md",
-      "sha256": "743b611a14459fdeb6a27e896256abe94cb9a8236c8d34f9eba36a0b2a3242f4"
+      "sha256": "0cf5df33b38d5b7cad395e0601e9a583201903e6c74ccca7dcb9fb9992abfa5f"
     },
     {
       "path": "story-map.md",
@@ -80,7 +80,7 @@
     },
     {
       "path": "evidence/s35-katalog.png",
-      "sha256": "6abe08496b4ca1f2934f5b4bba8258610a8c44fd50d01ff98523320624ef2b48"
+      "sha256": "56ed3aac8c01a4c113aff3189510b699d3cae221fc33863acca00caad09d7360"
     },
     {
       "path": "evidence/s36-karta-produktu.png",
@@ -88,7 +88,7 @@
     },
     {
       "path": "evidence/s37-koszyk.png",
-      "sha256": "6c8419ba45f152cd45332745b5cd555da6e65a8d29c4db2e3cf7f52f853219de"
+      "sha256": "1962588163709770dd5752e8bed27f26eca28deed4a23d0fe78a21e81bb3c36a"
     },
     {
       "path": "evidence/s38-zamowienie-zlozone.png",
@@ -108,7 +108,7 @@
     },
     {
       "path": "evidence/s42-katalog-kafle.png",
-      "sha256": "d23650f952508db08f49066cee1e68b40673e92c1fe452f32ccddd803a3a0ee0"
+      "sha256": "3fd1ebd7fed46cdf7f60f1d035801aa8e885b83588ed98b6ade2092c4a1f5995"
     }
   ],
   "navigation": {

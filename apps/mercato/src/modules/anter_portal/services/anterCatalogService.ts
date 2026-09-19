@@ -7,9 +7,11 @@ import {
   CatalogProductVariant,
 } from '@open-mercato/core/modules/catalog/data/entities'
 import type { PriceRow, PricingContext } from '@open-mercato/core/modules/catalog/lib/pricing'
+import type { CacheStrategy } from '@open-mercato/cache'
 import { AnterStockItem } from '../../anter_orders/data/entities'
 import type { AnterPartnerTermsService } from '../../anter_orders/services/anterPartnerTermsService'
 import { loadPartnerDiscountLookup } from '../lib/partnerDiscount'
+import { anterCatalogPageCacheKey, getCachedCatalogPage, setCachedCatalogPage } from '../lib/catalogCache'
 
 export const DEFAULT_CATALOG_CURRENCY = 'PLN'
 
@@ -81,20 +83,38 @@ function availabilityFor(onHand: number | undefined, expectedRestockAt: Date | n
  * e.g. checkout re-pricing, not paged listings), which is exactly the N+1
  * this service avoids.
  */
+type CacheableProductPageEntry = {
+  productId: string
+  title: string
+  sku: string | null
+  isQuoteOnly: boolean
+  listUnitPriceNet: number | null
+}
+
+type CacheableProductPage = {
+  total: number
+  entries: CacheableProductPageEntry[]
+  categoryIdsByProduct: Array<[string, string[]]>
+}
+
 export function createAnterCatalogService(deps: {
   em: EntityManager
   catalogPricingService: CatalogPricingService
   anterPartnerTermsService: AnterPartnerTermsService
+  cache?: CacheStrategy | null
 }) {
-  const { em, catalogPricingService, anterPartnerTermsService } = deps
+  const { em, catalogPricingService, anterPartnerTermsService, cache } = deps
 
   const loadPartnerDiscount = (scope: CatalogScope, categoryIdsByProduct: Map<string, string[]>) =>
     loadPartnerDiscountLookup(em, anterPartnerTermsService, scope, categoryIdsByProduct)
 
-  async function listCatalog(scope: CatalogScope, input: CatalogListInput): Promise<CatalogListResult> {
-    const page = Math.max(1, input.page)
-    const pageSize = Math.min(100, Math.max(1, input.pageSize))
-
+  /**
+   * The cacheable layer (spec §Performance: "product and list-price layer
+   * only"). Never includes stock or partner pricing — those are resolved
+   * fresh per request in `listCatalog`, on top of whatever this returns,
+   * cached or not.
+   */
+  async function loadProductPage(scope: CatalogScope, input: CatalogListInput, page: number, pageSize: number): Promise<CacheableProductPage> {
     const where: Record<string, unknown> = {
       organizationId: scope.organizationId,
       tenantId: scope.tenantId,
@@ -104,18 +124,14 @@ export function createAnterCatalogService(deps: {
     if (input.q && input.q.trim()) {
       where.title = { $ilike: `%${input.q.trim()}%` }
     }
-
-    let productIdFilter: string[] | null = null
     if (input.categoryId) {
       const assignments = await em.find(CatalogProductCategoryAssignment, {
         organizationId: scope.organizationId,
         tenantId: scope.tenantId,
         category: input.categoryId,
       })
-      productIdFilter = assignments.map((a) => (typeof a.product === 'string' ? a.product : a.product.id))
-      if (!productIdFilter.length) {
-        return { items: [], total: 0, page, pageSize }
-      }
+      const productIdFilter = assignments.map((a) => (typeof a.product === 'string' ? a.product : a.product.id))
+      if (!productIdFilter.length) return { total: 0, entries: [], categoryIdsByProduct: [] }
       where.id = { $in: productIdFilter }
     }
 
@@ -124,12 +140,10 @@ export function createAnterCatalogService(deps: {
       offset: (page - 1) * pageSize,
       orderBy: { title: 'asc' },
     })
-
-    if (!products.length) return { items: [], total, page, pageSize }
+    if (!products.length) return { total, entries: [], categoryIdsByProduct: [] }
 
     const productIds = products.map((p) => p.id)
-
-    const [priceRows, categoryAssignments, stockItems] = await Promise.all([
+    const [priceRows, categoryAssignments] = await Promise.all([
       em.find(CatalogProductPrice, {
         organizationId: scope.organizationId,
         tenantId: scope.tenantId,
@@ -142,13 +156,6 @@ export function createAnterCatalogService(deps: {
         tenantId: scope.tenantId,
         product: { $in: productIds },
       }),
-      em.find(AnterStockItem, {
-        organizationId: scope.organizationId,
-        tenantId: scope.tenantId,
-        productId: { $in: productIds },
-        variantId: null,
-        deletedAt: null,
-      }),
     ])
 
     const pricesByProduct = new Map<string, PriceRow[]>()
@@ -159,36 +166,67 @@ export function createAnterCatalogService(deps: {
       list.push(row)
       pricesByProduct.set(productId, list)
     }
-
-    const categoryIdsByProduct = new Map<string, string[]>()
+    const categoryIdsByProductMap = new Map<string, string[]>()
     for (const assignment of categoryAssignments) {
       const productId = typeof assignment.product === 'string' ? assignment.product : assignment.product.id
       const categoryId = typeof assignment.category === 'string' ? assignment.category : assignment.category.id
-      const list = categoryIdsByProduct.get(productId) ?? []
+      const list = categoryIdsByProductMap.get(productId) ?? []
       list.push(categoryId)
-      categoryIdsByProduct.set(productId, list)
+      categoryIdsByProductMap.set(productId, list)
     }
-
-    const stockByProduct = new Map<string, AnterStockItem>()
-    for (const item of stockItems) stockByProduct.set(item.productId, item)
 
     const ctx: PricingContext = { quantity: 1, date: new Date() }
     const entries = products.map((product) => ({ rows: pricesByProduct.get(product.id) ?? [], context: ctx }))
     const resolvedListPrices = await catalogPricingService.resolvePriceMany(entries)
 
+    return {
+      total,
+      entries: products.map((product, index) => ({
+        productId: product.id,
+        title: product.title,
+        sku: product.sku ?? null,
+        isQuoteOnly: product.isQuoteOnly === true,
+        listUnitPriceNet: resolvedListPrices[index]?.unitPriceNet != null ? Number(resolvedListPrices[index]!.unitPriceNet) : null,
+      })),
+      categoryIdsByProduct: Array.from(categoryIdsByProductMap.entries()),
+    }
+  }
+
+  async function listCatalog(scope: CatalogScope, input: CatalogListInput): Promise<CatalogListResult> {
+    const page = Math.max(1, input.page)
+    const pageSize = Math.min(100, Math.max(1, input.pageSize))
+
+    const cacheKey = anterCatalogPageCacheKey(scope.organizationId, input.categoryId, page, input.q)
+    let productPage = await getCachedCatalogPage<CacheableProductPage>(cache, cacheKey)
+    if (!productPage) {
+      productPage = await loadProductPage(scope, input, page, pageSize)
+      await setCachedCatalogPage(cache, cacheKey, productPage, scope)
+    }
+    if (!productPage.entries.length) return { items: [], total: productPage.total, page, pageSize }
+
+    const productIds = productPage.entries.map((entry) => entry.productId)
+    const stockItems = await em.find(AnterStockItem, {
+      organizationId: scope.organizationId,
+      tenantId: scope.tenantId,
+      productId: { $in: productIds },
+      variantId: null,
+      deletedAt: null,
+    })
+    const stockByProduct = new Map<string, AnterStockItem>()
+    for (const item of stockItems) stockByProduct.set(item.productId, item)
+
+    const categoryIdsByProduct = new Map(productPage.categoryIdsByProduct)
     const discountLookup = await loadPartnerDiscount(scope, categoryIdsByProduct)
 
-    const items: CatalogListItem[] = products.map((product, index) => {
-      const resolved = resolvedListPrices[index]
-      const listUnitPriceNet = resolved?.unitPriceNet != null ? Number(resolved.unitPriceNet) : null
-      const hasListPrice = listUnitPriceNet != null && !product.isQuoteOnly
-      const stock = stockByProduct.get(product.id)
+    const items: CatalogListItem[] = productPage.entries.map((entry) => {
+      const stock = stockByProduct.get(entry.productId)
+      const hasListPrice = entry.listUnitPriceNet != null && !entry.isQuoteOnly
 
       if (!hasListPrice) {
         return {
-          productId: product.id,
-          title: product.title,
-          sku: product.sku ?? null,
+          productId: entry.productId,
+          title: entry.title,
+          sku: entry.sku,
           currencyCode: DEFAULT_CATALOG_CURRENCY,
           listUnitPriceNet: null,
           partnerUnitPriceNet: null,
@@ -197,22 +235,22 @@ export function createAnterCatalogService(deps: {
         }
       }
 
-      const discountRate = discountLookup ? discountLookup.discountRateFor(product.id) : 0
-      const partnerUnitPriceNet = Math.round(listUnitPriceNet * (1 - discountRate) * 10000) / 10000
+      const discountRate = discountLookup ? discountLookup.discountRateFor(entry.productId) : 0
+      const partnerUnitPriceNet = Math.round(entry.listUnitPriceNet! * (1 - discountRate) * 10000) / 10000
 
       return {
-        productId: product.id,
-        title: product.title,
-        sku: product.sku ?? null,
+        productId: entry.productId,
+        title: entry.title,
+        sku: entry.sku,
         currencyCode: DEFAULT_CATALOG_CURRENCY,
-        listUnitPriceNet,
+        listUnitPriceNet: entry.listUnitPriceNet,
         partnerUnitPriceNet,
         discountRate,
         availability: availabilityFor(stock?.onHand, stock?.expectedRestockAt, false, true),
       }
     })
 
-    return { items, total, page, pageSize }
+    return { items, total: productPage.total, page, pageSize }
   }
 
   async function getCatalogProduct(scope: CatalogScope, productId: string): Promise<CatalogProductDetail | null> {

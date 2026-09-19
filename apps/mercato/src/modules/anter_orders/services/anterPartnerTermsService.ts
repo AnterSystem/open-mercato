@@ -66,7 +66,9 @@ export function createAnterPartnerTermsService(deps: {
 
       if (cache) {
         try {
-          await cache.set(key, record, { ttl: TERMS_CACHE_TTL_MS, tags: [key] })
+          // §Performance: "every key carries tenant:<id> and org:<id> tags" —
+          // a tenant-wide purge is one `deleteByTags` call.
+          await cache.set(key, record, { ttl: TERMS_CACHE_TTL_MS, tags: [key, `tenant:${scope.tenantId}`, `org:${scope.organizationId}`] })
         } catch {
           // Caching is best-effort; a miss just means the next read hits the DB again.
         }

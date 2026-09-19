@@ -19,10 +19,21 @@ registerAnterPartnerPricingResolver()
 
 export function register(container: AppContainer) {
   container.register({
-    [ANTER_PARTNER_TERMS_SERVICE]: asFunction(createAnterPartnerTermsService).scoped(),
-    [ANTER_PARTNER_PRICING_SERVICE]: asFunction(createAnterPartnerPricingService).scoped(),
-    [ANTER_ORDER_NUMBER_SERVICE]: asFunction(createAnterOrderNumberService).scoped(),
-    [ANTER_ORDER_READ_SERVICE]: asFunction(createAnterOrderReadService).scoped(),
+    // `.proxy()` is load-bearing here, not decorative: the container's
+    // default injection mode is CLASSIC (packages/shared/src/lib/di/
+    // container.ts), which resolves a factory's dependencies by parsing its
+    // parameter NAMES and calling it positionally — `createXxxService(deps)`
+    // has exactly one param literally named `deps`, so CLASSIC mode tries to
+    // resolve a cradle entry called "deps" and throws. `.proxy()` overrides
+    // the resolver to pass the whole cradle as that single argument instead,
+    // which is what every factory below actually destructures. Verified
+    // against a standalone Awilix repro before applying (this codebase's own
+    // `catalog/di.ts` uses the identical `.proxy()` override for the same
+    // single-object-param shape).
+    [ANTER_PARTNER_TERMS_SERVICE]: asFunction(createAnterPartnerTermsService).scoped().proxy(),
+    [ANTER_PARTNER_PRICING_SERVICE]: asFunction(createAnterPartnerPricingService).scoped().proxy(),
+    [ANTER_ORDER_NUMBER_SERVICE]: asFunction(createAnterOrderNumberService).scoped().proxy(),
+    [ANTER_ORDER_READ_SERVICE]: asFunction(createAnterOrderReadService).scoped().proxy(),
   })
 }
 

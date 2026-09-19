@@ -20,8 +20,12 @@ export function register(container: AppContainer) {
     // directly by the checkout route, which already holds that container —
     // the same reason `lib/cartTotals.ts` takes `container` as a plain
     // function argument instead of being DI-registered.
-    [ANTER_CATALOG_SERVICE]: asFunction(createAnterCatalogService).scoped(),
-    [ANTER_CART_SERVICE]: asFunction(createAnterCartService).scoped(),
+    // `.proxy()` is load-bearing — see the identical note in
+    // `anter_orders/di.ts`. Without it, the container's default CLASSIC
+    // injection mode tries to resolve a cradle entry literally named "deps"
+    // (the factories' single parameter name) and throws at first resolution.
+    [ANTER_CATALOG_SERVICE]: asFunction(createAnterCatalogService).scoped().proxy(),
+    [ANTER_CART_SERVICE]: asFunction(createAnterCartService).scoped().proxy(),
   })
 }
 

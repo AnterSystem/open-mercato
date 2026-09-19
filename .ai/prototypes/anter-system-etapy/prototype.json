@@ -16,11 +16,11 @@
   "files": [
     {
       "path": "index.html",
-      "sha256": "c97fcb6b238ba08e7224e48b1d659cd8973061e3a36eaca93c1aeef3d7582701"
+      "sha256": "d2c49a30fe45f29ddb38e4514146ac664d750aa5b7eb314c030baabf10bb7975"
     },
     {
       "path": "README.md",
-      "sha256": "131571f4d02ef2f933053993ab85e7bdb5323e033cb690d0277ed9ea2fe14338"
+      "sha256": "a9a2fdfa83ab6b94ca6e2f89f2770ac1de7dfcc854e7fd29b6d6176ee5e768e3"
     },
     {
       "path": "story-map.md",
@@ -121,6 +121,10 @@
     {
       "path": "evidence/s44-produkcja-lista.png",
       "sha256": "f5b352a113f40f7d0ccaf7476bc127af43edb8c46dafbb584ff0996be1836c51"
+    },
+    {
+      "path": "evidence/s9-konfigurator-wewnetrzny.png",
+      "sha256": "92d949164e091d72c8f3d689777158cbc560e683468c398e76effd53c48f1042"
     }
   ],
   "navigation": {

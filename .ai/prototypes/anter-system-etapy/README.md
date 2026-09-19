@@ -104,9 +104,24 @@ Ta funkcja istnieje już w działającej aplikacji Anter Site Configurator (ekra
 ścieżki docelowej pokazywał ją dotąd jako formularz z polami „produkt / ilość / szerokość / RAL",
 co było sprzeczne z tym, jak konfigurator naprawdę działa.
 
-Ekran 13 został przebudowany: rzut obiektu z naniesionymi zabezpieczeniami, katalog produktów
-z cenami partnerskimi i trybem rysowania (linia / punkt / wstawka), zestawienie przeliczane
-z geometrii i przejście do koszyka.
+Ekrany 9 i 13 zostały przebudowane na **to samo narzędzie**: ten sam podkład, ten sam rzut,
+te same tryby rysowania (linia / punkt / wstawka), to samo liczenie zestawienia z geometrii.
+
+**Konfigurator jest jeden. Różnice między trybami są dokładnie dwie:**
+
+| | Tryb wewnętrzny (9) | Tryb partnerski (13) |
+| --- | --- | --- |
+| Ceny | katalogowa, koszt własny, marża przy cenie katalogowej i po rabacie | wyłącznie cena partnerska |
+| Produkty | pełny katalog wewnętrzny | tylko pozycje z cennika partnera |
+| Wyjście | przekazanie do oferty | dodanie do koszyka |
+
+Reszta jest identyczna — i tak ma być, bo to jeden silnik obsługujący różne uprawnienia.
+Na ekranie 9 widać to wprost: element 5 (bariera zewnętrzna H2) jest narysowany linią
+przerywaną, bo jest poza cennikiem Stalmont. Pracownik może go dodać; partner otwierając ten
+sam projekt zobaczy pozycję do wyceny, nie cenę.
+
+Trzeci tryb — konto bez cen — to ten sam konfigurator z ukrytą całą kolumną cenową
+i zapytaniem o wycenę zamiast zamówienia (ekran 14).
 
 **Podkład pochodzi z planów testowych** (`plany-testowe/`, trzy rysunki AS-TEST-01…03:
 magazyn wysokiego składowania, hala produkcyjna, terminal cross-dock). Każdy ma sekcję
@@ -291,7 +306,7 @@ historyjka dotyka nierozstrzygniętej kwestii, są w niej oznaczone `[DO ROZSTRZ
 | s6 | backoffice | Reguły i wykluczenia, konflikt reguł | 1 | US-1.2 | s5 |
 | s7 | backoffice | Struktura wykonawcza wariantu | 1 | US-1.3, CC-7 | s5 |
 | s8 | backoffice | Pusta baza produktów (pierwsze uruchomienie) | 1 | US-1.1, stan pusty | s5 |
-| s9 | backoffice | Konfigurator wewnętrzny | 2 | US-2.1, US-2.2 | s10, s11, s3 |
+| s9 | backoffice | Konfigurator w trybie wewnętrznym (ten sam co s13) | 2 | US-2.1, US-2.2, CC-1 | s11, s3 |
 | s10 | backoffice | Przypadek nietypowy do wyceny konstruktora | 2 | US-2.3, CC-5 | s9, s11 |
 | s11 | backoffice | Wycena i wyjście konfiguratora | 2 | US-2.4, CC-4 | s3, s9 |
 | s12 | backoffice | Wycena bez uprawnienia do kosztu i marży | 2 | US-2.2, brak uprawnień | — |
@@ -491,6 +506,7 @@ z odpornością produktów z biblioteki.
 | Podświetlenie bieżącego ekranu: wejście z adresu, przejście w mockupie, przewijanie | OK |
 | Brak poziomów certyfikacji i sugestii wpływu szkoleń na rabat | OK |
 | Status wysyłki częściowej spójny w liście, pulpicie i szczegółach zamówienia | OK |
+| Konfigurator wewnętrzny i partnerski: ten sam plan i narzędzia, różne ceny i dostępność | OK |
 | Wszystkie użyte ikony mają definicję w sprite, brak nieużywanych | OK |
 | Wszystkie użyte zmienne CSS istnieją w `tokens.css` | OK, 0 brakujących |
 | Brak wartości hex/rgb w znacznikach | OK |

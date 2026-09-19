@@ -1273,136 +1273,235 @@
 <section class="screen" id="s9">
   <div class="screen-meta">
     <h2>9. Konfigurator w trybie wewnętrznym</h2>
-    <p>Pracownik składa rozwiązanie z pozycji bazy produktów. Ten sam silnik obsłuży później dystrybutorów, różnią się tylko uprawnienia.</p>
+    <p>To samo narzędzie, które dostaje dystrybutor (ekran 13): ten sam plan, ten sam sposób rysowania, to samo zestawienie z geometrii. Różni się wyłącznie tym, jakie ceny widać i jakie produkty są dostępne.</p>
     <div class="screen-refs"><span class="ref">§Konfigurator</span><span class="ref">US-2.1</span><span class="ref">US-2.2</span><span class="ref">CC-1</span></div>
   </div>
 
   <div class="frame">
     <div class="frame-bar">
       <div class="frame-dots"><i></i><i></i><i></i></div>
-      <span class="frame-url">/backend/konfigurator/SZ-2026-0311</span>
+      <span class="frame-url">/backend/konfigurator/AS-TEST-01</span>
     </div>
     <div class="app app-tall">
       <aside class="sidebar">
         <div class="sidebar-brand"><span class="brand-mark">AS</span> <span class="ellipsis">Anter System</span></div>
         <div class="sidebar-search"><svg><use href="#ic-search"/></svg> Szukaj</div>
         <nav class="sidebar-nav">
+          <div class="nav-group"><span>Sprzedaż</span><svg><use href="#ic-chevron-down"/></svg></div>
+          <div class="nav-items">
+            <a class="nav-item" href="#s1" data-goto="s1"><svg><use href="#ic-mail"/></svg> Leady</a>
+            <a class="nav-item" href="#s3" data-goto="s3"><svg><use href="#ic-target"/></svg> Szanse</a>
+            <a class="nav-item" href="#s16" data-goto="s16"><svg><use href="#ic-users"/></svg> Partnerzy</a>
+          </div>
           <div class="nav-group"><span>Produkty</span><svg><use href="#ic-chevron-down"/></svg></div>
           <div class="nav-items">
             <a class="nav-item" href="#s4" data-goto="s4"><svg><use href="#ic-box"/></svg> Baza produktów</a>
             <span class="nav-item active"><svg><use href="#ic-sliders"/></svg> Konfigurator</span>
           </div>
-          <div class="nav-group"><span>Sprzedaż</span><svg><use href="#ic-chevron-down"/></svg></div>
-          <div class="nav-items">
-            <a class="nav-item" href="#s3" data-goto="s3"><svg><use href="#ic-target"/></svg> Szanse</a>
-          </div>
         </nav>
       </aside>
       <div class="main">
         <header class="topbar">
-          <div class="topbar-left"><div class="crumbs"><svg><use href="#ic-home"/></svg><svg><use href="#ic-chevron-right"/></svg><span>Konfigurator</span><svg><use href="#ic-chevron-right"/></svg><span class="here">SZ-2026-0311</span></div></div>
+          <div class="topbar-left"><div class="crumbs"><svg><use href="#ic-home"/></svg><svg><use href="#ic-chevron-right"/></svg><span>Konfigurator</span><svg><use href="#ic-chevron-right"/></svg><span class="here">AS-TEST-01</span></div></div>
           <div class="topbar-right">
-            <span class="badge badge-info"><span class="dot"></span> Tryb wewnętrzny</span>
-            <span class="avatar">TR</span>
+            <span class="badge badge-info"><span class="dot"></span> Tryb wewnętrzny · widoczny koszt i marża</span>
+            <span class="avatar">MK</span>
           </div>
         </header>
         <main class="page">
           <div class="page-head">
-            <div><h1 class="t-page-title">Kalvex Logistics — konfiguracja rozwiązania</h1><p>Na podstawie projektu konstruktorów i materiału poaudytowego z szansy SZ-2026-0311</p></div>
+            <div>
+              <h1 class="t-page-title">Magazyn DC Alfa — zabezpieczenia strefy regałowej</h1>
+              <p>Podkład <span class="t-mono">AS-TEST-01</span> · dla: Stalmont Sp. z o.o. <span class="t-mono">KTR-10422</span> · szansa <span class="t-mono">SZ-2026-0344</span></p>
+            </div>
             <div class="page-actions">
-              <button class="btn btn-outline"><svg><use href="#ic-save"/></svg> Zapisz konfigurację</button>
-              <button class="btn btn-primary" data-goto="s11"><svg><use href="#ic-arrow-right"/></svg> Przejdź do wyceny</button>
+              <button class="btn btn-outline"><svg><use href="#ic-save"/></svg> Zapisz projekt</button>
+              <button class="btn btn-primary" data-goto="s11"><svg><use href="#ic-file"/></svg> Przekaż do oferty</button>
+            </div>
+          </div>
+
+          <div class="alert alert-info">
+            <svg><use href="#ic-info"/></svg>
+            <div>
+              <div class="alert-title">Ten sam konfigurator, inne uprawnienia</div>
+              <p class="t-hint" style="margin:0">Partner widzi ten projekt pod tym samym adresem, z ceną partnerską zamiast kosztu i marży, i bez produktów spoza swojego cennika. Plan, narzędzia rysowania i sposób liczenia zestawienia są identyczne.</p>
+            </div>
+          </div>
+
+          <div class="dt-toolbar" style="border:0;padding-top:0.75rem">
+            <div class="dt-toolbar-row">
+              <div class="segmented" role="group" aria-label="Narzędzie">
+                <button type="button" aria-selected="false"><svg><use href="#ic-target"/></svg> Wybierz</button>
+                <button type="button" aria-selected="true"><svg><use href="#ic-pencil"/></svg> Rysuj</button>
+                <button type="button" aria-selected="false"><svg><use href="#ic-move"/></svg> Przesuń</button>
+              </div>
+              <span class="chip chip-active">Przyciąganie do siatki <svg><use href="#ic-x"/></svg></span>
+              <div class="dt-toolbar-right">
+                <button class="btn btn-outline btn-sm"><svg><use href="#ic-ruler"/></svg> Ustal skalę</button>
+                <button class="btn btn-outline btn-sm"><svg><use href="#ic-download"/></svg> Wgraj inny podkład</button>
+              </div>
             </div>
           </div>
 
           <div class="split split-side">
             <div class="stack-3">
               <div class="card">
-                <div class="card-head"><span class="t-card-title">Strefa: dojazd TIR brama północna</span><span class="badge badge-neutral">1 z 4 stref</span></div>
-                <div class="card-body stack-3">
-                  <div class="field">
-                    <label for="k-produkt">Produkt <span class="req">*</span></label>
-                    <span class="select" style="display:block"><select class="input" id="k-produkt"><option selected>BRM-SLD-4000 — Brama przesuwna samonośna</option><option>BRM-SKR-2000 — Brama skrzydłowa</option></select></span>
-                  </div>
-                  <div class="form-grid form-grid-2">
-                    <div class="field"><label for="k-rozp">Rozpiętość światła</label><span class="input-group"><input class="input num" id="k-rozp" value="6 000" /><span class="addon">mm</span></span><p class="t-hint">Zakres 3 000 – 8 000</p></div>
-                    <div class="field"><label for="k-wys">Wysokość</label><span class="input-group"><input class="input num" id="k-wys" value="1 800" /><span class="addon">mm</span></span></div>
-                  </div>
-                  <div class="form-grid form-grid-2">
-                    <div class="field"><label for="k-ral">Kolor RAL</label><span class="select" style="display:block"><select class="input" id="k-ral"><option selected>7016</option><option>9005</option></select></span></div>
-                    <div class="field"><label for="k-pow">Powłoka</label><span class="select" style="display:block"><select class="input" id="k-pow"><option selected>Cynk + proszek</option><option>Cynk ogniowy</option></select></span></div>
-                  </div>
-                  <div class="field">
-                    <label for="k-montaz">Montaż</label>
-                    <span class="select" style="display:block"><select class="input input-invalid" id="k-montaz" aria-describedby="k-montaz-err"><option>Fundament ciągły</option><option selected>Stopy prefabrykowane</option></select></span>
-                    <p class="field-error" id="k-montaz-err"><svg style="width:0.875rem;height:0.875rem;vertical-align:-2px"><use href="#ic-warn"/></svg> R-04 wymaga napędu przy rozpiętości 6 000 mm, a R-07 wyklucza napęd przy montażu na stopach. Zmień montaż na fundament ciągły albo zejdź poniżej 5 000 mm.</p>
-                  </div>
-
-                  <div class="separator"></div>
-
-                  <span class="t-label">Akcesoria</span>
-                  <div class="stack-2">
-                    <div class="row between"><span class="t-body">Napęd elektromechaniczny 800 W <span class="t-mono t-hint">NAP-EM-800</span></span><span class="badge badge-error"><span class="dot"></span> Wymagane</span></div>
-                    <div class="row between"><span class="t-body">Fotokomórki bezpieczeństwa <span class="t-mono t-hint">FOT-BP-2</span></span><span class="badge badge-warning"><span class="dot"></span> Dobrane automatycznie</span></div>
-                    <div class="row between"><span class="t-body">Listwa krawędziowa 24 V <span class="t-mono t-hint">LST-KRW-24</span></span><span class="badge badge-warning"><span class="dot"></span> Dobrane automatycznie</span></div>
-                    <div class="row between"><span class="t-body">Lampa ostrzegawcza <span class="t-mono t-hint">LMP-OSTRZ</span></span><span class="switch" role="switch" aria-checked="false" aria-label="Lampa ostrzegawcza"></span></div>
+                <div class="card-head"><span class="t-card-title">Rzut obiektu</span><span class="t-hint">kliknij produkt, potem rysuj na planie</span></div>
+                <div class="card-body">
+                  <svg viewBox="0 0 900 560" role="img" aria-label="Rzut magazynu z naniesionymi zabezpieczeniami" style="width:100%;height:auto;background:var(--card);border:1px solid var(--border);border-radius:var(--radius-md)">
+                    <defs>
+                      <pattern id="siatka-bo" width="30" height="30" patternUnits="userSpaceOnUse">
+                        <path d="M 30 0 L 0 0 0 30" fill="none" stroke="var(--border)" stroke-width="0.5" />
+                      </pattern>
+                    </defs>
+                    <rect x="0" y="0" width="900" height="560" fill="url(#siatka-bo)" />
+                    <rect x="40" y="30" width="820" height="480" fill="none" stroke="var(--foreground)" stroke-width="6" />
+                    <g fill="var(--muted)" stroke="var(--status-success-border)" stroke-width="1.5">
+                      <rect x="70" y="70" width="330" height="26" /><rect x="70" y="112" width="330" height="26" />
+                      <rect x="70" y="170" width="330" height="26" /><rect x="70" y="212" width="330" height="26" />
+                      <rect x="70" y="270" width="330" height="26" /><rect x="70" y="312" width="330" height="26" />
+                      <rect x="500" y="70" width="330" height="26" /><rect x="500" y="112" width="330" height="26" />
+                      <rect x="500" y="170" width="330" height="26" /><rect x="500" y="212" width="330" height="26" />
+                      <rect x="500" y="270" width="330" height="26" /><rect x="500" y="312" width="330" height="26" />
+                    </g>
+                    <text x="80" y="62" font-size="11" fill="var(--muted-foreground)">Strefa regałowa A — 12 rzędów</text>
+                    <text x="510" y="62" font-size="11" fill="var(--muted-foreground)">Strefa regałowa B — 12 rzędów</text>
+                    <rect x="40" y="370" width="820" height="52" fill="var(--muted)" opacity="0.5" />
+                    <text x="360" y="400" font-size="12" fill="var(--muted-foreground)">Droga transportowa główna · szer. 400</text>
+                    <g fill="var(--status-info-bg)" stroke="var(--status-info-border)" stroke-width="1.5">
+                      <rect x="70" y="440" width="150" height="52" /><rect x="260" y="440" width="150" height="52" />
+                      <rect x="480" y="440" width="150" height="52" /><rect x="670" y="440" width="150" height="52" />
+                    </g>
+                    <text x="96" y="470" font-size="11" fill="var(--status-info-text)">Strefa przyjęć</text>
+                    <text x="500" y="470" font-size="11" fill="var(--status-info-text)">Strefa wysyłek</text>
+                    <g fill="var(--foreground)">
+                      <rect x="150" y="505" width="46" height="10" /><rect x="230" y="505" width="46" height="10" />
+                      <rect x="310" y="505" width="46" height="10" /><rect x="390" y="505" width="46" height="10" />
+                      <rect x="470" y="505" width="46" height="10" /><rect x="550" y="505" width="46" height="10" />
+                      <rect x="630" y="505" width="46" height="10" /><rect x="710" y="505" width="46" height="10" />
+                    </g>
+                    <text x="150" y="532" font-size="11" fill="var(--muted-foreground)">D01 … D10 · doki przeładunkowe</text>
+                    <g fill="var(--foreground)">
+                      <rect x="140" y="148" width="10" height="10" /><rect x="290" y="148" width="10" height="10" />
+                      <rect x="440" y="148" width="10" height="10" /><rect x="590" y="148" width="10" height="10" />
+                      <rect x="740" y="148" width="10" height="10" />
+                      <rect x="140" y="248" width="10" height="10" /><rect x="290" y="248" width="10" height="10" />
+                      <rect x="440" y="248" width="10" height="10" /><rect x="590" y="248" width="10" height="10" />
+                      <rect x="740" y="248" width="10" height="10" />
+                    </g>
+                    <g stroke="var(--status-warning-icon)" stroke-width="7" stroke-linecap="round">
+                      <line x1="70" y1="152" x2="400" y2="152" /><line x1="500" y1="152" x2="830" y2="152" />
+                      <line x1="70" y1="252" x2="400" y2="252" /><line x1="500" y1="252" x2="830" y2="252" />
+                    </g>
+                    <text x="72" y="169" font-size="12" font-weight="600" fill="var(--status-warning-icon)">1 · GB-200 · bariera 96 mb</text>
+                    <g fill="none" stroke="var(--status-error-icon)" stroke-width="3">
+                      <circle cx="145" cy="153" r="11" /><circle cx="295" cy="153" r="11" />
+                      <circle cx="445" cy="153" r="11" /><circle cx="595" cy="153" r="11" />
+                      <circle cx="745" cy="153" r="11" />
+                      <circle cx="145" cy="253" r="11" /><circle cx="295" cy="253" r="11" />
+                      <circle cx="445" cy="253" r="11" /><circle cx="595" cy="253" r="11" />
+                      <circle cx="745" cy="253" r="11" />
+                    </g>
+                    <text x="600" y="282" font-size="12" font-weight="600" fill="var(--status-error-icon)">2 · RAL-X3 · osłony słupów 20 szt.</text>
+                    <g fill="var(--status-info-icon)">
+                      <rect x="436" y="366" width="28" height="60" rx="3" />
+                      <rect x="216" y="366" width="28" height="60" rx="3" />
+                      <rect x="656" y="366" width="28" height="60" rx="3" />
+                    </g>
+                    <text x="690" y="360" font-size="12" font-weight="600" fill="var(--status-info-text)">3 · BRK-UCH-1200 · bramki 4 szt.</text>
+                    <g fill="var(--status-success-icon)">
+                      <circle cx="70" cy="96" r="5" /><circle cx="400" cy="96" r="5" />
+                      <circle cx="70" cy="196" r="5" /><circle cx="400" cy="196" r="5" />
+                      <circle cx="500" cy="96" r="5" /><circle cx="830" cy="96" r="5" />
+                      <circle cx="500" cy="196" r="5" /><circle cx="830" cy="196" r="5" />
+                      <circle cx="70" cy="296" r="5" /><circle cx="400" cy="296" r="5" />
+                      <circle cx="500" cy="296" r="5" /><circle cx="830" cy="296" r="5" />
+                    </g>
+                    <text x="410" y="330" font-size="12" font-weight="600" fill="var(--status-success-text)">4 · SLP-ODB-108 · słupki w narożach 48 szt.</text>
+                    <g stroke="var(--chart-violet)" stroke-width="7" stroke-linecap="round" stroke-dasharray="14 8">
+                      <line x1="70" y1="352" x2="400" y2="352" />
+                    </g>
+                    <text x="72" y="344" font-size="12" font-weight="600" fill="var(--chart-violet)">5 · BAR-ZEW-H2 · poza cennikiem partnera</text>
+                  </svg>
+                  <div class="row between" style="margin-top:0.75rem">
+                    <span class="t-hint">5 grup elementów · 201 sztuk i metrów bieżących</span>
+                    <span class="row"><button class="btn btn-ghost btn-xs">− 100% +</button><button class="btn btn-outline btn-xs">Dopasuj</button><button class="btn btn-ghost btn-xs">Cofnij ostatni</button></span>
                   </div>
                 </div>
               </div>
 
               <div class="card">
-                <div class="card-head"><span class="t-card-title">Pozostałe strefy</span><button class="btn btn-outline btn-sm"><svg><use href="#ic-plus"/></svg> Dodaj strefę</button></div>
+                <div class="card-head"><span class="t-card-title">Produkty z bazy</span><span class="t-hint">pełny katalog wewnętrzny</span></div>
                 <div class="card-body">
-                  <table class="table">
-                    <thead><tr><th>Strefa</th><th>Pozycje</th><th>Status</th><th class="right">Wartość</th></tr></thead>
-                    <tbody>
-                      <tr class="clickable"><td>Magazyn wysokiego składowania</td><td>BAR-WEW-STD × 220 mb</td><td><span class="badge badge-success"><span class="dot"></span> Złożona</span></td><td class="right num">140 800,00 PLN</td></tr>
-                      <tr class="clickable"><td>Przejścia dla pieszych</td><td>BRK-UCH-1200 × 8, barierki × 64 mb</td><td><span class="badge badge-success"><span class="dot"></span> Złożona</span></td><td class="right num">37 440,00 PLN</td></tr>
-                      <tr class="clickable"><td>Dojazd TIR brama północna</td><td>W trakcie składania</td><td><span class="badge badge-warning"><span class="dot"></span> Konflikt reguł</span></td><td class="right num">—</td></tr>
-                      <tr class="clickable" data-goto="s10"><td>Plac manewrowy</td><td>Bariera łukowa, promień 14 m</td><td><span class="badge badge-pink"><span class="dot"></span> Poza regułami</span></td><td class="right num">do wyceny</td></tr>
-                    </tbody>
-                  </table>
+                  <div class="scroll-x">
+                    <table class="table">
+                      <thead><tr><th>Produkt</th><th>Rysowanie</th><th class="right">Katalogowa</th><th class="right">Koszt</th><th>Dostępność dla partnera</th><th style="width:0"></th></tr></thead>
+                      <tbody>
+                        <tr><td><span class="strong">Bariera wewnętrzna GB-200</span><br /><span class="t-mono t-hint">GB-200</span></td><td><span class="badge badge-neutral">linia</span></td><td class="right num">312,00</td><td class="right num t-hint">187,20</td><td><span class="badge badge-success"><span class="dot"></span> W cenniku</span></td><td><button class="btn btn-outline btn-xs"><svg><use href="#ic-pencil"/></svg> Rysuj</button></td></tr>
+                        <tr><td><span class="strong">Osłona słupa RAL Column Guard</span><br /><span class="t-mono t-hint">RAL-X3</span></td><td><span class="badge badge-neutral">punkt</span></td><td class="right num">486,00</td><td class="right num t-hint">291,60</td><td><span class="badge badge-success"><span class="dot"></span> W cenniku</span></td><td><button class="btn btn-outline btn-xs"><svg><use href="#ic-pencil"/></svg> Rysuj</button></td></tr>
+                        <tr><td><span class="strong">Słupek odbojowy Ø108</span><br /><span class="t-mono t-hint">SLP-ODB-108</span></td><td><span class="badge badge-neutral">punkt</span></td><td class="right num">410,00</td><td class="right num t-hint">246,00</td><td><span class="badge badge-success"><span class="dot"></span> W cenniku</span></td><td><button class="btn btn-outline btn-xs"><svg><use href="#ic-pencil"/></svg> Rysuj</button></td></tr>
+                        <tr><td><span class="strong">Bramka uchylna jednoskrzydłowa</span><br /><span class="t-mono t-hint">BRK-UCH-1200</span></td><td><span class="badge badge-neutral">wstawka</span></td><td class="right num">2 340,00</td><td class="right num t-hint">1 404,00</td><td><span class="badge badge-success"><span class="dot"></span> W cenniku</span></td><td><button class="btn btn-outline btn-xs"><svg><use href="#ic-pencil"/></svg> Rysuj</button></td></tr>
+                        <tr><td><span class="strong">Bariera zewnętrzna H2</span><br /><span class="t-mono t-hint">BAR-ZEW-H2</span></td><td><span class="badge badge-neutral">linia</span></td><td class="right num">784,00</td><td class="right num t-hint">470,40</td><td><span class="badge badge-warning"><span class="dot"></span> Poza cennikiem</span></td><td><button class="btn btn-outline btn-xs"><svg><use href="#ic-pencil"/></svg> Rysuj</button></td></tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <p class="t-hint" style="margin:0.75rem 0 0">Ostatnia pozycja nie jest w cenniku Stalmont. Pracownik może ją narysować, ale partner nie zobaczy jej w swoim konfiguratorze — dopóki sprzedaż nie rozszerzy jego cennika.</p>
                 </div>
               </div>
             </div>
 
             <div class="stack-3">
               <div class="card card-pad stack-3">
-                <span class="t-card-title">Wycena bieżąca</span>
+                <span class="t-card-title">Wycena wewnętrzna</span>
                 <div class="stack-2">
-                  <div class="row between"><span class="t-body">Cena bazowa</span><span class="num strong">178 240,00</span></div>
-                  <div class="row between"><span class="t-body muted">Koszt wytworzenia</span><span class="num muted">112 300,00</span></div>
-                  <div class="row between"><span class="t-body muted">Marża</span><span class="num muted">37,0%</span></div>
+                  <div class="row between"><span class="t-body">Wartość katalogowa</span><span class="num" style="white-space:nowrap">94 584,00</span></div>
+                  <div class="row between"><span class="t-body">Koszt własny</span><span class="num" style="white-space:nowrap">56 750,40</span></div>
                   <div class="separator"></div>
-                  <div class="row between"><span class="t-body">Pozycje poza regułami</span><span class="badge badge-pink">1</span></div>
+                  <div class="row between"><span class="t-body">Marża przy cenie katalogowej</span><span class="num" style="white-space:nowrap">37 833,60</span></div>
+                  <div class="row between"><span class="t-hint">udział</span><span class="num t-hint">40,0%</span></div>
                 </div>
-                <div class="alert alert-info"><svg><use href="#ic-info"/></svg><div><p class="t-hint" style="margin:0">Koszt i marża są widoczne wyłącznie w trybie wewnętrznym. Tryb partnerski ich nie pokazuje.</p></div></div>
+                <div class="separator"></div>
+                <div class="stack-2">
+                  <div class="row between"><span class="t-body">Cena dla Stalmont (rabat 24%)</span><span class="num" style="white-space:nowrap">71 883,84</span></div>
+                  <div class="row between"><span class="strong">Marża po rabacie</span><span class="num strong" style="white-space:nowrap">15 133,44</span></div>
+                  <div class="row between"><span class="t-hint">udział</span><span class="num t-hint">21,1%</span></div>
+                </div>
+                <p class="t-hint" style="margin:0">Partner w swoim widoku zobaczy wyłącznie kwotę 71 883,84 i termin. Koszt i marża nie opuszczają trybu wewnętrznego.</p>
               </div>
 
               <div class="card card-pad stack-3">
-                <span class="t-card-title">Pozycje z bazy produktów</span>
-                <p class="t-hint" style="margin:0">Każda pozycja wyniku ma indeks z wariantem. Dzięki temu ta sama konfiguracja trafia do oferty, zamówienia i zlecenia bez przepisywania.</p>
-                <div class="row between"><span class="t-body">Pozycji z bazy</span><span class="num strong">11</span></div>
-                <div class="row between"><span class="t-body">Pozycji spoza bazy</span><span class="num strong">1</span></div>
+                <span class="t-card-title">Punkty wykryte z planu</span>
+                <div class="stack-2">
+                  <div class="row between"><span class="t-body">Naroża regałów przy drogach</span><span class="badge badge-success">48 / 48</span></div>
+                  <div class="row between"><span class="t-body">Słupy w ciągach komunikacyjnych</span><span class="badge badge-success">20 / 20</span></div>
+                  <div class="row between"><span class="t-body">Przejścia piesze</span><span class="badge badge-success">4 / 4</span></div>
+                  <div class="row between"><span class="t-body">Stanowiska przy dokach</span><span class="badge badge-warning">0 / 10</span></div>
+                  <div class="row between"><span class="t-body">Wejścia techniczne</span><span class="badge badge-warning">0 / 4</span></div>
+                </div>
               </div>
 
               <div class="card card-pad stack-3">
                 <span class="t-card-title">Źródło konfiguracji</span>
-                <p class="t-hint" style="margin:0">Szansa SZ-2026-0311 · projekt konstruktorów z 15.09 · materiał poaudytowy z 11–12.09</p>
-                <a class="back-link" href="#s3" data-goto="s3"><svg><use href="#ic-chevron-left"/></svg> Wróć do szansy</a>
+                <div class="stack-2">
+                  <div class="row between"><span class="t-body">Szansa</span><span class="t-mono">SZ-2026-0344</span></div>
+                  <div class="row between"><span class="t-body">Kontrahent</span><span class="t-body">Stalmont Sp. z o.o.</span></div>
+                  <div class="row between"><span class="t-body">Podkład</span><span class="t-mono">AS-TEST-01</span></div>
+                </div>
+                <p class="t-hint" style="margin:0">Wynik idzie do oferty jako pozycje z indeksami z bazy produktów, nie jako opis w mailu (CC-1, CC-4).</p>
               </div>
             </div>
           </div>
         </main>
-        <footer class="app-foot"><span>Prototyp · dane fikcyjne</span><nav class="row-3"><span>Etap 2</span><span>US-2.1</span></nav></footer>
+        <footer class="app-foot"><span>Prototyp · dane fikcyjne</span><nav class="row-3"><span>Etap 2</span><span>US-2.1</span><span>US-2.2</span></nav></footer>
       </div>
     </div>
   </div>
 
   <div class="notes">
-    <div class="note"><b>1</b><span>Błąd reguły pojawia się przy polu, które go wywołało, i nazywa obie reguły oraz dwa wyjścia. Komunikat „niedozwolona kombinacja" bez wskazania reguły zmusiłby konstruktora do zgadywania.</span></div>
-    <div class="note"><b>2</b><span>Akcesoria dobrane automatycznie są odróżnione od wybranych ręcznie. Pracownik musi wiedzieć, czego nie wybierał, zanim zacznie negocjować cenę.</span></div>
-    <div class="note"><b>3</b><span>W ścieżce inwestycyjnej konfigurator nie jest kanałem samoobsługi, tylko narzędziem konstruktora do szybkiego złożenia rozwiązania zaprojektowanego po audycie.</span></div>
+    <div class="note"><b>1</b><span><span class="strong">To jeden konfigurator, nie dwa.</span> Ten sam plan, te same narzędzia rysowania, to samo liczenie zestawienia z geometrii co na ekranie 13. Różnice są dokładnie dwie: <span class="strong">jakie ceny widać</span> (tu koszt i marża, u partnera cena partnerska) i <span class="strong">jakie produkty są dostępne</span> (tu pełny katalog, u partnera jego cennik).</span></div>
+    <div class="note"><b>2</b><span>Element 5 na planie — bariera zewnętrzna H2 — jest narysowany fioletową linią przerywaną, bo jest poza cennikiem Stalmont. Pracownik może go dodać do projektu; partner otwierając ten sam projekt zobaczy pozycję oznaczoną jako wymagającą wyceny, nie cenę.</span></div>
+    <div class="note"><b>3</b><span>Marża po rabacie jest tu pokazana wprost, bo to ona decyduje o tym, czy handlowiec może jeszcze zejść z ceny. Rola bez uprawnienia do kosztu widzi ten sam projekt i tę samą wycenę bez tych dwóch wierszy (ekran 12).</span></div>
+    <div class="note"><b>4</b><span>Trzeci tryb — konto bez cen — pokazuje ten sam konfigurator z ukrytą całą kolumną cenową i przyciskiem „wyślij zapytanie" zamiast zamówienia (ekran 14).</span></div>
   </div>
 </section>
 

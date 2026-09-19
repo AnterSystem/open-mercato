@@ -20,6 +20,20 @@ Portal ma teraz dwie drogi do zamówienia: **katalog → karta produktu → kosz
 dla pozycji cennikowych oraz **konfigurator** (ekran 13, bez zmian) dla realizacji niestandardowych.
 Ekran 35 pokazuje granicę między nimi: brama przesuwna nie ma ceny katalogowej i kieruje do konfiguratora.
 
+Pasek nawigacji na górze dokumentu jest podzielony na trzy grupy, bo ekrany należą do trzech
+różnych powierzchni i mieszanie ich w jednej liście zacierało granicę:
+
+| Grupa | Ekrany | Co to jest |
+| --- | --- | --- |
+| Backoffice Anter | 20 | Wnętrze firmy: CRM, baza produktów, konfigurator wewnętrzny, ERP, transport |
+| Portal dystrybutora | 11 | Powierzchnia partnerska — jedyne ekrany widziane spoza Anter System (wyróżnione obwódką) |
+| Stan bieżący | 8 | Odtworzenie działającej aplikacji Anter Site Configurator, nie propozycja projektowa |
+
+Ekrany 29 i 30 („Współpraca B2B") zostały w grupie „Stan bieżący", mimo że dotyczą relacji
+z partnerem. Powód: są zapisem tego, co już działa, a nie projektem portalu — i są
+powierzchnią współdzieloną, na której handlowiec Anter i partner pracują na tym samym
+dokumencie. Przypisanie ich do portalu sugerowałoby, że partner widzi tam wszystko.
+
 Zmienione istniejące ekrany: nawigacja boczna w ekranach 13 i 15 została uspójniona z nowymi
 ekranami (doszły pozycje Pulpit, Katalog i Koszyk; Zamówienia zmieniły ikonę, bo koszyk przejął
 poprzednią), a wiersz ZAM-2026-1140 na ekranie 15 prowadzi teraz do szczegółów zamówienia.
@@ -52,47 +66,47 @@ historyjka dotyka nierozstrzygniętej kwestii, są w niej oznaczone `[DO ROZSTRZ
 
 ## Mapa ekranów
 
-| # | Ekran | Etap | Pokrywa | Prowadzi do |
-| --- | --- | --- | --- | --- |
-| s1 | Leady — jeden punkt wejścia | 0 | US-0.1 | s2, s3, s4, s16 |
-| s2 | Szczegóły leada: prekwalifikacja agenta, decyzja kwalifikatora | 0 | US-0.1, US-0.3 | s1, s3 |
-| s3 | Szansa inwestycyjna z materiałem poaudytowym | 0 | US-0.2 | s9 |
-| s4 | Baza produktów — lista | 1 | US-1.1 | s5, s6, s9 |
-| s5 | Karta produktu — osiem warstw danych | 1 | US-1.1, US-1.4 | s4, s6, s7 |
-| s6 | Reguły i wykluczenia, konflikt reguł | 1 | US-1.2 | s5 |
-| s7 | Struktura wykonawcza wariantu | 1 | US-1.3, CC-7 | s5 |
-| s8 | Pusta baza produktów (pierwsze uruchomienie) | 1 | US-1.1, stan pusty | s5 |
-| s9 | Konfigurator wewnętrzny | 2 | US-2.1, US-2.2 | s10, s11, s3 |
-| s10 | Przypadek nietypowy do wyceny konstruktora | 2 | US-2.3, CC-5 | s9, s11 |
-| s11 | Wycena i wyjście konfiguratora | 2 | US-2.4, CC-4 | s3, s9 |
-| s12 | Wycena bez uprawnienia do kosztu i marży | 2 | US-2.2, brak uprawnień | — |
-| s13 | Panel B2B — konto pełne składa zamówienie | 3 | US-3.1 | s15, s24 |
-| s14 | Panel B2B — konto bez cen, zapytanie o wycenę | 3 | US-3.2 | s24 |
-| s15 | Panel B2B — zamówienia i statusy z ERP | 3 | US-3.3, CC-2 | s13 |
-| s16 | Karta partnera w CRM — pętla zwrotna | 3 | US-3.4, US-3.5, CC-6 | s17 |
-| s17 | Warunki handlowe — z CRM do panelu | 3 | US-3.6, CC-3 | s16 |
-| s18 | ERP — kolejka zleceń produkcyjnych | 4 | US-4.1, CC-1 | s19, s20, s22 |
-| s19 | Zlecenie — rozbicie na komponenty i braki | 4 | US-4.2, CC-7 | s18, s20 |
-| s20 | Zapotrzebowanie zakupowe | 4 | US-4.3 | s18 |
-| s21 | Zerwana integracja z ERP | 4 | US-4.4, stan błędu | s16 |
-| s22 | Wycena transportu i zlecenie przewozu | 5 | US-5.1, US-5.2, CC-5 | s23 |
-| s23 | Przesyłki i statusy dostawy | 5 | US-5.3 | s22 |
-| s24 | Moduł learning i sygnał do CRM | 6 | US-6.1, US-6.2 | s13, s15, s16 |
-| s25 | Konfigurator: warsztat, panel „Projekt" | stan bieżący | US-0.2 | s26, s27, s28 |
-| s26 | Konfigurator: plan, produkty i zestawienie | stan bieżący | US-2.1, CC-1 | s27, s31 |
-| s27 | Konfigurator: raport techniczny i BOM | stan bieżący | US-2.4, CC-4 | s26 |
-| s28 | Konfigurator: projekty terenowe | stan bieżący | US-0.2 | s25 |
-| s29 | Współpraca B2B: akceptacje techniczne | stan bieżący | US-3.2 | s30 |
-| s30 | Współpraca B2B: wyceny i zamówienia | stan bieżący | US-3.1, US-2.4 | s29 |
-| s31 | Konfigurator: biblioteka techniczna i konta | stan bieżący | US-1.1, US-1.3 | s26 |
-| s32 | Konfigurator: kalkulator energii uderzenia | stan bieżący | US-1.2 | s26 |
-| s33 | Portal dystrybutora — logowanie | 3 | US-3.1, A-16 | s34 |
-| s34 | Portal dystrybutora — pulpit | 3 | US-3.1, US-3.3, US-3.7 | s35, s37, s13, s15, s24, s39 |
-| s35 | Portal dystrybutora — katalog z cenami partnerskimi | 3 | US-3.7, CC-1, CC-3 | s36, s37, s13 |
-| s36 | Portal dystrybutora — karta produktu | 3 | US-3.7, US-1.1 | s35, s37 |
-| s37 | Portal dystrybutora — koszyk i podsumowanie | 3 | US-3.7, CC-5 | s35, s38 |
-| s38 | Portal dystrybutora — zamówienie złożone | 3 | US-3.1, US-3.4, CC-6 | s39, s15, s35 |
-| s39 | Portal dystrybutora — szczegóły zamówienia | 3 | US-3.3, CC-2 | s15 |
+| # | Powierzchnia | Ekran | Etap | Pokrywa | Prowadzi do |
+| --- | --- | --- | --- | --- | --- |
+| s1 | backoffice | Leady — jeden punkt wejścia | 0 | US-0.1 | s2, s3, s4, s16 |
+| s2 | backoffice | Szczegóły leada: prekwalifikacja agenta, decyzja kwalifikatora | 0 | US-0.1, US-0.3 | s1, s3 |
+| s3 | backoffice | Szansa inwestycyjna z materiałem poaudytowym | 0 | US-0.2 | s9 |
+| s4 | backoffice | Baza produktów — lista | 1 | US-1.1 | s5, s6, s9 |
+| s5 | backoffice | Karta produktu — osiem warstw danych | 1 | US-1.1, US-1.4 | s4, s6, s7 |
+| s6 | backoffice | Reguły i wykluczenia, konflikt reguł | 1 | US-1.2 | s5 |
+| s7 | backoffice | Struktura wykonawcza wariantu | 1 | US-1.3, CC-7 | s5 |
+| s8 | backoffice | Pusta baza produktów (pierwsze uruchomienie) | 1 | US-1.1, stan pusty | s5 |
+| s9 | backoffice | Konfigurator wewnętrzny | 2 | US-2.1, US-2.2 | s10, s11, s3 |
+| s10 | backoffice | Przypadek nietypowy do wyceny konstruktora | 2 | US-2.3, CC-5 | s9, s11 |
+| s11 | backoffice | Wycena i wyjście konfiguratora | 2 | US-2.4, CC-4 | s3, s9 |
+| s12 | backoffice | Wycena bez uprawnienia do kosztu i marży | 2 | US-2.2, brak uprawnień | — |
+| s13 | portal | Panel B2B — konto pełne składa zamówienie | 3 | US-3.1 | s15, s24 |
+| s14 | portal | Panel B2B — konto bez cen, zapytanie o wycenę | 3 | US-3.2 | s24 |
+| s15 | portal | Panel B2B — zamówienia i statusy z ERP | 3 | US-3.3, CC-2 | s13 |
+| s16 | backoffice | Karta partnera w CRM — pętla zwrotna | 3 | US-3.4, US-3.5, CC-6 | s17 |
+| s17 | backoffice | Warunki handlowe — z CRM do panelu | 3 | US-3.6, CC-3 | s16 |
+| s18 | backoffice | ERP — kolejka zleceń produkcyjnych | 4 | US-4.1, CC-1 | s19, s20, s22 |
+| s19 | backoffice | Zlecenie — rozbicie na komponenty i braki | 4 | US-4.2, CC-7 | s18, s20 |
+| s20 | backoffice | Zapotrzebowanie zakupowe | 4 | US-4.3 | s18 |
+| s21 | backoffice | Zerwana integracja z ERP | 4 | US-4.4, stan błędu | s16 |
+| s22 | backoffice | Wycena transportu i zlecenie przewozu | 5 | US-5.1, US-5.2, CC-5 | s23 |
+| s23 | backoffice | Przesyłki i statusy dostawy | 5 | US-5.3 | s22 |
+| s24 | portal | Moduł learning i sygnał do CRM | 6 | US-6.1, US-6.2 | s13, s15, s16 |
+| s25 | stan bieżący | Konfigurator: warsztat, panel „Projekt" | stan bieżący | US-0.2 | s26, s27, s28 |
+| s26 | stan bieżący | Konfigurator: plan, produkty i zestawienie | stan bieżący | US-2.1, CC-1 | s27, s31 |
+| s27 | stan bieżący | Konfigurator: raport techniczny i BOM | stan bieżący | US-2.4, CC-4 | s26 |
+| s28 | stan bieżący | Konfigurator: projekty terenowe | stan bieżący | US-0.2 | s25 |
+| s29 | stan bieżący | Współpraca B2B: akceptacje techniczne | stan bieżący | US-3.2 | s30 |
+| s30 | stan bieżący | Współpraca B2B: wyceny i zamówienia | stan bieżący | US-3.1, US-2.4 | s29 |
+| s31 | stan bieżący | Konfigurator: biblioteka techniczna i konta | stan bieżący | US-1.1, US-1.3 | s26 |
+| s32 | stan bieżący | Konfigurator: kalkulator energii uderzenia | stan bieżący | US-1.2 | s26 |
+| s33 | portal | Portal dystrybutora — logowanie | 3 | US-3.1, A-16 | s34 |
+| s34 | portal | Portal dystrybutora — pulpit | 3 | US-3.1, US-3.3, US-3.7 | s35, s37, s13, s15, s24, s39 |
+| s35 | portal | Portal dystrybutora — katalog z cenami partnerskimi | 3 | US-3.7, CC-1, CC-3 | s36, s37, s13 |
+| s36 | portal | Portal dystrybutora — karta produktu | 3 | US-3.7, US-1.1 | s35, s37 |
+| s37 | portal | Portal dystrybutora — koszyk i podsumowanie | 3 | US-3.7, CC-5 | s35, s38 |
+| s38 | portal | Portal dystrybutora — zamówienie złożone | 3 | US-3.1, US-3.4, CC-6 | s39, s15, s35 |
+| s39 | portal | Portal dystrybutora — szczegóły zamówienia | 3 | US-3.3, CC-2 | s15 |
 
 Stany brzegowe rozłożone na ekranach: pusty (s8), brak uprawnień (s12), konflikt reguł
 (s6, s9), wyjście poza automatyzację (s10, s22, s35 w wierszu bramy przesuwnej), błąd
@@ -246,7 +260,8 @@ z odpornością produktów z biblioteki.
 | 39 sekcji `.screen` ze stabilnymi, unikalnymi identyfikatorami | OK |
 | Wszystkie cele `data-goto` wskazują na istniejące ekrany | OK, 0 błędnych |
 | Wszystkie odnośniki `href="#sN"` wskazują na istniejące ekrany | OK, 0 błędnych |
-| Nawigacja paska narzędzi pokrywa komplet 39 ekranów | OK |
+| Nawigacja paska pokrywa komplet 39 ekranów, bez duplikatów | OK |
+| Pasek podzielony na trzy grupy (20 + 11 + 8 = 39) | OK |
 | Wszystkie użyte ikony mają definicję w sprite, brak nieużywanych | OK |
 | Wszystkie użyte zmienne CSS istnieją w `tokens.css` | OK, 0 brakujących |
 | Brak wartości hex/rgb w znacznikach | OK |

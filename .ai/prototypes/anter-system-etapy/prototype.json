@@ -16,11 +16,11 @@
   "files": [
     {
       "path": "index.html",
-      "sha256": "ac8eb2fd75cc89bc922d5bf33f7641fbc9346aca77ec27b7045159a1b326ca88"
+      "sha256": "7059460d7e1074cd5eb3f9215bd838f8acea93f23d6631fd34f8dc96577dc691"
     },
     {
       "path": "README.md",
-      "sha256": "980c50fac4395c5c2964a555cd9c1c76d6fc19b3b55db43d721e0c9870a5001b"
+      "sha256": "7849538d243d9f3d1d9e557d13fae9e28d57dbdb21fe95e93803630f37f92ae9"
     },
     {
       "path": "story-map.md",
@@ -36,7 +36,7 @@
     },
     {
       "path": "screens.css",
-      "sha256": "af073d15d31ae9cb16e75600a2f68d26679ed5cdf9ad1dddbec4fb42f731a37b"
+      "sha256": "67a6689fbb74dbeea61336c7da1c2625c13af49280dc32d9ed7ec68245499471"
     },
     {
       "path": "prototype.css",
@@ -82,5 +82,25 @@
       "path": "evidence/s39-szczegoly-zamowienia.png",
       "sha256": "5fa167d4d49cb61c164c5050b869043494f715d74a4270e4eea985654f3e0fb3"
     }
-  ]
+  ],
+  "navigation": {
+    "grouped": true,
+    "groups": [
+      {
+        "id": "backoffice",
+        "label": "Backoffice Anter",
+        "screens": 20
+      },
+      {
+        "id": "portal",
+        "label": "Portal dystrybutora",
+        "screens": 11
+      },
+      {
+        "id": "current",
+        "label": "Stan bieżący",
+        "screens": 8
+      }
+    ]
+  }
 }

@@ -3,13 +3,15 @@
 import * as React from 'react'
 import { useRouter } from 'next/navigation'
 import type { LegacyColumnDef as ColumnDef } from '@tanstack/react-table/legacy'
-import { Package } from 'lucide-react'
+import { Package, Download, RotateCcw } from 'lucide-react'
 import { useT, useLocale } from '@open-mercato/shared/lib/i18n/context'
 import { DataTable } from '@open-mercato/ui'
 import { StatusBadge, type StatusBadgeVariant } from '@open-mercato/ui/primitives/status-badge'
 import { Spinner } from '@open-mercato/ui/primitives/spinner'
+import { Button } from '@open-mercato/ui/primitives/button'
 import { ErrorMessage } from '@open-mercato/ui/backend/detail'
 import { apiCall } from '@open-mercato/ui/backend/utils/apiCall'
+import { flash } from '@open-mercato/ui/backend/FlashMessages'
 import { usePortalContext } from '@open-mercato/ui/portal/PortalContext'
 import { PortalPageHeader } from '@open-mercato/ui/portal/components/PortalPageHeader'
 import { PortalEmptyState } from '@open-mercato/ui/portal/components/PortalEmptyState'
@@ -24,6 +26,7 @@ type OrderRow = {
   grandTotalGrossAmount: number
   partnerReference: string | null
   placedAt: string | null
+  hasInvoice: boolean
 }
 
 type OrderListResponse = { items: OrderRow[]; total: number; page: number; pageSize: number }
@@ -85,6 +88,22 @@ export default function AnterPortalOrdersPage({ params }: Props) {
     }
   }, [user, page, pageSize, t])
 
+  const handleReorder = React.useCallback(async (row: OrderRow, event: React.MouseEvent) => {
+    event.stopPropagation()
+    const res = await apiCall<{ item: unknown }>('/api/anter_portal/cart/reorder', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({ orderId: row.id }),
+    })
+    if (!res.ok) {
+      flash(t('anter_portal.orders.reorderError', 'Could not reorder'), 'error')
+      return
+    }
+    flash(t('anter_portal.orders.reorderSuccess', 'Added to your cart'), 'success')
+    router.push(`/${params.orgSlug}/portal/cart`)
+  }, [t, router, params.orgSlug])
+
   const columns = React.useMemo<ColumnDef<OrderRow>[]>(() => [
     {
       id: 'orderNumber',
@@ -123,7 +142,31 @@ export default function AnterPortalOrdersPage({ params }: Props) {
       cell: ({ row }) => formatMoney(row.original.grandTotalGrossAmount, row.original.currencyCode),
       meta: { maxWidth: 140 },
     },
-  ], [t, locale])
+    {
+      id: 'invoice',
+      header: t('anter_portal.orders.column.invoice', 'Invoice'),
+      // No working download yet: attachments' readScoped() requires a staff
+      // AuthContext, and its own AGENTS.md forbids peer modules reading
+      // Attachment rows directly as a fallback — a portal-safe read path
+      // needs to be added to the attachments module first. This indicates
+      // presence only (per spec: "— otherwise") until that lands.
+      cell: ({ row }) => row.original.hasInvoice
+        ? <Download className="size-4 text-muted-foreground" aria-label={t('anter_portal.orders.invoiceAvailable', 'Invoice available')} />
+        : <span className="text-muted-foreground">—</span>,
+      meta: { maxWidth: 100 },
+    },
+    {
+      id: 'reorder',
+      header: '',
+      cell: ({ row }) => (
+        <Button size="sm" variant="secondary" onClick={(event) => handleReorder(row.original, event)}>
+          <RotateCcw className="mr-1.5 size-3.5" aria-hidden="true" />
+          {t('anter_portal.orders.reorder', 'Ponów')}
+        </Button>
+      ),
+      meta: { maxWidth: 140 },
+    },
+  ], [t, locale, handleReorder])
 
   if (loading) return <div className="flex items-center justify-center py-20"><Spinner /></div>
   if (!user) return null

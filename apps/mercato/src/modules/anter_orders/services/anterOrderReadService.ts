@@ -1,6 +1,6 @@
 import type { EntityManager } from '@mikro-orm/postgresql'
 import { findWithDecryption, findOneWithDecryption } from '@open-mercato/shared/lib/encryption/find'
-import { AnterOrder, AnterOrderLine } from '../data/entities'
+import { AnterInvoice, AnterOrder, AnterOrderLine, AnterShipment, AnterShipmentLine } from '../data/entities'
 
 export type OrderReadScope = { organizationId: string; tenantId: string }
 
@@ -23,6 +23,29 @@ export type OrderLineView = {
   expectedAt: string | null
 }
 
+export type ShipmentView = {
+  id: string
+  shipmentNumber: string
+  sequenceNumber: number
+  status: string
+  carrierName: string | null
+  trackingNumber: string | null
+  waybillAttachmentId: string | null
+  dispatchedAt: string | null
+  deliveredAt: string | null
+  lineIds: string[]
+}
+
+export type InvoiceView = {
+  id: string
+  invoiceNumber: string
+  issuedAt: string
+  netAmount: number
+  grossAmount: number
+  currencyCode: string
+  attachmentId: string | null
+}
+
 export type OrderView = {
   id: string
   orderNumber: string
@@ -43,6 +66,12 @@ export type OrderView = {
   closedAt: string | null
   updatedAt: string
   lines: OrderLineView[]
+  hasInvoice: boolean
+}
+
+export type OrderDetailView = OrderView & {
+  shipments: ShipmentView[]
+  invoice: InvoiceView | null
 }
 
 export type OrderListResult = { items: OrderView[]; total: number; page: number; pageSize: number }
@@ -68,7 +97,7 @@ function toLineView(line: AnterOrderLine): OrderLineView {
   }
 }
 
-function toOrderView(order: AnterOrder, lines: AnterOrderLine[]): OrderView {
+function toOrderView(order: AnterOrder, lines: AnterOrderLine[], hasInvoice: boolean): OrderView {
   return {
     id: order.id,
     orderNumber: order.orderNumber,
@@ -89,12 +118,13 @@ function toOrderView(order: AnterOrder, lines: AnterOrderLine[]): OrderView {
     closedAt: order.closedAt ? order.closedAt.toISOString() : null,
     updatedAt: order.updatedAt.toISOString(),
     lines: lines.map(toLineView),
+    hasInvoice,
   }
 }
 
 export type AnterOrderReadService = {
   listForPartner(scope: OrderReadScope, customerEntityId: string, query: { page: number; pageSize: number }): Promise<OrderListResult>
-  getForPartner(scope: OrderReadScope, customerEntityId: string, orderId: string): Promise<OrderView | null>
+  getForPartner(scope: OrderReadScope, customerEntityId: string, orderId: string): Promise<OrderDetailView | null>
 }
 
 /**
@@ -132,17 +162,19 @@ export function createAnterOrderReadService(deps: { em: EntityManager }): AnterO
         }),
       ])
       const orderIds = orders.map((order) => order.id)
-      const lines = orderIds.length
-        ? await em.find(AnterOrderLine, { orderId: { $in: orderIds } }, { orderBy: { lineNumber: 'asc' } })
-        : []
+      const [lines, invoices] = await Promise.all([
+        orderIds.length ? em.find(AnterOrderLine, { orderId: { $in: orderIds } }, { orderBy: { lineNumber: 'asc' } }) : Promise.resolve([]),
+        orderIds.length ? em.find(AnterInvoice, { orderId: { $in: orderIds } }) : Promise.resolve([]),
+      ])
       const linesByOrder = new Map<string, AnterOrderLine[]>()
       for (const line of lines) {
         const list = linesByOrder.get(line.orderId) ?? []
         list.push(line)
         linesByOrder.set(line.orderId, list)
       }
+      const orderIdsWithInvoice = new Set(invoices.map((invoice) => invoice.orderId))
       return {
-        items: orders.map((order) => toOrderView(order, linesByOrder.get(order.id) ?? [])),
+        items: orders.map((order) => toOrderView(order, linesByOrder.get(order.id) ?? [], orderIdsWithInvoice.has(order.id))),
         total,
         page,
         pageSize,
@@ -158,8 +190,46 @@ export function createAnterOrderReadService(deps: { em: EntityManager }): AnterO
         deletedAt: null,
       }, undefined, { tenantId: scope.tenantId, organizationId: scope.organizationId })
       if (!order) return null
-      const lines = await em.find(AnterOrderLine, { orderId: order.id }, { orderBy: { lineNumber: 'asc' } })
-      return toOrderView(order, lines)
+      const [lines, shipments, invoice] = await Promise.all([
+        em.find(AnterOrderLine, { orderId: order.id }, { orderBy: { lineNumber: 'asc' } }),
+        em.find(AnterShipment, { orderId: order.id }, { orderBy: { sequenceNumber: 'asc' } }),
+        em.findOne(AnterInvoice, { orderId: order.id }, { orderBy: { issuedAt: 'desc' } }),
+      ])
+      const shipmentIds = shipments.map((shipment) => shipment.id)
+      const shipmentLines = shipmentIds.length
+        ? await em.find(AnterShipmentLine, { shipmentId: { $in: shipmentIds } })
+        : []
+      const lineIdsByShipment = new Map<string, string[]>()
+      for (const shipmentLine of shipmentLines) {
+        const list = lineIdsByShipment.get(shipmentLine.shipmentId) ?? []
+        list.push(shipmentLine.orderLineId)
+        lineIdsByShipment.set(shipmentLine.shipmentId, list)
+      }
+
+      return {
+        ...toOrderView(order, lines, invoice != null),
+        shipments: shipments.map((shipment) => ({
+          id: shipment.id,
+          shipmentNumber: shipment.shipmentNumber,
+          sequenceNumber: shipment.sequenceNumber,
+          status: shipment.status,
+          carrierName: shipment.carrierName ?? null,
+          trackingNumber: shipment.trackingNumber ?? null,
+          waybillAttachmentId: shipment.waybillAttachmentId ?? null,
+          dispatchedAt: shipment.dispatchedAt ? shipment.dispatchedAt.toISOString() : null,
+          deliveredAt: shipment.deliveredAt ? shipment.deliveredAt.toISOString() : null,
+          lineIds: lineIdsByShipment.get(shipment.id) ?? [],
+        })),
+        invoice: invoice ? {
+          id: invoice.id,
+          invoiceNumber: invoice.invoiceNumber,
+          issuedAt: invoice.issuedAt.toISOString(),
+          netAmount: Number(invoice.netAmount),
+          grossAmount: Number(invoice.grossAmount),
+          currencyCode: invoice.currencyCode,
+          attachmentId: invoice.attachmentId ?? null,
+        } : null,
+      }
     },
   }
 }

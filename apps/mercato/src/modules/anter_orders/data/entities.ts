@@ -433,6 +433,48 @@ export class AnterShipment {
   updatedAt: Date = new Date()
 }
 
+@Entity({ tableName: 'anter_invoices' })
+@Index({ properties: ['orderId'] })
+export class AnterInvoice {
+  [OptionalProps]?: 'attachmentId' | 'createdAt' | 'updatedAt'
+
+  @PrimaryKey({ type: 'uuid', defaultRaw: 'gen_random_uuid()' })
+  id!: string
+
+  @Property({ name: 'order_id', type: 'uuid' })
+  orderId!: string
+
+  @Property({ name: 'invoice_number', type: 'text' })
+  invoiceNumber!: string
+
+  @Property({ name: 'issued_at', type: Date })
+  issuedAt!: Date
+
+  @Property({ name: 'net_amount', type: 'numeric', precision: 16, scale: 4 })
+  netAmount!: string
+
+  @Property({ name: 'gross_amount', type: 'numeric', precision: 16, scale: 4 })
+  grossAmount!: string
+
+  @Property({ name: 'currency_code', type: 'text' })
+  currencyCode!: string
+
+  @Property({ name: 'attachment_id', type: 'uuid', nullable: true })
+  attachmentId?: string | null
+
+  @Property({ name: 'organization_id', type: 'uuid' })
+  organizationId!: string
+
+  @Property({ name: 'tenant_id', type: 'uuid' })
+  tenantId!: string
+
+  @Property({ name: 'created_at', type: Date, onCreate: () => new Date() })
+  createdAt: Date = new Date()
+
+  @Property({ name: 'updated_at', type: Date, onUpdate: () => new Date() })
+  updatedAt: Date = new Date()
+}
+
 @Entity({ tableName: 'anter_shipment_lines' })
 @Index({ properties: ['shipmentId'] })
 @Index({ properties: ['orderLineId'] })

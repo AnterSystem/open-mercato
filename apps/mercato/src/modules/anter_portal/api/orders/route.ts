@@ -51,6 +51,7 @@ const orderSchema = z.object({
   closedAt: z.string().nullable(),
   updatedAt: z.string(),
   lines: z.array(orderLineSchema),
+  hasInvoice: z.boolean(),
 })
 
 export async function GET(req: Request) {

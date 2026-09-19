@@ -115,6 +115,24 @@ export const anterShipmentDispatchCommandSchema = z.object({
   trackingNumber: z.string().trim().min(1).max(128),
 })
 
+export const anterInvoiceListSchema = paginationSchema.extend({
+  id: z.string().uuid().optional(),
+  orderId: z.string().uuid().optional(),
+  sortField: z.enum(['id', 'order_id', 'issued_at', 'created_at']).optional().default('created_at'),
+  sortDir: z.enum(['asc', 'desc']).optional().default('desc'),
+})
+
+export type AnterInvoiceListQuery = z.infer<typeof anterInvoiceListSchema>
+
+export const anterInvoiceRecordCommandSchema = z.object({
+  orderId: z.string().uuid(),
+  invoiceNumber: z.string().trim().min(1).max(64),
+  issuedAt: z.coerce.date(),
+  netAmount: z.coerce.number().min(0),
+  grossAmount: z.coerce.number().min(0),
+  attachmentId: z.string().uuid().nullable().optional(),
+})
+
 export const anterOrderPlaceLineSchema = z.object({
   productId: z.string().uuid(),
   productVariantId: z.string().uuid().nullable().optional(),

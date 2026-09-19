@@ -16,7 +16,7 @@
   "files": [
     {
       "path": "index.html",
-      "sha256": "9efabf732895985bb740a73b58a455e9a30e5591536c126186684a7e9682ae8c"
+      "sha256": "cc9e2cbc0243cc00dd5525b67ab05c41dc69efc0b27c40d029a0ae814c8e1409"
     },
     {
       "path": "README.md",
@@ -116,7 +116,7 @@
     },
     {
       "path": "evidence/s43-zamowienia.png",
-      "sha256": "02139972036c7bebbae29503b467da5a5824d720039a06a3a77ba1fed2f487aa"
+      "sha256": "cb8caa2c7db0805325cc611550e03b57cba68f7bcd05f7ac213c5ee94a0875e2"
     },
     {
       "path": "evidence/s44-produkcja-lista.png",

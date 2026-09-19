@@ -34,6 +34,33 @@ z partnerem. Powód: są zapisem tego, co już działa, a nie projektem portalu 
 powierzchnią współdzieloną, na której handlowiec Anter i partner pracują na tym samym
 dokumencie. Przypisanie ich do portalu sugerowałoby, że partner widzi tam wszystko.
 
+### Szkolenia rozdzielone od sprzedaży
+
+Decyzja właściciela produktu podjęta w rewizji 2: **moduł szkoleniowy nie ma wpływu na rabat,
+cennik ani typ konta.** Z prototypu zniknęły poziomy certyfikacji partnera (srebrny, złoty),
+bo sama gradacja sugeruje korzyść handlową, nawet gdy nigdzie nie napisano, że rabat od niej
+zależy.
+
+Co konkretnie się zmieniło:
+
+| Miejsce | Przed | Po |
+| --- | --- | --- |
+| Ekran 24, tytuł | „Moduł learning i sygnał do CRM" | „Moduł szkoleniowy" — samodzielny moduł wiedzy |
+| Ekran 24, pasek górny | Odznaka „Poziom: srebrny" | usunięta |
+| Ekran 24, postęp firmy | „Poziom certyfikacji: Srebrny", „Do poziomu złotego: 2 szkolenia" | postęp osób plus zdanie, że nie przekłada się na warunki |
+| Ekran 24, co trafia do CRM | „Poziom certyfikacji firmy · Natychmiast" | wiersz usunięty; ukończone szkolenie przeklasyfikowane na zdarzenie **lekkie** (agregowane) |
+| Ekran 24, „Otwarta kwestia" | pytanie, czy wiązać certyfikację z cennikiem | „Granica modułu" — rozstrzygnięcie, że rabat wynika wyłącznie z umowy |
+| Ekran 16, karta w CRM | „Moduł learning" z poziomem certyfikacji firmy | „Postęp szkoleniowy" — sama kompetencja zespołu |
+| Ekran 34, pulpit | pasek postępu certyfikacji | karta usunięta w całości |
+
+**To odejście od dokumentu źródłowego.** Tabela „Informacje zwrotne z panelu B2B do CRM"
+wiąże ukończone szkolenie z „certyfikacją partnera i poziomem konta" i klasyfikuje je jako
+zdarzenie natychmiastowe. Prototyp już tego nie odwzorowuje. Jeśli decyzja ma być trwała,
+dokument architektury wymaga poprawki w tym wierszu — inaczej oba źródła będą się rozjeżdżać.
+
+Moduł szkoleniowy pozostaje w nawigacji głównej portalu jako samodzielna pozycja (ekran 24),
+razem z materiałami przy produkcie.
+
 Zmienione istniejące ekrany: nawigacja boczna w ekranach 13 i 15 została uspójniona z nowymi
 ekranami (doszły pozycje Pulpit, Katalog i Koszyk; Zamówienia zmieniły ikonę, bo koszyk przejął
 poprzednią), a wiersz ZAM-2026-1140 na ekranie 15 prowadzi teraz do szczegółów zamówienia.
@@ -91,7 +118,7 @@ historyjka dotyka nierozstrzygniętej kwestii, są w niej oznaczone `[DO ROZSTRZ
 | s21 | backoffice | Zerwana integracja z ERP | 4 | US-4.4, stan błędu | s16 |
 | s22 | backoffice | Wycena transportu i zlecenie przewozu | 5 | US-5.1, US-5.2, CC-5 | s23 |
 | s23 | backoffice | Przesyłki i statusy dostawy | 5 | US-5.3 | s22 |
-| s24 | portal | Moduł learning i sygnał do CRM | 6 | US-6.1, US-6.2 | s13, s15, s16 |
+| s24 | portal | Moduł szkoleniowy (samodzielny, bez wpływu na warunki) | 6 | US-6.1, US-6.2 | s13, s15, s16 |
 | s25 | stan bieżący | Konfigurator: warsztat, panel „Projekt" | stan bieżący | US-0.2 | s26, s27, s28 |
 | s26 | stan bieżący | Konfigurator: plan, produkty i zestawienie | stan bieżący | US-2.1, CC-1 | s27, s31 |
 | s27 | stan bieżący | Konfigurator: raport techniczny i BOM | stan bieżący | US-2.4, CC-4 | s26 |
@@ -203,7 +230,7 @@ z odpornością produktów z biblioteki.
 | A-4 | Blokada konta zatrzymuje zamówienia, ale zostawia dostęp do dokumentów i statusów (s17) | Dokument mówi „blokada konta", nie precyzuje zakresu | Decyzja sprzedaży i finansów |
 | A-5 | Progi automatyzacji (spadek obrotu 18%, 15 dni bez ruchu, wartość porzuconej konfiguracji) (s16) | KPI i alerty musiały pokazać konkretne liczby | Dokument nie podaje progów — decyzja sprzedaży |
 | A-6 | Materiał poaudytowy ma strukturę „strefy do zabezpieczenia" wyprowadzoną z notatki (s3) | Trzeba było pokazać, jak materiał staje się pozycjami konfiguratora | Do potwierdzenia z konstruktorami i audytorem |
-| A-7 | Poziomy certyfikacji partnera (srebrny, złoty) (s16, s24) | Moduł learning musiał pokazać, do czego prowadzi postęp | Dokument nie wiąże certyfikacji z typem konta ani cennikiem |
+| ~~A-7~~ | ~~Poziomy certyfikacji partnera (srebrny, złoty) (s16, s24)~~ | **Wycofane w rewizji 2** — decyzja właściciela produktu: szkolenia są rozdzielone od sprzedaży i nie wpływają na rabat. Szczegóły niżej | — |
 | A-8 | Różnica między wyceną wstępną transportu a stawką rzeczywistą jest widoczna, ale nikomu nieprzypisana (s22) | Wycena w ofercie i stawka przewoźnika muszą się różnić | Kto pokrywa różnicę — decyzja sprzedaży |
 | A-9 | Rola „obsługa zapytań" nie widzi kosztu i marży (s12) | Dokument dzieli tryby konfiguratora, ale nie definiuje ról wewnętrznych | Do ustalenia przy projektowaniu uprawnień |
 | A-10 | Nazwy, indeksy, numery i wszystkie dane liczbowe | Ekrany potrzebowały treści | Wszystkie dane są fikcyjne; żadna liczba nie pochodzi z Anter System |
@@ -262,6 +289,7 @@ z odpornością produktów z biblioteki.
 | Wszystkie odnośniki `href="#sN"` wskazują na istniejące ekrany | OK, 0 błędnych |
 | Nawigacja paska pokrywa komplet 39 ekranów, bez duplikatów | OK |
 | Pasek podzielony na trzy grupy (20 + 11 + 8 = 39) | OK |
+| Brak poziomów certyfikacji i sugestii wpływu szkoleń na rabat | OK |
 | Wszystkie użyte ikony mają definicję w sprite, brak nieużywanych | OK |
 | Wszystkie użyte zmienne CSS istnieją w `tokens.css` | OK, 0 brakujących |
 | Brak wartości hex/rgb w znacznikach | OK |

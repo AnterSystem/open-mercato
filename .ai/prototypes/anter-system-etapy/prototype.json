@@ -16,15 +16,15 @@
   "files": [
     {
       "path": "index.html",
-      "sha256": "02117424ce5b5a3d41c86c310f5c627d7d4f83391397bac38f2acce20a339acb"
+      "sha256": "f5f40630438eb37d63d7ac9c2a297d1abc86eccd9f05ed83b7ebc91681190d55"
     },
     {
       "path": "README.md",
-      "sha256": "7849538d243d9f3d1d9e557d13fae9e28d57dbdb21fe95e93803630f37f92ae9"
+      "sha256": "197aba0ba2bba02e90b10cfebfff588ca6cee8fccac39056f25c8e1a78b48380"
     },
     {
       "path": "story-map.md",
-      "sha256": "18b84b92fa9efaedcba9b967e61fc05c88d1038f9986eb985cb2f7c1b0960bde"
+      "sha256": "f4b936f8df07551de18c4aee8d2ec89cd7561f765cfc2ae707583942197de608"
     },
     {
       "path": "tokens.css",
@@ -53,6 +53,14 @@
     {
       "path": "evidence/s13-konfigurator-po-uspojnieniu.png",
       "sha256": "65a64c40ad7f07a6c8fa37ce66c3a51cd947ca008fe9ea0da4c1835ff0786d37"
+    },
+    {
+      "path": "evidence/s16-karta-partnera.png",
+      "sha256": "a226723442da55034691ef6fc494b2dfcf76c618a0941937012eb7c39d5be435"
+    },
+    {
+      "path": "evidence/s24-modul-szkoleniowy.png",
+      "sha256": "5d58796f7f5bba32802f6fef08bf0f7b4e17b6d853baf8a4549ce30d92880524"
     },
     {
       "path": "evidence/s33-logowanie.png",

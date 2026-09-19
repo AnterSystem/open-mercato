@@ -250,12 +250,17 @@ kart, rysunków i certyfikatów, żeby nie pytać handlowca o podstawy.
 - Materiały są powiązane bezpośrednio z rekordem w bazie produktów, żeby treści nie żyły osobnym życiem.
 - Postęp jest zapisywany per osoba i widoczny dla firmy partnera.
 
-**US-6.2** · Jako opiekun chcę widzieć postęp szkoleniowy partnera w CRM, żeby oprzeć
-na nim poziom konta i certyfikację.
+**US-6.2** · Jako opiekun chcę widzieć postęp szkoleniowy partnera w CRM, żeby wiedzieć,
+kto w jego zespole zna produkt, i dobrać do tego sposób rozmowy.
 
-- Ukończone szkolenie trafia do CRM jako postęp osoby i firmy.
+- Ukończone szkolenie trafia do CRM jako postęp osoby i firmy, jako zdarzenie lekkie (agregowane, CC-6).
 - Pobranie karty produktu lub rysunku jest sygnałem sprzedażowym widocznym na karcie partnera (agregowanym, CC-6).
-- `[DO ROZSTRZYGNIĘCIA]` Powiązanie poziomu certyfikacji z typem konta i cennikiem nie jest opisane w dokumencie źródłowym.
+- Postęp szkoleniowy jest informacją o kompetencji, nie warunkiem handlowym: nie zmienia rabatu, cennika ani typu konta.
+
+> **Rozstrzygnięte w rewizji 2 przez właściciela produktu:** szkolenia są rozdzielone od
+> sprzedaży. Moduł nie ma poziomów certyfikacji partnera. Decyzja odchodzi od dokumentu
+> źródłowego, który w tabeli zdarzeń zwrotnych wiązał ukończone szkolenie z „certyfikacją
+> partnera i poziomem konta" — jeśli dokument ma zostać zaktualizowany, to jest to miejsce.
 
 ## Luki w pokryciu, które warto domknąć w iteracji
 

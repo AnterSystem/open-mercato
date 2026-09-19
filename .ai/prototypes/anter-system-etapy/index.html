@@ -1995,7 +1995,7 @@
 
   <div class="notes">
     <div class="note"><b>1</b><span>Sześć statusów odpowiada tabeli statusów zwrotnych z dokumentu. Widoczność w panelu jest węższa niż w CRM i to rozróżnienie jest tu widoczne.</span></div>
-    <div class="note"><b>2</b><span>Lista pokazuje wyłącznie fakturę, bo tylko po nią partner wraca do historii zamówień. Przycisk pojawia się dopiero wtedy, gdy faktura istnieje, czyli po wysyłce — wcześniej komórka jest pusta, zamiast oferować pobranie dokumentu, którego nie ma. Pozostałe dokumenty (oferta, list przewozowy) są w szczegółach zamówienia (ekran 39).</span></div>
+    <div class="note"><b>2</b><span>Lista pokazuje wyłącznie fakturę, bo tylko po nią partner wraca do historii zamówień. Przycisk pojawia się dopiero wtedy, gdy faktura istnieje, czyli po wysyłce — wcześniej komórka jest pusta, zamiast oferować pobranie dokumentu, którego nie ma. Pozostałe dokumenty (listy przewozowe, a przy zamówieniach wycenianych także oferta) są w szczegółach zamówienia (ekran 39).</span></div>
     <div class="note"><b>3</b><span>„Ponów" przy każdym wierszu <span class="strong">dodaje pozycje tego zamówienia do koszyka</span> w tych samych ilościach i przenosi partnera do koszyka. Nie składa zamówienia od razu: ceny mogły się zmienić, a ilości bywają inne przy kolejnym razie. Ta sama akcja jest w szczegółach zamówienia (ekran 39).</span></div>
     <div class="note"><b>4</b><span>Akcja jest dostępna przy każdym zamówieniu, także tym w produkcji i oczekującym na komponent. Powtórzenie zamówienia nie zależy od tego, czy poprzednie zostało już dostarczone.</span></div>
   </div>
@@ -4772,7 +4772,7 @@ ul. Przemysłowa 44
           <div class="page-head">
             <div>
               <h1 class="t-page-title">ZAM-2026-1140</h1>
-              <p>Złożone 28.08.2026 · Twój numer <span class="t-mono">ST/2026/08/097</span></p>
+              <p>Złożone 28.08.2026 · Twój numer <span class="t-mono">ST/2026/08/097</span> · <span class="badge badge-neutral">z katalogu</span></p>
               <p class="t-hint" style="margin:0.25rem 0 0">„Ponów zamówienie" dodaje wszystkie pozycje tego zamówienia do koszyka w tych samych ilościach. Zamówienie składasz dopiero z koszyka, po sprawdzeniu cen i ilości.</p>
             </div>
             <div class="page-actions">
@@ -4845,7 +4845,6 @@ ul. Przemysłowa 44
                 <div class="card-head"><span class="t-card-title">Dokumenty</span></div>
                 <div class="card-body">
                   <div class="stack-2">
-                    <div class="row between"><span class="row"><svg style="width:1rem;height:1rem;color:var(--muted-foreground)"><use href="#ic-file"/></svg> <span class="t-body">Oferta ODF-2026-0412</span></span><button class="btn btn-ghost btn-xs"><svg><use href="#ic-download"/></svg> Pobierz</button></div>
                     <div class="row between"><span class="row"><svg style="width:1rem;height:1rem;color:var(--muted-foreground)"><use href="#ic-file"/></svg> <span class="t-body">Faktura</span></span><span class="t-hint">po wysyłce</span></div>
                     <div class="row between"><span class="row"><svg style="width:1rem;height:1rem;color:var(--muted-foreground)"><use href="#ic-truck"/></svg> <span class="t-body">List przewozowy · przesyłka 1</span></span><button class="btn btn-ghost btn-xs"><svg><use href="#ic-download"/></svg> Pobierz</button></div>
                     <div class="row between"><span class="row"><svg style="width:1rem;height:1rem;color:var(--muted-foreground)"><use href="#ic-truck"/></svg> <span class="t-hint">List przewozowy · przesyłka 2</span></span><span class="t-hint">po wysyłce</span></div>
@@ -4901,8 +4900,9 @@ ul. Przemysłowa 44
     <div class="note"><b>1</b><span>To zamówienie jest po decyzji o wysyłce częściowej z ekranu 41: dwie pozycje pojechały 19.09, bariera czeka na komponent. Dlatego „wysłane częściowo" ma kolor ostrzegawczy, a nie sukcesu — <span class="strong">wysyłka nie jest tu stanem końcowym</span>. Zamówienie domknie się dopiero po nadaniu ostatniej pozycji.</span></div>
     <div class="note"><b>2</b><span>Napięty przypadek z ekranu 15 pozostaje: status „oczekuje na komponent" z terminem, ale bez przyczyny. Dokument dopuszcza go w panelu „opcjonalnie, z terminem", co jest w napięciu z zasadą, że ERP jest wyłącznie wewnętrzny (CC-2).</span></div>
     <div class="note"><b>3</b><span>Statusy pozycji („Gotowe" / „Oczekuje") są <span class="strong">założeniem</span> (A-20). Ujawniają więcej niż status całego zamówienia i mogą naruszać granicę wewnętrzności ERP. Alternatywa: pokazywać status wyłącznie na poziomie zamówienia. Decyzja do podjęcia razem z zakresem statusów zwrotnych.</span></div>
-    <div class="note"><b>4</b><span>Korekta pozycji w podsumowaniu wartości nie ma w dokumencie modelu — pokazuje tylko, że wartość końcowa potrafi odbiegać od złożonego zamówienia. Skąd bierze się korekta i kto ją zatwierdza, pozostaje nierozstrzygnięte.</span></div>
-    <div class="note"><b>5</b><span>„Ponów zamówienie" <span class="strong">dodaje pozycje tego zamówienia do koszyka</span> w tych samych ilościach — nie składa zamówienia od razu. Partner trafia do koszyka, gdzie może zmienić ilości, usunąć pozycję i sprawdzić aktualne ceny, bo te mogły się zmienić od poprzedniego razu. Ta sama akcja jest na liście zamówień (ekran 15) i na pulpicie, w sekcji „Zamów ponownie" (ekran 34) — tyle że tam działa na pojedynczych pozycjach, a nie na całym zamówieniu.</span></div>
+    <div class="note"><b>4</b><span><span class="strong">Zamówienie złożone z katalogu nie ma oferty</span> i dlatego nie ma jej na liście dokumentów. Partner zamawia po cenie cennikowej wynikającej ze swojego rabatu, więc nie ma czego wyceniać ani zatwierdzać. Oferta powstaje tylko tam, gdzie cena wymaga ustalenia: konfiguracja niestandardowa, wycena konstruktora, zapytanie z konta bez cen. Dokument architektury wymienia ofertę wśród dokumentów zamówienia bez rozróżnienia ścieżki — to rozróżnienie jest decyzją właściciela produktu.</span></div>
+    <div class="note"><b>5</b><span>Korekta pozycji w podsumowaniu wartości nie ma w dokumencie modelu — pokazuje tylko, że wartość końcowa potrafi odbiegać od złożonego zamówienia. Skąd bierze się korekta i kto ją zatwierdza, pozostaje nierozstrzygnięte.</span></div>
+    <div class="note"><b>6</b><span>„Ponów zamówienie" <span class="strong">dodaje pozycje tego zamówienia do koszyka</span> w tych samych ilościach — nie składa zamówienia od razu. Partner trafia do koszyka, gdzie może zmienić ilości, usunąć pozycję i sprawdzić aktualne ceny, bo te mogły się zmienić od poprzedniego razu. Ta sama akcja jest na liście zamówień (ekran 15) i na pulpicie, w sekcji „Zamów ponownie" (ekran 34) — tyle że tam działa na pojedynczych pozycjach, a nie na całym zamówieniu.</span></div>
   </div>
 </section>
 

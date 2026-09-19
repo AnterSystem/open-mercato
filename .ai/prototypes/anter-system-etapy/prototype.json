@@ -16,11 +16,11 @@
   "files": [
     {
       "path": "index.html",
-      "sha256": "8857e30fe355e3593ac9b19efd2e9580edcbcdf5926ae69bb4b7170e6b96ae78"
+      "sha256": "f95999e3ddad360bcac472233ceb22219cd0a0f163ba767258953a89b8ac384c"
     },
     {
       "path": "README.md",
-      "sha256": "da373c55b56e7b89c4f91da1994be39ebb72d2adba3d12ec53eee81b432b312a"
+      "sha256": "ec1c6396c22acf817381f499ecec34fff39269a09d5f88fdc62076e85e439c2f"
     },
     {
       "path": "story-map.md",
@@ -96,7 +96,7 @@
     },
     {
       "path": "evidence/s39-szczegoly-zamowienia.png",
-      "sha256": "830cabe436acb7f30a8d4d708586f5e60698c2c7343155569d80075888d809c3"
+      "sha256": "74e070bdddadc0a9f27fa6de1014b9ed5962ba593387ff011a2ec112f84898f5"
     },
     {
       "path": "evidence/s40-zwolnienia-kolejka.png",

@@ -96,6 +96,20 @@ rozstrzygnięcie), a 15, 34 i 39 jej skutek kilka dni później. To celowe przed
 zamówieniu, nie rozjazd danych. Ekran 21 trzyma status sprzed wysyłki (17.09), bo ilustruje
 kolejkę zdarzeń zablokowanych przez zerwaną integrację.
 
+### Oferta tylko poza ścieżką katalogową
+
+**Zamówienie złożone bezpośrednio z katalogu nie generuje pliku z ofertą.** Partner zamawia
+po cenie cennikowej wynikającej ze swojego rabatu, więc nie ma czego wyceniać ani zatwierdzać.
+Oferta powstaje wyłącznie tam, gdzie cena wymaga ustalenia: konfiguracja niestandardowa,
+wycena konstruktora, zapytanie z konta bez cen, temat prowadzony przez handlowca.
+
+W prototypie widać to na ekranie 39: zamówienie oznaczone jako „z katalogu" ma w dokumentach
+fakturę i listy przewozowe, bez oferty. Potwierdzenie idzie mailem przy złożeniu.
+
+Dokument architektury wymienia ofertę wśród dokumentów zamówienia bez rozróżnienia ścieżki,
+więc sam go nie rozstrzyga — **to decyzja właściciela produktu z 2026-09-19.** Jeśli ma być
+trwała, warto dopisać rozróżnienie do dokumentu.
+
 ### Ponowienie zamówienia jako akcja koszyka
 
 **„Ponów zamówienie" dodaje pozycje zamówienia do koszyka** w tych samych ilościach i przenosi

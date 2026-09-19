@@ -26,7 +26,7 @@ różnych powierzchni i mieszanie ich w jednej liście zacierało granicę:
 | Grupa | Ekrany | Co to jest |
 | --- | --- | --- |
 | Backoffice Anter | 24 | Wnętrze firmy: CRM, baza produktów, konfigurator wewnętrzny, ERP, transport |
-| Portal dystrybutora | 12 | Powierzchnia partnerska — jedyne ekrany widziane spoza Anter System (wyróżnione obwódką) |
+| Portal dystrybutora | 13 | Powierzchnia partnerska — jedyne ekrany widziane spoza Anter System (wyróżnione obwódką) |
 | Stan bieżący | 8 | Odtworzenie działającej aplikacji Anter Site Configurator, nie propozycja projektowa |
 
 **Pasek śledzi bieżący ekran.** Wpis odpowiadający oglądanemu ekranowi jest podświetlony
@@ -120,8 +120,20 @@ Na ekranie 9 widać to wprost: element 5 (bariera zewnętrzna H2) jest narysowan
 przerywaną, bo jest poza cennikiem Stalmont. Pracownik może go dodać; partner otwierając ten
 sam projekt zobaczy pozycję do wyceny, nie cenę.
 
-Trzeci tryb — konto bez cen — to ten sam konfigurator z ukrytą całą kolumną cenową
-i zapytaniem o wycenę zamiast zamówienia (ekran 14).
+**Trzeci tryb — konto bez cen — ma pełny dostęp do konfiguratora** (ekran 14) i do katalogu
+(ekran 45). Partner rysuje po planie, dostaje to samo zestawienie z geometrii i tę samą listę
+produktów; znika wyłącznie kolumna z ceną i wartość projektu, a zamiast koszyka jest zapytanie
+o wycenę. Terminy dostępności zostają widoczne, bo nie ujawniają cennika — ukrycie ich
+utrudniłoby partnerowi planowanie, nie chroniąc żadnej informacji handlowej.
+
+Katalog bez cen (45) to ten sam katalog co ekran 35 z usuniętymi dwiema kolumnami cenowymi.
+W ich miejsce wchodzi kolumna **Parametry**: bez cen partner potrzebuje innego kryterium
+porównania produktów. Wariant z cenami pozostaje bez zmian.
+
+**Widoczność cen i wysokość rabatu ustawia opiekun na karcie partnera** — ekran 17, sekcje
+„Typ konta i widoczność cen" (pełne / bez cen / podgląd) oraz „Rabaty per grupa produktowa"
+z datą obowiązywania. Przełączenie konta na „pełne" odsłania kolumny cenowe i koszyk, nie
+zmieniając niczego innego: to ten sam katalog i ten sam konfigurator.
 
 **Podkład pochodzi z planów testowych** (`plany-testowe/`, trzy rysunki AS-TEST-01…03:
 magazyn wysokiego składowania, hala produkcyjna, terminal cross-dock). Każdy ma sekcję
@@ -311,7 +323,7 @@ historyjka dotyka nierozstrzygniętej kwestii, są w niej oznaczone `[DO ROZSTRZ
 | s11 | backoffice | Wycena i wyjście konfiguratora | 2 | US-2.4, CC-4 | s3, s9 |
 | s12 | backoffice | Wycena bez uprawnienia do kosztu i marży | 2 | US-2.2, brak uprawnień | — |
 | s13 | portal | Panel B2B — konfigurator na planie obiektu | 3 | US-3.1, US-2.1, CC-1 | s37, s34, s35 |
-| s14 | portal | Panel B2B — konto bez cen, zapytanie o wycenę | 3 | US-3.2 | s24 |
+| s14 | portal | Panel B2B — konto bez cen (konfigurator bez wyceny) | 3 | US-3.2, CC-6 | s15, s45 |
 | s15 | portal | Panel B2B — zamówienia i statusy z ERP | 3 | US-3.3, CC-2 | s13 |
 | s16 | backoffice | Karta partnera w CRM — pętla zwrotna | 3 | US-3.4, US-3.5, CC-6 | s17 |
 | s17 | backoffice | Warunki handlowe — z CRM do panelu | 3 | US-3.6, CC-3 | s16 |
@@ -340,6 +352,7 @@ historyjka dotyka nierozstrzygniętej kwestii, są w niej oznaczone `[DO ROZSTRZ
 | s40 | backoffice | Zwolnienie do wysyłki — kolejka | 5 | US-5.3, US-5.4 | s41, s22 |
 | s41 | backoffice | Wysyłka częściowa — wybór pozycji | 5 | US-5.4, CC-2, CC-5 | s22, s40 |
 | s42 | portal | Katalog w widoku kafli | 3 | US-3.7, CC-1, CC-3 | s35, s36, s37, s13 |
+| s45 | portal | Katalog na koncie bez cen | 3 | US-3.2, CC-3 | s14, s36 |
 | s43 | backoffice | Backoffice — zamówienia (nagłówki) | 4 | US-4.1, US-4.5 | s44 |
 | s44 | backoffice | Produkcja — lista zamówień z pozycjami | 4 | US-4.1, US-4.5, CC-1, CC-7 | s18, s19, s41 |
 
@@ -502,7 +515,7 @@ z odpornością produktów z biblioteki.
 | Wszystkie cele `data-goto` wskazują na istniejące ekrany | OK, 0 błędnych |
 | Wszystkie odnośniki `href="#sN"` wskazują na istniejące ekrany | OK, 0 błędnych |
 | Nawigacja paska pokrywa komplet 39 ekranów, bez duplikatów | OK |
-| Pasek podzielony na trzy grupy (24 + 12 + 8 = 44) | OK |
+| Pasek podzielony na trzy grupy (24 + 13 + 8 = 45) | OK |
 | Podświetlenie bieżącego ekranu: wejście z adresu, przejście w mockupie, przewijanie | OK |
 | Brak poziomów certyfikacji i sugestii wpływu szkoleń na rabat | OK |
 | Status wysyłki częściowej spójny w liście, pulpicie i szczegółach zamówienia | OK |

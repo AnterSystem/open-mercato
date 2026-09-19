@@ -89,10 +89,10 @@
       </div>
     </div>
     <div class="nav-section nav-section-portal">
-      <span class="nav-section-label">Portal dystrybutora <span class="nav-section-count">· 12</span></span>
+      <span class="nav-section-label">Portal dystrybutora <span class="nav-section-count">· 13</span></span>
       <div class="nav-section-links">
         <a href="#s13">3 · Konfigurator B2B</a>
-        <a href="#s14">3 · B2B bez cen</a>
+        <a href="#s14">3 · Konfigurator bez cen</a>
         <a href="#s15">3 · B2B statusy</a>
         <a href="#s24">6 · Learning</a>
         <a href="#s33">3 · Logowanie</a>
@@ -103,6 +103,7 @@
         <a href="#s38">3 · Zamówienie złożone</a>
         <a href="#s39">3 · Szczegóły zamówienia</a>
         <a href="#s42">3 · Katalog kafle</a>
+        <a href="#s45">3 · Katalog bez cen</a>
       </div>
     </div>
     <div class="nav-section">
@@ -2051,75 +2052,188 @@
 
 <section class="screen" id="s14">
   <div class="screen-meta">
-    <h2>14. Panel B2B — konto bez cen wysyła zapytanie</h2>
-    <p>Ten sam konfigurator, ukryte ceny. Partner składa specyfikację, a wycenę robi handlowiec — nie odtwarzając jej z opisu w mailu.</p>
-    <div class="screen-refs"><span class="ref">§Platforma B2B → Typy kont</span><span class="ref">US-3.2</span><span class="ref">CC-6</span></div>
+    <h2>14. Panel B2B — konto bez cen</h2>
+    <p>Ten sam konfigurator i ten sam katalog co na koncie pełnym, tyle że bez żadnej ceny. Partner rysuje na planie i wysyła specyfikację, wycenę robi handlowiec — nie odtwarzając jej z opisu w mailu.</p>
+    <div class="screen-refs"><span class="ref">§Platforma B2B → Typy kont</span><span class="ref">US-3.2</span><span class="ref">CC-6</span><span class="ref">powierzchnia portalowa</span></div>
   </div>
 
   <div class="frame">
     <div class="frame-bar">
       <div class="frame-dots"><i></i><i></i><i></i></div>
-      <span class="frame-url">/panel/konfigurator</span>
+      <span class="frame-url">/panel/konfigurator/AS-TEST-02</span>
     </div>
-    <div class="app app-narrow">
+    <div class="app app-tall">
       <aside class="sidebar">
-        <div class="sidebar-brand"><span class="brand-mark">PH</span> <span class="ellipsis">Portum Handel s.r.o.</span></div>
+        <div class="sidebar-brand"><span class="brand-mark">PX</span> <span class="ellipsis">Profilex Sp.j.</span></div>
         <div class="sidebar-search"><svg><use href="#ic-search"/></svg> Szukaj</div>
         <nav class="sidebar-nav">
+          <div class="nav-items">
+            <a class="nav-item" href="#s34" data-goto="s34"><svg><use href="#ic-home"/></svg> Pulpit</a>
+          </div>
           <div class="nav-group"><span>Zamawianie</span><svg><use href="#ic-chevron-down"/></svg></div>
           <div class="nav-items">
+            <a class="nav-item" href="#s45" data-goto="s45"><svg><use href="#ic-box"/></svg> Katalog</a>
             <span class="nav-item active"><svg><use href="#ic-sliders"/></svg> Konfigurator</span>
-            <span class="nav-item"><svg><use href="#ic-mail"/></svg> Moje zapytania <span class="count">5</span></span>
+            <a class="nav-item" href="#s15" data-goto="s15"><svg><use href="#ic-clock"/></svg> Zapytania <span class="count">6</span></a>
+            <span class="nav-item"><svg><use href="#ic-file"/></svg> Dokumenty</span>
           </div>
           <div class="nav-group"><span>Wiedza</span><svg><use href="#ic-chevron-down"/></svg></div>
           <div class="nav-items">
             <a class="nav-item" href="#s24" data-goto="s24"><svg><use href="#ic-book"/></svg> Szkolenia</a>
+            <span class="nav-item"><svg><use href="#ic-download"/></svg> Materiały</span>
           </div>
+          <div class="sidebar-foot"><span class="t-hint">Opiekun: Tomasz Rej</span></div>
         </nav>
       </aside>
       <div class="main">
         <header class="topbar">
-          <div class="topbar-left"><div class="crumbs"><svg><use href="#ic-home"/></svg><svg><use href="#ic-chevron-right"/></svg><span class="here">Konfigurator</span></div></div>
-          <div class="topbar-right"><span class="badge badge-warning"><span class="dot"></span> Konto bez cen</span><span class="avatar">JN</span></div>
+          <div class="topbar-left"><div class="crumbs"><svg><use href="#ic-home"/></svg><svg><use href="#ic-chevron-right"/></svg><span>Konfigurator</span><svg><use href="#ic-chevron-right"/></svg><span class="here">AS-TEST-02</span></div></div>
+          <div class="topbar-right">
+            <span class="badge badge-info"><span class="dot"></span> Konto bez cen</span>
+            <span class="avatar">JW</span>
+          </div>
         </header>
         <main class="page">
           <div class="page-head">
-            <div><h1 class="t-page-title">Zapytanie o wycenę</h1><p>Złóż specyfikację, a opiekun przygotuje wycenę wg Twojej umowy.</p></div>
-            <div class="page-actions"><button class="btn btn-primary"><svg><use href="#ic-mail"/></svg> Wyślij zapytanie</button></div>
+            <div>
+              <h1 class="t-page-title">Hala produkcyjna Beta — ciąg pieszy</h1>
+              <p>Podkład <span class="t-mono">AS-TEST-02</span> · hala produkcyjna · skala 1:200</p>
+            </div>
+            <div class="page-actions">
+              <button class="btn btn-outline"><svg><use href="#ic-save"/></svg> Zapisz projekt</button>
+              <button class="btn btn-primary" data-goto="s15"><svg><use href="#ic-mail"/></svg> Wyślij zapytanie o wycenę</button>
+            </div>
           </div>
 
           <div class="alert alert-info">
             <svg><use href="#ic-info"/></svg>
-            <div><div class="alert-title">Twoje konto nie pokazuje cen</div><p class="t-hint" style="margin:0">Specyfikacja techniczna jest pełna i trafia do opiekuna razem z zapytaniem. Odpowiedź dostajesz jako ofertę. O zmianę typu konta poproś opiekuna: Marta Kowalczyk.</p></div>
-          </div>
-
-          <div class="card">
-            <div class="card-head"><span class="t-card-title">Specyfikacja</span><button class="btn btn-outline btn-sm"><svg><use href="#ic-plus"/></svg> Dodaj pozycję</button></div>
-            <div class="card-body">
-              <table class="table">
-                <thead><tr><th>Indeks</th><th>Pozycja</th><th>Wariant</th><th class="right">Ilość</th><th style="width:0"></th></tr></thead>
-                <tbody>
-                  <tr><td class="t-mono">BRM-SLD-4000</td><td>Brama przesuwna samonośna</td><td>4 000 × 1 800 · RAL 9005 · fundament ciągły</td><td class="right num">2</td><td class="right"><button class="btn-icon btn-sm" aria-label="Edytuj"><svg><use href="#ic-pencil"/></svg></button></td></tr>
-                  <tr><td class="t-mono">NAP-EM-800</td><td>Napęd elektromechaniczny <span class="badge badge-warning">dobrany</span></td><td>800 W</td><td class="right num">2</td><td class="right"><button class="btn-icon btn-sm" aria-label="Edytuj"><svg><use href="#ic-pencil"/></svg></button></td></tr>
-                  <tr><td class="t-mono">SLP-ODB-273</td><td>Słupek odbojowy fi 273</td><td>H 1 200 · ocynk</td><td class="right num">14</td><td class="right"><button class="btn-icon btn-sm" aria-label="Edytuj"><svg><use href="#ic-pencil"/></svg></button></td></tr>
-                </tbody>
-              </table>
+            <div>
+              <div class="alert-title">Twoje konto nie pokazuje cen</div>
+              <p class="t-hint" style="margin:0">Możesz rysować, zapisywać projekty i wysyłać zapytania. Wycenę przygotuje Tomasz Rej na podstawie tej specyfikacji — zwykle w ciągu dwóch dni roboczych. O ceny w panelu pytaj swojego opiekuna.</p>
             </div>
           </div>
 
-          <div class="card card-pad stack-3" style="margin-top:0.75rem">
-            <span class="t-card-title">Kontekst dla opiekuna</span>
-            <div class="field"><label for="b2-uwagi">Uwagi</label><textarea class="textarea" id="b2-uwagi" rows="2">Klient końcowy: zakład w Ostrawie. Termin dostawy do połowy listopada. Proszę o wariant z dostawą na plac budowy.</textarea></div>
-            <div class="field"><label for="b2-termin">Oczekiwany termin</label><input class="input" id="b2-termin" value="15.11.2026" /></div>
+          <div class="dt-toolbar" style="border:0;padding-top:0.75rem">
+            <div class="dt-toolbar-row">
+              <div class="segmented" role="group" aria-label="Narzędzie">
+                <button type="button" aria-selected="false"><svg><use href="#ic-target"/></svg> Wybierz</button>
+                <button type="button" aria-selected="true"><svg><use href="#ic-pencil"/></svg> Rysuj</button>
+                <button type="button" aria-selected="false"><svg><use href="#ic-move"/></svg> Przesuń</button>
+              </div>
+              <span class="chip chip-active">Przyciąganie do siatki <svg><use href="#ic-x"/></svg></span>
+              <div class="dt-toolbar-right">
+                <button class="btn btn-outline btn-sm"><svg><use href="#ic-ruler"/></svg> Ustal skalę</button>
+                <button class="btn btn-outline btn-sm"><svg><use href="#ic-download"/></svg> Wgraj inny podkład</button>
+              </div>
+            </div>
           </div>
 
-          <div class="card card-pad stack-3" style="margin-top:0.75rem">
-            <span class="t-card-title">Konto typu podgląd — dla porównania</span>
-            <div class="empty">
-              <span class="empty-icon"><svg><use href="#ic-lock"/></svg></span>
-              <p class="t-card-title">Konfigurator niedostępny</p>
-              <p class="t-hint" style="max-width:44ch">Konto typu podgląd daje dostęp wyłącznie do materiałów i szkoleń. Żeby składać zapytania, poproś opiekuna o rozszerzenie konta.</p>
-              <button class="btn btn-outline btn-sm" type="button"><svg><use href="#ic-mail"/></svg> Napisz do opiekuna</button>
+          <div class="split split-side">
+            <div class="stack-3">
+              <div class="card">
+                <div class="card-head"><span class="t-card-title">Rzut obiektu</span><span class="t-hint">kliknij produkt, potem rysuj na planie</span></div>
+                <div class="card-body">
+                  <svg viewBox="0 0 900 480" role="img" aria-label="Rzut hali produkcyjnej z naniesionymi zabezpieczeniami" style="width:100%;height:auto;background:var(--card);border:1px solid var(--border);border-radius:var(--radius-md)">
+                    <defs>
+                      <pattern id="siatka-bc" width="30" height="30" patternUnits="userSpaceOnUse">
+                        <path d="M 30 0 L 0 0 0 30" fill="none" stroke="var(--border)" stroke-width="0.5" />
+                      </pattern>
+                    </defs>
+                    <rect x="0" y="0" width="900" height="480" fill="url(#siatka-bc)" />
+                    <rect x="40" y="30" width="820" height="400" fill="none" stroke="var(--foreground)" stroke-width="6" />
+
+                    <g fill="var(--muted)" stroke="var(--border)" stroke-width="1.5">
+                      <rect x="90" y="70" width="180" height="110" /><rect x="320" y="70" width="180" height="110" />
+                      <rect x="550" y="70" width="180" height="110" />
+                      <rect x="90" y="290" width="180" height="110" /><rect x="320" y="290" width="180" height="110" />
+                    </g>
+                    <text x="100" y="130" font-size="11" fill="var(--muted-foreground)">Gniazdo obróbcze 1</text>
+                    <text x="330" y="130" font-size="11" fill="var(--muted-foreground)">Gniazdo obróbcze 2</text>
+                    <text x="560" y="130" font-size="11" fill="var(--muted-foreground)">Prasa krawędziowa</text>
+                    <text x="100" y="350" font-size="11" fill="var(--muted-foreground)">Spawalnia</text>
+                    <text x="330" y="350" font-size="11" fill="var(--muted-foreground)">Malarnia proszkowa</text>
+
+                    <rect x="40" y="200" width="820" height="70" fill="var(--muted)" opacity="0.5" />
+                    <text x="600" y="240" font-size="12" fill="var(--muted-foreground)">Ciąg pieszy i transportowy · szer. 350</text>
+
+                    <g stroke="var(--status-warning-icon)" stroke-width="7" stroke-linecap="round">
+                      <line x1="90" y1="196" x2="730" y2="196" />
+                      <line x1="90" y1="276" x2="500" y2="276" />
+                    </g>
+                    <text x="92" y="188" font-size="12" font-weight="600" fill="var(--status-warning-icon)">1 · GB-200 · bariera 42 mb</text>
+
+                    <g fill="var(--status-info-icon)">
+                      <rect x="286" y="192" width="24" height="82" rx="3" />
+                      <rect x="516" y="192" width="24" height="82" rx="3" />
+                    </g>
+                    <text x="300" y="300" font-size="12" font-weight="600" fill="var(--status-info-text)">2 · BRK-UCH-1200 · bramki 2 szt.</text>
+
+                    <g fill="none" stroke="var(--status-error-icon)" stroke-width="3">
+                      <circle cx="285" cy="190" r="11" /><circle cx="515" cy="190" r="11" />
+                      <circle cx="745" cy="190" r="11" />
+                      <circle cx="285" cy="282" r="11" /><circle cx="515" cy="282" r="11" />
+                    </g>
+                    <text x="600" y="316" font-size="12" font-weight="600" fill="var(--status-error-icon)">3 · RAL-X3 · osłony słupów 5 szt.</text>
+                  </svg>
+                  <div class="row between" style="margin-top:0.75rem">
+                    <span class="t-hint">3 grupy elementów · 49 sztuk i metrów bieżących</span>
+                    <span class="row"><button class="btn btn-ghost btn-xs">− 100% +</button><button class="btn btn-outline btn-xs">Dopasuj</button><button class="btn btn-ghost btn-xs">Cofnij ostatni</button></span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-head"><span class="t-card-title">Produkty z katalogu</span><span class="badge badge-info">bez cen</span></div>
+                <div class="card-body">
+                  <table class="table">
+                    <thead><tr><th>Produkt</th><th>Rysowanie</th><th>Dostępność</th><th style="width:0"></th></tr></thead>
+                    <tbody>
+                      <tr><td><span class="strong">Bariera wewnętrzna GB-200</span><br /><span class="t-mono t-hint">GB-200</span></td><td><span class="badge badge-neutral">linia</span></td><td><span class="badge badge-success"><span class="dot"></span> z magazynu</span></td><td><button class="btn btn-outline btn-xs"><svg><use href="#ic-pencil"/></svg> Rysuj</button></td></tr>
+                      <tr><td><span class="strong">Osłona słupa RAL Column Guard</span><br /><span class="t-mono t-hint">RAL-X3</span></td><td><span class="badge badge-neutral">punkt</span></td><td><span class="badge badge-success"><span class="dot"></span> z magazynu</span></td><td><button class="btn btn-outline btn-xs"><svg><use href="#ic-pencil"/></svg> Rysuj</button></td></tr>
+                      <tr><td><span class="strong">Słupek odbojowy Ø108</span><br /><span class="t-mono t-hint">SLP-ODB-108</span></td><td><span class="badge badge-neutral">punkt</span></td><td><span class="badge badge-success"><span class="dot"></span> z magazynu</span></td><td><button class="btn btn-outline btn-xs"><svg><use href="#ic-pencil"/></svg> Rysuj</button></td></tr>
+                      <tr><td><span class="strong">Bramka uchylna jednoskrzydłowa</span><br /><span class="t-mono t-hint">BRK-UCH-1200</span></td><td><span class="badge badge-neutral">wstawka</span></td><td><span class="badge badge-success"><span class="dot"></span> 18 dni rob.</span></td><td><button class="btn btn-outline btn-xs"><svg><use href="#ic-pencil"/></svg> Rysuj</button></td></tr>
+                    </tbody>
+                  </table>
+                  <p class="t-hint" style="margin:0.75rem 0 0">Ten sam katalog co na koncie pełnym, bez kolumny z ceną. Terminy dostępności są widoczne, bo nie ujawniają cennika.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="stack-3">
+              <div class="card card-pad stack-3">
+                <span class="t-card-title">Zestawienie</span>
+                <div class="stack-2">
+                  <div class="row between"><span class="t-body">Bariera GB-200</span><span class="num">42 mb</span></div>
+                  <div class="row between"><span class="t-body">Osłona RAL-X3</span><span class="num">5 szt.</span></div>
+                  <div class="row between"><span class="t-body">Bramka BRK-UCH-1200</span><span class="num">2 szt.</span></div>
+                  <div class="separator"></div>
+                  <div class="row between"><span class="strong">Razem</span><span class="num strong">49 pozycji</span></div>
+                </div>
+                <div class="separator"></div>
+                <div class="row between"><span class="t-body">Wartość</span><span class="t-hint">wycena po stronie Anter</span></div>
+                <button class="btn btn-primary" data-goto="s15"><svg><use href="#ic-mail"/></svg> Wyślij zapytanie o wycenę</button>
+                <p class="t-hint" style="margin:0">Zestawienie wychodzi z geometrii tak samo jak na koncie pełnym. Różnica dotyczy wyłącznie kolumny z ceną.</p>
+              </div>
+
+              <div class="card card-pad stack-3">
+                <span class="t-card-title">Co dostanie opiekun</span>
+                <div class="stack-2">
+                  <div class="row between"><span class="t-body">Specyfikacja z indeksami</span><svg style="width:1rem;height:1rem;color:var(--status-success-icon)"><use href="#ic-check"/></svg></div>
+                  <div class="row between"><span class="t-body">Rzut z naniesionymi elementami</span><svg style="width:1rem;height:1rem;color:var(--status-success-icon)"><use href="#ic-check"/></svg></div>
+                  <div class="row between"><span class="t-body">Długości i liczby sztuk z geometrii</span><svg style="width:1rem;height:1rem;color:var(--status-success-icon)"><use href="#ic-check"/></svg></div>
+                  <div class="row between"><span class="t-body">Adres i termin oczekiwany</span><svg style="width:1rem;height:1rem;color:var(--status-success-icon)"><use href="#ic-check"/></svg></div>
+                </div>
+                <p class="t-hint" style="margin:0">Zapytanie tworzy w CRM aktywność przy karcie Profilex od razu, bo to zdarzenie handlowe (CC-6).</p>
+              </div>
+
+              <div class="card card-pad stack-3">
+                <span class="t-card-title">Konto podglądowe — dla porównania</span>
+                <div class="alert alert-warning">
+                  <svg><use href="#ic-lock"/></svg>
+                  <div><div class="alert-title">Konfigurator niedostępny</div><p class="t-hint" style="margin:0">Trzeci typ konta ma dostęp wyłącznie do materiałów i szkoleń. Nie rysuje i nie wysyła zapytań.</p></div>
+                </div>
+                <p class="t-hint" style="margin:0">Typ konta ustawia opiekun na karcie partnera (ekran 17).</p>
+              </div>
             </div>
           </div>
         </main>
@@ -2129,9 +2243,10 @@
   </div>
 
   <div class="notes">
-    <div class="note"><b>1</b><span>Ceny są ukryte w całym widoku, nie tylko w podsumowaniu. Częściowe ukrycie zdradza cennik przez sumy pośrednie.</span></div>
-    <div class="note"><b>2</b><span>Zapytanie jest zdarzeniem handlowym: tworzy aktywność albo szansę w CRM natychmiast, w odróżnieniu od logowań i pobrań, które są agregowane.</span></div>
-    <div class="note"><b>3</b><span>Trzeci typ konta pokazano tu jako blok porównawczy, żeby nie mnożyć ekranów. W produkcie to osobny stan całej strony.</span></div>
+    <div class="note"><b>1</b><span><span class="strong">Konto bez cen ma pełny dostęp do konfiguratora.</span> Rysuje po planie tak samo jak konto pełne, dostaje to samo zestawienie z geometrii i tę samą listę produktów. Znika wyłącznie kolumna z ceną i wartość projektu — w ich miejsce wchodzi „wycena po stronie Anter".</span></div>
+    <div class="note"><b>2</b><span>Terminy dostępności zostają widoczne, bo nie ujawniają cennika. To rozróżnienie warto utrzymać: ukrywanie terminów utrudniłoby partnerowi planowanie, nie chroniąc żadnej informacji handlowej.</span></div>
+    <div class="note"><b>3</b><span>Wysłane zapytanie zawiera komplet, którego handlowiec potrzebuje do wyceny: indeksy z bazy produktów, rzut z naniesionymi elementami i ilości policzone z geometrii. To jest różnica wobec maila z opisem — nikt nic nie odtwarza ręcznie.</span></div>
+    <div class="note"><b>4</b><span>Widoczność cen i wysokość rabatu ustawia opiekun na karcie partnera (ekran 17). Przełączenie konta na „pełne" odsłania te same ekrany z cenami, bez zmiany czegokolwiek innego.</span></div>
   </div>
 </section>
 
@@ -6040,6 +6155,175 @@ ul. Przemysłowa 44
     <div class="note"><b>2</b><span>Pozycje magazynowe są tu widoczne, ale wyciszone: planista ich nie wytwarza, natomiast musi wiedzieć, że zamówienie na nie czeka. Bez nich nie da się odpowiedzieć na pytanie „czy całe zamówienie jest gotowe do zwolnienia" (ekran 40).</span></div>
     <div class="note"><b>3</b><span>Tablica (ekran 18) i lista pokazują ten sam obszar z dwóch stron: tablica układa <span class="strong">zlecenia</span> według etapu wytwarzania, lista układa <span class="strong">pozycje zamówień</span> według tego, co je blokuje. Przełącznik u góry prowadzi w obie strony.</span></div>
     <div class="note"><b>4</b><span>Wiersz „Czeka na zlecenie" to jedyny stan wymagający tu decyzji człowieka: pozycja wymaga produkcji, ale zlecenie jeszcze nie powstało. Czy ma powstawać automatycznie przy przyjęciu zamówienia, pozostaje nierozstrzygnięte <span class="strong">(A-27)</span>.</span></div>
+  </div>
+</section>
+
+<section class="screen" id="s45">
+  <div class="screen-meta">
+    <h2>45. Portal dystrybutora — katalog na koncie bez cen</h2>
+    <p>Ten sam katalog co na koncie pełnym (ekran 35), bez obu kolumn cenowych. Partner przegląda ofertę, czyta parametry i pobiera dokumentację; zamiast „do koszyka" pyta o wycenę.</p>
+    <div class="screen-refs"><span class="ref">§Platforma B2B → Typy kont</span><span class="ref">US-3.2</span><span class="ref">CC-3</span><span class="ref">brak uprawnień</span></div>
+  </div>
+
+  <div class="frame">
+    <div class="frame-bar">
+      <div class="frame-dots"><i></i><i></i><i></i></div>
+      <span class="frame-url">/panel/katalog</span>
+    </div>
+    <div class="app app-tall">
+      <aside class="sidebar">
+        <div class="sidebar-brand"><span class="brand-mark">PX</span> <span class="ellipsis">Profilex Sp.j.</span></div>
+        <div class="sidebar-search"><svg><use href="#ic-search"/></svg> Szukaj</div>
+        <nav class="sidebar-nav">
+          <div class="nav-items">
+            <a class="nav-item" href="#s34" data-goto="s34"><svg><use href="#ic-home"/></svg> Pulpit</a>
+          </div>
+          <div class="nav-group"><span>Zamawianie</span><svg><use href="#ic-chevron-down"/></svg></div>
+          <div class="nav-items">
+            <span class="nav-item active"><svg><use href="#ic-box"/></svg> Katalog</span>
+            <a class="nav-item" href="#s14" data-goto="s14"><svg><use href="#ic-sliders"/></svg> Konfigurator</a>
+            <a class="nav-item" href="#s15" data-goto="s15"><svg><use href="#ic-clock"/></svg> Zapytania <span class="count">6</span></a>
+            <span class="nav-item"><svg><use href="#ic-file"/></svg> Dokumenty</span>
+          </div>
+          <div class="sidebar-foot"><span class="t-hint">Opiekun: Tomasz Rej</span></div>
+        </nav>
+      </aside>
+      <div class="main">
+        <header class="topbar">
+          <div class="topbar-left"><div class="crumbs"><svg><use href="#ic-home"/></svg><svg><use href="#ic-chevron-right"/></svg><span class="here">Katalog</span></div></div>
+          <div class="topbar-right">
+            <span class="badge badge-info"><span class="dot"></span> Konto bez cen</span>
+            <span class="avatar">JW</span>
+          </div>
+        </header>
+        <main class="page">
+          <div class="alert alert-info">
+            <svg><use href="#ic-info"/></svg>
+            <div>
+              <div class="alert-title">Ceny nie są widoczne na Twoim koncie</div>
+              <p class="t-hint" style="margin:0">Możesz przeglądać pełny katalog, sprawdzać parametry i dostępność oraz pobierać dokumentację. Po wycenę zgłoś się do Tomasza Reja albo wyślij zapytanie z konfiguratora.</p>
+            </div>
+          </div>
+
+          <div class="dt" style="margin-top:0.75rem">
+            <div class="dt-head">
+              <div class="dt-head-row">
+                <h2 class="t-table-title">Katalog produktów</h2>
+                <div class="dt-head-actions">
+                  <button class="btn btn-primary" data-goto="s14"><svg><use href="#ic-sliders"/></svg> Otwórz konfigurator</button>
+                </div>
+              </div>
+              <div class="dt-toolbar">
+                <div class="dt-toolbar-row">
+                  <div class="dt-search"><span class="input-group"><span class="addon"><svg><use href="#ic-search"/></svg></span><input class="input" type="search" aria-label="Szukaj w katalogu" placeholder="Nazwa lub indeks produktu" /></span></div>
+                  <div class="dt-toolbar-right">
+                    <select class="input" aria-label="Kategoria produktu" id="kat-bezcen" style="width:13rem;flex:none"><option selected>Wszystkie kategorie</option><option>Bramki</option><option>Bramy</option><option>Bariery</option><option>Słupki</option><option>Osłony</option><option>Akcesoria</option></select>
+                    <div class="segmented" role="group" aria-label="Widok">
+                      <button type="button" aria-selected="true">Lista</button>
+                      <button type="button" aria-selected="false">Kafle</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="scroll-x">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Produkt</th>
+                    <th>Kategoria</th>
+                    <th>Parametry</th>
+                    <th>Dostępność</th>
+                    <th style="width:0"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="clickable" data-goto="s36">
+                    <td><span class="strong">Bramka uchylna jednoskrzydłowa</span><br /><span class="t-mono t-hint">BRK-UCH-1200</span></td>
+                    <td><span class="badge badge-neutral">Bramki</span></td>
+                    <td class="t-hint">1 200 mm · 42 kJ</td>
+                    <td><span class="badge badge-success"><span class="dot"></span> 18 dni rob.</span></td>
+                    <td><button class="btn btn-outline btn-xs" data-goto="s14"><svg><use href="#ic-mail"/></svg> Zapytaj o wycenę</button></td>
+                  </tr>
+                  <tr class="clickable" data-goto="s36">
+                    <td><span class="strong">Słupek odbojowy Ø108</span><br /><span class="t-mono t-hint">SLP-ODB-108</span></td>
+                    <td><span class="badge badge-neutral">Słupki</span></td>
+                    <td class="t-hint">Ø108 · H=1200</td>
+                    <td><span class="badge badge-success"><span class="dot"></span> z magazynu</span></td>
+                    <td><button class="btn btn-outline btn-xs" data-goto="s14"><svg><use href="#ic-mail"/></svg> Zapytaj o wycenę</button></td>
+                  </tr>
+                  <tr class="clickable" data-goto="s36">
+                    <td><span class="strong">Osłona słupa RAL Column Guard</span><br /><span class="t-mono t-hint">RAL-X3</span></td>
+                    <td><span class="badge badge-neutral">Osłony</span></td>
+                    <td class="t-hint">słup 60×40 · 25 kJ</td>
+                    <td><span class="badge badge-success"><span class="dot"></span> z magazynu</span></td>
+                    <td><button class="btn btn-outline btn-xs" data-goto="s14"><svg><use href="#ic-mail"/></svg> Zapytaj o wycenę</button></td>
+                  </tr>
+                  <tr class="clickable" data-goto="s36">
+                    <td><span class="strong">Bariera najazdowa Traffic R3 HD+</span><br /><span class="t-mono t-hint">TR3-HD+</span></td>
+                    <td><span class="badge badge-neutral">Bariery</span></td>
+                    <td class="t-hint">42 kJ · H=1100</td>
+                    <td><span class="badge badge-warning"><span class="dot"></span> 24 dni rob.</span></td>
+                    <td><button class="btn btn-outline btn-xs" data-goto="s14"><svg><use href="#ic-mail"/></svg> Zapytaj o wycenę</button></td>
+                  </tr>
+                  <tr class="clickable" data-goto="s36">
+                    <td><span class="strong">Samozamykacz standardowy</span><br /><span class="t-mono t-hint">SMZ-STD</span></td>
+                    <td><span class="badge badge-neutral">Akcesoria</span></td>
+                    <td class="t-hint">do bramek uchylnych</td>
+                    <td><span class="badge badge-success"><span class="dot"></span> z magazynu</span></td>
+                    <td><button class="btn btn-outline btn-xs" data-goto="s14"><svg><use href="#ic-mail"/></svg> Zapytaj o wycenę</button></td>
+                  </tr>
+                  <tr>
+                    <td><span class="strong">Brama przesuwna samonośna</span><br /><span class="t-mono t-hint">BRM-PRZ-6000</span></td>
+                    <td><span class="badge badge-neutral">Bramy</span></td>
+                    <td class="t-hint">do 6 000 mm</td>
+                    <td><span class="badge badge-info"><span class="dot"></span> konfigurator</span></td>
+                    <td><button class="btn btn-ghost btn-xs" data-goto="s14">Skonfiguruj</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="dt-foot">
+              <span class="t-hint num">Pozycje 1–6 z 214</span>
+              <ul class="pager">
+                <li><button class="nav" type="button" aria-label="Poprzednia strona"><svg><use href="#ic-chevron-left"/></svg></button></li>
+                <li><button type="button" aria-current="page">1</button></li>
+                <li><button type="button">2</button></li>
+                <li><button type="button">3</button></li>
+                <li><button class="nav" type="button" aria-label="Następna strona"><svg><use href="#ic-chevron-right"/></svg></button></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="card card-pad stack-2" style="margin-top:0.75rem">
+            <span class="t-card-title">Co znika, a co zostaje</span>
+            <div class="split split-2">
+              <div class="stack-2">
+                <span class="t-label">Ukryte na tym koncie</span>
+                <div class="row between"><span class="t-body">Cena katalogowa</span><span class="t-hint">—</span></div>
+                <div class="row between"><span class="t-body">Twoja cena i rabat</span><span class="t-hint">—</span></div>
+                <div class="row between"><span class="t-body">Koszyk i składanie zamówień</span><span class="t-hint">—</span></div>
+              </div>
+              <div class="stack-2">
+                <span class="t-label">Widoczne tak samo jak na koncie pełnym</span>
+                <div class="row between"><span class="t-body">Pełna lista produktów</span><svg style="width:1rem;height:1rem;color:var(--status-success-icon)"><use href="#ic-check"/></svg></div>
+                <div class="row between"><span class="t-body">Parametry i dokumentacja</span><svg style="width:1rem;height:1rem;color:var(--status-success-icon)"><use href="#ic-check"/></svg></div>
+                <div class="row between"><span class="t-body">Terminy dostępności</span><svg style="width:1rem;height:1rem;color:var(--status-success-icon)"><use href="#ic-check"/></svg></div>
+                <div class="row between"><span class="t-body">Konfigurator i rysowanie na planie</span><svg style="width:1rem;height:1rem;color:var(--status-success-icon)"><use href="#ic-check"/></svg></div>
+              </div>
+            </div>
+          </div>
+        </main>
+        <footer class="app-foot"><span>Prototyp · dane fikcyjne</span><nav class="row-3"><span>Etap 3</span><span>US-3.2</span></nav></footer>
+      </div>
+    </div>
+  </div>
+
+  <div class="notes">
+    <div class="note"><b>1</b><span>To ten sam katalog co na ekranie 35, z usuniętymi dwiema kolumnami cenowymi. Nie jest to osobny, uboższy katalog — partner widzi pełen asortyment, ma komplet parametrów i dokumentacji, może wszystko znaleźć i o wszystko zapytać.</span></div>
+    <div class="note"><b>2</b><span>Kolumna „Parametry" wchodzi w miejsce zwolnione przez ceny. Bez cen partner potrzebuje innego kryterium porównania produktów, a parametry techniczne są nim naturalnie.</span></div>
+    <div class="note"><b>3</b><span>Każdy wiersz kieruje do konfiguratora, a nie do formularza zapytania. Zapytanie wysłane z rysunku niesie ilości policzone z geometrii; zapytanie „chcę wycenę na słupki" nie niesie nic i wraca do partnera z pytaniem o szczegóły.</span></div>
+    <div class="note"><b>4</b><span>Widoczność cen przełącza opiekun na karcie partnera (ekran 17). Zmiana typu konta na „pełne" odsłania obie kolumny cenowe i koszyk; nic innego się nie zmienia.</span></div>
   </div>
 </section>
 

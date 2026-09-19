@@ -9,18 +9,18 @@
   "storyMap": "story-map.md",
   "secondarySource": "anter-site-configurator (localhost:5173 SSR + kod źródłowy)",
   "flow": "Wszystkie etapy wdrożenia 0-6, odtworzenie stanu bieżącego konfiguratora oraz ścieżka zamawiania w portalu dystrybutora",
-  "screens": 44,
+  "screens": 45,
   "panelReport": null,
   "verification": "incomplete",
   "verificationNote": "Kontrole statyczne przeszły w komplecie. Renderowanie ekranów 33-39 i 13 zweryfikowane zrzutami z lokalnego Chrome headless (evidence/). Przejście klikane, motyw ciemny, tryb prezentacji i tryb komentarzy pozostają niesprawdzone - brak Playwrighta.",
   "files": [
     {
       "path": "index.html",
-      "sha256": "d2c49a30fe45f29ddb38e4514146ac664d750aa5b7eb314c030baabf10bb7975"
+      "sha256": "3936fc1616f1bb8b8e68f394a0578cdcc0eca872b1714499e713ccbd824669d1"
     },
     {
       "path": "README.md",
-      "sha256": "a9a2fdfa83ab6b94ca6e2f89f2770ac1de7dfcc854e7fd29b6d6176ee5e768e3"
+      "sha256": "4a677eb6bf6e45b4e085d4f709c5562ffc94f6d4310bb7c816147aae07a7e178"
     },
     {
       "path": "story-map.md",
@@ -59,12 +59,20 @@
       "sha256": "85697c71c12d8062ac660a219968626fca11744c34fee9c45f1f04c5f71e88ec"
     },
     {
+      "path": "evidence/s14-konfigurator-bez-cen.png",
+      "sha256": "dbe8920d69fc80144c2c01b6542284bcd1e4ff9bd9c4b0a6a21cd039d77046f5"
+    },
+    {
       "path": "evidence/s15-zamowienia.png",
       "sha256": "488703d5f0a8a263dce98d56934f2a5a2af680ba4cb3f9447a304aa53df60573"
     },
     {
       "path": "evidence/s16-karta-partnera.png",
       "sha256": "a226723442da55034691ef6fc494b2dfcf76c618a0941937012eb7c39d5be435"
+    },
+    {
+      "path": "evidence/s17-warunki-handlowe.png",
+      "sha256": "ccb0a7da524b7e4e2896bd0a296b190afa8c4edd9dba7fb9ed1da149d6e93452"
     },
     {
       "path": "evidence/s18-produkcja.png",
@@ -123,6 +131,10 @@
       "sha256": "f5b352a113f40f7d0ccaf7476bc127af43edb8c46dafbb584ff0996be1836c51"
     },
     {
+      "path": "evidence/s45-katalog-bez-cen.png",
+      "sha256": "faac7566ff085bcdf3ff27ff7cad3009c813251d330f52c8a4875b929d390a90"
+    },
+    {
       "path": "evidence/s9-konfigurator-wewnetrzny.png",
       "sha256": "92d949164e091d72c8f3d689777158cbc560e683468c398e76effd53c48f1042"
     }
@@ -138,7 +150,7 @@
       {
         "id": "portal",
         "label": "Portal dystrybutora",
-        "screens": 12
+        "screens": 13
       },
       {
         "id": "current",

@@ -16,7 +16,7 @@
   "files": [
     {
       "path": "index.html",
-      "sha256": "3936fc1616f1bb8b8e68f394a0578cdcc0eca872b1714499e713ccbd824669d1"
+      "sha256": "7f3cc9ec758ecd943bc1b67193df487579911549bec792b3a2e200e13aa83fb2"
     },
     {
       "path": "README.md",
@@ -60,7 +60,7 @@
     },
     {
       "path": "evidence/s14-konfigurator-bez-cen.png",
-      "sha256": "dbe8920d69fc80144c2c01b6542284bcd1e4ff9bd9c4b0a6a21cd039d77046f5"
+      "sha256": "bdc4350b0f946dbd007586f9ee372aa58c054d1db72b4b1a167a9c001bce64eb"
     },
     {
       "path": "evidence/s15-zamowienia.png",

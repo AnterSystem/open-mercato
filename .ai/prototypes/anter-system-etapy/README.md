@@ -96,6 +96,32 @@ rozstrzygnięcie), a 15, 34 i 39 jej skutek kilka dni później. To celowe przed
 zamówieniu, nie rozjazd danych. Ekran 21 trzyma status sprzed wysyłki (17.09), bo ilustruje
 kolejkę zdarzeń zablokowanych przez zerwaną integrację.
 
+### Konfigurator rysuje po planie obiektu
+
+**Zamówienie powstaje z rysunku, nie z formularza.** Partner wgrywa rzut swojego obiektu,
+klika produkt z katalogu i rysuje nim po planie; długości i liczby sztuk wynikają z geometrii.
+Ta funkcja istnieje już w działającej aplikacji Anter Site Configurator (ekran 26) — prototyp
+ścieżki docelowej pokazywał ją dotąd jako formularz z polami „produkt / ilość / szerokość / RAL",
+co było sprzeczne z tym, jak konfigurator naprawdę działa.
+
+Ekran 13 został przebudowany: rzut obiektu z naniesionymi zabezpieczeniami, katalog produktów
+z cenami partnerskimi i trybem rysowania (linia / punkt / wstawka), zestawienie przeliczane
+z geometrii i przejście do koszyka.
+
+**Podkład pochodzi z planów testowych** (`plany-testowe/`, trzy rysunki AS-TEST-01…03:
+magazyn wysokiego składowania, hala produkcyjna, terminal cross-dock). Każdy ma sekcję
+**„punkty do analizy (test konfiguratora)"** — naroża regałów przy drogach roboczych, słupy
+w ciągach komunikacyjnych, stanowiska przy dokach, przejścia piesze, wejścia techniczne —
+i adnotację, że barier ani odbojnic na planie nie naniesiono. To jest materiał wejściowy:
+plan mówi, gdzie zabezpieczenia są potrzebne, konfigurator pozwala je tam postawić.
+
+Karta „Punkty wykryte z planu" pokazuje pokrycie: 48/48 naroży, 20/20 słupów, 4/4 przejścia
+zabezpieczone, a doki, wejścia techniczne i stacja ładowania jeszcze nie. Konfigurator
+pokazuje, czego partner nie objął, ale nie zmusza do kompletu — zakres jest jego decyzją.
+
+Rzut w prototypie jest schematycznym SVG wzorowanym na AS-TEST-01, nie odczytem pliku.
+Rysowanie, przyciąganie do siatki i przeliczanie są zilustrowane, nie zaimplementowane.
+
 ### Zamówienia i Produkcja: podział według perspektywy
 
 Backoffice ma dwa widoki na tę samą rzeczywistość, rozdzielone tym, **kto i po co patrzy**:
@@ -269,7 +295,7 @@ historyjka dotyka nierozstrzygniętej kwestii, są w niej oznaczone `[DO ROZSTRZ
 | s10 | backoffice | Przypadek nietypowy do wyceny konstruktora | 2 | US-2.3, CC-5 | s9, s11 |
 | s11 | backoffice | Wycena i wyjście konfiguratora | 2 | US-2.4, CC-4 | s3, s9 |
 | s12 | backoffice | Wycena bez uprawnienia do kosztu i marży | 2 | US-2.2, brak uprawnień | — |
-| s13 | portal | Panel B2B — konto pełne składa zamówienie | 3 | US-3.1 | s15, s24 |
+| s13 | portal | Panel B2B — konfigurator na planie obiektu | 3 | US-3.1, US-2.1, CC-1 | s37, s34, s35 |
 | s14 | portal | Panel B2B — konto bez cen, zapytanie o wycenę | 3 | US-3.2 | s24 |
 | s15 | portal | Panel B2B — zamówienia i statusy z ERP | 3 | US-3.3, CC-2 | s13 |
 | s16 | backoffice | Karta partnera w CRM — pętla zwrotna | 3 | US-3.4, US-3.5, CC-6 | s17 |

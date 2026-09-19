@@ -16,11 +16,11 @@
   "files": [
     {
       "path": "index.html",
-      "sha256": "cc9e2cbc0243cc00dd5525b67ab05c41dc69efc0b27c40d029a0ae814c8e1409"
+      "sha256": "c97fcb6b238ba08e7224e48b1d659cd8973061e3a36eaca93c1aeef3d7582701"
     },
     {
       "path": "README.md",
-      "sha256": "166fe47d717261d5d79f06250fad53e25e0882a02c7f38e840164e6efa122ef0"
+      "sha256": "131571f4d02ef2f933053993ab85e7bdb5323e033cb690d0277ed9ea2fe14338"
     },
     {
       "path": "story-map.md",
@@ -55,8 +55,8 @@
       "sha256": "c9ee59c7982ad6248e9d90d274fd5512ac24a8bcaeaae3c401cf9225bacd789e"
     },
     {
-      "path": "evidence/s13-konfigurator-po-uspojnieniu.png",
-      "sha256": "65a64c40ad7f07a6c8fa37ce66c3a51cd947ca008fe9ea0da4c1835ff0786d37"
+      "path": "evidence/s13-konfigurator-plan.png",
+      "sha256": "85697c71c12d8062ac660a219968626fca11744c34fee9c45f1f04c5f71e88ec"
     },
     {
       "path": "evidence/s15-zamowienia.png",
@@ -142,5 +142,6 @@
         "screens": 8
       }
     ]
-  }
+  },
+  "planSources": "plany-testowe/ (AS-TEST-01..03, poza repozytorium prototypu)"
 }

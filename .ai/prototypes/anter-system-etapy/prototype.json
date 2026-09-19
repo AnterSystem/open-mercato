@@ -1,0 +1,53 @@
+{
+  "format": "discovery-prototype-v1",
+  "skill": "om-mockup-prototype",
+  "slug": "anter-system-etapy",
+  "revision": 1,
+  "revisionPath": ".ai/prototypes/anter-system-etapy",
+  "previousRevision": null,
+  "brief": "docs/anter-system-architektura-docelowa.md",
+  "storyMap": "story-map.md",
+  "secondarySource": "anter-site-configurator (localhost:5173 SSR + kod źródłowy)",
+  "flow": "Wszystkie etapy wdrożenia 0-6 plus odtworzenie stanu bieżącego konfiguratora",
+  "screens": 32,
+  "panelReport": null,
+  "verification": "not-run",
+  "files": [
+    {
+      "path": "index.html",
+      "sha256": "4613a9ad33e704999aae17e57c493f2925f47ddcbec36bd327f37a20136625cd"
+    },
+    {
+      "path": "README.md",
+      "sha256": "93e04ca9beeae686a7c66aca702c3351afc01ed521527e6587e8fb673097b010"
+    },
+    {
+      "path": "story-map.md",
+      "sha256": "5b110df8e16ae6946b403fe114e5b0b60bcabbc3bba53455afece0e7107d2c39"
+    },
+    {
+      "path": "tokens.css",
+      "sha256": "123a0c9e349fbfbd00f0751152c26e9027fca6ae204ca12e18b2764ed8290371"
+    },
+    {
+      "path": "components.css",
+      "sha256": "92b7c3221849e7835c177fcf51e1e77381519958b4c8b97ca4b02d1e3bee3703"
+    },
+    {
+      "path": "screens.css",
+      "sha256": "af073d15d31ae9cb16e75600a2f68d26679ed5cdf9ad1dddbec4fb42f731a37b"
+    },
+    {
+      "path": "prototype.css",
+      "sha256": "d3e65c73f0365684f2c4bff4689c5df627c4ea75ea3250e02013e3ffcc30b783"
+    },
+    {
+      "path": "prototype.js",
+      "sha256": "d86a8d1126f6cb8e31c7db0e8965bf682200edb45ea4bd5e2b106df6aa160cda"
+    },
+    {
+      "path": "comments.js",
+      "sha256": "7d254afd29393199cb17038b7df1619bb74845f436e81f7ed24aa66c5984fa55"
+    }
+  ]
+}

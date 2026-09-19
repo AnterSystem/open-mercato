@@ -80,10 +80,21 @@ Partner widzi skutek, nie decyzję: status, numer przesyłki wysłanej części 
 nigdy informacji, którego komponentu brakuje (CC-2). Czy powinien być pytany o zgodę zamiast
 tylko informowany, pozostaje otwarte (A-23).
 
-**Czego jeszcze nie ma:** portalowa strona tego statusu. Ekrany 15 i 39 pokazują zamówienie
-ZAM-2026-1140 w stanie sprzed decyzji („oczekuje na komponent"), więc „wysłane częściowo"
-nie występuje jeszcze w żadnym widoku partnera. To celowa granica tej iteracji — ekran 41
-opisuje, co partner zobaczy, ale nie rysuje tego widoku.
+**Skutek po stronie partnera jest już narysowany.** Ekrany 15, 34 i 39 pokazują
+ZAM-2026-1140 po decyzji z ekranu 41: status „wysłane częściowo" w kolorze ostrzegawczym,
+numer pierwszej przesyłki, pozycje wysłane 19.09 i jedna czekająca na komponent z terminem
+06.10. Szczegóły zamówienia rozbijają dostawę na dwie przesyłki, każdą z własnym numerem
+i listem przewozowym.
+
+**Dlaczego „wysłane" jest tu pomarańczowe.** Przy podziale na więcej niż jedną wysyłkę
+wysyłka przestaje być stanem końcowym: część towaru jedzie, reszta czeka. Zielone „wysłane"
+sugerowałoby domknięcie, którego nie ma. Oś realizacji ma więc teraz siedem kroków —
+„wysłane częściowo" (ostrzegawcze, osiągnięte) i „wysłane w całości" (neutralne, przed nami).
+
+**Momenty w czasie.** Ekrany 40 i 41 pokazują moment decyzji (zlecenie czeka na
+rozstrzygnięcie), a 15, 34 i 39 jej skutek kilka dni później. To celowe przed/po na tym samym
+zamówieniu, nie rozjazd danych. Ekran 21 trzyma status sprzed wysyłki (17.09), bo ilustruje
+kolejkę zdarzeń zablokowanych przez zerwaną integrację.
 
 ### Ponowienie zamówienia jako akcja koszyka
 
@@ -396,6 +407,7 @@ z odpornością produktów z biblioteki.
 | Pasek podzielony na trzy grupy (22 + 12 + 8 = 42) | OK |
 | Podświetlenie bieżącego ekranu: wejście z adresu, przejście w mockupie, przewijanie | OK |
 | Brak poziomów certyfikacji i sugestii wpływu szkoleń na rabat | OK |
+| Status wysyłki częściowej spójny w liście, pulpicie i szczegółach zamówienia | OK |
 | Wszystkie użyte ikony mają definicję w sprite, brak nieużywanych | OK |
 | Wszystkie użyte zmienne CSS istnieją w `tokens.css` | OK, 0 brakujących |
 | Brak wartości hex/rgb w znacznikach | OK |

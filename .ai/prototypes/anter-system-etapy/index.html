@@ -60,7 +60,7 @@
   <strong style="font-size:0.875rem">Anter System — etapy 0–6</strong>
   <nav class="screen-nav" aria-label="Ekrany">
     <div class="nav-section">
-      <span class="nav-section-label">Backoffice Anter <span class="nav-section-count">· 23</span></span>
+      <span class="nav-section-label">Backoffice Anter <span class="nav-section-count">· 24</span></span>
       <div class="nav-section-links">
         <a href="#s1">0 · Leady</a>
         <a href="#s2">0 · Kwalifikacja</a>
@@ -83,6 +83,7 @@
         <a href="#s22">5 · Transport</a>
         <a href="#s23">5 · Przesyłki</a>
         <a href="#s43">4 · Zamówienia BO</a>
+        <a href="#s44">4 · Produkcja lista</a>
         <a href="#s40">5 · Zwolnienia</a>
         <a href="#s41">5 · Wysyłka częściowa</a>
       </div>
@@ -2302,6 +2303,16 @@ ul. Przemysłowa 44
           <div class="topbar-right"><span class="badge badge-neutral"><span class="dot"></span> System wewnętrzny</span><span class="avatar">AŚ</span></div>
         </header>
         <main class="page">
+          <div class="page-head">
+            <div><h1 class="t-page-title">Zlecenia produkcyjne</h1><p>Tablica etapów · 23 zlecenia w toku</p></div>
+            <div class="page-actions">
+              <div class="segmented" role="group" aria-label="Widok">
+                <button type="button" aria-selected="true"><svg><use href="#ic-layers"/></svg> Tablica</button>
+                <button type="button" aria-selected="false" data-goto="s44"><svg><use href="#ic-file"/></svg> Lista</button>
+              </div>
+            </div>
+          </div>
+
           <div class="kpis">
             <div class="kpi"><span class="t-label">Przyjęte, nierozpisane</span><span class="v num">5</span></div>
             <div class="kpi"><span class="t-label">W produkcji</span><span class="v num">11</span></div>
@@ -5431,9 +5442,9 @@ ul. Przemysłowa 44
 
 <section class="screen" id="s43">
   <div class="screen-meta">
-    <h2>43. Backoffice — zamówienia w rozbiciu na pozycje</h2>
-    <p>Zamówienie samo w sobie niewiele mówi obsłudze: jedna pozycja może iść prosto z magazynu, druga musi zostać wyprodukowana. Ta lista pokazuje pozycje, nie nagłówki zamówień.</p>
-    <div class="screen-refs"><span class="ref">§ERP → Zakres</span><span class="ref">§Proces docelowy</span><span class="ref">US-4.1</span><span class="ref">US-4.5</span><span class="ref">CC-1</span><span class="ref">CC-7</span></div>
+    <h2>43. Backoffice — zamówienia</h2>
+    <p>Lista zamówień, jedno zamówienie w wierszu. Odpowiada na pytania sprzedaży: kto zamówił, za ile, skąd przyszło i na jakim jest etapie. Pozycje są w szczegółach i w widoku produkcji.</p>
+    <div class="screen-refs"><span class="ref">§Proces docelowy</span><span class="ref">§ERP → Statusy zwrotne</span><span class="ref">US-4.1</span><span class="ref">US-4.5</span></div>
   </div>
 
   <div class="frame">
@@ -5464,14 +5475,200 @@ ul. Przemysłowa 44
         </header>
         <main class="page">
           <div class="page-head">
-            <div><h1 class="t-page-title">Zamówienia</h1><p>Widok pozycji · 31 zamówień w realizacji</p></div>
+            <div><h1 class="t-page-title">Zamówienia</h1><p>31 w realizacji · 4 zamknięte w tym tygodniu</p></div>
           </div>
 
           <div class="kpis">
-            <div class="kpi"><span class="t-label">Pozycje z magazynu</span><span class="v num">48</span><span class="t-hint">do wydania</span></div>
-            <div class="kpi"><span class="t-label">Pozycje w produkcji</span><span class="v num">17</span></div>
+            <div class="kpi"><span class="t-label">W realizacji</span><span class="v num">31</span></div>
+            <div class="kpi"><span class="t-label">Wartość w realizacji</span><span class="v num">486 210</span><span class="t-hint">PLN netto</span></div>
+            <div class="kpi"><span class="t-label">Wymaga uwagi</span><span class="v num">5</span><span class="t-hint">opóźnienia i braki</span></div>
+            <div class="kpi"><span class="t-label">Złożone dziś</span><span class="v num">3</span></div>
+          </div>
+
+          <div class="dt" style="margin-top:0.75rem">
+            <div class="dt-head">
+              <div class="dt-head-row">
+                <h2 class="t-table-title">Zamówienia w realizacji</h2>
+                <div class="dt-head-actions"><button class="btn btn-outline btn-sm"><svg><use href="#ic-download"/></svg> Eksport</button></div>
+              </div>
+              <div class="dt-toolbar">
+                <div class="dt-toolbar-row">
+                  <div class="dt-search"><span class="input-group"><span class="addon"><svg><use href="#ic-search"/></svg></span><input class="input" type="search" aria-label="Szukaj zamówień" placeholder="Numer, kontrahent, numer partnera" /></span></div>
+                  <div class="dt-toolbar-right">
+                    <select class="input" aria-label="Kontrahent" id="kontrahent-filtr" style="width:15rem;flex:none">
+                      <option selected>Wszyscy kontrahenci</option>
+                      <option>Stalmont Sp. z o.o.</option>
+                      <option>Metalbud S.A.</option>
+                      <option>Profilex Sp.j.</option>
+                      <option>Kalvex Logistics S.A.</option>
+                    </select>
+                    <button class="btn btn-outline btn-sm"><svg><use href="#ic-filter"/></svg> Status</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="scroll-x">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Numer</th>
+                    <th>Kontrahent</th>
+                    <th>Złożone</th>
+                    <th class="right">Pozycje</th>
+                    <th class="right">Wartość netto</th>
+                    <th>Źródło</th>
+                    <th>Status</th>
+                    <th style="width:0"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="clickable" data-goto="s44">
+                    <td class="t-mono">ZAM-2026-1203</td>
+                    <td>Metalbud S.A.<br /><span class="t-hint t-mono">KTR-10488</span></td>
+                    <td class="num">18.09.2026</td>
+                    <td class="right num">1</td>
+                    <td class="right num strong">17 936,00</td>
+                    <td><span class="badge badge-neutral">panel B2B</span></td>
+                    <td><span class="badge badge-warning"><span class="dot"></span> Czeka na zlecenie</span></td>
+                    <td><button class="btn btn-ghost btn-xs" data-goto="s44">Pozycje</button></td>
+                  </tr>
+                  <tr class="clickable" data-goto="s44">
+                    <td class="t-mono">ZAM-2026-1190</td>
+                    <td>Stalmont Sp. z o.o.<br /><span class="t-hint t-mono">KTR-10422</span></td>
+                    <td class="num">19.09.2026</td>
+                    <td class="right num">3</td>
+                    <td class="right num strong">12 335,36</td>
+                    <td><span class="badge badge-info">katalog</span></td>
+                    <td><span class="badge badge-neutral"><span class="dot"></span> Do wydania</span></td>
+                    <td><button class="btn btn-ghost btn-xs" data-goto="s44">Pozycje</button></td>
+                  </tr>
+                  <tr class="clickable" data-goto="s44">
+                    <td class="t-mono">ZAM-2026-1187</td>
+                    <td>Stalmont Sp. z o.o.<br /><span class="t-hint t-mono">KTR-10422</span></td>
+                    <td class="num">17.09.2026</td>
+                    <td class="right num">1</td>
+                    <td class="right num strong">21 340,80</td>
+                    <td><span class="badge badge-neutral">konfigurator</span></td>
+                    <td><span class="badge badge-warning"><span class="dot"></span> W produkcji</span></td>
+                    <td><button class="btn btn-ghost btn-xs" data-goto="s44">Pozycje</button></td>
+                  </tr>
+                  <tr class="clickable" data-goto="s44">
+                    <td class="t-mono">ZAM-2026-1164</td>
+                    <td>Stalmont Sp. z o.o.<br /><span class="t-hint t-mono">KTR-10422</span></td>
+                    <td class="num">12.09.2026</td>
+                    <td class="right num">2</td>
+                    <td class="right num strong">14 780,00</td>
+                    <td><span class="badge badge-neutral">panel B2B</span></td>
+                    <td><span class="badge badge-warning"><span class="dot"></span> W produkcji</span></td>
+                    <td><button class="btn btn-ghost btn-xs" data-goto="s44">Pozycje</button></td>
+                  </tr>
+                  <tr class="clickable" data-goto="s44">
+                    <td class="t-mono">ZAM-2026-1140</td>
+                    <td>Stalmont Sp. z o.o.<br /><span class="t-hint t-mono">KTR-10422</span></td>
+                    <td class="num">28.08.2026</td>
+                    <td class="right num">3</td>
+                    <td class="right num strong">38 912,00</td>
+                    <td><span class="badge badge-info">katalog</span></td>
+                    <td><span class="badge badge-warning"><span class="dot"></span> Wysłane częściowo</span><br /><span class="t-hint">reszta 06.10</span></td>
+                    <td><button class="btn btn-ghost btn-xs" data-goto="s44">Pozycje</button></td>
+                  </tr>
+                  <tr class="clickable" data-goto="s44">
+                    <td class="t-mono">ZAM-2026-1151</td>
+                    <td>Profilex Sp.j.<br /><span class="t-hint t-mono">KTR-10503</span></td>
+                    <td class="num">05.09.2026</td>
+                    <td class="right num">5</td>
+                    <td class="right num strong">62 480,00</td>
+                    <td><span class="badge badge-neutral">panel B2B</span></td>
+                    <td><span class="badge badge-warning"><span class="dot"></span> W produkcji</span></td>
+                    <td><button class="btn btn-ghost btn-xs" data-goto="s44">Pozycje</button></td>
+                  </tr>
+                  <tr class="clickable" data-goto="s44">
+                    <td class="t-mono">ZAM-2026-1128</td>
+                    <td>Kalvex Logistics S.A.<br /><span class="t-hint t-mono">KTR-10390</span></td>
+                    <td class="num">21.08.2026</td>
+                    <td class="right num">2</td>
+                    <td class="right num strong">28 640,00</td>
+                    <td><span class="badge badge-neutral">oferta CRM</span></td>
+                    <td><span class="badge badge-success"><span class="dot"></span> Gotowe do wysyłki</span></td>
+                    <td><button class="btn btn-ghost btn-xs" data-goto="s44">Pozycje</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="dt-foot">
+              <span class="t-hint num">Pozycje 1–7 z 31</span>
+              <ul class="pager">
+                <li><button class="nav" type="button" aria-label="Poprzednia strona"><svg><use href="#ic-chevron-left"/></svg></button></li>
+                <li><button type="button" aria-current="page">1</button></li>
+                <li><button type="button">2</button></li>
+                <li><button type="button">3</button></li>
+                <li><button class="nav" type="button" aria-label="Następna strona"><svg><use href="#ic-chevron-right"/></svg></button></li>
+              </ul>
+            </div>
+          </div>
+        </main>
+        <footer class="app-foot"><span>Prototyp · dane fikcyjne</span><nav class="row-3"><span>Etap 4</span><span>US-4.5</span></nav></footer>
+      </div>
+    </div>
+  </div>
+
+  <div class="notes">
+    <div class="note"><b>1</b><span>Jedno zamówienie w wierszu, bez rozbicia na pozycje. To widok sprzedaży: kto zamówił, za ile, skąd przyszło i na jakim etapie jest całość. Rozbicie na pozycje wraz ze sposobem ich realizacji jest w produkcji (ekran 44), bo tam ma znaczenie operacyjne.</span></div>
+    <div class="note"><b>2</b><span>Kolumna „Źródło" rozróżnia drogi, którymi zamówienie weszło: katalog, konfigurator, panel B2B i ofertę z CRM. Od niej zależy między innymi to, czy powstaje plik oferty — zamówienie złożone z katalogu go nie ma.</span></div>
+    <div class="note"><b>3</b><span>Filtr kontrahenta odpowiada na pytanie „wszystkie zamówienia tego partnera". Karta partnera w CRM (ekran 16) pokazuje obrót i liczbę zamówień, ale nie ich listę — <span class="strong">przejście z karty partnera do jego zamówień pozostaje do zaprojektowania (A-28)</span>.</span></div>
+    <div class="note"><b>4</b><span>Status zamówienia jest wypadkową stanów pozycji: zamówienie z jedną pozycją oczekującą na komponent i dwiema wysłanymi ma status „wysłane częściowo". Zamówienie złożone wyłącznie z pozycji magazynowych trafia od razu do „do wydania", z pominięciem produkcji.</span></div>
+  </div>
+</section>
+
+<section class="screen" id="s44">
+  <div class="screen-meta">
+    <h2>44. Produkcja — lista zamówień z pozycjami</h2>
+    <p>Drugi widok produkcji, obok tablicy. Tablica pokazuje zlecenia w ruchu, lista pokazuje pozycje zamówień wraz z tym, co trzeba wytworzyć, a co wydać z magazynu.</p>
+    <div class="screen-refs"><span class="ref">§ERP → Zakres</span><span class="ref">US-4.1</span><span class="ref">US-4.5</span><span class="ref">CC-1</span><span class="ref">CC-7</span></div>
+  </div>
+
+  <div class="frame">
+    <div class="frame-bar">
+      <div class="frame-dots"><i></i><i></i><i></i></div>
+      <span class="frame-url">/backend/produkcja/zlecenia?widok=lista</span>
+    </div>
+    <div class="app app-tall">
+      <aside class="sidebar">
+        <div class="sidebar-brand"><span class="brand-mark">AS</span> <span class="ellipsis">Anter System</span></div>
+        <div class="sidebar-search"><svg><use href="#ic-search"/></svg> Szukaj</div>
+        <nav class="sidebar-nav">
+          <div class="nav-group"><span>Realizacja</span><svg><use href="#ic-chevron-down"/></svg></div>
+          <div class="nav-items">
+            <a class="nav-item" href="#s43" data-goto="s43"><svg><use href="#ic-cart"/></svg> Zamówienia <span class="count">31</span></a>
+            <span class="nav-item active"><svg><use href="#ic-factory"/></svg> Produkcja <span class="count">23</span></span>
+            <a class="nav-item" href="#s20" data-goto="s20"><svg><use href="#ic-box"/></svg> Zapotrzebowanie</a>
+            <a class="nav-item" href="#s40" data-goto="s40"><svg><use href="#ic-check"/></svg> Zwolnienia <span class="count">2</span></a>
+            <a class="nav-item" href="#s22" data-goto="s22"><svg><use href="#ic-truck"/></svg> Transport</a>
+            <a class="nav-item" href="#s23" data-goto="s23"><svg><use href="#ic-box"/></svg> Przesyłki <span class="count">12</span></a>
+          </div>
+        </nav>
+      </aside>
+      <div class="main">
+        <header class="topbar">
+          <div class="topbar-left"><div class="crumbs"><svg><use href="#ic-home"/></svg><svg><use href="#ic-chevron-right"/></svg><span>Produkcja</span><svg><use href="#ic-chevron-right"/></svg><span class="here">Zlecenia</span></div></div>
+          <div class="topbar-right"><span class="badge badge-neutral"><span class="dot"></span> System wewnętrzny</span><span class="avatar">AŚ</span></div>
+        </header>
+        <main class="page">
+          <div class="page-head">
+            <div><h1 class="t-page-title">Zlecenia produkcyjne</h1><p>Widok pozycji zamówień · 23 zlecenia w toku</p></div>
+            <div class="page-actions">
+              <div class="segmented" role="group" aria-label="Widok">
+                <button type="button" aria-selected="false" data-goto="s18"><svg><use href="#ic-layers"/></svg> Tablica</button>
+                <button type="button" aria-selected="true"><svg><use href="#ic-file"/></svg> Lista</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="kpis">
+            <div class="kpi"><span class="t-label">Pozycje do wytworzenia</span><span class="v num">17</span></div>
             <div class="kpi"><span class="t-label">Czeka na zlecenie</span><span class="v num">3</span><span class="t-hint">wymaga decyzji</span></div>
             <div class="kpi"><span class="t-label">Oczekuje na komponent</span><span class="v num">4</span></div>
+            <div class="kpi"><span class="t-label">Pozycje z magazynu</span><span class="v num">48</span><span class="t-hint">bez produkcji</span></div>
           </div>
 
           <div class="dt" style="margin-top:0.75rem">
@@ -5486,14 +5683,10 @@ ul. Przemysłowa 44
                   <div class="dt-toolbar-right">
                     <select class="input" aria-label="Sposób realizacji" id="realizacja-filtr" style="width:13rem;flex:none">
                       <option selected>Cała realizacja</option>
-                      <option>Tylko z magazynu</option>
                       <option>Tylko produkcja</option>
+                      <option>Tylko z magazynu</option>
                       <option>Czeka na zlecenie</option>
                     </select>
-                    <div class="segmented" role="group" aria-label="Widok">
-                      <button type="button" aria-selected="true">Pozycje</button>
-                      <button type="button" aria-selected="false">Zamówienia</button>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -5530,33 +5723,6 @@ ul. Przemysłowa 44
                     <td><a class="t-mono" href="#s19" data-goto="s19">ZLC-2026-0642</a></td>
                     <td><button class="btn btn-ghost btn-xs" data-goto="s19">Otwórz</button></td>
                   </tr>
-                  <tr>
-                    <td><span class="t-mono">ZAM-2026-1190</span><br /><span class="t-hint">Stalmont Sp. z o.o. · z katalogu</span></td>
-                    <td><span class="strong">Słupek odbojowy Ø108</span><br /><span class="t-mono t-hint">SLP-ODB-108 · RAL 7016</span></td>
-                    <td class="right num">24 szt.</td>
-                    <td><span class="badge badge-success"><span class="dot"></span> Magazyn</span></td>
-                    <td><span class="badge badge-neutral"><span class="dot"></span> Do wydania</span></td>
-                    <td class="t-hint">nie dotyczy</td>
-                    <td><span class="t-hint">—</span></td>
-                  </tr>
-                  <tr>
-                    <td><span class="t-mono">ZAM-2026-1190</span><br /><span class="t-hint">Stalmont Sp. z o.o. · z katalogu</span></td>
-                    <td><span class="strong">Osłona słupa RAL Column Guard</span><br /><span class="t-mono t-hint">RAL-X3 · RAL 7016</span></td>
-                    <td class="right num">8 szt.</td>
-                    <td><span class="badge badge-success"><span class="dot"></span> Magazyn</span></td>
-                    <td><span class="badge badge-neutral"><span class="dot"></span> Do wydania</span></td>
-                    <td class="t-hint">nie dotyczy</td>
-                    <td><span class="t-hint">—</span></td>
-                  </tr>
-                  <tr>
-                    <td><span class="t-mono">ZAM-2026-1190</span><br /><span class="t-hint">Stalmont Sp. z o.o. · z katalogu</span></td>
-                    <td><span class="strong">Samozamykacz standardowy</span><br /><span class="t-mono t-hint">SMZ-STD</span></td>
-                    <td class="right num">6 szt.</td>
-                    <td><span class="badge badge-success"><span class="dot"></span> Magazyn</span></td>
-                    <td><span class="badge badge-neutral"><span class="dot"></span> Do wydania</span></td>
-                    <td class="t-hint">nie dotyczy</td>
-                    <td><span class="t-hint">—</span></td>
-                  </tr>
                   <tr class="clickable" data-goto="s41">
                     <td><span class="t-mono">ZAM-2026-1140</span><br /><span class="t-hint">Stalmont Sp. z o.o.</span></td>
                     <td><span class="strong">Bariera wewnętrzna GB-200</span><br /><span class="t-mono t-hint">GB-200 · RAL 1023</span></td>
@@ -5568,7 +5734,7 @@ ul. Przemysłowa 44
                   </tr>
                   <tr>
                     <td><span class="t-mono">ZAM-2026-1140</span><br /><span class="t-hint">Stalmont Sp. z o.o.</span></td>
-                    <td><span class="strong">Słupek odbojowy Ø108</span><br /><span class="t-mono t-hint">SLP-ODB-108 · RAL 1023</span></td>
+                    <td><span class="t-body">Słupek odbojowy Ø108</span><br /><span class="t-mono t-hint">SLP-ODB-108 · RAL 1023</span></td>
                     <td class="right num">48 szt.</td>
                     <td><span class="badge badge-success"><span class="dot"></span> Magazyn</span></td>
                     <td><span class="badge badge-success"><span class="dot"></span> Wysłane 19.09</span></td>
@@ -5577,7 +5743,7 @@ ul. Przemysłowa 44
                   </tr>
                   <tr>
                     <td><span class="t-mono">ZAM-2026-1140</span><br /><span class="t-hint">Stalmont Sp. z o.o.</span></td>
-                    <td><span class="strong">Osłona słupa RAL Column Guard</span><br /><span class="t-mono t-hint">RAL-X3 · RAL 1023</span></td>
+                    <td><span class="t-body">Osłona słupa RAL Column Guard</span><br /><span class="t-mono t-hint">RAL-X3 · RAL 1023</span></td>
                     <td class="right num">14 szt.</td>
                     <td><span class="badge badge-success"><span class="dot"></span> Magazyn</span></td>
                     <td><span class="badge badge-success"><span class="dot"></span> Wysłane 19.09</span></td>
@@ -5595,8 +5761,35 @@ ul. Przemysłowa 44
                   </tr>
                   <tr>
                     <td><span class="t-mono">ZAM-2026-1164</span><br /><span class="t-hint">Stalmont Sp. z o.o.</span></td>
-                    <td><span class="strong">Napęd elektromechaniczny</span><br /><span class="t-mono t-hint">NAP-EM-800</span></td>
+                    <td><span class="t-body">Napęd elektromechaniczny</span><br /><span class="t-mono t-hint">NAP-EM-800</span></td>
                     <td class="right num">1 szt.</td>
+                    <td><span class="badge badge-success"><span class="dot"></span> Magazyn</span></td>
+                    <td><span class="badge badge-neutral"><span class="dot"></span> Do wydania</span></td>
+                    <td class="t-hint">nie dotyczy</td>
+                    <td><span class="t-hint">—</span></td>
+                  </tr>
+                  <tr>
+                    <td><span class="t-mono">ZAM-2026-1190</span><br /><span class="t-hint">Stalmont Sp. z o.o. · z katalogu</span></td>
+                    <td><span class="t-body">Słupek odbojowy Ø108</span><br /><span class="t-mono t-hint">SLP-ODB-108 · RAL 7016</span></td>
+                    <td class="right num">24 szt.</td>
+                    <td><span class="badge badge-success"><span class="dot"></span> Magazyn</span></td>
+                    <td><span class="badge badge-neutral"><span class="dot"></span> Do wydania</span></td>
+                    <td class="t-hint">nie dotyczy</td>
+                    <td><span class="t-hint">—</span></td>
+                  </tr>
+                  <tr>
+                    <td><span class="t-mono">ZAM-2026-1190</span><br /><span class="t-hint">Stalmont Sp. z o.o. · z katalogu</span></td>
+                    <td><span class="t-body">Osłona słupa RAL Column Guard</span><br /><span class="t-mono t-hint">RAL-X3 · RAL 7016</span></td>
+                    <td class="right num">8 szt.</td>
+                    <td><span class="badge badge-success"><span class="dot"></span> Magazyn</span></td>
+                    <td><span class="badge badge-neutral"><span class="dot"></span> Do wydania</span></td>
+                    <td class="t-hint">nie dotyczy</td>
+                    <td><span class="t-hint">—</span></td>
+                  </tr>
+                  <tr>
+                    <td><span class="t-mono">ZAM-2026-1190</span><br /><span class="t-hint">Stalmont Sp. z o.o. · z katalogu</span></td>
+                    <td><span class="t-body">Samozamykacz standardowy</span><br /><span class="t-mono t-hint">SMZ-STD</span></td>
+                    <td class="right num">6 szt.</td>
                     <td><span class="badge badge-success"><span class="dot"></span> Magazyn</span></td>
                     <td><span class="badge badge-neutral"><span class="dot"></span> Do wydania</span></td>
                     <td class="t-hint">nie dotyczy</td>
@@ -5628,10 +5821,10 @@ ul. Przemysłowa 44
   </div>
 
   <div class="notes">
-    <div class="note"><b>1</b><span>To lista <span class="strong">pozycji, nie zamówień</span>. Jedno zamówienie potrafi mieć pozycję z magazynu i pozycję do wyprodukowania, a obsługa pracuje na tych drugich — dlatego nagłówek zamówienia jest tu kontekstem, nie wierszem. Przełącznik „Pozycje / Zamówienia" zostawia drugi widok dla kogoś, kto szuka konkretnego zamówienia.</span></div>
-    <div class="note"><b>2</b><span>ZAM-2026-1190 złożone z katalogu składa się wyłącznie z pozycji magazynowych — nie powstaje dla niego żadne zlecenie produkcyjne. ZAM-2026-1164 jest mieszane: brama idzie do produkcji, napęd z magazynu. To rozróżnienie decyduje o tym, kiedy zamówienie da się zwolnić do wysyłki (ekran 40).</span></div>
-    <div class="note"><b>3</b><span>Wiersz „Czeka na zlecenie" to jedyny stan wymagający decyzji człowieka na tym ekranie: pozycja wymaga produkcji, ale zlecenie jeszcze nie powstało. Czy tworzenie zlecenia ma być automatyczne przy przyjęciu zamówienia, czy świadomie ręczne, <span class="strong">pozostaje nierozstrzygnięte (A-27)</span>.</span></div>
-    <div class="note"><b>4</b><span>Kolumna „Zlecenie" prowadzi do ekranu produkcji. Pozycje magazynowe mają tam „nie dotyczy", a nie puste pole — pusta komórka sugerowałaby brakujące dane zamiast innego trybu realizacji.</span></div>
+    <div class="note"><b>1</b><span>Ta lista należy do produkcji, nie do sprzedaży. Planista pracuje na pozycjach, bo to pozycja jest jednostką wytwarzania — jedno zamówienie potrafi mieć pozycję do wytworzenia i pozycję, która tylko czeka na wydanie z magazynu.</span></div>
+    <div class="note"><b>2</b><span>Pozycje magazynowe są tu widoczne, ale wyciszone: planista ich nie wytwarza, natomiast musi wiedzieć, że zamówienie na nie czeka. Bez nich nie da się odpowiedzieć na pytanie „czy całe zamówienie jest gotowe do zwolnienia" (ekran 40).</span></div>
+    <div class="note"><b>3</b><span>Tablica (ekran 18) i lista pokazują ten sam obszar z dwóch stron: tablica układa <span class="strong">zlecenia</span> według etapu wytwarzania, lista układa <span class="strong">pozycje zamówień</span> według tego, co je blokuje. Przełącznik u góry prowadzi w obie strony.</span></div>
+    <div class="note"><b>4</b><span>Wiersz „Czeka na zlecenie" to jedyny stan wymagający tu decyzji człowieka: pozycja wymaga produkcji, ale zlecenie jeszcze nie powstało. Czy ma powstawać automatycznie przy przyjęciu zamówienia, pozostaje nierozstrzygnięte <span class="strong">(A-27)</span>.</span></div>
   </div>
 </section>
 

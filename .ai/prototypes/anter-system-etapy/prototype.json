@@ -9,18 +9,18 @@
   "storyMap": "story-map.md",
   "secondarySource": "anter-site-configurator (localhost:5173 SSR + kod źródłowy)",
   "flow": "Wszystkie etapy wdrożenia 0-6, odtworzenie stanu bieżącego konfiguratora oraz ścieżka zamawiania w portalu dystrybutora",
-  "screens": 43,
+  "screens": 44,
   "panelReport": null,
   "verification": "incomplete",
   "verificationNote": "Kontrole statyczne przeszły w komplecie. Renderowanie ekranów 33-39 i 13 zweryfikowane zrzutami z lokalnego Chrome headless (evidence/). Przejście klikane, motyw ciemny, tryb prezentacji i tryb komentarzy pozostają niesprawdzone - brak Playwrighta.",
   "files": [
     {
       "path": "index.html",
-      "sha256": "c83a3ef19c4a74a801ccc132f9afcbbece21730087d37309f6796c10f045b150"
+      "sha256": "9efabf732895985bb740a73b58a455e9a30e5591536c126186684a7e9682ae8c"
     },
     {
       "path": "README.md",
-      "sha256": "80fbb183113cd25d11c13466485ab129961097f6da15d2b14bc478cfbf7da808"
+      "sha256": "166fe47d717261d5d79f06250fad53e25e0882a02c7f38e840164e6efa122ef0"
     },
     {
       "path": "story-map.md",
@@ -32,7 +32,7 @@
     },
     {
       "path": "components.css",
-      "sha256": "40f65e8a239545d2fcf38963259c334915b856075503dfe1db88c0fd53fd97f8"
+      "sha256": "a74a3862279edb25f193c40676430c6fdb195ef5d28b03df7bec9e7138cbdc85"
     },
     {
       "path": "screens.css",
@@ -68,7 +68,7 @@
     },
     {
       "path": "evidence/s18-produkcja.png",
-      "sha256": "a0377696567dd6de6dcea80cd0c4ab1f0075c54b7e0d4d16190795d8f943f227"
+      "sha256": "d8151e2c0fb778bcf9497294fa3d01745a89b3e2ae846a2b6ba5f3bcbc0c66a1"
     },
     {
       "path": "evidence/s24-modul-szkoleniowy.png",
@@ -115,8 +115,12 @@
       "sha256": "3fd1ebd7fed46cdf7f60f1d035801aa8e885b83588ed98b6ade2092c4a1f5995"
     },
     {
-      "path": "evidence/s43-zamowienia-backoffice.png",
-      "sha256": "8f95f7d1b5532648256e6c22e3d19aa19ca3b2359baf58706486a06dd62e51e8"
+      "path": "evidence/s43-zamowienia.png",
+      "sha256": "02139972036c7bebbae29503b467da5a5824d720039a06a3a77ba1fed2f487aa"
+    },
+    {
+      "path": "evidence/s44-produkcja-lista.png",
+      "sha256": "f5b352a113f40f7d0ccaf7476bc127af43edb8c46dafbb584ff0996be1836c51"
     }
   ],
   "navigation": {
@@ -125,7 +129,7 @@
       {
         "id": "backoffice",
         "label": "Backoffice Anter",
-        "screens": 23
+        "screens": 24
       },
       {
         "id": "portal",

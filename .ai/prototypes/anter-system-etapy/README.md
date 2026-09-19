@@ -25,7 +25,7 @@ różnych powierzchni i mieszanie ich w jednej liście zacierało granicę:
 
 | Grupa | Ekrany | Co to jest |
 | --- | --- | --- |
-| Backoffice Anter | 23 | Wnętrze firmy: CRM, baza produktów, konfigurator wewnętrzny, ERP, transport |
+| Backoffice Anter | 24 | Wnętrze firmy: CRM, baza produktów, konfigurator wewnętrzny, ERP, transport |
 | Portal dystrybutora | 12 | Powierzchnia partnerska — jedyne ekrany widziane spoza Anter System (wyróżnione obwódką) |
 | Stan bieżący | 8 | Odtworzenie działającej aplikacji Anter Site Configurator, nie propozycja projektowa |
 
@@ -96,12 +96,24 @@ rozstrzygnięcie), a 15, 34 i 39 jej skutek kilka dni później. To celowe przed
 zamówieniu, nie rozjazd danych. Ekran 21 trzyma status sprzed wysyłki (17.09), bo ilustruje
 kolejkę zdarzeń zablokowanych przez zerwaną integrację.
 
-### Zamówienia w backoffice w rozbiciu na pozycje, „Zlecenia" → „Produkcja"
+### Zamówienia i Produkcja: podział według perspektywy
 
-Obsługa po stronie Anter potrzebuje widoku **pozycji, nie nagłówków zamówień**: jedno
-zamówienie potrafi mieć pozycję idącą prosto z magazynu i pozycję, która musi zostać
-wyprodukowana. Nowy ekran 43 pokazuje właśnie pozycje, z kolumną sposobu realizacji
-(Magazyn / Produkcja), stanem i odnośnikiem do zlecenia.
+Backoffice ma dwa widoki na tę samą rzeczywistość, rozdzielone tym, **kto i po co patrzy**:
+
+| | Zamówienia (43) | Produkcja (18 tablica, 44 lista) |
+| --- | --- | --- |
+| Pytanie | kto zamówił, za ile, skąd i na jakim etapie | co wytworzyć, czy mamy z czego |
+| Jednostka wiersza | **zamówienie** | **pozycja zamówienia** |
+| Zakres | wszystkie zamówienia | pozycje: produkcyjne i magazynowe |
+| Kto pracuje | sprzedaż, obsługa | planista produkcji |
+
+Ekran 43 nie rozbija zamówień na pozycje — pokazuje numer, kontrahenta, datę, liczbę pozycji,
+wartość, źródło i status. Rozbicie jest w produkcji, bo tam ma znaczenie operacyjne.
+
+Produkcja ma dwa widoki przełączane u góry: **tablica** (18) układa zlecenia według etapu
+wytwarzania, **lista** (44) układa pozycje zamówień według tego, co je blokuje. Pozycje
+magazynowe są na liście widoczne, ale wyciszone — planista ich nie wytwarza, natomiast bez
+nich nie odpowie na pytanie, czy całe zamówienie da się zwolnić do wysyłki (ekran 40).
 
 Co z tego widać na przykładach w prototypie:
 
@@ -287,7 +299,8 @@ historyjka dotyka nierozstrzygniętej kwestii, są w niej oznaczone `[DO ROZSTRZ
 | s40 | backoffice | Zwolnienie do wysyłki — kolejka | 5 | US-5.3, US-5.4 | s41, s22 |
 | s41 | backoffice | Wysyłka częściowa — wybór pozycji | 5 | US-5.4, CC-2, CC-5 | s22, s40 |
 | s42 | portal | Katalog w widoku kafli | 3 | US-3.7, CC-1, CC-3 | s35, s36, s37, s13 |
-| s43 | backoffice | Backoffice — zamówienia w rozbiciu na pozycje | 4 | US-4.1, US-4.5, CC-1, CC-7 | s18, s19, s41 |
+| s43 | backoffice | Backoffice — zamówienia (nagłówki) | 4 | US-4.1, US-4.5 | s44 |
+| s44 | backoffice | Produkcja — lista zamówień z pozycjami | 4 | US-4.1, US-4.5, CC-1, CC-7 | s18, s19, s41 |
 
 Stany brzegowe rozłożone na ekranach: pusty (s8), brak uprawnień (s12), konflikt reguł
 (s6, s9), wyjście poza automatyzację (s10, s22, s35 w wierszu bramy przesuwnej), błąd
@@ -405,6 +418,7 @@ z odpornością produktów z biblioteki.
 | A-25 | Status „wysłane częściowo" rozszerza listę sześciu statusów zwrotnych (s19, s41) | „Wysłane" nieprawdziwie sugerowałoby komplet | Wymaga decyzji przy projektowaniu integracji ERP i uzgodnienia z dokumentem |
 | A-26 | Widok kafli ma sens tylko przy kompletnych zdjęciach produktów (s42) | Kafel bez zdjęcia niesie mniej informacji niż wiersz listy, więc traci rację bytu | Ile rekordów w bazie produktów ma dziś zdjęcia — do sprawdzenia przed decyzją o tym widoku |
 | A-27 | Zlecenie produkcyjne dla pozycji wymagającej produkcji nie powstaje automatycznie — jest stan „czeka na zlecenie" (s43) | Trzeba było rozstrzygnąć, czy przyjęcie zamówienia od razu tworzy zlecenie | Decyzja produkcji i IT: automat przyspiesza, ale odbiera kontrolę nad kolejnością i terminami |
+| A-28 | Zamówienia partnera są dostępne przez filtr kontrahenta na liście zamówień, a nie jako sekcja na karcie partnera (s16, s43) | Karta partnera pokazuje obrót i liczbę zamówień, ale nie ich listę | Do rozstrzygnięcia, czy opiekun ma widzieć zamówienia bez opuszczania karty partnera |
 
 ## Sprzeczności i braki wykryte przy rysowaniu przepływu
 
@@ -447,7 +461,7 @@ z odpornością produktów z biblioteki.
 | Wszystkie cele `data-goto` wskazują na istniejące ekrany | OK, 0 błędnych |
 | Wszystkie odnośniki `href="#sN"` wskazują na istniejące ekrany | OK, 0 błędnych |
 | Nawigacja paska pokrywa komplet 39 ekranów, bez duplikatów | OK |
-| Pasek podzielony na trzy grupy (23 + 12 + 8 = 43) | OK |
+| Pasek podzielony na trzy grupy (24 + 12 + 8 = 44) | OK |
 | Podświetlenie bieżącego ekranu: wejście z adresu, przejście w mockupie, przewijanie | OK |
 | Brak poziomów certyfikacji i sugestii wpływu szkoleń na rabat | OK |
 | Status wysyłki częściowej spójny w liście, pulpicie i szczegółach zamówienia | OK |

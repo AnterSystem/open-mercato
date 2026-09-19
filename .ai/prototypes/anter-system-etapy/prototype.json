@@ -2,28 +2,29 @@
   "format": "discovery-prototype-v1",
   "skill": "om-mockup-prototype",
   "slug": "anter-system-etapy",
-  "revision": 1,
+  "revision": 2,
   "revisionPath": ".ai/prototypes/anter-system-etapy",
-  "previousRevision": null,
+  "previousRevision": "git:bbdab8545 (rewizja 1, 32 ekrany)",
   "brief": "docs/anter-system-architektura-docelowa.md",
   "storyMap": "story-map.md",
   "secondarySource": "anter-site-configurator (localhost:5173 SSR + kod źródłowy)",
-  "flow": "Wszystkie etapy wdrożenia 0-6 plus odtworzenie stanu bieżącego konfiguratora",
-  "screens": 32,
+  "flow": "Wszystkie etapy wdrożenia 0-6, odtworzenie stanu bieżącego konfiguratora oraz ścieżka zamawiania w portalu dystrybutora",
+  "screens": 39,
   "panelReport": null,
-  "verification": "not-run",
+  "verification": "incomplete",
+  "verificationNote": "Kontrole statyczne przeszły w komplecie. Renderowanie ekranów 33-39 i 13 zweryfikowane zrzutami z lokalnego Chrome headless (evidence/). Przejście klikane, motyw ciemny, tryb prezentacji i tryb komentarzy pozostają niesprawdzone - brak Playwrighta.",
   "files": [
     {
       "path": "index.html",
-      "sha256": "4613a9ad33e704999aae17e57c493f2925f47ddcbec36bd327f37a20136625cd"
+      "sha256": "ac8eb2fd75cc89bc922d5bf33f7641fbc9346aca77ec27b7045159a1b326ca88"
     },
     {
       "path": "README.md",
-      "sha256": "93e04ca9beeae686a7c66aca702c3351afc01ed521527e6587e8fb673097b010"
+      "sha256": "980c50fac4395c5c2964a555cd9c1c76d6fc19b3b55db43d721e0c9870a5001b"
     },
     {
       "path": "story-map.md",
-      "sha256": "5b110df8e16ae6946b403fe114e5b0b60bcabbc3bba53455afece0e7107d2c39"
+      "sha256": "18b84b92fa9efaedcba9b967e61fc05c88d1038f9986eb985cb2f7c1b0960bde"
     },
     {
       "path": "tokens.css",
@@ -31,7 +32,7 @@
     },
     {
       "path": "components.css",
-      "sha256": "92b7c3221849e7835c177fcf51e1e77381519958b4c8b97ca4b02d1e3bee3703"
+      "sha256": "40f65e8a239545d2fcf38963259c334915b856075503dfe1db88c0fd53fd97f8"
     },
     {
       "path": "screens.css",
@@ -48,6 +49,38 @@
     {
       "path": "comments.js",
       "sha256": "7d254afd29393199cb17038b7df1619bb74845f436e81f7ed24aa66c5984fa55"
+    },
+    {
+      "path": "evidence/s13-konfigurator-po-uspojnieniu.png",
+      "sha256": "65a64c40ad7f07a6c8fa37ce66c3a51cd947ca008fe9ea0da4c1835ff0786d37"
+    },
+    {
+      "path": "evidence/s33-logowanie.png",
+      "sha256": "626afaa03e75dfb351ac3cbd631b0e68ed9fd3b955009ff6e9714c3eca6bf905"
+    },
+    {
+      "path": "evidence/s34-pulpit.png",
+      "sha256": "fd174e67db343727502bf986e014adc15789b0482d36f1f51788e1db485f4c48"
+    },
+    {
+      "path": "evidence/s35-katalog.png",
+      "sha256": "6abe08496b4ca1f2934f5b4bba8258610a8c44fd50d01ff98523320624ef2b48"
+    },
+    {
+      "path": "evidence/s36-karta-produktu.png",
+      "sha256": "726e56728a61d3bd82eb8a621542fda282947811a9035c80d6f6e4510f5810a1"
+    },
+    {
+      "path": "evidence/s37-koszyk.png",
+      "sha256": "6c8419ba45f152cd45332745b5cd555da6e65a8d29c4db2e3cf7f52f853219de"
+    },
+    {
+      "path": "evidence/s38-zamowienie-zlozone.png",
+      "sha256": "80953b13cef1854732ef1f8e1823fe6bd6be71ee60c8ac8d2853f4c0d4b242c7"
+    },
+    {
+      "path": "evidence/s39-szczegoly-zamowienia.png",
+      "sha256": "5fa167d4d49cb61c164c5050b869043494f715d74a4270e4eea985654f3e0fb3"
     }
   ]
 }

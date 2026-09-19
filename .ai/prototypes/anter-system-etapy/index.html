@@ -91,6 +91,13 @@
     <a href="#s30">K · Wyceny</a>
     <a href="#s31">K · Biblioteka</a>
     <a href="#s32">K · Energia</a>
+    <a href="#s33">3 · Logowanie</a>
+    <a href="#s34">3 · Pulpit</a>
+    <a href="#s35">3 · Katalog</a>
+    <a href="#s36">3 · Karta produktu</a>
+    <a href="#s37">3 · Koszyk</a>
+    <a href="#s38">3 · Zamówienie złożone</a>
+    <a href="#s39">3 · Szczegóły zamówienia</a>
   </nav>
   <button class="btn btn-outline btn-sm" id="theme-toggle" type="button">
     <svg><use href="#ic-sun"/></svg> Motyw
@@ -278,7 +285,7 @@
   </div>
 
   <div class="notes">
-    <div class="note"><b>1</b><span>Kolumna „Prekwalifikacja agenta" niesie tor <b>i</b> pewność. Sam tor bez pewności wyglądałby jak rozstrzygnięcie i zachęcał do zatwierdzania hurtem; pewność mówi kwalifikatorowi, gdzie naprawdę musi wejść w szczegóły (ekran 2).</span></div>
+    <div class="note"><b>1</b><span>Kolumna „Prekwalifikacja agenta" niesie tor <span class="strong">i</span> pewność. Sam tor bez pewności wyglądałby jak rozstrzygnięcie i zachęcał do zatwierdzania hurtem; pewność mówi kwalifikatorowi, gdzie naprawdę musi wejść w szczegóły (ekran 2).</span></div>
     <div class="note"><b>2</b><span>Wiersz Nordgate pokazuje stan „brak rekomendacji": agent nie zgaduje, gdy nie potrafi przeczytać zgłoszenia. Wymuszona propozycja przy każdym leadzie psułaby wiarygodność pozostałych.</span></div>
     <div class="note"><b>3</b><span>Wiersz Vermet to wariant mieszany opisany w dokumencie: dystrybutor zaprasza Anter na audyt u swojego klienta. Ma najniższą pewność i najwięcej sygnałów przeciwnych — to on prowadzi do ekranu 2.</span></div>
     <div class="note"><b>4</b><span>Sortowanie po pewności rosnąco jest naturalnym trybem pracy kwalifikatora: najpierw przypadki sporne. Prototyp nie sortuje.</span></div>
@@ -545,9 +552,9 @@
   </div>
 
   <div class="notes">
-    <div class="note"><b>1</b><span>Sedno ekranu to rozdzielenie <b>faktu potwierdzonego</b> od <b>wniosku z treści</b>. Fakt wskazuje rekord w CRM albo pole formularza i da się go sprawdzić jednym kliknięciem. Wniosek wskazuje cytat, na którym agent go oparł — kwalifikator weryfikuje wtedy interpretację, a nie ufa etykiecie.</span></div>
+    <div class="note"><b>1</b><span>Sedno ekranu to rozdzielenie <span class="strong">faktu potwierdzonego</span> od <b>wniosku z treści</b>. Fakt wskazuje rekord w CRM albo pole formularza i da się go sprawdzić jednym kliknięciem. Wniosek wskazuje cytat, na którym agent go oparł — kwalifikator weryfikuje wtedy interpretację, a nie ufa etykiecie.</span></div>
     <div class="note"><b>2</b><span>Sygnały przeciwne i braki są osobną, równorzędną sekcją, a nie drobnym drukiem pod rekomendacją. Agent, który pokazuje wyłącznie argumenty za swoją propozycją, uczy kwalifikatora klikać „potwierdź" bez czytania.</span></div>
-    <div class="note"><b>3</b><span>Pewność jest podana jakościowo i uzupełniona o to, <b>co by ją podniosło</b>. Sama liczba procentowa nie mówi kwalifikatorowi, co ma zrobić.</span></div>
+    <div class="note"><b>3</b><span>Pewność jest podana jakościowo i uzupełniona o to, <span class="strong">co by ją podniosło</span>. Sama liczba procentowa nie mówi kwalifikatorowi, co ma zrobić.</span></div>
     <div class="note"><b>4</b><span>Zgodność historyczna jest rozbita na tor: 82% ogółem, ale tylko 61% dla wariantu mieszanego. Zbiorcza skuteczność ukrywałaby to, że akurat w tej kategorii agent myli się najczęściej.</span></div>
     <div class="note"><b>5</b><span>Zmiana toru wymaga powodu, który wraca do przeglądu skuteczności agenta. To jedyne miejsce w prototypie, gdzie decyzja człowieka jest jednocześnie danymi uczącymi — i dlatego pole nie może być opcjonalne.</span></div>
     <div class="note"><b>6</b><span>Agent nigdy nie przypisuje toru samodzielnie. Dokument mówi, że od tego rozstrzygnięcia zależy cennik, proces i dostęp do panelu B2B, więc automatyczne przypisanie przenosiłoby skutek handlowy na model.</span></div>
@@ -1699,10 +1706,15 @@
         <div class="sidebar-brand"><span class="brand-mark">ST</span> <span class="ellipsis">Stalmont Sp. z o.o.</span></div>
         <div class="sidebar-search"><svg><use href="#ic-search"/></svg> Szukaj</div>
         <nav class="sidebar-nav">
+          <div class="nav-items">
+            <a class="nav-item" href="#s34" data-goto="s34"><svg><use href="#ic-home"/></svg> Pulpit</a>
+          </div>
           <div class="nav-group"><span>Zamawianie</span><svg><use href="#ic-chevron-down"/></svg></div>
           <div class="nav-items">
+            <a class="nav-item" href="#s35" data-goto="s35"><svg><use href="#ic-box"/></svg> Katalog</a>
+            <a class="nav-item" href="#s37" data-goto="s37"><svg><use href="#ic-cart"/></svg> Koszyk <span class="count">3</span></a>
             <span class="nav-item active"><svg><use href="#ic-sliders"/></svg> Konfigurator</span>
-            <a class="nav-item" href="#s15" data-goto="s15"><svg><use href="#ic-cart"/></svg> Zamówienia <span class="count">34</span></a>
+            <a class="nav-item" href="#s15" data-goto="s15"><svg><use href="#ic-clock"/></svg> Zamówienia <span class="count">34</span></a>
             <span class="nav-item"><svg><use href="#ic-file"/></svg> Dokumenty</span>
           </div>
           <div class="nav-group"><span>Wiedza</span><svg><use href="#ic-chevron-down"/></svg></div>
@@ -1903,10 +1915,15 @@
         <div class="sidebar-brand"><span class="brand-mark">ST</span> <span class="ellipsis">Stalmont Sp. z o.o.</span></div>
         <div class="sidebar-search"><svg><use href="#ic-search"/></svg> Szukaj</div>
         <nav class="sidebar-nav">
+          <div class="nav-items">
+            <a class="nav-item" href="#s34" data-goto="s34"><svg><use href="#ic-home"/></svg> Pulpit</a>
+          </div>
           <div class="nav-group"><span>Zamawianie</span><svg><use href="#ic-chevron-down"/></svg></div>
           <div class="nav-items">
+            <a class="nav-item" href="#s35" data-goto="s35"><svg><use href="#ic-box"/></svg> Katalog</a>
+            <a class="nav-item" href="#s37" data-goto="s37"><svg><use href="#ic-cart"/></svg> Koszyk <span class="count">3</span></a>
             <a class="nav-item" href="#s13" data-goto="s13"><svg><use href="#ic-sliders"/></svg> Konfigurator</a>
-            <span class="nav-item active"><svg><use href="#ic-cart"/></svg> Zamówienia <span class="count">34</span></span>
+            <span class="nav-item active"><svg><use href="#ic-clock"/></svg> Zamówienia <span class="count">34</span></span>
             <span class="nav-item"><svg><use href="#ic-file"/></svg> Dokumenty</span>
           </div>
         </nav>
@@ -1939,7 +1956,7 @@
                 <tbody>
                   <tr class="clickable"><td class="t-mono">ZAM-2026-1187</td><td>Bramka uchylna × 12</td><td class="right num">21 340,80</td><td><span class="badge badge-info"><span class="dot"></span> Zamówienie przyjęte</span></td><td class="t-hint">—</td><td><button class="btn btn-ghost btn-xs"><svg><use href="#ic-file"/></svg> Potwierdzenie</button></td></tr>
                   <tr class="clickable"><td class="t-mono">ZAM-2026-1164</td><td>Brama przesuwna × 1, napęd × 1</td><td class="right num">14 780,00</td><td><span class="badge badge-warning"><span class="dot"></span> W produkcji</span></td><td class="t-hint">—</td><td><button class="btn btn-ghost btn-xs"><svg><use href="#ic-file"/></svg> Oferta</button></td></tr>
-                  <tr class="clickable"><td class="t-mono">ZAM-2026-1140</td><td>Bariery wewnętrzne × 80 mb</td><td class="right num">38 912,00</td><td><span class="badge badge-error"><span class="dot"></span> Oczekuje na komponent</span><br /><span class="t-hint">termin: 06.10.2026</span></td><td class="t-hint">—</td><td><button class="btn btn-ghost btn-xs"><svg><use href="#ic-file"/></svg> Potwierdzenie</button></td></tr>
+                  <tr class="clickable" data-goto="s39"><td class="t-mono">ZAM-2026-1140</td><td>Bariery wewnętrzne × 80 mb</td><td class="right num">38 912,00</td><td><span class="badge badge-error"><span class="dot"></span> Oczekuje na komponent</span><br /><span class="t-hint">termin: 06.10.2026</span></td><td class="t-hint">—</td><td><button class="btn btn-ghost btn-xs"><svg><use href="#ic-file"/></svg> Potwierdzenie</button></td></tr>
                   <tr class="clickable"><td class="t-mono">ZAM-2026-1102</td><td>Słupki odbojowe × 24</td><td class="right num">7 478,40</td><td><span class="badge badge-success"><span class="dot"></span> Wysłane</span></td><td><span class="t-mono">PL8841203377</span></td><td><button class="btn btn-ghost btn-xs"><svg><use href="#ic-file"/></svg> List przewozowy</button></td></tr>
                   <tr class="clickable"><td class="t-mono">ZAM-2026-1071</td><td>Bramka uchylna × 6</td><td class="right num">10 670,40</td><td><span class="badge badge-success"><span class="dot"></span> Dostarczone</span></td><td><span class="t-mono">PL8841198002</span></td><td><button class="btn btn-ghost btn-xs"><svg><use href="#ic-file"/></svg> Faktura</button></td></tr>
                 </tbody>
@@ -3054,7 +3071,7 @@ ul. Przemysłowa 44
   </div>
 
   <div class="notes">
-    <div class="note"><b>1</b><span>Ten i siedem kolejnych ekranów odtwarzają <b>istniejącą</b> aplikację uruchomioną na <code class="t-mono">localhost:5173</code>, a nie propozycję projektową. Źródło: <code class="t-mono">app/site-configurator.tsx</code> w repozytorium <code class="t-mono">anter-site-configurator</code>.</span></div>
+    <div class="note"><b>1</b><span>Ten i siedem kolejnych ekranów odtwarzają <span class="strong">istniejącą</span> aplikację uruchomioną na <code class="t-mono">localhost:5173</code>, a nie propozycję projektową. Źródło: <code class="t-mono">app/site-configurator.tsx</code> w repozytorium <code class="t-mono">anter-site-configurator</code>.</span></div>
     <div class="note"><b>2</b><span>Aplikacja jest narzędziem audytora w terenie: nagrywanie audio, dyktowanie do tekstu, porządkowanie notatki przez AI i zdjęcia z aparatu. Dokument architektury opisywał ten etap jako „szkice i zdjęcia poaudytowe" — tutaj jest już zaimplementowany.</span></div>
     <div class="note"><b>3</b><span>Pasek „Weryfikacja dostępu" to realne zachowanie aplikacji: zmiany są szkicem do czasu potwierdzenia zapisu na serwerze.</span></div>
   </div>
@@ -3718,7 +3735,7 @@ ul. Przemysłowa 44
   <div class="notes">
     <div class="note"><b>1</b><span>To jest realny, działający odpowiednik ekranów 11 i 13: wycena z rabatem partnera, walutą, transportem i terminem ważności, zakończona zgłoszeniem zamówienia. Brakuje tylko cennika — ceny wpisuje się ręcznie, bo nie ma bazy produktów z cenami.</span></div>
     <div class="note"><b>2</b><span>Blokada „projekt ma nowszą rewizję" jest tu kluczowa handlowo: nie da się zamówić na podstawie oferty wystawionej do nieaktualnego rysunku. Architektura docelowa tego mechanizmu nie opisywała.</span></div>
-    <div class="note"><b>3</b><span>Cztery role (właściciel, handlowiec, konstruktor, podgląd) pokrywają się z typami kont B2B z ekranu 17, ale są to role <b>wewnątrz</b> zgłoszenia, nie typy kont partnerskich. Relacja między jednym a drugim jest niedomknięta.</span></div>
+    <div class="note"><b>3</b><span>Cztery role (właściciel, handlowiec, konstruktor, podgląd) pokrywają się z typami kont B2B z ekranu 17, ale są to role <span class="strong">wewnątrz</span> zgłoszenia, nie typy kont partnerskich. Relacja między jednym a drugim jest niedomknięta.</span></div>
   </div>
 </section>
 
@@ -3920,6 +3937,958 @@ ul. Przemysłowa 44
     <div class="note"><b>1</b><span>Zestawienie doboru z biblioteki jest rozszerzeniem prototypu, nie odtworzeniem: działający kalkulator liczy samą energię i nie porównuje jej z odpornością produktów. Pokazuje, do czego prowadzi pole „Przebadana energia [kJ]" z biblioteki (ekran 31).</span></div>
     <div class="note"><b>2</b><span>Wiersz „brak danych" to realny stan: Pedestrian R3 HD+ ma w bibliotece status „do weryfikacji" właśnie z powodu nieuzupełnionych parametrów badań.</span></div>
     <div class="note"><b>3</b><span>To narzędzie nie ma odpowiednika w dokumencie architektury. Jest argumentem za tym, żeby baza produktów trzymała parametry badań jako pełnoprawną warstwę danych, obok atrybutów i struktury wykonawczej.</span></div>
+  </div>
+</section>
+
+<section class="screen" id="s33">
+  <div class="screen-meta">
+    <h2>33. Portal dystrybutora — logowanie</h2>
+    <p>Wejście do panelu. Konta zakłada opiekun po stronie Anter, nie ma samodzielnej rejestracji — dostęp do cennika wynika z umowy, a nie z wypełnionego formularza.</p>
+    <div class="screen-refs"><span class="ref">§Platforma B2B → Typy kont</span><span class="ref">US-3.1</span><span class="ref">Etap 3</span><span class="ref">powierzchnia portalowa</span></div>
+  </div>
+
+  <div class="frame">
+    <div class="frame-bar">
+      <div class="frame-dots"><i></i><i></i><i></i></div>
+      <span class="frame-url">/panel/logowanie</span>
+    </div>
+    <div class="app app-narrow" style="grid-template-columns:minmax(0,1fr)">
+      <div class="main">
+        <main class="page">
+          <div class="form-layout">
+            <div class="card card-pad stack-4">
+              <div class="stack-2">
+                <span class="brand-mark">AS</span>
+                <h1 class="t-page-title">Panel partnera Anter System</h1>
+                <p class="t-hint" style="margin:0">Zaloguj się danymi, które otrzymałeś od swojego opiekuna handlowego.</p>
+              </div>
+
+              <div class="stack-3">
+                <div class="field">
+                  <label for="l-email">Adres e-mail</label>
+                  <input class="input" id="l-email" type="email" value="k.nowicki@stalmont.example" autocomplete="username" />
+                </div>
+                <div class="field">
+                  <label for="l-haslo">Hasło</label>
+                  <span class="input-group">
+                    <input class="input" id="l-haslo" type="password" value="••••••••••" autocomplete="current-password" />
+                    <span class="addon"><svg><use href="#ic-lock"/></svg></span>
+                  </span>
+                </div>
+                <div class="row between">
+                  <span class="row"><span class="check" role="checkbox" aria-checked="true" aria-label="Zapamiętaj mnie na tym urządzeniu"><svg><use href="#ic-check"/></svg></span> <span class="t-body">Zapamiętaj mnie</span></span>
+                  <span class="t-hint">Nie pamiętam hasła</span>
+                </div>
+              </div>
+
+              <button class="btn btn-primary" data-goto="s34"><svg><use href="#ic-arrow-right"/></svg> Zaloguj się</button>
+
+              <div class="separator"></div>
+
+              <div class="alert alert-info">
+                <svg><use href="#ic-info"/></svg>
+                <div>
+                  <span class="alert-title">Nie masz jeszcze konta?</span>
+                  <span>Konta partnerskie zakłada opiekun handlowy Anter System. Napisz na <span class="t-mono">partnerzy@anter.example</span> albo skontaktuj się ze swoim opiekunem.</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="stack-3">
+              <div class="card card-pad stack-3">
+                <span class="t-card-title">Co zobaczysz po zalogowaniu</span>
+                <div class="stack-2">
+                  <span class="row"><svg style="width:1rem;height:1rem;color:var(--muted-foreground)"><use href="#ic-box"/></svg> <span class="t-body">Katalog z Twoimi cenami</span></span>
+                  <span class="row"><svg style="width:1rem;height:1rem;color:var(--muted-foreground)"><use href="#ic-cart"/></svg> <span class="t-body">Zamówienia i ich statusy</span></span>
+                  <span class="row"><svg style="width:1rem;height:1rem;color:var(--muted-foreground)"><use href="#ic-sliders"/></svg> <span class="t-body">Konfigurator niestandardowych realizacji</span></span>
+                  <span class="row"><svg style="width:1rem;height:1rem;color:var(--muted-foreground)"><use href="#ic-file"/></svg> <span class="t-body">Dokumenty: oferty, faktury, listy przewozowe</span></span>
+                </div>
+              </div>
+              <p class="t-hint" style="margin:0">Zakres widoczny w panelu zależy od typu konta ustalonego w umowie. Konto bez cen nie zobaczy cennika, konto podglądowe nie złoży zamówienia.</p>
+            </div>
+          </div>
+        </main>
+        <footer class="app-foot"><span>Prototyp · dane fikcyjne</span><nav class="row-3"><span>Etap 3</span><span>US-3.1</span></nav></footer>
+      </div>
+    </div>
+  </div>
+
+  <div class="notes">
+    <div class="note"><b>1</b><span>Brak samodzielnej rejestracji jest <span class="strong">założeniem prototypu</span> (A-16), nie ustaleniem z dokumentu. Wynika z logiki typów kont: dostęp do cennika partnerskiego zależy od umowy, więc konto musi powstać po stronie Anter. Do potwierdzenia przez sprzedaż.</span></div>
+    <div class="note"><b>2</b><span>Logowanie jest jednym ze zdarzeń wracających do CRM. Trafia tam jako data ostatniej aktywności konta i osoby, agregowana — nie jako osobna aktywność przy każdym wejściu (CC-6).</span></div>
+    <div class="note"><b>3</b><span>Panel jest jedną z niewielu powierzchni widzianych spoza Anter System. Marka należy do Anter, ale nawigacja i dane są zawężone do jednego kontrahenta.</span></div>
+  </div>
+</section>
+
+<section class="screen" id="s34">
+  <div class="screen-meta">
+    <h2>34. Portal dystrybutora — pulpit</h2>
+    <p>Pierwszy ekran po zalogowaniu. Odpowiada na trzy pytania, z którymi partner dzwoni dziś do opiekuna: co się dzieje z moimi zamówieniami, ile już wziąłem i co zamówić ponownie.</p>
+    <div class="screen-refs"><span class="ref">§Platforma B2B → Zakres funkcjonalny</span><span class="ref">US-3.1</span><span class="ref">US-3.3</span><span class="ref">Etap 3</span></div>
+  </div>
+
+  <div class="frame">
+    <div class="frame-bar">
+      <div class="frame-dots"><i></i><i></i><i></i></div>
+      <span class="frame-url">/panel</span>
+    </div>
+    <div class="app app-tall">
+      <aside class="sidebar">
+        <div class="sidebar-brand"><span class="brand-mark">ST</span> <span class="ellipsis">Stalmont Sp. z o.o.</span></div>
+        <div class="sidebar-search"><svg><use href="#ic-search"/></svg> Szukaj</div>
+        <nav class="sidebar-nav">
+          <div class="nav-items">
+            <span class="nav-item active"><svg><use href="#ic-home"/></svg> Pulpit</span>
+          </div>
+          <div class="nav-group"><span>Zamawianie</span><svg><use href="#ic-chevron-down"/></svg></div>
+          <div class="nav-items">
+            <a class="nav-item" href="#s35" data-goto="s35"><svg><use href="#ic-box"/></svg> Katalog</a>
+            <a class="nav-item" href="#s37" data-goto="s37"><svg><use href="#ic-cart"/></svg> Koszyk <span class="count">3</span></a>
+            <a class="nav-item" href="#s13" data-goto="s13"><svg><use href="#ic-sliders"/></svg> Konfigurator</a>
+            <a class="nav-item" href="#s15" data-goto="s15"><svg><use href="#ic-clock"/></svg> Zamówienia <span class="count">34</span></a>
+            <span class="nav-item"><svg><use href="#ic-file"/></svg> Dokumenty</span>
+          </div>
+          <div class="nav-group"><span>Wiedza</span><svg><use href="#ic-chevron-down"/></svg></div>
+          <div class="nav-items">
+            <a class="nav-item" href="#s24" data-goto="s24"><svg><use href="#ic-book"/></svg> Szkolenia</a>
+            <span class="nav-item"><svg><use href="#ic-download"/></svg> Materiały</span>
+          </div>
+          <div class="sidebar-foot"><span class="t-hint">Opiekun: Marta Kowalczyk</span></div>
+        </nav>
+      </aside>
+      <div class="main">
+        <header class="topbar">
+          <div class="topbar-left"><div class="crumbs"><svg><use href="#ic-home"/></svg><svg><use href="#ic-chevron-right"/></svg><span class="here">Pulpit</span></div></div>
+          <div class="topbar-right">
+            <span class="badge badge-success"><span class="dot"></span> Konto pełne · rabat 24%</span>
+            <button class="icon-btn" aria-label="Powiadomienia"><svg><use href="#ic-bell"/></svg></button>
+            <span class="avatar">KN</span>
+          </div>
+        </header>
+        <main class="page">
+          <div class="page-head">
+            <div><h1 class="t-page-title">Dzień dobry, Krzysztof</h1><p>Stalmont Sp. z o.o. · numer kontrahenta <span class="t-mono">KTR-10422</span></p></div>
+            <div class="page-actions">
+              <button class="btn btn-outline" data-goto="s13"><svg><use href="#ic-sliders"/></svg> Nowa konfiguracja</button>
+              <button class="btn btn-primary" data-goto="s35"><svg><use href="#ic-box"/></svg> Zamów z katalogu</button>
+            </div>
+          </div>
+
+          <div class="kpis">
+            <div class="kpi"><span class="t-label">Zamówienia w toku</span><span class="v num">4</span><span class="t-hint">2 w produkcji</span></div>
+            <div class="kpi"><span class="t-label">Najbliższa dostawa</span><span class="v num">06.10</span><span class="t-hint">ZAM-2026-1140</span></div>
+            <div class="kpi"><span class="t-label">Obrót 2026</span><span class="v num">486 210</span><span class="t-hint">PLN netto</span></div>
+            <div class="kpi"><span class="t-label">Do progu rabatu 27%</span><span class="v num">113 790</span><span class="t-hint">PLN netto</span></div>
+          </div>
+
+          <div class="split split-side" style="margin-top:0.75rem">
+            <div class="stack-3">
+              <div class="card">
+                <div class="card-head"><span class="t-card-title">Zamów ponownie</span><span class="t-hint">z ostatnich 6 miesięcy</span></div>
+                <div class="card-body">
+                  <p class="t-hint" style="margin:0 0 0.75rem">Pozycje, które zamawiasz regularnie. To dla nich powstał panel: drobne, powtarzalne zamówienia nie muszą przechodzić przez maila i przez pracownika Anter.</p>
+                  <table class="table">
+                    <thead><tr><th>Produkt</th><th>Ostatnio</th><th class="right">Twoja cena</th><th style="width:0"></th></tr></thead>
+                    <tbody>
+                      <tr>
+                        <td><span class="strong">Słupek odbojowy Ø108</span><br /><span class="t-mono t-hint">SLP-ODB-108</span></td>
+                        <td><span class="t-body">24 szt.</span><br /><span class="t-hint num">14.07.2026</span></td>
+                        <td class="right num">311,60</td>
+                        <td><button class="btn btn-outline btn-xs" data-goto="s37"><svg><use href="#ic-plus"/></svg> Do koszyka</button></td>
+                      </tr>
+                      <tr>
+                        <td><span class="strong">Osłona słupa RAL Column Guard</span><br /><span class="t-mono t-hint">RAL-X3</span></td>
+                        <td><span class="t-body">8 szt.</span><br /><span class="t-hint num">14.07.2026</span></td>
+                        <td class="right num">369,36</td>
+                        <td><button class="btn btn-outline btn-xs" data-goto="s37"><svg><use href="#ic-plus"/></svg> Do koszyka</button></td>
+                      </tr>
+                      <tr>
+                        <td><span class="strong">Samozamykacz standardowy</span><br /><span class="t-mono t-hint">SMZ-STD</span></td>
+                        <td><span class="t-body">6 szt.</span><br /><span class="t-hint num">22.05.2026</span></td>
+                        <td class="right num">203,68</td>
+                        <td><button class="btn btn-outline btn-xs" data-goto="s37"><svg><use href="#ic-plus"/></svg> Do koszyka</button></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-head"><span class="t-card-title">Ostatnie zamówienia</span><a class="btn btn-ghost btn-xs" href="#s15" data-goto="s15">Wszystkie <svg><use href="#ic-arrow-right"/></svg></a></div>
+                <div class="card-body">
+                  <table class="table">
+                    <thead><tr><th>Numer</th><th>Pozycje</th><th class="right">Wartość netto</th><th>Status</th></tr></thead>
+                    <tbody>
+                      <tr class="clickable" data-goto="s39"><td class="t-mono">ZAM-2026-1140</td><td>Bariery wewnętrzne × 80 mb</td><td class="right num">38 912,00</td><td><span class="badge badge-error"><span class="dot"></span> Oczekuje na komponent</span></td></tr>
+                      <tr class="clickable" data-goto="s15"><td class="t-mono">ZAM-2026-1164</td><td>Brama przesuwna × 1, napęd × 1</td><td class="right num">14 780,00</td><td><span class="badge badge-warning"><span class="dot"></span> W produkcji</span></td></tr>
+                      <tr class="clickable" data-goto="s15"><td class="t-mono">ZAM-2026-1102</td><td>Słupki odbojowe × 24</td><td class="right num">7 478,40</td><td><span class="badge badge-success"><span class="dot"></span> Wysłane</span></td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div class="stack-3">
+              <div class="card card-pad stack-3">
+                <span class="t-card-title">Twój opiekun</span>
+                <div class="row">
+                  <span class="avatar avatar-lg">MK</span>
+                  <div>
+                    <div class="strong">Marta Kowalczyk</div>
+                    <div class="t-hint">Opiekun handlowy</div>
+                  </div>
+                </div>
+                <div class="stack-2">
+                  <button class="btn btn-outline btn-sm"><svg><use href="#ic-mail"/></svg> Napisz wiadomość</button>
+                  <p class="t-hint" style="margin:0">Niestandardowa realizacja? Złóż ją w konfiguratorze — Marta dostanie ją z kompletem parametrów zamiast opisu w mailu.</p>
+                </div>
+              </div>
+
+              <div class="card card-pad stack-3">
+                <span class="t-card-title">Zapisane konfiguracje</span>
+                <div class="stack-2">
+                  <div class="row between"><span class="t-body">Hala Gdańsk — etap 2</span><span class="num t-hint">31 200,00</span></div>
+                  <div class="row between"><span class="t-body">Bramy serwisowe Radom</span><span class="num t-hint">18 640,00</span></div>
+                  <div class="row between"><span class="t-body">Bariery — wycena wstępna</span><span class="num t-hint">9 880,00</span></div>
+                </div>
+                <a class="btn btn-ghost btn-sm" href="#s13" data-goto="s13">Otwórz konfigurator <svg><use href="#ic-arrow-right"/></svg></a>
+              </div>
+
+              <div class="card card-pad stack-2">
+                <span class="t-card-title">Szkolenia</span>
+                <div class="row between"><span class="t-body">Postęp certyfikacji</span><span class="num">62%</span></div>
+                <div class="progress"><span style="width:62%"></span></div>
+                <a class="btn btn-ghost btn-sm" href="#s24" data-goto="s24">Przejdź do szkoleń <svg><use href="#ic-arrow-right"/></svg></a>
+              </div>
+            </div>
+          </div>
+        </main>
+        <footer class="app-foot"><span>Prototyp · dane fikcyjne</span><nav class="row-3"><span>Etap 3</span><span>US-3.1</span></nav></footer>
+      </div>
+    </div>
+  </div>
+
+  <div class="notes">
+    <div class="note"><b>1</b><span>„Zamów ponownie" jest odpowiedzią na uzasadnienie panelu z dokumentu: drobne, powtarzalne zamówienia pochłaniają dziś najwięcej czasu pracowników. Powtarzalne zamówienie nie potrzebuje konfiguratora, tylko dwóch kliknięć.</span></div>
+    <div class="note"><b>2</b><span>Próg rabatowy i obrót narastająco to <span class="strong">założenie</span> (A-17). Dokument mówi o realizacji warunków umowy, ale nie rozstrzyga, czy partner ma widzieć własny postęp do kolejnego progu. Decyzja sprzedaży: to silny bodziec, ale ujawnia strukturę cennika.</span></div>
+    <div class="note"><b>3</b><span>Kafle liczbowe pokazują dane partnera, nigdy dane produkcji. Termin „najbliższa dostawa" pochodzi ze statusu zwrotnego, nie z harmonogramu ERP (CC-2).</span></div>
+  </div>
+</section>
+
+<section class="screen" id="s35">
+  <div class="screen-meta">
+    <h2>35. Portal dystrybutora — katalog z cenami partnerskimi</h2>
+    <p>Lista produktów, które partner może zamówić bez rozmowy z handlowcem. Obok ceny katalogowej stoi jego własna cena, wyliczona z rabatu zapisanego w umowie.</p>
+    <div class="screen-refs"><span class="ref">§Platforma B2B → Typy kont</span><span class="ref">§Baza produktów</span><span class="ref">US-3.1</span><span class="ref">CC-1</span><span class="ref">CC-3</span></div>
+  </div>
+
+  <div class="frame">
+    <div class="frame-bar">
+      <div class="frame-dots"><i></i><i></i><i></i></div>
+      <span class="frame-url">/panel/katalog</span>
+    </div>
+    <div class="app app-tall">
+      <aside class="sidebar">
+        <div class="sidebar-brand"><span class="brand-mark">ST</span> <span class="ellipsis">Stalmont Sp. z o.o.</span></div>
+        <div class="sidebar-search"><svg><use href="#ic-search"/></svg> Szukaj</div>
+        <nav class="sidebar-nav">
+          <div class="nav-items">
+            <a class="nav-item" href="#s34" data-goto="s34"><svg><use href="#ic-home"/></svg> Pulpit</a>
+          </div>
+          <div class="nav-group"><span>Zamawianie</span><svg><use href="#ic-chevron-down"/></svg></div>
+          <div class="nav-items">
+            <span class="nav-item active"><svg><use href="#ic-box"/></svg> Katalog</span>
+            <a class="nav-item" href="#s37" data-goto="s37"><svg><use href="#ic-cart"/></svg> Koszyk <span class="count">3</span></a>
+            <a class="nav-item" href="#s13" data-goto="s13"><svg><use href="#ic-sliders"/></svg> Konfigurator</a>
+            <a class="nav-item" href="#s15" data-goto="s15"><svg><use href="#ic-clock"/></svg> Zamówienia <span class="count">34</span></a>
+            <span class="nav-item"><svg><use href="#ic-file"/></svg> Dokumenty</span>
+          </div>
+          <div class="sidebar-foot"><span class="t-hint">Cennik: GR-BRAMKI · rabat 24%</span></div>
+        </nav>
+      </aside>
+      <div class="main">
+        <header class="topbar">
+          <div class="topbar-left"><div class="crumbs"><svg><use href="#ic-home"/></svg><svg><use href="#ic-chevron-right"/></svg><span class="here">Katalog</span></div></div>
+          <div class="topbar-right">
+            <span class="badge badge-success"><span class="dot"></span> Konto pełne · rabat 24%</span>
+            <button class="icon-btn" aria-label="Koszyk"><svg><use href="#ic-cart"/></svg></button>
+            <span class="avatar">KN</span>
+          </div>
+        </header>
+        <main class="page">
+          <div class="dt">
+            <div class="dt-head">
+              <div class="dt-head-row">
+                <h2 class="t-table-title">Katalog produktów</h2>
+                <div class="dt-head-actions">
+                  <button class="btn btn-outline btn-sm"><svg><use href="#ic-download"/></svg> Pobierz cennik</button>
+                  <button class="btn btn-primary" data-goto="s37"><svg><use href="#ic-cart"/></svg> Koszyk <span class="count">3</span></button>
+                </div>
+              </div>
+              <div class="dt-toolbar">
+                <div class="dt-toolbar-row">
+                  <div class="dt-search"><span class="input-group"><span class="addon"><svg><use href="#ic-search"/></svg></span><input class="input" type="search" aria-label="Szukaj w katalogu" placeholder="Nazwa lub indeks produktu" /></span></div>
+                  <div class="dt-toolbar-right">
+                    <button class="btn btn-outline btn-sm"><svg><use href="#ic-filter"/></svg> Filtry <span class="filter-count">1</span></button>
+                    <div class="segmented" role="group" aria-label="Widok">
+                      <button type="button" aria-selected="true">Lista</button>
+                      <button type="button" aria-selected="false">Kafle</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="dt-chips">
+              <span class="chip chip-active">Kategoria: zabezpieczenia wewnętrzne <svg><use href="#ic-x"/></svg></span>
+              <button class="chip chip-dashed" type="button"><svg><use href="#ic-plus"/></svg> Filtr</button>
+            </div>
+            <div class="scroll-x">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Produkt</th>
+                    <th>Kategoria</th>
+                    <th class="right">Cena katalogowa</th>
+                    <th class="right">Twoja cena</th>
+                    <th>Dostępność</th>
+                    <th style="width:0"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="clickable" data-goto="s36">
+                    <td><span class="strong">Bramka uchylna jednoskrzydłowa</span><br /><span class="t-mono t-hint">BRK-UCH-1200</span></td>
+                    <td><span class="badge badge-neutral">Bramki</span></td>
+                    <td class="right num t-hint">2 340,00</td>
+                    <td class="right num strong">1 778,40</td>
+                    <td><span class="badge badge-success"><span class="dot"></span> 18 dni rob.</span></td>
+                    <td><button class="btn btn-outline btn-xs" data-goto="s36">Otwórz</button></td>
+                  </tr>
+                  <tr class="clickable" data-goto="s36">
+                    <td><span class="strong">Słupek odbojowy Ø108</span><br /><span class="t-mono t-hint">SLP-ODB-108</span></td>
+                    <td><span class="badge badge-neutral">Słupki</span></td>
+                    <td class="right num t-hint">410,00</td>
+                    <td class="right num strong">311,60</td>
+                    <td><span class="badge badge-success"><span class="dot"></span> z magazynu</span></td>
+                    <td><button class="btn btn-outline btn-xs" data-goto="s37"><svg><use href="#ic-plus"/></svg> Do koszyka</button></td>
+                  </tr>
+                  <tr class="clickable" data-goto="s36">
+                    <td><span class="strong">Osłona słupa RAL Column Guard</span><br /><span class="t-mono t-hint">RAL-X3</span></td>
+                    <td><span class="badge badge-neutral">Osłony</span></td>
+                    <td class="right num t-hint">486,00</td>
+                    <td class="right num strong">369,36</td>
+                    <td><span class="badge badge-success"><span class="dot"></span> z magazynu</span></td>
+                    <td><button class="btn btn-outline btn-xs" data-goto="s37"><svg><use href="#ic-plus"/></svg> Do koszyka</button></td>
+                  </tr>
+                  <tr class="clickable" data-goto="s36">
+                    <td><span class="strong">Bariera najazdowa Traffic R3 HD+</span><br /><span class="t-mono t-hint">TR3-HD+</span></td>
+                    <td><span class="badge badge-neutral">Bariery</span></td>
+                    <td class="right num t-hint">1 180,00</td>
+                    <td class="right num strong">896,80</td>
+                    <td><span class="badge badge-warning"><span class="dot"></span> 24 dni rob.</span></td>
+                    <td><button class="btn btn-outline btn-xs" data-goto="s37"><svg><use href="#ic-plus"/></svg> Do koszyka</button></td>
+                  </tr>
+                  <tr class="clickable" data-goto="s36">
+                    <td><span class="strong">Samozamykacz standardowy</span><br /><span class="t-mono t-hint">SMZ-STD</span></td>
+                    <td><span class="badge badge-neutral">Akcesoria</span></td>
+                    <td class="right num t-hint">268,00</td>
+                    <td class="right num strong">203,68</td>
+                    <td><span class="badge badge-success"><span class="dot"></span> z magazynu</span></td>
+                    <td><button class="btn btn-outline btn-xs" data-goto="s37"><svg><use href="#ic-plus"/></svg> Do koszyka</button></td>
+                  </tr>
+                  <tr>
+                    <td><span class="strong">Brama przesuwna samonośna</span><br /><span class="t-mono t-hint">BRM-PRZ-6000</span></td>
+                    <td><span class="badge badge-neutral">Bramy</span></td>
+                    <td class="right num t-hint">—</td>
+                    <td class="right t-hint">wycena indywidualna</td>
+                    <td><span class="badge badge-info"><span class="dot"></span> konfigurator</span></td>
+                    <td><button class="btn btn-ghost btn-xs" data-goto="s13">Skonfiguruj</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="dt-foot">
+              <span class="t-hint num">Pozycje 1–6 z 214</span>
+              <ul class="pager">
+                <li><button class="nav" type="button" aria-label="Poprzednia strona"><svg><use href="#ic-chevron-left"/></svg></button></li>
+                <li><button type="button" aria-current="page">1</button></li>
+                <li><button type="button">2</button></li>
+                <li><button type="button">3</button></li>
+                <li><button class="nav" type="button" aria-label="Następna strona"><svg><use href="#ic-chevron-right"/></svg></button></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="card card-pad stack-2" style="margin-top:0.75rem">
+            <span class="t-card-title">Skąd biorą się te ceny</span>
+            <p class="t-hint" style="margin:0;max-width:70ch">Cena katalogowa i struktura produktu pochodzą z bazy produktów — tego samego źródła, z którego liczy konfigurator i z którego ERP czyta strukturę wykonawczą. Rabat 24% i przypisanie do grupy GR-BRAMKI pochodzą z warunków handlowych zapisanych w CRM. Zmiana warunków w umowie obowiązuje tu natychmiast; panel niczego nie edytuje.</p>
+          </div>
+        </main>
+        <footer class="app-foot"><span>Prototyp · dane fikcyjne</span><nav class="row-3"><span>Etap 3</span><span>CC-1</span><span>CC-3</span></nav></footer>
+      </div>
+    </div>
+  </div>
+
+  <div class="notes">
+    <div class="note"><b>1</b><span>Katalog jest drugą drogą do zamówienia, obok konfiguratora (ekran 13). Standardowa pozycja cennikowa idzie tędy, niestandardowa realizacja przez konfigurator. Ostatni wiersz pokazuje granicę: brama przesuwna nie ma ceny katalogowej i kieruje do konfiguratora.</span></div>
+    <div class="note"><b>2</b><span>Jednoczesne pokazanie ceny katalogowej i partnerskiej jest <span class="strong">założeniem</span> (A-18). Uwidacznia wartość rabatu, ale ujawnia pełną strukturę cennika. Alternatywa — sama cena partnerska — do rozstrzygnięcia przez sprzedaż.</span></div>
+    <div class="note"><b>3</b><span>Konto bez cen zobaczy ten sam katalog z ukrytą kolumną „Twoja cena" i przyciskiem „Zapytaj o wycenę" zamiast „Do koszyka" (ekran 14). Konto podglądowe nie zobaczy żadnej z tych kolumn ani przycisków.</span></div>
+    <div class="note"><b>4</b><span>„Dostępność" podana jako termin, nie jako stan magazynowy. Liczba sztuk na magazynie to informacja produkcyjna i nie wychodzi z ERP na zewnątrz (CC-2).</span></div>
+  </div>
+</section>
+
+<section class="screen" id="s36">
+  <div class="screen-meta">
+    <h2>36. Portal dystrybutora — karta produktu</h2>
+    <p>Wszystko, czego partner potrzebuje, żeby zamówić samodzielnie i nie zadzwonić: warianty, parametry badań, dokumentacja i jego cena.</p>
+    <div class="screen-refs"><span class="ref">§Baza produktów</span><span class="ref">§Platforma B2B → Moduł learning</span><span class="ref">US-3.1</span><span class="ref">US-1.1</span></div>
+  </div>
+
+  <div class="frame">
+    <div class="frame-bar">
+      <div class="frame-dots"><i></i><i></i><i></i></div>
+      <span class="frame-url">/panel/katalog/BRK-UCH-1200</span>
+    </div>
+    <div class="app app-tall">
+      <aside class="sidebar">
+        <div class="sidebar-brand"><span class="brand-mark">ST</span> <span class="ellipsis">Stalmont Sp. z o.o.</span></div>
+        <div class="sidebar-search"><svg><use href="#ic-search"/></svg> Szukaj</div>
+        <nav class="sidebar-nav">
+          <div class="nav-items">
+            <a class="nav-item" href="#s34" data-goto="s34"><svg><use href="#ic-home"/></svg> Pulpit</a>
+          </div>
+          <div class="nav-group"><span>Zamawianie</span><svg><use href="#ic-chevron-down"/></svg></div>
+          <div class="nav-items">
+            <a class="nav-item active" href="#s35" data-goto="s35"><svg><use href="#ic-box"/></svg> Katalog</a>
+            <a class="nav-item" href="#s37" data-goto="s37"><svg><use href="#ic-cart"/></svg> Koszyk <span class="count">3</span></a>
+            <a class="nav-item" href="#s13" data-goto="s13"><svg><use href="#ic-sliders"/></svg> Konfigurator</a>
+            <a class="nav-item" href="#s15" data-goto="s15"><svg><use href="#ic-clock"/></svg> Zamówienia <span class="count">34</span></a>
+          </div>
+        </nav>
+      </aside>
+      <div class="main">
+        <header class="topbar">
+          <div class="topbar-left"><div class="crumbs"><svg><use href="#ic-home"/></svg><svg><use href="#ic-chevron-right"/></svg><a href="#s35" data-goto="s35">Katalog</a><svg><use href="#ic-chevron-right"/></svg><span class="here">BRK-UCH-1200</span></div></div>
+          <div class="topbar-right"><span class="badge badge-success"><span class="dot"></span> Konto pełne</span><span class="avatar">KN</span></div>
+        </header>
+        <main class="page">
+          <a class="back-link" href="#s35" data-goto="s35"><svg><use href="#ic-chevron-left"/></svg> Wróć do katalogu</a>
+
+          <div class="page-head">
+            <div>
+              <h1 class="t-page-title">Bramka uchylna jednoskrzydłowa</h1>
+              <p><span class="t-mono">BRK-UCH-1200</span> · grupa rabatowa <span class="t-mono">GR-BRAMKI</span></p>
+            </div>
+            <div class="page-actions">
+              <button class="btn btn-outline"><svg><use href="#ic-download"/></svg> Karta produktu PDF</button>
+            </div>
+          </div>
+
+          <div class="split split-side">
+            <div class="stack-3">
+              <div class="card">
+                <div class="card-head"><span class="t-card-title">Wybierz wariant</span></div>
+                <div class="card-body stack-3">
+                  <div class="form-grid form-grid-2">
+                    <div class="field">
+                      <label for="p-szer">Szerokość w świetle</label>
+                      <span class="select" style="display:block"><select class="input" id="p-szer"><option selected>1 200 mm</option><option>1 000 mm</option><option>1 500 mm</option></select></span>
+                    </div>
+                    <div class="field">
+                      <label for="p-ral">Kolor RAL</label>
+                      <span class="select" style="display:block"><select class="input" id="p-ral"><option selected>7016 — antracyt</option><option>9005 — czarny</option><option>6005 — zielony</option></select></span>
+                    </div>
+                  </div>
+                  <div class="row between">
+                    <div class="stack-2" style="gap:0.125rem">
+                      <span class="t-body">Samozamykacz <span class="t-mono t-hint">SMZ-STD</span></span>
+                      <span class="t-hint">+ 203,68 do ceny pozycji</span>
+                    </div>
+                    <span class="switch" role="switch" aria-checked="true" aria-label="Samozamykacz"></span>
+                  </div>
+                  <div class="alert alert-info">
+                    <svg><use href="#ic-info"/></svg>
+                    <div><span>Wariant 1 500 mm wymaga wzmocnionego zawiasu i nie łączy się z samozamykaczem standardowym. Reguła pochodzi z bazy produktów.</span></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-head"><span class="t-card-title">Parametry</span></div>
+                <div class="card-body">
+                  <table class="table">
+                    <tbody>
+                      <tr><td class="t-label">Przebadana energia uderzenia</td><td class="right num">42 kJ</td></tr>
+                      <tr><td class="t-label">Materiał</td><td class="right">Stal ocynkowana, malowana proszkowo</td></tr>
+                      <tr><td class="t-label">Mocowanie</td><td class="right">Kotwy M12, 4 szt. na słupek</td></tr>
+                      <tr><td class="t-label">Masa wariantu</td><td class="right num">38,4 kg</td></tr>
+                      <tr><td class="t-label">Liczba paczek</td><td class="right num">2</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-head"><span class="t-card-title">Dokumentacja</span><span class="t-hint">z modułu learning</span></div>
+                <div class="card-body">
+                  <div class="stack-2">
+                    <div class="row between"><span class="row"><svg style="width:1rem;height:1rem;color:var(--muted-foreground)"><use href="#ic-file"/></svg> <span class="t-body">Rysunek techniczny DWG</span></span><button class="btn btn-ghost btn-xs"><svg><use href="#ic-download"/></svg> Pobierz</button></div>
+                    <div class="row between"><span class="row"><svg style="width:1rem;height:1rem;color:var(--muted-foreground)"><use href="#ic-file"/></svg> <span class="t-body">Certyfikat badania energii</span></span><button class="btn btn-ghost btn-xs"><svg><use href="#ic-download"/></svg> Pobierz</button></div>
+                    <div class="row between"><span class="row"><svg style="width:1rem;height:1rem;color:var(--muted-foreground)"><use href="#ic-file"/></svg> <span class="t-body">Instrukcja montażu</span></span><button class="btn btn-ghost btn-xs"><svg><use href="#ic-download"/></svg> Pobierz</button></div>
+                  </div>
+                  <p class="t-hint" style="margin:0.75rem 0 0">Pobranie karty lub rysunku wraca do CRM jako sygnał zainteresowania konkretnym produktem.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="stack-3">
+              <div class="card card-pad stack-3">
+                <span class="t-card-title">Twoja cena</span>
+                <div class="stack-2">
+                  <div class="row between"><span class="t-body">Cena katalogowa</span><span class="num t-hint">2 340,00</span></div>
+                  <div class="row between"><span class="t-body">Rabat partnerski 24%</span><span class="num">−561,60</span></div>
+                  <div class="separator"></div>
+                  <div class="row between"><span class="strong">Za sztukę netto</span><span class="num strong">1 778,40 PLN</span></div>
+                </div>
+                <div class="field">
+                  <label for="p-ilosc">Ilość</label>
+                  <span class="input-group"><input class="input num" id="p-ilosc" value="12" /><span class="addon">szt.</span></span>
+                </div>
+                <div class="separator"></div>
+                <div class="row between"><span class="strong">Razem netto</span><span class="num strong">21 340,80 PLN</span></div>
+                <button class="btn btn-primary" data-goto="s37"><svg><use href="#ic-cart"/></svg> Dodaj do koszyka</button>
+                <p class="t-hint" style="margin:0">Dodanie do koszyka nie składa zamówienia. Zamówienie potwierdzasz na kolejnym ekranie.</p>
+              </div>
+
+              <div class="card card-pad stack-2">
+                <span class="t-card-title">Dostępność</span>
+                <div class="row between"><span class="t-body">Termin realizacji</span><span class="badge badge-success"><span class="dot"></span> 18 dni rob.</span></div>
+                <p class="t-hint" style="margin:0">Termin dotyczy wybranego wariantu i obowiązującej kolejki produkcyjnej. Potwierdzimy go w potwierdzeniu zamówienia.</p>
+              </div>
+            </div>
+          </div>
+        </main>
+        <footer class="app-foot"><span>Prototyp · dane fikcyjne</span><nav class="row-3"><span>Etap 3</span><span>US-3.1</span></nav></footer>
+      </div>
+    </div>
+  </div>
+
+  <div class="notes">
+    <div class="note"><b>1</b><span>Karta czerpie z ośmiu warstw danych produktu (ekran 5): atrybuty, reguły, parametry badań, masa i gabaryt, liczba paczek, cennik, dokumentacja. To samo źródło obsługuje konfigurator, ERP i wycenę transportu — panel niczego nie duplikuje.</span></div>
+    <div class="note"><b>2</b><span>Masa i liczba paczek są tu widoczne, bo z nich powstaje wycena transportu (ekran 22). Dziś biblioteka konfiguratora tych pól nie ma — to jedna z luk opisanych w kontekście prototypu.</span></div>
+    <div class="note"><b>3</b><span>Reguła wykluczenia pokazana jako komunikat, nie jako zablokowana opcja. Partner ma rozumieć, dlaczego czegoś nie może złożyć, zamiast szukać zniknięcia opcji.</span></div>
+  </div>
+</section>
+
+<section class="screen" id="s37">
+  <div class="screen-meta">
+    <h2>37. Portal dystrybutora — koszyk i podsumowanie zamówienia</h2>
+    <p>Ostatni ekran przed złożeniem. Partner sprawdza pozycje, podaje własny numer zamówienia i adres dostawy, widzi pełny koszt razem z transportem.</p>
+    <div class="screen-refs"><span class="ref">§Platforma B2B → Zakres funkcjonalny</span><span class="ref">§Logistyka</span><span class="ref">US-3.1</span><span class="ref">CC-5</span></div>
+  </div>
+
+  <div class="frame">
+    <div class="frame-bar">
+      <div class="frame-dots"><i></i><i></i><i></i></div>
+      <span class="frame-url">/panel/koszyk</span>
+    </div>
+    <div class="app app-tall">
+      <aside class="sidebar">
+        <div class="sidebar-brand"><span class="brand-mark">ST</span> <span class="ellipsis">Stalmont Sp. z o.o.</span></div>
+        <div class="sidebar-search"><svg><use href="#ic-search"/></svg> Szukaj</div>
+        <nav class="sidebar-nav">
+          <div class="nav-items">
+            <a class="nav-item" href="#s34" data-goto="s34"><svg><use href="#ic-home"/></svg> Pulpit</a>
+          </div>
+          <div class="nav-group"><span>Zamawianie</span><svg><use href="#ic-chevron-down"/></svg></div>
+          <div class="nav-items">
+            <a class="nav-item" href="#s35" data-goto="s35"><svg><use href="#ic-box"/></svg> Katalog</a>
+            <span class="nav-item active"><svg><use href="#ic-cart"/></svg> Koszyk <span class="count">3</span></span>
+            <a class="nav-item" href="#s13" data-goto="s13"><svg><use href="#ic-sliders"/></svg> Konfigurator</a>
+            <a class="nav-item" href="#s15" data-goto="s15"><svg><use href="#ic-clock"/></svg> Zamówienia <span class="count">34</span></a>
+          </div>
+        </nav>
+      </aside>
+      <div class="main">
+        <header class="topbar">
+          <div class="topbar-left"><div class="crumbs"><svg><use href="#ic-home"/></svg><svg><use href="#ic-chevron-right"/></svg><span class="here">Koszyk</span></div></div>
+          <div class="topbar-right"><span class="badge badge-success"><span class="dot"></span> Konto pełne · rabat 24%</span><span class="avatar">KN</span></div>
+        </header>
+        <main class="page">
+          <div class="page-head">
+            <div><h1 class="t-page-title">Koszyk</h1><p>3 pozycje · ceny partnerskie z umowy Stalmont</p></div>
+            <div class="page-actions">
+              <button class="btn btn-ghost" data-goto="s35"><svg><use href="#ic-plus"/></svg> Dodaj z katalogu</button>
+            </div>
+          </div>
+
+          <div class="split split-side">
+            <div class="stack-3">
+              <div class="card">
+                <div class="card-head"><span class="t-card-title">Pozycje</span><button class="btn btn-ghost btn-xs"><svg><use href="#ic-refresh"/></svg> Przelicz</button></div>
+                <div class="card-body">
+                  <div class="scroll-x">
+                    <table class="table">
+                      <thead>
+                        <tr><th>Produkt</th><th style="width:7rem">Ilość</th><th class="right">Cena jedn.</th><th class="right">Wartość netto</th><th style="width:0"></th></tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><span class="strong">Słupek odbojowy Ø108</span><br /><span class="t-mono t-hint">SLP-ODB-108 · RAL 7016</span></td>
+                          <td><input class="input num" aria-label="Ilość — słupek odbojowy" value="24" /></td>
+                          <td class="right num">311,60</td>
+                          <td class="right num strong">7 478,40</td>
+                          <td><button class="btn-icon btn-sm" aria-label="Usuń słupek odbojowy z koszyka"><svg><use href="#ic-trash"/></svg></button></td>
+                        </tr>
+                        <tr>
+                          <td><span class="strong">Osłona słupa RAL Column Guard</span><br /><span class="t-mono t-hint">RAL-X3 · RAL 7016</span></td>
+                          <td><input class="input num" aria-label="Ilość — osłona słupa" value="8" /></td>
+                          <td class="right num">369,36</td>
+                          <td class="right num strong">2 954,88</td>
+                          <td><button class="btn-icon btn-sm" aria-label="Usuń osłonę słupa z koszyka"><svg><use href="#ic-trash"/></svg></button></td>
+                        </tr>
+                        <tr>
+                          <td><span class="strong">Samozamykacz standardowy</span><br /><span class="t-mono t-hint">SMZ-STD</span></td>
+                          <td><input class="input num" aria-label="Ilość — samozamykacz" value="6" /></td>
+                          <td class="right num">203,68</td>
+                          <td class="right num strong">1 222,08</td>
+                          <td><button class="btn-icon btn-sm" aria-label="Usuń samozamykacz z koszyka"><svg><use href="#ic-trash"/></svg></button></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-head"><span class="t-card-title">Dostawa i dane zamówienia</span></div>
+                <div class="card-body stack-3">
+                  <div class="form-grid form-grid-2">
+                    <div class="field">
+                      <label for="k-adres">Adres dostawy</label>
+                      <span class="select" style="display:block"><select class="input" id="k-adres"><option selected>Magazyn Stalmont, ul. Obornicka 114, Poznań</option><option>Bezpośrednio do klienta końcowego</option><option>Odbiór własny z Anter System</option></select></span>
+                    </div>
+                    <div class="field">
+                      <label for="k-ref">Twój numer zamówienia <span class="t-hint">opcjonalnie</span></label>
+                      <input class="input t-mono" id="k-ref" value="ST/2026/09/114" />
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label for="k-uwagi">Uwagi do zamówienia</label>
+                    <textarea class="textarea" id="k-uwagi" rows="2" placeholder="Np. prośba o awizację telefoniczną przed dostawą"></textarea>
+                  </div>
+                  <div class="alert alert-warning">
+                    <svg><use href="#ic-warn"/></svg>
+                    <div>
+                      <span class="alert-title">Transport wyceniony wstępnie</span>
+                      <span>Kwota 680,00 wynika z masy i liczby paczek. Ostateczna stawka przewoźnika pojawi się w potwierdzeniu zamówienia i może się różnić.</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="stack-3">
+              <div class="card card-pad stack-3">
+                <span class="t-card-title">Podsumowanie</span>
+                <div class="stack-2">
+                  <div class="row between"><span class="t-body">Wartość katalogowa</span><span class="num t-hint">15 336,00</span></div>
+                  <div class="row between"><span class="t-body">Rabat partnerski 24%</span><span class="num">−3 680,64</span></div>
+                  <div class="row between"><span class="t-body">Wartość pozycji netto</span><span class="num">11 655,36</span></div>
+                  <div class="row between"><span class="t-body">Transport, wycena wstępna</span><span class="num">680,00</span></div>
+                  <div class="separator"></div>
+                  <div class="row between"><span class="strong">Razem netto</span><span class="num strong">12 335,36 PLN</span></div>
+                  <div class="row between"><span class="t-hint">VAT 23%</span><span class="num t-hint">2 837,13</span></div>
+                  <div class="row between"><span class="t-body">Razem brutto</span><span class="num">15 172,49 PLN</span></div>
+                </div>
+                <div class="separator"></div>
+                <div class="row between"><span class="t-body">Szacowany termin</span><span class="badge badge-success"><span class="dot"></span> 12 dni rob.</span></div>
+                <div class="row between"><span class="t-body">Płatność</span><span class="t-body">przelew 30 dni</span></div>
+                <button class="btn btn-primary" data-goto="s38"><svg><use href="#ic-check"/></svg> Złóż zamówienie</button>
+                <button class="btn btn-outline btn-sm"><svg><use href="#ic-save"/></svg> Zapisz koszyk na później</button>
+                <p class="t-hint" style="margin:0">Składasz zamówienie w imieniu Stalmont Sp. z o.o. na warunkach z umowy partnerskiej.</p>
+              </div>
+
+              <div class="card card-pad stack-2">
+                <span class="t-card-title">Limit kupiecki</span>
+                <div class="row between"><span class="t-body">Wykorzystanie</span><span class="num">47%</span></div>
+                <div class="progress"><span style="width:47%"></span></div>
+                <p class="t-hint" style="margin:0">To zamówienie mieści się w limicie. Przekroczenie limitu albo przeterminowana płatność wstrzymują składanie zamówień.</p>
+              </div>
+            </div>
+          </div>
+        </main>
+        <footer class="app-foot"><span>Prototyp · dane fikcyjne</span><nav class="row-3"><span>Etap 3</span><span>US-3.1</span></nav></footer>
+      </div>
+    </div>
+  </div>
+
+  <div class="notes">
+    <div class="note"><b>1</b><span>Własny numer zamówienia partnera to <span class="strong">założenie</span> (A-19), ale mocno uzasadnione: bez niego partner nie połączy dostawy z własnym zleceniem u swojego klienta i wróci z tym pytaniem do opiekuna.</span></div>
+    <div class="note"><b>2</b><span>Różnica między wstępną wyceną transportu a stawką rzeczywistą jest tu przyznana wprost, ale nikomu nieprzypisana (A-8). Kto pokrywa różnicę — decyzja sprzedaży, nierozstrzygnięta w dokumencie.</span></div>
+    <div class="note"><b>3</b><span>Limit kupiecki i termin płatności pochodzą z warunków handlowych w CRM (ekran 17), panel ich nie edytuje (CC-3). Blokada konta za przeterminowane płatności zatrzymuje właśnie ten przycisk.</span></div>
+    <div class="note"><b>4</b><span>Koszyk pokazuje wyłącznie pozycje cennikowe. Niestandardowa realizacja nie trafia do koszyka — wychodzi do wyceny konstruktora i wraca jako oferta (CC-5).</span></div>
+  </div>
+</section>
+
+<section class="screen" id="s38">
+  <div class="screen-meta">
+    <h2>38. Portal dystrybutora — zamówienie złożone</h2>
+    <p>Potwierdzenie z numerem i jasną informacją, co dzieje się dalej i kiedy. Moment, w którym zdarzenie handlowe trafia do CRM.</p>
+    <div class="screen-refs"><span class="ref">§Informacje zwrotne z panelu do CRM</span><span class="ref">US-3.1</span><span class="ref">US-3.4</span><span class="ref">CC-6</span></div>
+  </div>
+
+  <div class="frame">
+    <div class="frame-bar">
+      <div class="frame-dots"><i></i><i></i><i></i></div>
+      <span class="frame-url">/panel/zamowienia/ZAM-2026-1190</span>
+    </div>
+    <div class="app app-narrow">
+      <aside class="sidebar">
+        <div class="sidebar-brand"><span class="brand-mark">ST</span> <span class="ellipsis">Stalmont Sp. z o.o.</span></div>
+        <div class="sidebar-search"><svg><use href="#ic-search"/></svg> Szukaj</div>
+        <nav class="sidebar-nav">
+          <div class="nav-items">
+            <a class="nav-item" href="#s34" data-goto="s34"><svg><use href="#ic-home"/></svg> Pulpit</a>
+          </div>
+          <div class="nav-group"><span>Zamawianie</span><svg><use href="#ic-chevron-down"/></svg></div>
+          <div class="nav-items">
+            <a class="nav-item" href="#s35" data-goto="s35"><svg><use href="#ic-box"/></svg> Katalog</a>
+            <span class="nav-item"><svg><use href="#ic-cart"/></svg> Koszyk</span>
+            <a class="nav-item active" href="#s15" data-goto="s15"><svg><use href="#ic-clock"/></svg> Zamówienia <span class="count">35</span></a>
+          </div>
+        </nav>
+      </aside>
+      <div class="main">
+        <header class="topbar">
+          <div class="topbar-left"><div class="crumbs"><svg><use href="#ic-home"/></svg><svg><use href="#ic-chevron-right"/></svg><a href="#s15" data-goto="s15">Zamówienia</a><svg><use href="#ic-chevron-right"/></svg><span class="here">ZAM-2026-1190</span></div></div>
+          <div class="topbar-right"><span class="badge badge-success"><span class="dot"></span> Konto pełne</span><span class="avatar">KN</span></div>
+        </header>
+        <main class="page">
+          <div class="alert alert-success">
+            <svg><use href="#ic-check"/></svg>
+            <div>
+              <span class="alert-title">Zamówienie ZAM-2026-1190 zostało przyjęte</span>
+              <span>Potwierdzenie wysłaliśmy na k.nowicki@stalmont.example. Twój numer zamówienia ST/2026/09/114 znajdzie się na wszystkich dokumentach.</span>
+            </div>
+          </div>
+
+          <div class="split split-2" style="margin-top:0.75rem">
+            <div class="card card-pad stack-3">
+              <span class="t-card-title">Co się teraz dzieje</span>
+              <div class="stack-3">
+                <div class="row"><span class="badge badge-success"><span class="dot"></span> teraz</span> <span class="t-body">Zamówienie przyjęte i widoczne u Twojego opiekuna</span></div>
+                <div class="row"><span class="badge badge-neutral"><span class="dot"></span> 1–2 dni</span> <span class="t-body">Potwierdzenie terminu i ostatecznej stawki transportu</span></div>
+                <div class="row"><span class="badge badge-neutral"><span class="dot"></span> ok. 12 dni rob.</span> <span class="t-body">Produkcja i przygotowanie do wysyłki</span></div>
+                <div class="row"><span class="badge badge-neutral"><span class="dot"></span> po wysyłce</span> <span class="t-body">Numer przesyłki i list przewozowy w panelu</span></div>
+              </div>
+              <div class="separator"></div>
+              <p class="t-hint" style="margin:0">Statusy zobaczysz w zakładce Zamówienia. Nie musisz dzwonić po informację o terminie.</p>
+            </div>
+
+            <div class="stack-3">
+              <div class="card card-pad stack-3">
+                <span class="t-card-title">Podsumowanie</span>
+                <div class="stack-2">
+                  <div class="row between"><span class="t-body">Numer</span><span class="t-mono strong">ZAM-2026-1190</span></div>
+                  <div class="row between"><span class="t-body">Twój numer</span><span class="t-mono">ST/2026/09/114</span></div>
+                  <div class="row between"><span class="t-body">Pozycje</span><span class="num">3</span></div>
+                  <div class="row between"><span class="t-body">Dostawa</span><span class="t-body">Magazyn Poznań</span></div>
+                  <div class="separator"></div>
+                  <div class="row between"><span class="strong">Razem netto</span><span class="num strong">12 335,36 PLN</span></div>
+                </div>
+                <button class="btn btn-outline btn-sm"><svg><use href="#ic-download"/></svg> Pobierz potwierdzenie</button>
+              </div>
+
+              <div class="card card-pad stack-2">
+                <div class="t-card-title">Co dalej</div>
+                <div><button class="btn btn-primary btn-sm" data-goto="s39"><svg><use href="#ic-arrow-right"/></svg> Śledź to zamówienie</button></div>
+                <div><button class="btn btn-outline btn-sm" data-goto="s15"><svg><use href="#ic-clock"/></svg> Wszystkie zamówienia</button></div>
+                <div><button class="btn btn-ghost btn-sm" data-goto="s35"><svg><use href="#ic-box"/></svg> Zamów kolejne</button></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card card-pad stack-2" style="margin-top:0.75rem">
+            <span class="t-card-title">Co w tej chwili dzieje się poza panelem</span>
+            <p class="t-hint" style="margin:0;max-width:70ch">Złożenie zamówienia to zdarzenie handlowe, więc obiekt w CRM powstaje natychmiast: zamówienie z wartością i pozycjami ląduje na karcie kontrahenta Stalmont, wchodzi do obrotu narastająco i do realizacji warunków umowy. Opiekun nie musi go przepisywać z maila. Równolegle pozycje trafiają do ERP jako zlecenie produkcyjne, rozbite na komponenty według struktury wykonawczej z bazy produktów.</p>
+          </div>
+        </main>
+        <footer class="app-foot"><span>Prototyp · dane fikcyjne</span><nav class="row-3"><span>Etap 3</span><span>CC-6</span></nav></footer>
+      </div>
+    </div>
+  </div>
+
+  <div class="notes">
+    <div class="note"><b>1</b><span>Oś „co się teraz dzieje" odpowiada na najczęstsze pytanie kierowane dziś mailem. Terminy są orientacyjne i opisane jako takie — panel nie obiecuje daty, której ERP jeszcze nie potwierdził.</span></div>
+    <div class="note"><b>2</b><span>Zdarzenie idzie do CRM natychmiast, bo jest handlowe. Logowania i pobrania plików są agregowane, żeby nie zasypać CRM pustymi aktywnościami (CC-6).</span></div>
+    <div class="note"><b>3</b><span>Wysyłka potwierdzenia mailem jest zilustrowana, nie zaimplementowana. Prototyp nie wysyła żadnej wiadomości.</span></div>
+  </div>
+</section>
+
+<section class="screen" id="s39">
+  <div class="screen-meta">
+    <h2>39. Portal dystrybutora — szczegóły zamówienia</h2>
+    <p>Pojedyncze zamówienie z osią statusów, pozycjami i dokumentami. Pokazuje dokładnie tyle, ile ERP może wypuścić na zewnątrz — i ani jednego pola więcej.</p>
+    <div class="screen-refs"><span class="ref">§ERP → Statusy zwrotne</span><span class="ref">§Logistyka</span><span class="ref">US-3.3</span><span class="ref">CC-2</span></div>
+  </div>
+
+  <div class="frame">
+    <div class="frame-bar">
+      <div class="frame-dots"><i></i><i></i><i></i></div>
+      <span class="frame-url">/panel/zamowienia/ZAM-2026-1140</span>
+    </div>
+    <div class="app app-tall">
+      <aside class="sidebar">
+        <div class="sidebar-brand"><span class="brand-mark">ST</span> <span class="ellipsis">Stalmont Sp. z o.o.</span></div>
+        <div class="sidebar-search"><svg><use href="#ic-search"/></svg> Szukaj</div>
+        <nav class="sidebar-nav">
+          <div class="nav-items">
+            <a class="nav-item" href="#s34" data-goto="s34"><svg><use href="#ic-home"/></svg> Pulpit</a>
+          </div>
+          <div class="nav-group"><span>Zamawianie</span><svg><use href="#ic-chevron-down"/></svg></div>
+          <div class="nav-items">
+            <a class="nav-item" href="#s35" data-goto="s35"><svg><use href="#ic-box"/></svg> Katalog</a>
+            <a class="nav-item" href="#s37" data-goto="s37"><svg><use href="#ic-cart"/></svg> Koszyk <span class="count">3</span></a>
+            <a class="nav-item active" href="#s15" data-goto="s15"><svg><use href="#ic-clock"/></svg> Zamówienia <span class="count">34</span></a>
+            <span class="nav-item"><svg><use href="#ic-file"/></svg> Dokumenty</span>
+          </div>
+        </nav>
+      </aside>
+      <div class="main">
+        <header class="topbar">
+          <div class="topbar-left"><div class="crumbs"><svg><use href="#ic-home"/></svg><svg><use href="#ic-chevron-right"/></svg><a href="#s15" data-goto="s15">Zamówienia</a><svg><use href="#ic-chevron-right"/></svg><span class="here">ZAM-2026-1140</span></div></div>
+          <div class="topbar-right"><span class="badge badge-success"><span class="dot"></span> Konto pełne</span><span class="avatar">KN</span></div>
+        </header>
+        <main class="page">
+          <a class="back-link" href="#s15" data-goto="s15"><svg><use href="#ic-chevron-left"/></svg> Wróć do zamówień</a>
+
+          <div class="page-head">
+            <div>
+              <h1 class="t-page-title">ZAM-2026-1140</h1>
+              <p>Złożone 28.08.2026 · Twój numer <span class="t-mono">ST/2026/08/097</span></p>
+            </div>
+            <div class="page-actions">
+              <button class="btn btn-outline"><svg><use href="#ic-refresh"/></svg> Ponów to zamówienie</button>
+              <button class="btn btn-outline"><svg><use href="#ic-download"/></svg> Potwierdzenie</button>
+            </div>
+          </div>
+
+          <div class="alert alert-warning">
+            <svg><use href="#ic-clock"/></svg>
+            <div>
+              <span class="alert-title">Oczekuje na komponent · przewidywany termin 06.10.2026</span>
+              <span>Poinformujemy Cię, gdy zamówienie wróci do produkcji. Jeśli termin jest dla Ciebie krytyczny, napisz do Marty Kowalczyk.</span>
+            </div>
+          </div>
+
+          <div class="split split-side" style="margin-top:0.75rem">
+            <div class="stack-3">
+              <div class="card">
+                <div class="card-head"><span class="t-card-title">Przebieg realizacji</span></div>
+                <div class="card-body">
+                  <div class="stack-3">
+                    <div class="row between"><span class="row"><span class="badge badge-success"><span class="dot"></span> Zamówienie przyjęte</span></span><span class="t-hint num">28.08.2026</span></div>
+                    <div class="row between"><span class="row"><span class="badge badge-success"><span class="dot"></span> Potwierdzone</span></span><span class="t-hint num">29.08.2026</span></div>
+                    <div class="row between"><span class="row"><span class="badge badge-success"><span class="dot"></span> W produkcji</span></span><span class="t-hint num">03.09.2026</span></div>
+                    <div class="row between"><span class="row"><span class="badge badge-error"><span class="dot"></span> Oczekuje na komponent</span></span><span class="t-hint num">12.09.2026</span></div>
+                    <div class="row between"><span class="row"><span class="badge badge-neutral"><span class="dot"></span> Wysłane</span></span><span class="t-hint">oczekiwane</span></div>
+                    <div class="row between"><span class="row"><span class="badge badge-neutral"><span class="dot"></span> Dostarczone</span></span><span class="t-hint">oczekiwane</span></div>
+                  </div>
+                  <div class="separator" style="margin:0.75rem 0"></div>
+                  <p class="t-hint" style="margin:0">Sześć statusów zwrotnych. Panel pokazuje status i termin, nigdy przyczyny opóźnienia ani stanu magazynowego.</p>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-head"><span class="t-card-title">Pozycje</span><span class="t-hint">3 pozycje</span></div>
+                <div class="card-body">
+                  <div class="scroll-x">
+                    <table class="table">
+                      <thead><tr><th>Produkt</th><th class="right">Ilość</th><th class="right">Cena jedn.</th><th class="right">Wartość netto</th><th>Status pozycji</th></tr></thead>
+                      <tbody>
+                        <tr>
+                          <td><span class="strong">Bariera wewnętrzna GB-200</span><br /><span class="t-mono t-hint">GB-200 · RAL 1023</span></td>
+                          <td class="right num">80 mb</td>
+                          <td class="right num">237,12</td>
+                          <td class="right num strong">18 969,60</td>
+                          <td><span class="badge badge-error"><span class="dot"></span> Oczekuje</span></td>
+                        </tr>
+                        <tr>
+                          <td><span class="strong">Słupek odbojowy Ø108</span><br /><span class="t-mono t-hint">SLP-ODB-108 · RAL 1023</span></td>
+                          <td class="right num">48 szt.</td>
+                          <td class="right num">311,60</td>
+                          <td class="right num strong">14 956,80</td>
+                          <td><span class="badge badge-success"><span class="dot"></span> Gotowe</span></td>
+                        </tr>
+                        <tr>
+                          <td><span class="strong">Osłona słupa RAL Column Guard</span><br /><span class="t-mono t-hint">RAL-X3 · RAL 1023</span></td>
+                          <td class="right num">14 szt.</td>
+                          <td class="right num">369,36</td>
+                          <td class="right num strong">5 171,04</td>
+                          <td><span class="badge badge-success"><span class="dot"></span> Gotowe</span></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-head"><span class="t-card-title">Dokumenty</span></div>
+                <div class="card-body">
+                  <div class="stack-2">
+                    <div class="row between"><span class="row"><svg style="width:1rem;height:1rem;color:var(--muted-foreground)"><use href="#ic-file"/></svg> <span class="t-body">Potwierdzenie zamówienia</span></span><button class="btn btn-ghost btn-xs"><svg><use href="#ic-download"/></svg> Pobierz</button></div>
+                    <div class="row between"><span class="row"><svg style="width:1rem;height:1rem;color:var(--muted-foreground)"><use href="#ic-file"/></svg> <span class="t-body">Oferta ODF-2026-0412</span></span><button class="btn btn-ghost btn-xs"><svg><use href="#ic-download"/></svg> Pobierz</button></div>
+                    <div class="row between"><span class="row"><svg style="width:1rem;height:1rem;color:var(--muted-foreground)"><use href="#ic-file"/></svg> <span class="t-body">Faktura</span></span><span class="t-hint">po wysyłce</span></div>
+                    <div class="row between"><span class="row"><svg style="width:1rem;height:1rem;color:var(--muted-foreground)"><use href="#ic-truck"/></svg> <span class="t-body">List przewozowy</span></span><span class="t-hint">po wysyłce</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="stack-3">
+              <div class="card card-pad stack-3">
+                <span class="t-card-title">Wartość</span>
+                <div class="stack-2">
+                  <div class="row between"><span class="t-body">Pozycje netto</span><span class="num">39 097,44</span></div>
+                  <div class="row between"><span class="t-body">Transport</span><span class="num">1 420,00</span></div>
+                  <div class="row between"><span class="t-body">Korekta pozycji</span><span class="num">−1 605,44</span></div>
+                  <div class="separator"></div>
+                  <div class="row between"><span class="strong">Razem netto</span><span class="num strong">38 912,00 PLN</span></div>
+                </div>
+              </div>
+
+              <div class="card card-pad stack-2">
+                <span class="t-card-title">Dostawa</span>
+                <div class="stack-2">
+                  <div class="row between"><span class="t-body">Adres</span><span class="t-body">Magazyn Poznań</span></div>
+                  <div class="row between"><span class="t-body">Przesyłka</span><span class="t-hint">jeszcze nie nadana</span></div>
+                  <div class="row between"><span class="t-body">Przewidywany termin</span><span class="num">06.10.2026</span></div>
+                </div>
+              </div>
+
+              <div class="card card-pad stack-2">
+                <span class="t-card-title">Masz pytanie?</span>
+                <div class="row">
+                  <span class="avatar avatar-sm">MK</span>
+                  <span class="t-body">Marta Kowalczyk</span>
+                </div>
+                <button class="btn btn-outline btn-sm"><svg><use href="#ic-mail"/></svg> Napisz w sprawie zamówienia</button>
+                <p class="t-hint" style="margin:0">Wiadomość trafia do CRM przy tym zamówieniu, nie do prywatnej skrzynki opiekuna.</p>
+              </div>
+            </div>
+          </div>
+        </main>
+        <footer class="app-foot"><span>Prototyp · dane fikcyjne</span><nav class="row-3"><span>Etap 3</span><span>CC-2</span></nav></footer>
+      </div>
+    </div>
+  </div>
+
+  <div class="notes">
+    <div class="note"><b>1</b><span>To ten sam napięty przypadek co na ekranie 15: status „oczekuje na komponent" z terminem, ale bez przyczyny. Dokument dopuszcza go w panelu „opcjonalnie, z terminem", co pozostaje w napięciu z zasadą, że ERP jest wyłącznie wewnętrzny (CC-2).</span></div>
+    <div class="note"><b>2</b><span>Statusy pozycji („Gotowe" / „Oczekuje") są <span class="strong">założeniem</span> (A-20). Ujawniają więcej niż status całego zamówienia i mogą naruszać granicę wewnętrzności ERP. Alternatywa: pokazywać status wyłącznie na poziomie zamówienia. Decyzja do podjęcia razem z zakresem statusów zwrotnych.</span></div>
+    <div class="note"><b>3</b><span>Korekta pozycji w podsumowaniu wartości nie ma w dokumencie modelu — pokazuje tylko, że wartość końcowa potrafi odbiegać od złożonego zamówienia. Skąd bierze się korekta i kto ją zatwierdza, pozostaje nierozstrzygnięte.</span></div>
+    <div class="note"><b>4</b><span>„Ponów to zamówienie" zamyka pętlę z pulpitem: powtarzalne zamówienie ma wracać jednym kliknięciem, bez przechodzenia przez katalog.</span></div>
   </div>
 </section>
 

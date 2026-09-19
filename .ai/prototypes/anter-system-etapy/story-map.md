@@ -171,6 +171,20 @@ albo zablokować konto w CRM, żeby zmiana obowiązywała w panelu natychmiast i
 - Blokada konta zatrzymuje składanie zamówień, ale pozostawia dostęp do dokumentów i statusów już złożonych.
 - Zmiana warunków jest widoczna w panelu bez ponownego logowania partnera.
 
+**US-3.7** · Jako dystrybutor chcę zamówić pozycję cennikową z katalogu bez otwierania
+konfiguratora, żeby drobne, powtarzalne zamówienie zajęło dwa kliknięcia.
+
+- Katalog pokazuje pozycje cennikowe z ceną katalogową i ceną partnera wynikającą z jego rabatu.
+- Pozycja bez ceny katalogowej nie da się zamówić z katalogu i kieruje do konfiguratora (CC-5).
+- Koszyk zbiera pozycje, pozwala zmienić ilości i pokazuje pełny koszt razem z wstępną wyceną transportu.
+- Złożenie zamówienia z koszyka jest tym samym zdarzeniem handlowym co złożenie z konfiguratora (CC-6).
+- Partner może ponowić wcześniejsze zamówienie bez przechodzenia przez katalog.
+- `[DO ROZSTRZYGNIĘCIA]` Czy partner ma widzieć cenę katalogową obok swojej, czy wyłącznie swoją.
+
+> Dodane w rewizji 2. Dokument źródłowy opisuje panel przez konfigurator, ale uzasadnia go
+> „drobnymi, powtarzalnymi zamówieniami", a te konfiguratora nie potrzebują. Ścieżka katalogowa
+> jest **propozycją prototypu**, nie ustaleniem z dokumentu.
+
 ## EP-4 · ERP/MES: od zamówienia do statusu (etap 4)
 
 Cel etapu: produkcja i magazyn pod kontrolą. Warunek wejścia: etap 1 i decyzja o Enovie.

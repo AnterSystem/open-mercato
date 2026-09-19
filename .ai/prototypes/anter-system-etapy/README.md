@@ -5,8 +5,25 @@ Statyczny, przedwdrożeniowy prototyp wyprowadzony z `docs/anter-system-architek
 - **Źródło wymagań:** `docs/anter-system-architektura-docelowa.md` (2026-09-18, Jakub Zygadło)
 - **Drugie źródło:** działająca aplikacja Anter Site Configurator, odczytana z `localhost:5173` oraz z repozytorium `~/Documents/github-repo/anter-site-configurator`
 - **Story mapa:** `story-map.md` w tym katalogu — **wygenerowana propozycja**, nie zatwierdzone wymaganie
-- **Zakres:** wszystkie etapy wdrożenia 0–6 z tabeli „Etapy wdrożenia i zależności" (ekrany 1–24) plus odtworzenie stanu bieżącego konfiguratora (ekrany 25–32)
-- **Data:** 2026-09-18 · rewizja 1 · brak poprzedniej rewizji
+- **Zakres:** wszystkie etapy wdrożenia 0–6 z tabeli „Etapy wdrożenia i zależności" (ekrany 1–24), odtworzenie stanu bieżącego konfiguratora (ekrany 25–32) oraz pogłębiona ścieżka zamawiania w portalu dystrybutora (ekrany 33–39)
+- **Data:** 2026-09-19 · rewizja 2 · poprzednia rewizja: commit `bbdab8545` (rewizja 1, 32 ekrany)
+
+## Co przybyło w rewizji 2
+
+Siedem ekranów portalu dystrybutora (33–39): domknięta droga od logowania do złożonego
+zamówienia i jego śledzenia. Powód: rewizja 1 pokazywała panel B2B czterema ekranami
+szkicowymi, w których zamawianie zaczynało się od razu w konfiguratorze. Dokument
+uzasadnia jednak panel „drobnymi, powtarzalnymi zamówieniami", a te konfiguratora nie
+potrzebują — potrzebują katalogu i koszyka.
+
+Portal ma teraz dwie drogi do zamówienia: **katalog → karta produktu → koszyk → potwierdzenie**
+dla pozycji cennikowych oraz **konfigurator** (ekran 13, bez zmian) dla realizacji niestandardowych.
+Ekran 35 pokazuje granicę między nimi: brama przesuwna nie ma ceny katalogowej i kieruje do konfiguratora.
+
+Zmienione istniejące ekrany: nawigacja boczna w ekranach 13 i 15 została uspójniona z nowymi
+ekranami (doszły pozycje Pulpit, Katalog i Koszyk; Zamówienia zmieniły ikonę, bo koszyk przejął
+poprzednią), a wiersz ZAM-2026-1140 na ekranie 15 prowadzi teraz do szczegółów zamówienia.
+Poza tym treść rewizji 1 pozostała nietknięta.
 
 ## Jak otworzyć
 
@@ -69,21 +86,40 @@ historyjka dotyka nierozstrzygniętej kwestii, są w niej oznaczone `[DO ROZSTRZ
 | s30 | Współpraca B2B: wyceny i zamówienia | stan bieżący | US-3.1, US-2.4 | s29 |
 | s31 | Konfigurator: biblioteka techniczna i konta | stan bieżący | US-1.1, US-1.3 | s26 |
 | s32 | Konfigurator: kalkulator energii uderzenia | stan bieżący | US-1.2 | s26 |
+| s33 | Portal dystrybutora — logowanie | 3 | US-3.1, A-16 | s34 |
+| s34 | Portal dystrybutora — pulpit | 3 | US-3.1, US-3.3, US-3.7 | s35, s37, s13, s15, s24, s39 |
+| s35 | Portal dystrybutora — katalog z cenami partnerskimi | 3 | US-3.7, CC-1, CC-3 | s36, s37, s13 |
+| s36 | Portal dystrybutora — karta produktu | 3 | US-3.7, US-1.1 | s35, s37 |
+| s37 | Portal dystrybutora — koszyk i podsumowanie | 3 | US-3.7, CC-5 | s35, s38 |
+| s38 | Portal dystrybutora — zamówienie złożone | 3 | US-3.1, US-3.4, CC-6 | s39, s15, s35 |
+| s39 | Portal dystrybutora — szczegóły zamówienia | 3 | US-3.3, CC-2 | s15 |
 
 Stany brzegowe rozłożone na ekranach: pusty (s8), brak uprawnień (s12), konflikt reguł
-(s6, s9), wyjście poza automatyzację (s10, s22), błąd integracji (s21), blokada konta (s17),
-konto bez dostępu do konfiguratora (s14, blok porównawczy).
+(s6, s9), wyjście poza automatyzację (s10, s22, s35 w wierszu bramy przesuwnej), błąd
+integracji (s21), blokada konta (s17), konto bez dostępu do konfiguratora (s14, blok
+porównawczy), opóźnienie realizacji z terminem bez przyczyny (s39).
+
+**Czego ścieżka zamawiania jeszcze nie pokazuje.** Rewizja 2 objęła rdzeń ścieżki, świadomie
+bez stanów brzegowych portalu. Nie narysowano: pustego koszyka, konta zablokowanego za
+przeterminowane płatności w momencie próby złożenia zamówienia, produktu poza cennikiem
+danego partnera, przekroczenia limitu kupieckiego, niedostępności wybranego wariantu
+i katalogu widzianego oczami konta bez cen (ekran 14 pokazuje tylko konfigurator w tym
+trybie). Blokada konta jest z tych braków najważniejsza, bo dokument wymienia ją wprost
+jako daną płynącą z CRM do panelu.
 
 ## Granica: powierzchnia portalowa
 
-Ekrany s13, s14, s15 i s24 są widokiem dystrybutora, czyli powierzchnią portalową, a nie
-backoffice. Repo-lokalna instrukcja skilla normalnie odsyła taką pracę do wytycznych
+Ekrany s13, s14, s15, s24 oraz s33–s39 są widokiem dystrybutora, czyli powierzchnią portalową,
+a nie backoffice. Repo-lokalna instrukcja skilla normalnie odsyła taką pracę do wytycznych
 właściwych dla tej powierzchni. Znalazły się tutaj, bo etap 3 i 6 należą do zamówionego
 zakresu „wszystkie etapy" — decyzja użytkownika podjęta w trakcie sesji. Ich powłoka jest
 celowo odróżnialna: marka konta partnera zamiast marki Anter System, inne pozycje
 nawigacji, brak jakiegokolwiek wejścia do ERP.
 
-Traktuj te cztery ekrany jako szkic przepływu, nie jako wytyczną wizualną dla portalu.
+Traktuj te jedenaście ekranów jako szkic przepływu, nie jako wytyczną wizualną dla portalu.
+Rewizja 2 pogłębiła przepływ, nie warstwę wizualną: ścieżka zamawiania jest tu rozstrzygnięta
+co do sekwencji, etykiet i momentów decyzji, ale układ, typografia i komponenty portalu
+pozostają do zaprojektowania zgodnie z wytycznymi powierzchni portalowej.
 
 ## Ekrany 25–32: odtworzenie stanu bieżącego
 
@@ -162,6 +198,13 @@ z odpornością produktów z biblioteki.
 | A-13 | Powód zmiany toru jest wymagany i wraca do przeglądu skuteczności agenta (s2) | Bez tego nie ma z czego poprawiać prekwalifikacji | Decyzja procesowa: kto i jak często przegląda rozbieżności |
 | A-14 | Zgodność historyczna agenta jest pokazywana w rozbiciu na tor (s2) | Zbiorcza liczba ukrywałaby słabszą kategorię | Wymaga pomiaru na realnych danych; 82% i 61% są przykładowe |
 | A-15 | Agent oznacza „brak rekomendacji" zamiast zgadywać (s1, wiersz Nordgate) | Zgłoszenia obcojęzyczne i ubogie w dane muszą mieć jakiś stan | Do potwierdzenia: kiedy agent ma się wstrzymać i czy obsługuje inne języki |
+| A-16 | Nie ma samodzielnej rejestracji; konto partnerskie zakłada opiekun Anter (s33) | Ekran logowania musiał rozstrzygnąć, co widzi ktoś bez konta | Wynika z logiki typów kont: dostęp do cennika zależy od umowy. Decyzja sprzedaży |
+| A-17 | Partner widzi własny obrót narastająco i odległość do kolejnego progu rabatowego (s34) | Pulpit potrzebował treści odpowiadającej na „ile już wziąłem" | Dokument mówi o realizacji warunków umowy, ale nie o pokazywaniu progu partnerowi. Silny bodziec, ale ujawnia strukturę cennika — decyzja sprzedaży |
+| A-18 | Cena katalogowa stoi obok ceny partnerskiej w katalogu i na karcie produktu (s35, s36) | Trzeba było rozstrzygnąć, czy uwidaczniać wartość rabatu | Alternatywa: wyłącznie cena partnera. Decyzja sprzedaży i polityki cenowej |
+| A-19 | Partner podaje własny numer zamówienia, który trafia na wszystkie dokumenty (s37, s38, s39) | Bez tego partner nie połączy dostawy z własnym zleceniem u swojego klienta | Do potwierdzenia z dystrybutorami; wpływa na numerację dokumentów i ERP |
+| A-20 | Zamówienie pokazuje status pojedynczej pozycji, nie tylko status całości (s39) | Zamówienie częściowo gotowe musiało jakoś wyglądać | Ujawnia więcej niż status zamówienia i może naruszać granicę wewnętrzności ERP (CC-2). Do rozstrzygnięcia razem z zakresem statusów zwrotnych |
+| A-21 | Ścieżka katalogowa istnieje obok konfiguratora, a pozycja bez ceny katalogowej kieruje do konfiguratora (s35, s37) | Dokument opisuje panel przez konfigurator, ale uzasadnia go zamówieniami powtarzalnymi | Do potwierdzenia: ile pozycji realnie da się sprzedać z cennika bez konfiguracji. Wiąże się z pytaniem otwartym o liczbę produktów na start |
+| A-22 | Limit kupiecki jest widoczny partnerowi wraz z procentem wykorzystania (s37) | Blokada konta z dokumentu musiała mieć widoczną przyczynę przed jej wystąpieniem | Dokument wymienia blokadę przy przeterminowanych płatnościach, ale nie limit kupiecki. Decyzja finansów |
 
 ## Sprzeczności i braki wykryte przy rysowaniu przepływu
 
@@ -185,6 +228,13 @@ z odpornością produktów z biblioteki.
 - Kolejkowanie i ponowna synchronizacja zdarzeń po awarii integracji (s21).
 - Uruchomienie agenta prekwalifikacji, przeliczenie pewności i uwidocznienie pola „Powód innej decyzji" po zmianie toru (s2).
 - Wiersze tabel mają styl najechania w wielu listach, ale tylko wiersze na ścieżce głównej prowadzą dalej. Pozostałe są nieaktywne.
+- Dodanie pozycji do koszyka (s34, s35, s36) przenosi do koszyka, ale nie zmienia jego zawartości — koszyk ma stałe trzy pozycje. Licznik przy pozycji „Koszyk" jest taki sam na każdym ekranie.
+- Zmiana ilości w koszyku (s37) nie przelicza podsumowania; przycisk „Przelicz" jest nieaktywny.
+- Wybór wariantu i przełącznik samozamykacza na karcie produktu (s36) nie zmieniają ceny ani terminu.
+- Usunięcie pozycji z koszyka (s37) i zapis koszyka na później.
+- Logowanie (s33) przechodzi do pulpitu niezależnie od treści pól; nie ma walidacji ani stanu błędnych danych.
+- Wyszukiwanie, filtry i stronicowanie katalogu (s35) są statyczne.
+- „Ponów to zamówienie" (s39) i „Zamów ponownie" (s34) nie tworzą koszyka z historii.
 
 ## Weryfikacja
 
@@ -193,10 +243,10 @@ z odpornością produktów z biblioteki.
 | Kontrola | Wynik |
 | --- | --- |
 | Zbilansowanie znaczników HTML (parser stosowy) | OK |
-| 32 sekcje `.screen` ze stabilnymi, unikalnymi identyfikatorami | OK |
+| 39 sekcji `.screen` ze stabilnymi, unikalnymi identyfikatorami | OK |
 | Wszystkie cele `data-goto` wskazują na istniejące ekrany | OK, 0 błędnych |
 | Wszystkie odnośniki `href="#sN"` wskazują na istniejące ekrany | OK, 0 błędnych |
-| Nawigacja paska narzędzi pokrywa komplet 24 ekranów | OK |
+| Nawigacja paska narzędzi pokrywa komplet 39 ekranów | OK |
 | Wszystkie użyte ikony mają definicję w sprite, brak nieużywanych | OK |
 | Wszystkie użyte zmienne CSS istnieją w `tokens.css` | OK, 0 brakujących |
 | Brak wartości hex/rgb w znacznikach | OK |
@@ -210,16 +260,33 @@ odpowiedzi SSR serwera `localhost:5173`, widoki za stanem klienta odczytane z ko
 Nie klikałem po interfejsie, więc przejścia, animacje i responsywność aplikacji źródłowej
 pozostają niesprawdzone.
 
-**Przejście w przeglądarce — nie wykonane.** Skonfigurowany dostawca to Playwright
-(`.ai/agentic.config.json` → `browser.provider`), ale w repozytorium nie ma zainstalowanego
-`node_modules` ani pakietu Playwright, a instalacja zależności wykracza poza to, co ta sesja
-może zrobić bez decyzji użytkownika. **Nie zweryfikowano zatem w przeglądarce:** renderowania
-w obu motywach, braku przycinania szuflady (s2) i okna modalnego (s10), klikalności przejść,
-nawigacji klawiaturą, działania trybu komentarzy, utrwalania komentarzy po przeładowaniu,
-kotwiczenia pinezek, eksportu ani izolacji magazynu przeglądarki.
+**Renderowanie w przeglądarce — zweryfikowane w rewizji 2, częściowo.** Playwright nadal nie
+jest dostępny (brak `node_modules`), więc weryfikację przeprowadzono zainstalowanym lokalnie
+Chrome w trybie headless, na katalogu wystawionym pod `http://127.0.0.1:8899`. Zrzuty leżą
+w `evidence/` i pokazują stan po naprawach.
 
-Żeby to domknąć, wystarczy zainstalować zależności i uruchomić przegląd na
-`http://127.0.0.1:8899` po wystawieniu tego katalogu.
+Ta metoda renderuje stronę, ale **nie klika po niej**. Żeby wyizolować pojedynczy ekran,
+zrzuty powstały z tymczasowej kopii bez `prototype.js` i `comments.js`, z regułą CSS
+pokazującą jeden ekran. Kopia została usunięta po weryfikacji.
+
+| Sprawdzone zrzutem | Wynik |
+| --- | --- |
+| Renderowanie ekranów 33–39 w motywie jasnym | OK, po naprawie trzech usterek |
+| Ekran 13 po uspójnieniu nawigacji | OK |
+| Brak przycinania kart, tabel i paneli bocznych | OK |
+| Czytelność notatek pod ekranami | OK, po naprawie kolizji `<b>` |
+
+**Usterki znalezione i naprawione dzięki tym zrzutom:**
+
+1. **Ikony w przyciskach `btn-icon` w ogóle się nie renderowały** — klasa nie dziedziczy po `.btn`, więc reguła `.btn svg { width: 1rem }` jej nie obejmowała, a SVG bez wymiarów rozpychał wiersze tabeli. Dotyczyło **41 przycisków w całym prototypie, także w rewizji 1**. Naprawione jedną regułą w `components.css` (`.btn-icon` dostał własny wymiar, wyrównanie i rozmiar ikony) zamiast zmiany 41 miejsc w HTML. Ekran 13 skorzystał na tym tak samo jak nowe.
+2. **`<b>` w treści notatki kolidowało ze stylem numeratora** `.note b`, przez co wyróżnione słowo zamieniało się w czarne kółko i zasłaniało tekst. Pięć wystąpień zamienione na `<span class="strong">`.
+3. **`.stack-2` nie układa pionowo elementów inline** — to tylko marginesy, więc `<span>` w karcie opiekuna (s34) i przyciski w karcie „Co dalej" (s38) sklejały się w jedną linię. Naprawione elementami blokowymi.
+
+**Nadal niezweryfikowane, bo ta metoda tego nie obejmuje:** klikalność przejść i poprawność
+`data-goto` w działaniu, tryb prezentacji, tryb komentarzy wraz z utrwalaniem i eksportem,
+nawigacja klawiaturą, motyw ciemny, zachowanie przy wąskim oknie, przycinanie szuflady (s2)
+i okna modalnego (s10). Do ich domknięcia nadal potrzebna jest sesja w przeglądarce
+z Playwrightem.
 
 ## Ograniczenia
 
@@ -229,4 +296,5 @@ kotwiczenia pinezek, eksportu ani izolacji magazynu przeglądarki.
 - Wszystkie rekordy są fikcyjne. Żadna nazwa firmy, osoby, indeks, numer ani kwota nie pochodzi z Anter System.
 - `tokens.css` jest generowany. Odświeżaj go skryptem `sync-tokens.mjs`, nie ręcznie.
 - Ani prototyp, ani jego akceptacja nie dowodzą zapotrzebowania użytkowników i nie spełniają Definition of Ready.
+- Zrzuty w `evidence/` dokumentują renderowanie, nie działanie. Powstały bez skryptów prototypu, więc nie dowodzą, że przejścia, tryb prezentacji ani tryb komentarzy działają.
 - Komentarze w prototypie nie są współpracą na żywo.

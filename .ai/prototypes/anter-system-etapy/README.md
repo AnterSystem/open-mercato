@@ -26,7 +26,7 @@ różnych powierzchni i mieszanie ich w jednej liście zacierało granicę:
 | Grupa | Ekrany | Co to jest |
 | --- | --- | --- |
 | Backoffice Anter | 22 | Wnętrze firmy: CRM, baza produktów, konfigurator wewnętrzny, ERP, transport |
-| Portal dystrybutora | 11 | Powierzchnia partnerska — jedyne ekrany widziane spoza Anter System (wyróżnione obwódką) |
+| Portal dystrybutora | 12 | Powierzchnia partnerska — jedyne ekrany widziane spoza Anter System (wyróżnione obwódką) |
 | Stan bieżący | 8 | Odtworzenie działającej aplikacji Anter Site Configurator, nie propozycja projektowa |
 
 **Pasek śledzi bieżący ekran.** Wpis odpowiadający oglądanemu ekranowi jest podświetlony
@@ -84,6 +84,24 @@ tylko informowany, pozostaje otwarte (A-23).
 ZAM-2026-1140 w stanie sprzed decyzji („oczekuje na komponent"), więc „wysłane częściowo"
 nie występuje jeszcze w żadnym widoku partnera. To celowa granica tej iteracji — ekran 41
 opisuje, co partner zobaczy, ale nie rysuje tego widoku.
+
+### Katalog w widoku kafli (ekran 42)
+
+Przełącznik Lista / Kafle na ekranie 35 był dotąd martwy. Teraz prowadzi do ekranu 42 i z
+powrotem, więc oba widoki da się porównać na tych samych sześciu produktach i tych samych cenach.
+
+Kafel niesie mniej niż wiersz listy i to jest jego sens: kategoria, nazwa, indeks, cena
+partnerska wyróżniona rozmiarem, cena katalogowa jako odniesienie, termin dostępności oraz
+dwie akcje — „Szczegóły" i „Do koszyka". Ostatni kafel pokazuje tę samą granicę co ostatni
+wiersz listy: brama przesuwna nie ma ceny cennikowej i kieruje do konfiguratora.
+
+**Warunek sensowności tego widoku:** zdjęcia. Prototyp nie ładuje żadnych obrazów, więc
+miejsce na zdjęcie jest oznaczone symbolem — ale kafel bez zdjęcia niesie mniej informacji
+niż wiersz listy przy większym zużyciu miejsca. Zdjęcia pochodziłyby z bazy produktów, z tego
+samego rekordu co cena i struktura wykonawcza. Ile rekordów ma je dziś, pozostaje do
+sprawdzenia (A-26).
+
+Wybór widoku nie jest zapamiętywany między wejściami.
 
 ### Faktura zamiast kolumny dokumentów (ekran 15)
 
@@ -178,6 +196,7 @@ historyjka dotyka nierozstrzygniętej kwestii, są w niej oznaczone `[DO ROZSTRZ
 | s39 | portal | Portal dystrybutora — szczegóły zamówienia | 3 | US-3.3, CC-2 | s15 |
 | s40 | backoffice | Zwolnienie do wysyłki — kolejka | 5 | US-5.3, US-5.4 | s41, s22 |
 | s41 | backoffice | Wysyłka częściowa — wybór pozycji | 5 | US-5.4, CC-2, CC-5 | s22, s40 |
+| s42 | portal | Katalog w widoku kafli | 3 | US-3.7, CC-1, CC-3 | s35, s36, s37, s13 |
 
 Stany brzegowe rozłożone na ekranach: pusty (s8), brak uprawnień (s12), konflikt reguł
 (s6, s9), wyjście poza automatyzację (s10, s22, s35 w wierszu bramy przesuwnej), błąd
@@ -194,14 +213,14 @@ jako daną płynącą z CRM do panelu.
 
 ## Granica: powierzchnia portalowa
 
-Ekrany s13, s14, s15, s24 oraz s33–s39 są widokiem dystrybutora, czyli powierzchnią portalową,
+Ekrany s13, s14, s15, s24, s33–s39 oraz s42 są widokiem dystrybutora, czyli powierzchnią portalową,
 a nie backoffice. Repo-lokalna instrukcja skilla normalnie odsyła taką pracę do wytycznych
 właściwych dla tej powierzchni. Znalazły się tutaj, bo etap 3 i 6 należą do zamówionego
 zakresu „wszystkie etapy" — decyzja użytkownika podjęta w trakcie sesji. Ich powłoka jest
 celowo odróżnialna: marka konta partnera zamiast marki Anter System, inne pozycje
 nawigacji, brak jakiegokolwiek wejścia do ERP.
 
-Traktuj te jedenaście ekranów jako szkic przepływu, nie jako wytyczną wizualną dla portalu.
+Traktuj te dwanaście ekranów jako szkic przepływu, nie jako wytyczną wizualną dla portalu.
 Rewizja 2 pogłębiła przepływ, nie warstwę wizualną: ścieżka zamawiania jest tu rozstrzygnięta
 co do sekwencji, etykiet i momentów decyzji, ale układ, typografia i komponenty portalu
 pozostają do zaprojektowania zgodnie z wytycznymi powierzchni portalowej.
@@ -293,6 +312,7 @@ z odpornością produktów z biblioteki.
 | A-23 | Decyzję o wysyłce częściowej podejmuje wyłącznie pracownik Anter System; partner nie jest o nią pytany (s41) | Ktoś musi rozstrzygać, a pytanie partnera wydłuża proces o rundę oczekiwania | Decyzja procesowa: kto ponosi skutek, gdy partner wolałby komplet w jednej dostawie |
 | A-24 | Różnica kosztu drugiej przesyłki jest pokazana, ale nikomu nieprzypisana (s41) | Dwie wysyłki kosztują więcej niż jedna i decydujący musi to widzieć | Kto pokrywa różnicę — decyzja sprzedaży i finansów, ta sama luka co A-8 |
 | A-25 | Status „wysłane częściowo" rozszerza listę sześciu statusów zwrotnych (s19, s41) | „Wysłane" nieprawdziwie sugerowałoby komplet | Wymaga decyzji przy projektowaniu integracji ERP i uzgodnienia z dokumentem |
+| A-26 | Widok kafli ma sens tylko przy kompletnych zdjęciach produktów (s42) | Kafel bez zdjęcia niesie mniej informacji niż wiersz listy, więc traci rację bytu | Ile rekordów w bazie produktów ma dziś zdjęcia — do sprawdzenia przed decyzją o tym widoku |
 
 ## Sprzeczności i braki wykryte przy rysowaniu przepływu
 
@@ -335,7 +355,7 @@ z odpornością produktów z biblioteki.
 | Wszystkie cele `data-goto` wskazują na istniejące ekrany | OK, 0 błędnych |
 | Wszystkie odnośniki `href="#sN"` wskazują na istniejące ekrany | OK, 0 błędnych |
 | Nawigacja paska pokrywa komplet 39 ekranów, bez duplikatów | OK |
-| Pasek podzielony na trzy grupy (22 + 11 + 8 = 41) | OK |
+| Pasek podzielony na trzy grupy (22 + 12 + 8 = 42) | OK |
 | Podświetlenie bieżącego ekranu: wejście z adresu, przejście w mockupie, przewijanie | OK |
 | Brak poziomów certyfikacji i sugestii wpływu szkoleń na rabat | OK |
 | Wszystkie użyte ikony mają definicję w sprite, brak nieużywanych | OK |

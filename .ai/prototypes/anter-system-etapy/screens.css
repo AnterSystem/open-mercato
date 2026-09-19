@@ -493,6 +493,40 @@
 .btn-destructive-outline:hover { background: var(--status-error-bg); }
 
 /* ── Split panels ───────────────────────────────────────────────── */
+.tiles { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); }
+.tile {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--card);
+  overflow: hidden;
+}
+.tile-media {
+  aspect-ratio: 4 / 3;
+  background: var(--muted);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  color: var(--muted-foreground);
+}
+.tile-media svg { width: 2rem; height: 2rem; }
+.tile-body { padding: 0.75rem; display: flex; flex-direction: column; gap: 0.5rem; flex: 1 1 auto; }
+.tile-body > .badge { align-self: flex-start; }
+.tile-price { margin-top: auto; }
+.tile-price { display: flex; align-items: baseline; justify-content: space-between; gap: 0.5rem; }
+.tile-foot {
+  padding: 0.75rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
 .split { display: grid; gap: 1rem; grid-template-columns: minmax(0, 1fr); }
 @media (min-width: 1024px) { .split-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (min-width: 1024px) { .split-side { grid-template-columns: minmax(0, 1fr) 18rem; } }

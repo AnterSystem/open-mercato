@@ -31,3 +31,24 @@ export async function invalidateAnterPartnerTermsCache(
     logger.warn('Failed to invalidate partner terms cache', { err })
   }
 }
+
+const STATS_CACHE_PREFIX = 'anter:stats'
+
+export const STATS_CACHE_TTL_MS = 10 * 60 * 1000
+
+export function anterPartnerStatsCacheKey(organizationId: string, customerEntityId: string): string {
+  return `${STATS_CACHE_PREFIX}:${organizationId}:${customerEntityId}`
+}
+
+export async function invalidateAnterPartnerStatsCache(
+  cache: CacheStrategy | null | undefined,
+  organizationId: string | null | undefined,
+  customerEntityId: string | null | undefined,
+): Promise<void> {
+  if (!cache || !organizationId || !customerEntityId) return
+  try {
+    await cache.delete(anterPartnerStatsCacheKey(organizationId, customerEntityId))
+  } catch (err) {
+    logger.warn('Failed to invalidate partner stats cache', { err })
+  }
+}

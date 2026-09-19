@@ -78,5 +78,12 @@
   "anter_orders.shipments.column.tracking": "Tracking",
   "anter_orders.shipments.dispatch": "Dispatch",
   "anter_orders.shipments.dispatchError": "Could not dispatch this shipment",
-  "anter_orders.shipments.dispatchSuccess": "Shipment dispatched"
+  "anter_orders.shipments.dispatchSuccess": "Shipment dispatched",
+  "anter_orders.widgets.partnerCard.blocked": "Ordering blocked",
+  "anter_orders.widgets.partnerCard.lastOrder": "Last order",
+  "anter_orders.widgets.partnerCard.orderCount": "Orders",
+  "anter_orders.widgets.partnerCard.saveError": "Could not save partner terms",
+  "anter_orders.widgets.partnerCard.saveSuccess": "Saved",
+  "anter_orders.widgets.partnerCard.title": "Anter partner",
+  "anter_orders.widgets.partnerCard.turnover": "Turnover (12mo)"
 }

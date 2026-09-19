@@ -25,7 +25,7 @@ różnych powierzchni i mieszanie ich w jednej liście zacierało granicę:
 
 | Grupa | Ekrany | Co to jest |
 | --- | --- | --- |
-| Backoffice Anter | 22 | Wnętrze firmy: CRM, baza produktów, konfigurator wewnętrzny, ERP, transport |
+| Backoffice Anter | 23 | Wnętrze firmy: CRM, baza produktów, konfigurator wewnętrzny, ERP, transport |
 | Portal dystrybutora | 12 | Powierzchnia partnerska — jedyne ekrany widziane spoza Anter System (wyróżnione obwódką) |
 | Stan bieżący | 8 | Odtworzenie działającej aplikacji Anter Site Configurator, nie propozycja projektowa |
 
@@ -95,6 +95,33 @@ sugerowałoby domknięcie, którego nie ma. Oś realizacji ma więc teraz siedem
 rozstrzygnięcie), a 15, 34 i 39 jej skutek kilka dni później. To celowe przed/po na tym samym
 zamówieniu, nie rozjazd danych. Ekran 21 trzyma status sprzed wysyłki (17.09), bo ilustruje
 kolejkę zdarzeń zablokowanych przez zerwaną integrację.
+
+### Zamówienia w backoffice w rozbiciu na pozycje, „Zlecenia" → „Produkcja"
+
+Obsługa po stronie Anter potrzebuje widoku **pozycji, nie nagłówków zamówień**: jedno
+zamówienie potrafi mieć pozycję idącą prosto z magazynu i pozycję, która musi zostać
+wyprodukowana. Nowy ekran 43 pokazuje właśnie pozycje, z kolumną sposobu realizacji
+(Magazyn / Produkcja), stanem i odnośnikiem do zlecenia.
+
+Co z tego widać na przykładach w prototypie:
+
+| Zamówienie | Rozbicie |
+| --- | --- |
+| ZAM-2026-1190 (z katalogu) | trzy pozycje, wszystkie z magazynu — nie powstaje żadne zlecenie produkcyjne |
+| ZAM-2026-1164 | mieszane: brama do produkcji, napęd z magazynu |
+| ZAM-2026-1140 | bariera do produkcji (czeka na komponent), słupki i osłony z magazynu — stąd wysyłka częściowa |
+| ZAM-2026-1203 | pozycja wymaga produkcji, ale zlecenia jeszcze nie ma — „czeka na zlecenie" |
+
+Sposób realizacji nie jest osobną listą utrzymywaną ręcznie: wynika z rekordu w bazie
+produktów, który ma albo stan magazynowy pokrywający zamówioną ilość, albo strukturę
+wykonawczą (CC-1, CC-7).
+
+**Nazewnictwo:** pozycja „Zlecenia" w nawigacji backoffice nazywa się teraz **„Produkcja"**
+(ekrany 18 i 19, wszystkie paski boczne). Zlecenie pozostaje obiektem — produkcja jest
+obszarem, w którym się nim zarządza. Do pasków obszaru realizacji doszła pozycja „Zamówienia".
+
+Otwarte: czy zlecenie ma powstawać automatycznie przy przyjęciu zamówienia, czy świadomie
+ręcznie (A-27). Automat przyspiesza, ale odbiera kontrolę nad kolejnością i terminami.
 
 ### Oferta tylko poza ścieżką katalogową
 
@@ -235,8 +262,8 @@ historyjka dotyka nierozstrzygniętej kwestii, są w niej oznaczone `[DO ROZSTRZ
 | s15 | portal | Panel B2B — zamówienia i statusy z ERP | 3 | US-3.3, CC-2 | s13 |
 | s16 | backoffice | Karta partnera w CRM — pętla zwrotna | 3 | US-3.4, US-3.5, CC-6 | s17 |
 | s17 | backoffice | Warunki handlowe — z CRM do panelu | 3 | US-3.6, CC-3 | s16 |
-| s18 | backoffice | ERP — kolejka zleceń produkcyjnych | 4 | US-4.1, CC-1 | s19, s20, s22 |
-| s19 | backoffice | Zlecenie — rozbicie na komponenty i braki | 4 | US-4.2, CC-7 | s18, s20 |
+| s18 | backoffice | Produkcja — kolejka zleceń | 4 | US-4.1, CC-1 | s19, s20, s22 |
+| s19 | backoffice | Produkcja — zlecenie i braki komponentów | 4 | US-4.2, CC-7 | s18, s20 |
 | s20 | backoffice | Zapotrzebowanie zakupowe | 4 | US-4.3 | s18 |
 | s21 | backoffice | Zerwana integracja z ERP | 4 | US-4.4, stan błędu | s16 |
 | s22 | backoffice | Wycena transportu i zlecenie przewozu | 5 | US-5.1, US-5.2, CC-5 | s23 |
@@ -260,6 +287,7 @@ historyjka dotyka nierozstrzygniętej kwestii, są w niej oznaczone `[DO ROZSTRZ
 | s40 | backoffice | Zwolnienie do wysyłki — kolejka | 5 | US-5.3, US-5.4 | s41, s22 |
 | s41 | backoffice | Wysyłka częściowa — wybór pozycji | 5 | US-5.4, CC-2, CC-5 | s22, s40 |
 | s42 | portal | Katalog w widoku kafli | 3 | US-3.7, CC-1, CC-3 | s35, s36, s37, s13 |
+| s43 | backoffice | Backoffice — zamówienia w rozbiciu na pozycje | 4 | US-4.1, US-4.5, CC-1, CC-7 | s18, s19, s41 |
 
 Stany brzegowe rozłożone na ekranach: pusty (s8), brak uprawnień (s12), konflikt reguł
 (s6, s9), wyjście poza automatyzację (s10, s22, s35 w wierszu bramy przesuwnej), błąd
@@ -376,6 +404,7 @@ z odpornością produktów z biblioteki.
 | A-24 | Różnica kosztu drugiej przesyłki jest pokazana, ale nikomu nieprzypisana (s41) | Dwie wysyłki kosztują więcej niż jedna i decydujący musi to widzieć | Kto pokrywa różnicę — decyzja sprzedaży i finansów, ta sama luka co A-8 |
 | A-25 | Status „wysłane częściowo" rozszerza listę sześciu statusów zwrotnych (s19, s41) | „Wysłane" nieprawdziwie sugerowałoby komplet | Wymaga decyzji przy projektowaniu integracji ERP i uzgodnienia z dokumentem |
 | A-26 | Widok kafli ma sens tylko przy kompletnych zdjęciach produktów (s42) | Kafel bez zdjęcia niesie mniej informacji niż wiersz listy, więc traci rację bytu | Ile rekordów w bazie produktów ma dziś zdjęcia — do sprawdzenia przed decyzją o tym widoku |
+| A-27 | Zlecenie produkcyjne dla pozycji wymagającej produkcji nie powstaje automatycznie — jest stan „czeka na zlecenie" (s43) | Trzeba było rozstrzygnąć, czy przyjęcie zamówienia od razu tworzy zlecenie | Decyzja produkcji i IT: automat przyspiesza, ale odbiera kontrolę nad kolejnością i terminami |
 
 ## Sprzeczności i braki wykryte przy rysowaniu przepływu
 
@@ -418,7 +447,7 @@ z odpornością produktów z biblioteki.
 | Wszystkie cele `data-goto` wskazują na istniejące ekrany | OK, 0 błędnych |
 | Wszystkie odnośniki `href="#sN"` wskazują na istniejące ekrany | OK, 0 błędnych |
 | Nawigacja paska pokrywa komplet 39 ekranów, bez duplikatów | OK |
-| Pasek podzielony na trzy grupy (22 + 12 + 8 = 42) | OK |
+| Pasek podzielony na trzy grupy (23 + 12 + 8 = 43) | OK |
 | Podświetlenie bieżącego ekranu: wejście z adresu, przejście w mockupie, przewijanie | OK |
 | Brak poziomów certyfikacji i sugestii wpływu szkoleń na rabat | OK |
 | Status wysyłki częściowej spójny w liście, pulpicie i szczegółach zamówienia | OK |

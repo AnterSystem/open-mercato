@@ -216,6 +216,15 @@ Cel etapu: produkcja i magazyn pod kontrolą. Warunek wejścia: etap 1 i decyzja
 - Widoczność w CRM jest pełna; widoczność w panelu B2B odpowiada tabeli statusów z dokumentu.
 - Zerwana integracja nie gubi statusu: kolejkuje go i pokazuje, że dane są nieaktualne, zamiast wyświetlać stary status jako bieżący.
 
+**US-4.5** · Jako pracownik obsługi chcę widzieć zamówienia w rozbiciu na pozycje wraz
+ze sposobem ich realizacji, żeby wiedzieć, co wydać z magazynu, a co musi zostać wyprodukowane.
+
+- Lista pokazuje pozycje zamówień, nie same nagłówki zamówień: jedno zamówienie potrafi mieć pozycję magazynową i pozycję do produkcji.
+- Sposób realizacji wynika z rekordu w bazie produktów — stan magazynowy albo struktura wykonawcza (CC-1, CC-7).
+- Pozycja wymagająca produkcji prowadzi do swojego zlecenia; pozycja magazynowa nie ma zlecenia i jest to oznaczone wprost.
+- Pozycja wymagająca produkcji bez zlecenia jest wyróżniona jako stan wymagający decyzji.
+- `[DO ROZSTRZYGNIĘCIA]` Czy zlecenie produkcyjne powstaje automatycznie przy przyjęciu zamówienia, czy świadomie ręcznie.
+
 ## EP-5 · Transport i domknięcie do dostawy (etap 5)
 
 Cel etapu: zamknięcie procesu do dostawy. Warunek wejścia: etap 4.

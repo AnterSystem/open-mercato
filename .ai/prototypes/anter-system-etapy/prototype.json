@@ -9,22 +9,22 @@
   "storyMap": "story-map.md",
   "secondarySource": "anter-site-configurator (localhost:5173 SSR + kod źródłowy)",
   "flow": "Wszystkie etapy wdrożenia 0-6, odtworzenie stanu bieżącego konfiguratora oraz ścieżka zamawiania w portalu dystrybutora",
-  "screens": 42,
+  "screens": 43,
   "panelReport": null,
   "verification": "incomplete",
   "verificationNote": "Kontrole statyczne przeszły w komplecie. Renderowanie ekranów 33-39 i 13 zweryfikowane zrzutami z lokalnego Chrome headless (evidence/). Przejście klikane, motyw ciemny, tryb prezentacji i tryb komentarzy pozostają niesprawdzone - brak Playwrighta.",
   "files": [
     {
       "path": "index.html",
-      "sha256": "f95999e3ddad360bcac472233ceb22219cd0a0f163ba767258953a89b8ac384c"
+      "sha256": "c83a3ef19c4a74a801ccc132f9afcbbece21730087d37309f6796c10f045b150"
     },
     {
       "path": "README.md",
-      "sha256": "ec1c6396c22acf817381f499ecec34fff39269a09d5f88fdc62076e85e439c2f"
+      "sha256": "80fbb183113cd25d11c13466485ab129961097f6da15d2b14bc478cfbf7da808"
     },
     {
       "path": "story-map.md",
-      "sha256": "b5308c540885db1b15f5da5cd8a7b35feafa0de68a591ccf9ed9d05ceea9a710"
+      "sha256": "bea8867d145b970d20a7834331ef4f7432dcecf313d38e9a87798d937535b912"
     },
     {
       "path": "tokens.css",
@@ -65,6 +65,10 @@
     {
       "path": "evidence/s16-karta-partnera.png",
       "sha256": "a226723442da55034691ef6fc494b2dfcf76c618a0941937012eb7c39d5be435"
+    },
+    {
+      "path": "evidence/s18-produkcja.png",
+      "sha256": "a0377696567dd6de6dcea80cd0c4ab1f0075c54b7e0d4d16190795d8f943f227"
     },
     {
       "path": "evidence/s24-modul-szkoleniowy.png",
@@ -109,6 +113,10 @@
     {
       "path": "evidence/s42-katalog-kafle.png",
       "sha256": "3fd1ebd7fed46cdf7f60f1d035801aa8e885b83588ed98b6ade2092c4a1f5995"
+    },
+    {
+      "path": "evidence/s43-zamowienia-backoffice.png",
+      "sha256": "8f95f7d1b5532648256e6c22e3d19aa19ca3b2359baf58706486a06dd62e51e8"
     }
   ],
   "navigation": {
@@ -117,7 +125,7 @@
       {
         "id": "backoffice",
         "label": "Backoffice Anter",
-        "screens": 22
+        "screens": 23
       },
       {
         "id": "portal",

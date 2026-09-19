@@ -12,6 +12,14 @@ export function register(container: AppContainer) {
     // `anterPartnerTermsService` / `anterPartnerPricingService` straight off
     // the Awilix cradle — `catalogPricingService` from `catalog`'s di.ts,
     // the Anter ones from `anter_orders`'s di.ts (a hard dependency, §3.9).
+    // `anterCheckoutService` (in ./services/anterCheckoutService.ts) is NOT
+    // registered here: it needs the raw request container itself (to
+    // soft-optionally resolve `salesCalculationService` and to build the
+    // `CommandRuntimeContext` for `commandBus.execute`), which Awilix's
+    // CLASSIC-mode cradle has no self-reference for. It's constructed
+    // directly by the checkout route, which already holds that container —
+    // the same reason `lib/cartTotals.ts` takes `container` as a plain
+    // function argument instead of being DI-registered.
     [ANTER_CATALOG_SERVICE]: asFunction(createAnterCatalogService).scoped(),
     [ANTER_CART_SERVICE]: asFunction(createAnterCartService).scoped(),
   })

@@ -33,11 +33,18 @@ export const anterCartUpdateHeaderSchema = z.object({
 
 export type AnterCartUpdateHeaderInput = z.infer<typeof anterCartUpdateHeaderSchema>
 
+export const anterCheckoutSchema = z.object({
+  partnerReference: z.string().trim().max(64).nullable().optional(),
+})
+
+export type AnterCheckoutInput = z.infer<typeof anterCheckoutSchema>
+
 const validators = {
   anterCatalogListQuerySchema,
   anterCartAddLineSchema,
   anterCartUpdateLineSchema,
   anterCartUpdateHeaderSchema,
+  anterCheckoutSchema,
 }
 
 export default validators

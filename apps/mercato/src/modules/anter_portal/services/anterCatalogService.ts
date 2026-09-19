@@ -7,8 +7,9 @@ import {
   CatalogProductVariant,
 } from '@open-mercato/core/modules/catalog/data/entities'
 import type { PriceRow, PricingContext } from '@open-mercato/core/modules/catalog/lib/pricing'
-import { AnterPartnerGroupDiscount, AnterStockItem } from '../../anter_orders/data/entities'
+import { AnterStockItem } from '../../anter_orders/data/entities'
 import type { AnterPartnerTermsService } from '../../anter_orders/services/anterPartnerTermsService'
+import { loadPartnerDiscountLookup } from '../lib/partnerDiscount'
 
 export const DEFAULT_CATALOG_CURRENCY = 'PLN'
 
@@ -67,24 +68,6 @@ function availabilityFor(onHand: number | undefined, expectedRestockAt: Date | n
   return { status: 'expected', expectedRestockAt: expectedRestockAt ? expectedRestockAt.toISOString() : null }
 }
 
-async function resolveGroupDiscountRate(
-  em: EntityManager,
-  partnerTermsId: string,
-  categoryIds: string[],
-  scope: CatalogScope,
-): Promise<number | null> {
-  if (!categoryIds.length) return null
-  const rows = await em.find(AnterPartnerGroupDiscount, {
-    partnerTermsId,
-    organizationId: scope.organizationId,
-    tenantId: scope.tenantId,
-    deletedAt: null,
-    categoryId: { $in: categoryIds },
-  })
-  if (!rows.length) return null
-  return rows.reduce((max, row) => Math.max(max, Number(row.discountRate)), 0)
-}
-
 /**
  * Anter catalogue service (spec §Step 8 / Implementation Plan step 8).
  *
@@ -105,44 +88,8 @@ export function createAnterCatalogService(deps: {
 }) {
   const { em, catalogPricingService, anterPartnerTermsService } = deps
 
-  async function loadPartnerDiscount(
-    scope: CatalogScope,
-    categoryIdsByProduct: Map<string, string[]>,
-  ): Promise<{ discountRateFor(productId: string): number } | null> {
-    if (!scope.customerId) return null
-    const terms = await anterPartnerTermsService.getByCustomerEntityId(scope.customerId, scope)
-    if (!terms || terms.isBlocked) return null
-
-    const allCategoryIds = Array.from(new Set(Array.from(categoryIdsByProduct.values()).flat()))
-    const groupRates = new Map<string, number>()
-    if (allCategoryIds.length) {
-      const rows = await em.find(AnterPartnerGroupDiscount, {
-        partnerTermsId: terms.id,
-        organizationId: scope.organizationId,
-        tenantId: scope.tenantId,
-        deletedAt: null,
-        categoryId: { $in: allCategoryIds },
-      })
-      for (const row of rows) {
-        if (!row.categoryId) continue
-        const rate = Number(row.discountRate)
-        const existing = groupRates.get(row.categoryId)
-        if (existing === undefined || rate > existing) groupRates.set(row.categoryId, rate)
-      }
-    }
-
-    return {
-      discountRateFor(productId: string) {
-        const categoryIds = categoryIdsByProduct.get(productId) ?? []
-        let best: number | null = null
-        for (const categoryId of categoryIds) {
-          const rate = groupRates.get(categoryId)
-          if (rate !== undefined && (best === null || rate > best)) best = rate
-        }
-        return best ?? Number(terms.defaultDiscountRate) ?? 0
-      },
-    }
-  }
+  const loadPartnerDiscount = (scope: CatalogScope, categoryIdsByProduct: Map<string, string[]>) =>
+    loadPartnerDiscountLookup(em, anterPartnerTermsService, scope, categoryIdsByProduct)
 
   async function listCatalog(scope: CatalogScope, input: CatalogListInput): Promise<CatalogListResult> {
     const page = Math.max(1, input.page)

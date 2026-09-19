@@ -20,7 +20,7 @@ export type CartTotals = {
  * disabled (module-absent behaviour, spec §3.9/§Implementation Plan step 16
  * — the fallback is shared rather than re-derived per caller).
  */
-function resolveCalculationService(container: AppContainer): OrderCalculationService {
+export function resolveCalculationService(container: AppContainer): OrderCalculationService {
   try {
     const service = container.resolve<OrderCalculationService>('salesCalculationService')
     if (service && typeof service.calculateDocumentTotals === 'function') return service

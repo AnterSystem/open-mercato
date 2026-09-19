@@ -354,7 +354,7 @@ z odpornością produktów z biblioteki.
 - Dodanie pozycji do koszyka (s34, s35, s36) przenosi do koszyka, ale nie zmienia jego zawartości — koszyk ma stałe trzy pozycje. Licznik przy pozycji „Koszyk" jest taki sam na każdym ekranie.
 - Zmiana ilości w koszyku (s37) nie przelicza podsumowania; przycisk „Przelicz" jest nieaktywny.
 - Wybór wariantu i przełącznik samozamykacza na karcie produktu (s36) nie zmieniają ceny ani terminu.
-- Usunięcie pozycji z koszyka (s37) i zapis koszyka na później.
+- Usunięcie pozycji z koszyka (s37).
 - Logowanie (s33) przechodzi do pulpitu niezależnie od treści pól; nie ma walidacji ani stanu błędnych danych.
 - Wyszukiwanie, filtry i stronicowanie katalogu (s35) są statyczne.
 - „Ponów to zamówienie" (s39) i „Zamów ponownie" (s34) nie tworzą koszyka z historii.

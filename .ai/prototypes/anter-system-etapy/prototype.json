@@ -16,11 +16,11 @@
   "files": [
     {
       "path": "index.html",
-      "sha256": "c5e2934a160dee4d18244a0e1106f494eebfdbeb3bbf7a98fd2a03f911756579"
+      "sha256": "e42695035c883ec0394db1ce14e67afdbb23f132f3271c3bebf436839283391f"
     },
     {
       "path": "README.md",
-      "sha256": "0cf5df33b38d5b7cad395e0601e9a583201903e6c74ccca7dcb9fb9992abfa5f"
+      "sha256": "13fcacd1f31733592cafe1cd2495abff280b53af2d82919233631a085379135b"
     },
     {
       "path": "story-map.md",
@@ -88,7 +88,7 @@
     },
     {
       "path": "evidence/s37-koszyk.png",
-      "sha256": "1962588163709770dd5752e8bed27f26eca28deed4a23d0fe78a21e81bb3c36a"
+      "sha256": "c3860e9b29b121ae4f3f3fb7b15255fe8650e305628a118d9716aac12da7fc57"
     },
     {
       "path": "evidence/s38-zamowienie-zlozone.png",

@@ -88,6 +88,7 @@ export async function PUT(req: Request) {
       { organizationId: context.organizationId, tenantId: context.tenantId },
       { customerEntityId: context.customerEntityId, customerUserId: context.customerUserId },
       parsed.data,
+      req,
     )
     return NextResponse.json(await buildCartResponsePayload(context, cart))
   } catch (err) {
@@ -113,6 +114,7 @@ export const openApi: OpenApiRouteDoc = {
         { status: 400, description: 'Invalid input', schema: anterPortalErrorSchema },
         { status: 401, description: 'Unauthorized', schema: anterPortalErrorSchema },
         { status: 403, description: 'Insufficient permissions', schema: anterPortalErrorSchema },
+        { status: 409, description: 'Cart was modified since it was last read', schema: anterPortalErrorSchema },
       ],
     },
   },

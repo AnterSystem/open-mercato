@@ -52,6 +52,7 @@ export async function PUT(req: Request, ctx: RouteContext) {
       { customerEntityId: context.customerEntityId, customerUserId: context.customerUserId },
       lineId,
       parsed.data,
+      req,
     )
     return NextResponse.json(await buildCartResponsePayload(context, cart))
   } catch (err) {
@@ -77,6 +78,7 @@ export async function DELETE(req: Request, ctx: RouteContext) {
       { organizationId: context.organizationId, tenantId: context.tenantId },
       { customerEntityId: context.customerEntityId, customerUserId: context.customerUserId },
       lineId,
+      req,
     )
     return NextResponse.json(await buildCartResponsePayload(context, cart))
   } catch (err) {
@@ -97,7 +99,7 @@ export const openApi: OpenApiRouteDoc = {
         { status: 400, description: 'Invalid input', schema: anterPortalErrorSchema },
         { status: 401, description: 'Unauthorized', schema: anterPortalErrorSchema },
         { status: 404, description: 'Line not found', schema: anterPortalErrorSchema },
-        { status: 409, description: 'Not enough stock available', schema: anterPortalErrorSchema },
+        { status: 409, description: 'Not enough stock available, or cart was modified since it was last read', schema: anterPortalErrorSchema },
         { status: 422, description: 'Item is quote-only and cannot be ordered', schema: anterPortalErrorSchema },
       ],
     },
@@ -107,6 +109,7 @@ export const openApi: OpenApiRouteDoc = {
       errors: [
         { status: 401, description: 'Unauthorized', schema: anterPortalErrorSchema },
         { status: 404, description: 'Line not found', schema: anterPortalErrorSchema },
+        { status: 409, description: 'Cart was modified since it was last read', schema: anterPortalErrorSchema },
       ],
     },
   },

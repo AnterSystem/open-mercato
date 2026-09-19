@@ -34,6 +34,7 @@ export async function POST(req: Request) {
       { organizationId: context.organizationId, tenantId: context.tenantId },
       { customerEntityId: context.customerEntityId, customerUserId: context.customerUserId },
       parsed.data,
+      req,
     )
     return NextResponse.json(await buildCartResponsePayload(context, cart), { status: 201 })
   } catch (err) {
@@ -54,7 +55,7 @@ export const openApi: OpenApiRouteDoc = {
         { status: 400, description: 'Invalid input', schema: anterPortalErrorSchema },
         { status: 401, description: 'Unauthorized', schema: anterPortalErrorSchema },
         { status: 404, description: 'Product/variant not found', schema: anterPortalErrorSchema },
-        { status: 409, description: 'Not enough stock available', schema: anterPortalErrorSchema },
+        { status: 409, description: 'Not enough stock available, or cart was modified since it was last read', schema: anterPortalErrorSchema },
         { status: 422, description: 'Item is quote-only and cannot be added', schema: anterPortalErrorSchema },
       ],
     },

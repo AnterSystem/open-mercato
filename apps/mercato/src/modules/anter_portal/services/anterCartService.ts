@@ -2,6 +2,7 @@ import { randomUUID } from 'crypto'
 import type { EntityManager } from '@mikro-orm/postgresql'
 import { CrudHttpError } from '@open-mercato/shared/lib/crud/errors'
 import { withAtomicFlush } from '@open-mercato/shared/lib/commands/flush'
+import { enforceCommandOptimisticLock } from '@open-mercato/shared/lib/crud/optimistic-lock-command'
 import {
   CatalogProduct,
   CatalogProductVariant,
@@ -48,6 +49,8 @@ export type CartView = {
   updatedAt: string
   lines: CartLineView[]
 }
+
+const CART_RESOURCE_KIND = 'anter_portal.cart'
 
 const NO_TERMS: AnterPartnerTermsRecord = {
   id: '',
@@ -246,10 +249,10 @@ async function findOwnedLine(
 
 export type AnterCartService = {
   getCart(scope: CartScope, principal: CartPrincipal): Promise<CartView>
-  addLine(scope: CartScope, principal: CartPrincipal, input: AnterCartAddLineInput): Promise<CartView>
-  updateLine(scope: CartScope, principal: CartPrincipal, lineId: string, input: AnterCartUpdateLineInput): Promise<CartView>
-  removeLine(scope: CartScope, principal: CartPrincipal, lineId: string): Promise<CartView>
-  updateHeader(scope: CartScope, principal: CartPrincipal, input: AnterCartUpdateHeaderInput): Promise<CartView>
+  addLine(scope: CartScope, principal: CartPrincipal, input: AnterCartAddLineInput, request: Request): Promise<CartView>
+  updateLine(scope: CartScope, principal: CartPrincipal, lineId: string, input: AnterCartUpdateLineInput, request: Request): Promise<CartView>
+  removeLine(scope: CartScope, principal: CartPrincipal, lineId: string, request: Request): Promise<CartView>
+  updateHeader(scope: CartScope, principal: CartPrincipal, input: AnterCartUpdateHeaderInput, request: Request): Promise<CartView>
 }
 
 /**
@@ -285,8 +288,9 @@ export function createAnterCartService(deps: {
       return viewCart(scope, cart)
     },
 
-    async addLine(scope, principal, input) {
+    async addLine(scope, principal, input, request) {
       const cart = await getOrCreateActiveCart(em, scope, principal)
+      enforceCommandOptimisticLock({ resourceKind: CART_RESOURCE_KIND, resourceId: cart.id, current: cart.updatedAt, request })
       const productVariantId = input.productVariantId ?? null
 
       const pricing = await resolveLinePricing(deps, scope, principal, input.productId, productVariantId, input.quantity)
@@ -332,14 +336,19 @@ export function createAnterCartService(deps: {
               tenantId: scope.tenantId,
             })
           }
+          // The cart aggregate root isn't otherwise dirtied by a line write,
+          // so its `updated_at` (the optimistic-lock version) must be bumped
+          // explicitly — mirrors sales' documents.ts line-mutation commands.
+          cart.updatedAt = new Date()
         },
       ], { transaction: true, label: 'anter_portal.cart.addLine' })
 
       return viewCart(scope, cart)
     },
 
-    async updateLine(scope, principal, lineId, input) {
+    async updateLine(scope, principal, lineId, input, request) {
       const cart = await getOrCreateActiveCart(em, scope, principal)
+      enforceCommandOptimisticLock({ resourceKind: CART_RESOURCE_KIND, resourceId: cart.id, current: cart.updatedAt, request })
       const line = await findOwnedLine(em, scope, cart.id, lineId)
 
       const pricing = await resolveLinePricing(deps, scope, principal, line.productId, line.productVariantId ?? null, input.quantity)
@@ -355,27 +364,31 @@ export function createAnterCartService(deps: {
           line.partnerUnitPriceNet = pricing.partnerUnitPriceNet != null ? String(pricing.partnerUnitPriceNet) : null
           line.discountRate = String(pricing.discountRate)
           line.priceResolvedAt = new Date()
+          cart.updatedAt = new Date()
         },
       ], { transaction: true, label: 'anter_portal.cart.updateLine' })
 
       return viewCart(scope, cart)
     },
 
-    async removeLine(scope, principal, lineId) {
+    async removeLine(scope, principal, lineId, request) {
       const cart = await getOrCreateActiveCart(em, scope, principal)
+      enforceCommandOptimisticLock({ resourceKind: CART_RESOURCE_KIND, resourceId: cart.id, current: cart.updatedAt, request })
       const line = await findOwnedLine(em, scope, cart.id, lineId)
 
       await withAtomicFlush(em, [
         () => {
           em.remove(line)
+          cart.updatedAt = new Date()
         },
       ], { transaction: true, label: 'anter_portal.cart.removeLine' })
 
       return viewCart(scope, cart)
     },
 
-    async updateHeader(scope, principal, input) {
+    async updateHeader(scope, principal, input, request) {
       const cart = await getOrCreateActiveCart(em, scope, principal)
+      enforceCommandOptimisticLock({ resourceKind: CART_RESOURCE_KIND, resourceId: cart.id, current: cart.updatedAt, request })
 
       await withAtomicFlush(em, [
         () => {

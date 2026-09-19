@@ -16,11 +16,11 @@
   "files": [
     {
       "path": "index.html",
-      "sha256": "f5f40630438eb37d63d7ac9c2a297d1abc86eccd9f05ed83b7ebc91681190d55"
+      "sha256": "9ae7ce1b446895f373cd12e406cce5a118786fee622d9d17620ae7bdc2c3a5f0"
     },
     {
       "path": "README.md",
-      "sha256": "197aba0ba2bba02e90b10cfebfff588ca6cee8fccac39056f25c8e1a78b48380"
+      "sha256": "47312f0b0de57dcee057f9976a558345266d6d0aa35de784228c2735b819696e"
     },
     {
       "path": "story-map.md",
@@ -53,6 +53,10 @@
     {
       "path": "evidence/s13-konfigurator-po-uspojnieniu.png",
       "sha256": "65a64c40ad7f07a6c8fa37ce66c3a51cd947ca008fe9ea0da4c1835ff0786d37"
+    },
+    {
+      "path": "evidence/s15-zamowienia.png",
+      "sha256": "8bb375fa7f35adc82f54ca6b18a099bb742f5f40120fb3232e981b6c5fa9918f"
     },
     {
       "path": "evidence/s16-karta-partnera.png",

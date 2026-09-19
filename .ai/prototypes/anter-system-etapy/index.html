@@ -1951,7 +1951,7 @@
         <main class="page">
           <div class="toast">
             <svg><use href="#ic-check"/></svg>
-            <span>Zamówienie ZAM-2026-1187 zostało przyjęte. Potwierdzenie jest dostępne w dokumentach.</span>
+            <span>Zamówienie ZAM-2026-1187 zostało przyjęte. Potwierdzenie znajdziesz w szczegółach zamówienia.</span>
           </div>
 
           <div class="dt" style="margin-top:0.75rem">
@@ -1967,13 +1967,13 @@
             </div>
             <div class="scroll-x">
               <table class="table">
-                <thead><tr><th>Numer</th><th>Pozycje</th><th class="right">Wartość netto</th><th>Status</th><th>Przesyłka</th><th>Dokumenty</th></tr></thead>
+                <thead><tr><th>Numer</th><th>Pozycje</th><th class="right">Wartość netto</th><th>Status</th><th>Przesyłka</th><th>Faktura</th></tr></thead>
                 <tbody>
-                  <tr class="clickable"><td class="t-mono">ZAM-2026-1187</td><td>Bramka uchylna × 12</td><td class="right num">21 340,80</td><td><span class="badge badge-info"><span class="dot"></span> Zamówienie przyjęte</span></td><td class="t-hint">—</td><td><button class="btn btn-ghost btn-xs"><svg><use href="#ic-file"/></svg> Potwierdzenie</button></td></tr>
-                  <tr class="clickable"><td class="t-mono">ZAM-2026-1164</td><td>Brama przesuwna × 1, napęd × 1</td><td class="right num">14 780,00</td><td><span class="badge badge-warning"><span class="dot"></span> W produkcji</span></td><td class="t-hint">—</td><td><button class="btn btn-ghost btn-xs"><svg><use href="#ic-file"/></svg> Oferta</button></td></tr>
-                  <tr class="clickable" data-goto="s39"><td class="t-mono">ZAM-2026-1140</td><td>Bariery wewnętrzne × 80 mb</td><td class="right num">38 912,00</td><td><span class="badge badge-error"><span class="dot"></span> Oczekuje na komponent</span><br /><span class="t-hint">termin: 06.10.2026</span></td><td class="t-hint">—</td><td><button class="btn btn-ghost btn-xs"><svg><use href="#ic-file"/></svg> Potwierdzenie</button></td></tr>
-                  <tr class="clickable"><td class="t-mono">ZAM-2026-1102</td><td>Słupki odbojowe × 24</td><td class="right num">7 478,40</td><td><span class="badge badge-success"><span class="dot"></span> Wysłane</span></td><td><span class="t-mono">PL8841203377</span></td><td><button class="btn btn-ghost btn-xs"><svg><use href="#ic-file"/></svg> List przewozowy</button></td></tr>
-                  <tr class="clickable"><td class="t-mono">ZAM-2026-1071</td><td>Bramka uchylna × 6</td><td class="right num">10 670,40</td><td><span class="badge badge-success"><span class="dot"></span> Dostarczone</span></td><td><span class="t-mono">PL8841198002</span></td><td><button class="btn btn-ghost btn-xs"><svg><use href="#ic-file"/></svg> Faktura</button></td></tr>
+                  <tr class="clickable"><td class="t-mono">ZAM-2026-1187</td><td>Bramka uchylna × 12</td><td class="right num">21 340,80</td><td><span class="badge badge-info"><span class="dot"></span> Zamówienie przyjęte</span></td><td class="t-hint">—</td><td class="t-hint">—</td></tr>
+                  <tr class="clickable"><td class="t-mono">ZAM-2026-1164</td><td>Brama przesuwna × 1, napęd × 1</td><td class="right num">14 780,00</td><td><span class="badge badge-warning"><span class="dot"></span> W produkcji</span></td><td class="t-hint">—</td><td class="t-hint">—</td></tr>
+                  <tr class="clickable" data-goto="s39"><td class="t-mono">ZAM-2026-1140</td><td>Bariery wewnętrzne × 80 mb</td><td class="right num">38 912,00</td><td><span class="badge badge-error"><span class="dot"></span> Oczekuje na komponent</span><br /><span class="t-hint">termin: 06.10.2026</span></td><td class="t-hint">—</td><td class="t-hint">—</td></tr>
+                  <tr class="clickable"><td class="t-mono">ZAM-2026-1102</td><td>Słupki odbojowe × 24</td><td class="right num">7 478,40</td><td><span class="badge badge-success"><span class="dot"></span> Wysłane</span></td><td><span class="t-mono">PL8841203377</span></td><td><button class="btn btn-ghost btn-xs"><svg><use href="#ic-download"/></svg> Faktura</button></td></tr>
+                  <tr class="clickable"><td class="t-mono">ZAM-2026-1071</td><td>Bramka uchylna × 6</td><td class="right num">10 670,40</td><td><span class="badge badge-success"><span class="dot"></span> Dostarczone</span></td><td><span class="t-mono">PL8841198002</span></td><td><button class="btn btn-ghost btn-xs"><svg><use href="#ic-download"/></svg> Faktura</button></td></tr>
                 </tbody>
               </table>
             </div>
@@ -1992,7 +1992,7 @@
 
   <div class="notes">
     <div class="note"><b>1</b><span>Sześć statusów odpowiada tabeli statusów zwrotnych z dokumentu. Widoczność w panelu jest węższa niż w CRM i to rozróżnienie jest tu widoczne.</span></div>
-    <div class="note"><b>2</b><span>Dokumenty przy zamówieniu to oferta, potwierdzenie, faktura i dokumenty przewozowe. Prototyp ich nie pobiera.</span></div>
+    <div class="note"><b>2</b><span>Lista pokazuje wyłącznie fakturę, bo tylko po nią partner wraca do historii zamówień. Przycisk pojawia się dopiero wtedy, gdy faktura istnieje, czyli po wysyłce — wcześniej komórka jest pusta, zamiast oferować pobranie dokumentu, którego nie ma. Komplet dokumentów (oferta, potwierdzenie, faktura, list przewozowy) jest w szczegółach zamówienia (ekran 39).</span></div>
   </div>
 </section>
 

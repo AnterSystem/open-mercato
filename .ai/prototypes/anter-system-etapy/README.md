@@ -53,6 +53,16 @@ Co konkretnie się zmieniło:
 | Ekran 16, karta w CRM | „Moduł learning" z poziomem certyfikacji firmy | „Postęp szkoleniowy" — sama kompetencja zespołu |
 | Ekran 34, pulpit | pasek postępu certyfikacji | karta usunięta w całości |
 
+### Faktura zamiast kolumny dokumentów (ekran 15)
+
+Lista zamówień miała kolumnę „Dokumenty" z przyciskiem innym w każdym wierszu — raz
+potwierdzeniem, raz ofertą, raz listem przewozowym. Zastąpiła ją kolumna **Faktura**:
+przycisk pojawia się wyłącznie tam, gdzie faktura istnieje, czyli po wysyłce, a wcześniej
+komórka zostaje pusta (`—`), zamiast oferować pobranie dokumentu, którego jeszcze nie ma.
+
+Reguła jest spójna z ekranem 39, gdzie faktura i list przewozowy są opisane jako dostępne
+„po wysyłce". Komplet dokumentów zamówienia pozostaje w jego szczegółach.
+
 **To odejście od dokumentu źródłowego.** Tabela „Informacje zwrotne z panelu B2B do CRM"
 wiąże ukończone szkolenie z „certyfikacją partnera i poziomem konta" i klasyfikuje je jako
 zdarzenie natychmiastowe. Prototyp już tego nie odwzorowuje. Jeśli decyzja ma być trwała,

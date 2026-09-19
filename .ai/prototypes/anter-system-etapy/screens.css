@@ -35,6 +35,13 @@
 .screen-nav a:hover { background: var(--accent); color: var(--foreground); }
 .nav-section-portal a { border-color: var(--primary); color: var(--foreground); }
 .nav-section-portal a:hover { background: var(--primary); color: var(--primary-foreground); }
+.screen-nav a[aria-current="page"] {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--primary-foreground);
+  font-weight: 600;
+}
+.screen-nav a[aria-current="page"]:hover { background: var(--primary-hover); border-color: var(--primary-hover); }
 
 .screen { margin-top: 3rem; scroll-margin-top: 5rem; }
 .screen-meta { margin-bottom: 0.75rem; }

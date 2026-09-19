@@ -29,6 +29,12 @@ różnych powierzchni i mieszanie ich w jednej liście zacierało granicę:
 | Portal dystrybutora | 11 | Powierzchnia partnerska — jedyne ekrany widziane spoza Anter System (wyróżnione obwódką) |
 | Stan bieżący | 8 | Odtworzenie działającej aplikacji Anter Site Configurator, nie propozycja projektowa |
 
+**Pasek śledzi bieżący ekran.** Wpis odpowiadający oglądanemu ekranowi jest podświetlony
+(`aria-current="page"`), więc przy 41 ekranach widać, gdzie się jest. Podświetlenie nadąża za
+wszystkimi trzema sposobami nawigacji: kliknięciem w pasku, przejściem wewnątrz mockupu
+(przyciski i wiersze z `data-goto`) oraz zwykłym przewijaniem dokumentu. Działa też w trybie
+prezentacji, gdzie widoczny jest tylko jeden ekran.
+
 Ekrany 29 i 30 („Współpraca B2B") zostały w grupie „Stan bieżący", mimo że dotyczą relacji
 z partnerem. Powód: są zapisem tego, co już działa, a nie projektem portalu — i są
 powierzchnią współdzieloną, na której handlowiec Anter i partner pracują na tym samym
@@ -329,7 +335,8 @@ z odpornością produktów z biblioteki.
 | Wszystkie cele `data-goto` wskazują na istniejące ekrany | OK, 0 błędnych |
 | Wszystkie odnośniki `href="#sN"` wskazują na istniejące ekrany | OK, 0 błędnych |
 | Nawigacja paska pokrywa komplet 39 ekranów, bez duplikatów | OK |
-| Pasek podzielony na trzy grupy (20 + 11 + 8 = 39) | OK |
+| Pasek podzielony na trzy grupy (22 + 11 + 8 = 41) | OK |
+| Podświetlenie bieżącego ekranu: wejście z adresu, przejście w mockupie, przewijanie | OK |
 | Brak poziomów certyfikacji i sugestii wpływu szkoleń na rabat | OK |
 | Wszystkie użyte ikony mają definicję w sprite, brak nieużywanych | OK |
 | Wszystkie użyte zmienne CSS istnieją w `tokens.css` | OK, 0 brakujących |

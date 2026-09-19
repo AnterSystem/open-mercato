@@ -20,7 +20,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "cdbfbfca9bc8023e463c3e60e9e04f2b17d5c530573a3e7f50db25d1be962eee"
+      "sha256": "95bdcda308e36b98f4eb1fe35c4cfc0559e67ef5006a360c89b28e8e6acf0985"
     },
     {
       "path": "story-map.md",
@@ -36,7 +36,7 @@
     },
     {
       "path": "screens.css",
-      "sha256": "67a6689fbb74dbeea61336c7da1c2625c13af49280dc32d9ed7ec68245499471"
+      "sha256": "357c00df0b9b65facddfaa1cc54f593153aa80f3aea6f31caa4397186e2d7baa"
     },
     {
       "path": "prototype.css",
@@ -44,11 +44,15 @@
     },
     {
       "path": "prototype.js",
-      "sha256": "d86a8d1126f6cb8e31c7db0e8965bf682200edb45ea4bd5e2b106df6aa160cda"
+      "sha256": "b80e270abea81914a0f3054783c0f6336c58037252e4d462f5d1fc759d226db8"
     },
     {
       "path": "comments.js",
       "sha256": "7d254afd29393199cb17038b7df1619bb74845f436e81f7ed24aa66c5984fa55"
+    },
+    {
+      "path": "evidence/pasek-nawigacji.png",
+      "sha256": "c9ee59c7982ad6248e9d90d274fd5512ac24a8bcaeaae3c401cf9225bacd789e"
     },
     {
       "path": "evidence/s13-konfigurator-po-uspojnieniu.png",

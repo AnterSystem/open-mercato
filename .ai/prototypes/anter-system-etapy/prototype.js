@@ -171,6 +171,64 @@
     return Array.prototype.slice.call(document.querySelectorAll('.screen'));
   }
 
+  function navLinks() {
+    return Array.prototype.slice.call(document.querySelectorAll('.screen-nav a[href^="#"]'));
+  }
+
+  function setActiveNavLink(screenId) {
+    navLinks().forEach(function (link) {
+      if (link.getAttribute('href') === '#' + screenId) {
+        link.setAttribute('aria-current', 'page');
+      } else {
+        link.removeAttribute('aria-current');
+      }
+    });
+  }
+
+  function screenInView() {
+    var marker = Math.max(80, window.innerHeight * 0.25);
+    var all = screens();
+    var found = null;
+    all.forEach(function (screen) {
+      var rect = screen.getBoundingClientRect();
+      if (rect.top <= marker && rect.bottom > marker) found = screen;
+    });
+    if (found) return found;
+    for (var i = 0; i < all.length; i += 1) {
+      if (all[i].getBoundingClientRect().bottom > 0) return all[i];
+    }
+    return all[all.length - 1] || null;
+  }
+
+  function syncActiveNav() {
+    if (focusMode) {
+      var current = document.querySelector('.screen.is-current');
+      if (current) setActiveNavLink(current.id);
+      return;
+    }
+    var visible = screenInView();
+    if (visible) setActiveNavLink(visible.id);
+  }
+
+  function watchActiveNav() {
+    var queued = false;
+    function onScroll() {
+      if (queued) return;
+      queued = true;
+      window.requestAnimationFrame(function () {
+        queued = false;
+        syncActiveNav();
+      });
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    window.addEventListener('hashchange', function () {
+      var id = window.location.hash.slice(1);
+      if (id && document.getElementById(id)) setActiveNavLink(id);
+    });
+    syncActiveNav();
+  }
+
   function goTo(screenId, record) {
     var target = document.getElementById(screenId);
     if (!target) {
@@ -191,6 +249,7 @@
     target.classList.remove('proto-arrived');
     void target.offsetWidth;
     target.classList.add('proto-arrived');
+    setActiveNavLink(screenId);
     updateBackButton();
   }
 
@@ -678,9 +737,10 @@
       document.body.classList.toggle('proto-focus', focusMode);
       focusButton.className = 'btn btn-sm ' + (focusMode ? 'btn-primary' : 'btn-outline');
       if (focusMode && !document.querySelector('.screen.is-current')) {
-        var firstScreen = screens()[0];
+        var firstScreen = screenInView() || screens()[0];
         if (firstScreen) firstScreen.classList.add('is-current');
       }
+      syncActiveNav();
       updateBackButton();
     } });
     var threadsButton = element('button', { class: 'btn btn-outline btn-sm', type: 'button', text: 'Threads', onclick: function () {
@@ -716,6 +776,7 @@
     buildBackButton();
     prepareHotspots();
     renderPins();
+    watchActiveNav();
     document.addEventListener('click', onDocumentClick, true);
     window.addEventListener('resize', renderPins);
     window.addEventListener('scroll', renderPins, true);

@@ -1,0 +1,16 @@
+{
+  "anter_orders": {
+    "errors": {
+      "partnerTermsNotFound": "Partner terms not found.",
+      "stockItemNotFound": "Stock item not found.",
+      "orderingBlocked": "Ordering is blocked for this account."
+    },
+    "fields": {
+      "customerEntityId": "Partner",
+      "defaultDiscountRate": "Default discount rate",
+      "priceListCode": "Price list code",
+      "onHand": "On hand",
+      "availability": "Availability"
+    }
+  }
+}

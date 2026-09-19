@@ -1,0 +1,15 @@
+{
+  "anter_portal": {
+    "errors": {
+      "orderingBlocked": "Ordering is blocked for this account.",
+      "priceChanged": "Prices changed since you last viewed your cart. Please review and try again.",
+      "outOfStock": "Not enough stock available for this item."
+    },
+    "catalog": {
+      "quoteOnly": "Quote only"
+    },
+    "cart": {
+      "empty": "Your cart is empty."
+    }
+  }
+}

@@ -16,7 +16,7 @@
   "files": [
     {
       "path": "index.html",
-      "sha256": "bc303873b18ca050cfe0e55baecc465515681546eed45c3df550ad338a8cbfcc"
+      "sha256": "ccec66186f4f762cdd34057101b48ca04085f7b9ccf72d430ae7f750841beff3"
     },
     {
       "path": "README.md",
@@ -76,7 +76,7 @@
     },
     {
       "path": "evidence/s34-pulpit.png",
-      "sha256": "3e589b844af7a85d6774654fd655afd8836b0f8eff8b2653f27f21f2d5fb26e1"
+      "sha256": "23faf933618e3c72c31dd9d934fc9d8c8a4ec42b890789b88695ea3be1be8f96"
     },
     {
       "path": "evidence/s35-katalog.png",

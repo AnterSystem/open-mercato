@@ -80,12 +80,30 @@ export async function allocateOrderLineBestEffort(
   return { allocatedQuantity, shortfallQuantity, expectedRestockAt: stockItem.expectedRestockAt ?? null }
 }
 
+const ADVANCED_STATUSES = ['picking', 'shipped_partially', 'shipped', 'delivered']
+
 /**
- * Order-level status derived from its lines' allocation outcome right after
- * placement (§3.6): any short line keeps the order `awaiting_stock`; a fully
- * allocated order stays `placed` — pending is `confirmed` remains a distinct,
- * staff-driven step (`anter_orders.order.confirm`), decoupled from stock.
+ * Order-level status derived from its lines' allocation outcome (§3.6),
+ * called both right after placement and whenever `stock.allocate` resolves a
+ * shortfall later. A short line always forces `awaiting_stock` — the
+ * blocking signal staff must see, regardless of what stage the order was
+ * already at. Otherwise: an order already at `picking` or later is left
+ * alone (allocation clearing a shortfall on an in-flight shipment must never
+ * regress it back to `placed`); a not-yet-confirmed order goes to `placed`
+ * (§3.6 "confirmed" is `anter_orders.order.confirm`'s own distinct,
+ * staff-driven step, decoupled from stock, disambiguated here via
+ * `confirmedAt` rather than the single `status` enum); a confirmed order
+ * whose last shortfall just cleared advances to `picking` ("every line
+ * allocated" — this module treats `allocated` as picking-ready; nothing in
+ * this scope's command set ever produces the separate `packed` line status
+ * §3.7 also mentions).
  */
-export function deriveOrderStatusAfterAllocation(lineStatuses: string[]): 'placed' | 'awaiting_stock' {
-  return lineStatuses.some((status) => status === 'awaiting_stock') ? 'awaiting_stock' : 'placed'
+export function deriveOrderStatusAfterAllocation(params: {
+  currentStatus: string
+  confirmedAt: Date | null
+  lineStatuses: string[]
+}): string {
+  if (params.lineStatuses.some((status) => status === 'awaiting_stock')) return 'awaiting_stock'
+  if (ADVANCED_STATUSES.includes(params.currentStatus)) return params.currentStatus
+  return params.confirmedAt ? 'picking' : 'placed'
 }

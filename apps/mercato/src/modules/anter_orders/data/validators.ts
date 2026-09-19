@@ -89,6 +89,32 @@ export const anterOrderLineListSchema = paginationSchema.extend({
 
 export type AnterOrderLineListQuery = z.infer<typeof anterOrderLineListSchema>
 
+export const anterShipmentListSchema = paginationSchema.extend({
+  id: z.string().uuid().optional(),
+  orderId: z.string().uuid().optional(),
+  status: z.string().optional(),
+  sortField: z.enum(['id', 'order_id', 'sequence_number', 'created_at']).optional().default('created_at'),
+  sortDir: z.enum(['asc', 'desc']).optional().default('desc'),
+})
+
+export type AnterShipmentListQuery = z.infer<typeof anterShipmentListSchema>
+
+export const anterShipmentCreateCommandSchema = z.object({
+  orderId: z.string().uuid(),
+  weightKg: z.coerce.number().min(0).optional(),
+  packageCount: z.coerce.number().int().min(0).optional(),
+  shippingCostNet: z.coerce.number().min(0).optional(),
+  lines: z.array(z.object({
+    orderLineId: z.string().uuid(),
+    quantity: z.coerce.number().positive(),
+  })).min(1),
+})
+
+export const anterShipmentDispatchCommandSchema = z.object({
+  carrierName: z.string().trim().min(1).max(128),
+  trackingNumber: z.string().trim().min(1).max(128),
+})
+
 export const anterOrderPlaceLineSchema = z.object({
   productId: z.string().uuid(),
   productVariantId: z.string().uuid().nullable().optional(),

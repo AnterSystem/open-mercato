@@ -221,7 +221,7 @@ const orderPlaceCommand: CommandHandler<unknown, OrderPlaceResult> = {
           lineStatuses.push(lineEntity.lineStatus)
           void result
         }
-        order.status = deriveOrderStatusAfterAllocation(lineStatuses)
+        order.status = deriveOrderStatusAfterAllocation({ currentStatus: order.status, confirmedAt: order.confirmedAt ?? null, lineStatuses })
       },
     ], { transaction: true, label: 'anter_orders.order.place' })
 

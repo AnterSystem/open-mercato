@@ -364,3 +364,102 @@ export class AnterOrderSequence {
   @Property({ name: 'updated_at', type: Date, onUpdate: () => new Date() })
   updatedAt: Date = new Date()
 }
+
+@Entity({ tableName: 'anter_shipments' })
+@Index({ properties: ['orderId', 'sequenceNumber'] })
+export class AnterShipment {
+  [OptionalProps]?:
+    | 'status'
+    | 'carrierName'
+    | 'trackingNumber'
+    | 'weightKg'
+    | 'packageCount'
+    | 'shippingCostNet'
+    | 'waybillAttachmentId'
+    | 'dispatchedAt'
+    | 'deliveredAt'
+    | 'createdAt'
+    | 'updatedAt'
+
+  @PrimaryKey({ type: 'uuid', defaultRaw: 'gen_random_uuid()' })
+  id!: string
+
+  @Property({ name: 'order_id', type: 'uuid' })
+  orderId!: string
+
+  @Property({ name: 'shipment_number', type: 'text' })
+  shipmentNumber!: string
+
+  @Property({ name: 'sequence_number', type: 'integer' })
+  sequenceNumber!: number
+
+  @Property({ type: 'text', default: 'planned' })
+  status: string = 'planned'
+
+  @Property({ name: 'carrier_name', type: 'text', nullable: true })
+  carrierName?: string | null
+
+  @Property({ name: 'tracking_number', type: 'text', nullable: true })
+  trackingNumber?: string | null
+
+  @Property({ name: 'weight_kg', type: 'numeric', precision: 10, scale: 3, nullable: true })
+  weightKg?: string | null
+
+  @Property({ name: 'package_count', type: 'integer', nullable: true })
+  packageCount?: number | null
+
+  @Property({ name: 'shipping_cost_net', type: 'numeric', precision: 16, scale: 4, default: '0' })
+  shippingCostNet: string = '0'
+
+  @Property({ name: 'waybill_attachment_id', type: 'uuid', nullable: true })
+  waybillAttachmentId?: string | null
+
+  @Property({ name: 'dispatched_at', type: Date, nullable: true })
+  dispatchedAt?: Date | null
+
+  @Property({ name: 'delivered_at', type: Date, nullable: true })
+  deliveredAt?: Date | null
+
+  @Property({ name: 'organization_id', type: 'uuid' })
+  organizationId!: string
+
+  @Property({ name: 'tenant_id', type: 'uuid' })
+  tenantId!: string
+
+  @Property({ name: 'created_at', type: Date, onCreate: () => new Date() })
+  createdAt: Date = new Date()
+
+  @Property({ name: 'updated_at', type: Date, onUpdate: () => new Date() })
+  updatedAt: Date = new Date()
+}
+
+@Entity({ tableName: 'anter_shipment_lines' })
+@Index({ properties: ['shipmentId'] })
+@Index({ properties: ['orderLineId'] })
+export class AnterShipmentLine {
+  [OptionalProps]?: 'createdAt' | 'updatedAt'
+
+  @PrimaryKey({ type: 'uuid', defaultRaw: 'gen_random_uuid()' })
+  id!: string
+
+  @Property({ name: 'shipment_id', type: 'uuid' })
+  shipmentId!: string
+
+  @Property({ name: 'order_line_id', type: 'uuid' })
+  orderLineId!: string
+
+  @Property({ type: 'numeric', precision: 16, scale: 4 })
+  quantity!: string
+
+  @Property({ name: 'organization_id', type: 'uuid' })
+  organizationId!: string
+
+  @Property({ name: 'tenant_id', type: 'uuid' })
+  tenantId!: string
+
+  @Property({ name: 'created_at', type: Date, onCreate: () => new Date() })
+  createdAt: Date = new Date()
+
+  @Property({ name: 'updated_at', type: Date, onUpdate: () => new Date() })
+  updatedAt: Date = new Date()
+}

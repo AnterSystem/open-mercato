@@ -112,7 +112,11 @@ const stockAllocateCommand: CommandHandler<unknown, StockAllocateResult> = {
       },
       async () => {
         const siblingLines = await em.find(AnterOrderLine, { orderId: order.id })
-        order.status = deriveOrderStatusAfterAllocation(siblingLines.map((sibling) => sibling.lineStatus))
+        order.status = deriveOrderStatusAfterAllocation({
+          currentStatus: order.status,
+          confirmedAt: order.confirmedAt ?? null,
+          lineStatuses: siblingLines.map((sibling) => sibling.lineStatus),
+        })
       },
     ], { transaction: true, label: 'anter_orders.stock.allocate' })
 

@@ -100,11 +100,19 @@ describe('allocateOrderLineBestEffort', () => {
 })
 
 describe('deriveOrderStatusAfterAllocation', () => {
-  it('stays placed when every line fully allocated', () => {
-    expect(deriveOrderStatusAfterAllocation(['allocated', 'allocated'])).toBe('placed')
+  it('stays placed when every line fully allocated and the order is not confirmed yet', () => {
+    expect(deriveOrderStatusAfterAllocation({ currentStatus: 'placed', confirmedAt: null, lineStatuses: ['allocated', 'allocated'] })).toBe('placed')
   })
 
-  it('becomes awaiting_stock when any line is short', () => {
-    expect(deriveOrderStatusAfterAllocation(['allocated', 'awaiting_stock'])).toBe('awaiting_stock')
+  it('becomes awaiting_stock when any line is short, even on a confirmed order', () => {
+    expect(deriveOrderStatusAfterAllocation({ currentStatus: 'confirmed', confirmedAt: new Date(), lineStatuses: ['allocated', 'awaiting_stock'] })).toBe('awaiting_stock')
+  })
+
+  it('advances a confirmed order to picking once every line is allocated', () => {
+    expect(deriveOrderStatusAfterAllocation({ currentStatus: 'awaiting_stock', confirmedAt: new Date(), lineStatuses: ['allocated', 'allocated'] })).toBe('picking')
+  })
+
+  it('never regresses an order already past picking', () => {
+    expect(deriveOrderStatusAfterAllocation({ currentStatus: 'shipped_partially', confirmedAt: new Date(), lineStatuses: ['allocated', 'allocated'] })).toBe('shipped_partially')
   })
 })

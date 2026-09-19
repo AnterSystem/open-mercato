@@ -16,7 +16,7 @@
   "files": [
     {
       "path": "index.html",
-      "sha256": "e42695035c883ec0394db1ce14e67afdbb23f132f3271c3bebf436839283391f"
+      "sha256": "864cc778b669138a7c7fa664752d6caa44bf9382786f353cc7f97b98d1e8c63d"
     },
     {
       "path": "README.md",
@@ -92,7 +92,7 @@
     },
     {
       "path": "evidence/s38-zamowienie-zlozone.png",
-      "sha256": "80953b13cef1854732ef1f8e1823fe6bd6be71ee60c8ac8d2853f4c0d4b242c7"
+      "sha256": "b09dbc7e7779ec92840503797355746a767874c4989818b7f0cd7d156e1bc3fa"
     },
     {
       "path": "evidence/s39-szczegoly-zamowienia.png",

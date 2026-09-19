@@ -78,6 +78,17 @@ export const anterOrderListSchema = paginationSchema.extend({
 
 export type AnterOrderListQuery = z.infer<typeof anterOrderListSchema>
 
+export const anterOrderLineListSchema = paginationSchema.extend({
+  id: z.string().uuid().optional(),
+  orderId: z.string().uuid().optional(),
+  fulfilmentMode: z.enum(['stock', 'production']).optional(),
+  lineStatus: z.string().optional(),
+  sortField: z.enum(['id', 'order_id', 'line_number', 'created_at']).optional().default('created_at'),
+  sortDir: z.enum(['asc', 'desc']).optional().default('desc'),
+})
+
+export type AnterOrderLineListQuery = z.infer<typeof anterOrderLineListSchema>
+
 export const anterOrderPlaceLineSchema = z.object({
   productId: z.string().uuid(),
   productVariantId: z.string().uuid().nullable().optional(),

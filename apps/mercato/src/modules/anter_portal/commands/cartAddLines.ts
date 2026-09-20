@@ -83,7 +83,7 @@ registerCommand({
       productVariantId: line.productVariantId ?? null,
       quantity: line.quantity,
     }))
-    const result = await cartService.addLines(scope, principal, lines, ctx.request as Request)
+    const result = await cartService.addLines(scope, principal, lines, ctx.request as Request, { sourceRevisionId: parsed.sourceRevisionId ?? null })
 
     return {
       cartId: result.cartId,
@@ -136,7 +136,7 @@ registerCommand({
 
 function parseInputStrict(rawInput: unknown): AnterCartAddLinesInput & { organizationId: string; tenantId: string; customerEntityId: string; customerUserId: string } {
   const raw = rawInput as Record<string, unknown>
-  const result = anterCartAddLinesSchema.safeParse({ lines: raw?.lines })
+  const result = anterCartAddLinesSchema.safeParse({ lines: raw?.lines, sourceRevisionId: raw?.sourceRevisionId })
   if (!result.success) {
     throw new CrudHttpError(400, { error: '[internal] invalid anter_portal.cart.add_lines input', issues: result.error.issues })
   }

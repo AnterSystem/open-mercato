@@ -577,3 +577,83 @@ export class AnterSubmission {
   @Property({ name: 'updated_at', type: Date, onUpdate: () => new Date() })
   updatedAt: Date = new Date()
 }
+
+// Phase I (spec §3.8's "element-anchored comments", Implementation Plan step
+// 31): a comment optionally anchored to one drawing element, with an
+// internal/shared visibility toggle — `internal` comments never reach the
+// portal's read of the same submission.
+@Entity({ tableName: 'anter_submission_comments' })
+@Index({ properties: ['submissionId'] })
+export class AnterSubmissionComment {
+  [OptionalProps]?: 'elementId' | 'authorUserId' | 'authorCustomerUserId' | 'createdAt'
+
+  @PrimaryKey({ type: 'uuid', defaultRaw: 'gen_random_uuid()' })
+  id!: string
+
+  @Property({ name: 'submission_id', type: 'uuid' })
+  submissionId!: string
+
+  @Property({ name: 'element_id', type: 'uuid', nullable: true })
+  elementId?: string | null
+
+  @Property({ name: 'author_user_id', type: 'uuid', nullable: true })
+  authorUserId?: string | null
+
+  @Property({ name: 'author_customer_user_id', type: 'uuid', nullable: true })
+  authorCustomerUserId?: string | null
+
+  @Property({ type: 'text' })
+  body!: string
+
+  // `shared` | `internal` (§3.8) — `internal` is staff-only.
+  @Property({ type: 'text', default: 'shared' })
+  visibility: string = 'shared'
+
+  @Property({ name: 'organization_id', type: 'uuid' })
+  organizationId!: string
+
+  @Property({ name: 'tenant_id', type: 'uuid' })
+  tenantId!: string
+
+  @Property({ name: 'created_at', type: Date, onCreate: () => new Date() })
+  createdAt: Date = new Date()
+}
+
+// The audit trail behind the queue's SLA/history view — one row per state
+// transition (each decision command writes one alongside its own command-log
+// entry).
+@Entity({ tableName: 'anter_submission_events' })
+@Index({ properties: ['submissionId'] })
+export class AnterSubmissionEvent {
+  [OptionalProps]?: 'fromState' | 'actorUserId' | 'actorCustomerUserId' | 'reason' | 'occurredAt'
+
+  @PrimaryKey({ type: 'uuid', defaultRaw: 'gen_random_uuid()' })
+  id!: string
+
+  @Property({ name: 'submission_id', type: 'uuid' })
+  submissionId!: string
+
+  @Property({ name: 'from_state', type: 'text', nullable: true })
+  fromState?: string | null
+
+  @Property({ name: 'to_state', type: 'text' })
+  toState!: string
+
+  @Property({ name: 'actor_user_id', type: 'uuid', nullable: true })
+  actorUserId?: string | null
+
+  @Property({ name: 'actor_customer_user_id', type: 'uuid', nullable: true })
+  actorCustomerUserId?: string | null
+
+  @Property({ type: 'text', nullable: true })
+  reason?: string | null
+
+  @Property({ name: 'occurred_at', type: Date, onCreate: () => new Date() })
+  occurredAt: Date = new Date()
+
+  @Property({ name: 'organization_id', type: 'uuid' })
+  organizationId!: string
+
+  @Property({ name: 'tenant_id', type: 'uuid' })
+  tenantId!: string
+}

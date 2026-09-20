@@ -8,6 +8,7 @@ import { extractUndoPayload } from '@open-mercato/shared/lib/commands/undo'
 import { CrudHttpError } from '@open-mercato/shared/lib/crud/errors'
 import { AnterProjectElement, AnterProjectRevision, AnterSubmission } from '../data/entities'
 import type { AnterSubmissionNumberService } from '../services/anterSubmissionNumberService'
+import { emitAnterConfiguratorEvent } from '../events'
 
 const SUBMISSION_RESOURCE_KIND = 'anter_configurator.submission'
 const DEFAULT_DUE_DAYS = 2
@@ -19,6 +20,10 @@ const inputSchema = z.object({
   revisionId: z.string().uuid(),
   customerEntityId: z.string().uuid().nullable().optional(),
   track: z.enum(['priced', 'unpriced']),
+  // Set by the `anter_orders.order.placed` subscriber for the priced track —
+  // the priced submission exists to gate `order.confirm` (X10), so it is
+  // born already linked to the order it gates.
+  resultingOrderId: z.string().uuid().nullable().optional(),
 })
 type SubmissionCreateInput = z.infer<typeof inputSchema>
 
@@ -76,6 +81,7 @@ const submissionCreateCommand: CommandHandler<unknown, SubmissionCreateResult> =
           state: 'technical_review',
           dueAt,
           submittedAt: now,
+          resultingOrderId: parsed.resultingOrderId ?? null,
           positionCount: drawnElementCount,
           organizationId: parsed.organizationId,
           tenantId: parsed.tenantId,
@@ -83,6 +89,17 @@ const submissionCreateCommand: CommandHandler<unknown, SubmissionCreateResult> =
         revision.state = 'submitted'
       },
     ], { transaction: true, label: 'anter_configurator.submission.create' })
+
+    await emitAnterConfiguratorEvent('anter_configurator.submission.created', {
+      submissionId,
+      submissionNumber,
+      projectId: parsed.projectId,
+      revisionId: revision.id,
+      customerEntityId: parsed.customerEntityId ?? null,
+      track: parsed.track,
+      organizationId: parsed.organizationId,
+      tenantId: parsed.tenantId,
+    }, { persistent: true, tenantId: parsed.tenantId, organizationId: parsed.organizationId })
 
     return { submissionId, submissionNumber, track: parsed.track, dueAt: dueAt.toISOString() }
   },

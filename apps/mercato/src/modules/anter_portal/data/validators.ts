@@ -21,6 +21,9 @@ export type AnterCartAddLineInput = z.infer<typeof anterCartAddLineSchema>
 // would leave a half-filled cart on failure, so this is transactional.
 export const anterCartAddLinesSchema = z.object({
   lines: z.array(anterCartAddLineSchema).min(1),
+  // Configurator spec X6: tags every line added by this call so checkout can
+  // mark the resulting order `source: 'configurator'` (X7).
+  sourceRevisionId: z.string().uuid().nullable().optional(),
 })
 
 export type AnterCartAddLinesInput = z.infer<typeof anterCartAddLinesSchema>

@@ -171,6 +171,11 @@ export const anterOrderPlaceSchema = z.object({
   partnerReference: z.string().trim().max(64).nullable().optional(),
   notes: z.string().trim().max(2000).nullable().optional(),
   sourceCartId: z.string().uuid().nullable().optional(),
+  // Configurator spec X7: set by `anter_portal`'s checkout when any line in
+  // the cart came from `anter_configurator` (§3.2 — the order module never
+  // resolves this itself, it only stores what the caller tells it).
+  source: z.enum(['catalog', 'configurator']).default('catalog'),
+  configuratorRevisionId: z.string().uuid().nullable().optional(),
   lines: z.array(anterOrderPlaceLineSchema).min(1),
 })
 

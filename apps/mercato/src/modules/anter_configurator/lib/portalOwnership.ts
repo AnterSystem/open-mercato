@@ -1,6 +1,6 @@
 import type { EntityManager } from '@mikro-orm/postgresql'
 import { CrudHttpError } from '@open-mercato/shared/lib/crud/errors'
-import { AnterProject, AnterProjectRevision } from '../data/entities'
+import { AnterProject, AnterProjectRevision, AnterSubmission } from '../data/entities'
 
 export type PortalRevisionScope = { organizationId: string; tenantId: string; customerEntityId: string }
 
@@ -32,4 +32,23 @@ export async function loadOwnedRevision(
   if (!project) throw new CrudHttpError(404, { error: '[internal] revision not found' })
 
   return { revision, project }
+}
+
+/**
+ * Same 404-not-403 rule for submissions (§3.14) — a submission belonging to
+ * another partner is invisible, not merely forbidden.
+ */
+export async function loadOwnedSubmission(
+  em: EntityManager,
+  submissionId: string,
+  scope: PortalRevisionScope,
+): Promise<AnterSubmission> {
+  const submission = await em.findOne(AnterSubmission, {
+    id: submissionId,
+    customerEntityId: scope.customerEntityId,
+    organizationId: scope.organizationId,
+    tenantId: scope.tenantId,
+  })
+  if (!submission) throw new CrudHttpError(404, { error: '[internal] submission not found' })
+  return submission
 }

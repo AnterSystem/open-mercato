@@ -243,6 +243,12 @@ export function createAnterCheckoutService(deps: {
       ? (input.partnerReference?.length ? input.partnerReference : null)
       : cart.partnerReference
 
+    // Configurator spec X6/X7: a cart line tagged by
+    // `anter_configurator.cart.add_lines` carries the revision it came from —
+    // its presence is the only signal `anter_orders` gets that this order is
+    // configurator-sourced (§3.2, no ORM relation, no direct import).
+    const configuratorRevisionId = lines.find((line) => line.revisionId)?.revisionId ?? null
+
     const commandInput: AnterOrderPlaceInput = {
       organizationId: scope.organizationId,
       tenantId: scope.tenantId,
@@ -256,6 +262,8 @@ export function createAnterCheckoutService(deps: {
       partnerReference,
       notes: cart.notes ?? null,
       sourceCartId: cart.id,
+      source: configuratorRevisionId ? 'configurator' : 'catalog',
+      configuratorRevisionId,
       lines: repriced.map((entry) => ({
         productId: entry.line.productId,
         productVariantId: entry.line.productVariantId ?? null,

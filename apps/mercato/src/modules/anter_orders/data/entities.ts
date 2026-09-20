@@ -211,6 +211,8 @@ export class AnterOrder {
     | 'partnerReference'
     | 'notes'
     | 'sourceCartId'
+    | 'configuratorRevisionId'
+    | 'offerId'
     | 'placedAt'
     | 'confirmedAt'
     | 'closedAt'
@@ -274,6 +276,18 @@ export class AnterOrder {
 
   @Property({ name: 'source_cart_id', type: 'uuid', nullable: true })
   sourceCartId?: string | null
+
+  // Configurator spec X7: set when `source` is `configurator` — the revision
+  // whose technical acceptance the confirm mutation guard checks (X10). Never
+  // an ORM relation: `anter_orders` has no compile-time dependency on
+  // `anter_configurator` (§3.2's "nothing points back").
+  @Property({ name: 'configurator_revision_id', type: 'uuid', nullable: true })
+  configuratorRevisionId?: string | null
+
+  // Configurator spec X7: set once an `anter_configurator` offer converts
+  // into this order (Phase J). FK-id only, same reasoning as above.
+  @Property({ name: 'offer_id', type: 'uuid', nullable: true })
+  offerId?: string | null
 
   @Property({ name: 'placed_at', type: Date, nullable: true })
   placedAt?: Date | null

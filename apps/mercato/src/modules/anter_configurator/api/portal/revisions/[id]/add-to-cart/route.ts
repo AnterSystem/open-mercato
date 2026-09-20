@@ -24,9 +24,8 @@ type AddToCartResult = { cartId: string; addedLineIds: unknown[] }
  * table, Implementation Plan Phase G step 19). Recomputes the BOM first —
  * never trusts the caller's last-known numbers — then refuses when any line
  * is unpriced (§3.6: a partner cannot check out a configuration containing
- * an unpriced position). `revision_superseded` cannot fire yet: revision
- * branching and submissions are Phase I/J scope, so no other revision can
- * supersede this one before then.
+ * an unpriced position). A `stale` revision (superseded by a branch, §3.8)
+ * refuses with `revision_superseded` — its numbers are no longer current.
  */
 export async function POST(req: Request, routeCtx: RouteContext) {
   const params = await routeCtx.params
@@ -49,6 +48,9 @@ export async function POST(req: Request, routeCtx: RouteContext) {
 
   try {
     const { revision } = await loadOwnedRevision(context.em, revisionId, context)
+    if (revision.state === 'stale') {
+      return NextResponse.json({ error: 'revision_superseded' }, { status: 409 })
+    }
 
     const guardResult = await runRouteMutationGuards({
       container: context.container,
@@ -98,6 +100,7 @@ export async function POST(req: Request, routeCtx: RouteContext) {
           productVariantId: line.productVariantId ?? null,
           quantity: Number(line.quantity),
         })),
+        sourceRevisionId: revision.id,
       },
       ctx: commandCtx,
     })

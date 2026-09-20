@@ -44,7 +44,11 @@ export async function POST(req: Request, routeCtx: RouteContext) {
       container,
       req,
       auth: { userId: ctx.auth!.sub, tenantId, organizationId },
-      input: { resourceKind: 'anter_orders.order', resourceId: orderId, operation: 'update' },
+      // A dedicated resourceKind (not the generic `anter_orders.order` that
+      // shipments/invoices/allocation also use) so a guard registered for
+      // confirmation specifically — see `anter_configurator/data/guards.ts`
+      // X10 — never blocks any other order mutation.
+      input: { resourceKind: 'anter_orders.order.confirm', resourceId: orderId, operation: 'update' },
     })
     if (!guardResult.ok) return guardResult.response
 

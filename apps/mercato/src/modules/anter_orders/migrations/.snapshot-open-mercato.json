@@ -854,6 +854,23 @@
           "enumItems": [],
           "mappedType": "datetime"
         },
+        "configurator_revision_id": {
+          "name": "configurator_revision_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "unique": false,
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "default": null,
+          "comment": null,
+          "collation": null,
+          "enumItems": [],
+          "mappedType": "uuid"
+        },
         "confirmed_at": {
           "name": "confirmed_at",
           "type": "timestamptz(6)",
@@ -1074,6 +1091,23 @@
           "collation": null,
           "enumItems": [],
           "mappedType": "text"
+        },
+        "offer_id": {
+          "name": "offer_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "unique": false,
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "default": null,
+          "comment": null,
+          "collation": null,
+          "enumItems": [],
+          "mappedType": "uuid"
         },
         "order_number": {
           "name": "order_number",

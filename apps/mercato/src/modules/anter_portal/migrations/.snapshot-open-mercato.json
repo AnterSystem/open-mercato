@@ -229,6 +229,23 @@
           "enumItems": [],
           "mappedType": "decimal"
         },
+        "revision_id": {
+          "name": "revision_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "unique": false,
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "default": null,
+          "comment": null,
+          "collation": null,
+          "enumItems": [],
+          "mappedType": "uuid"
+        },
         "sku": {
           "name": "sku",
           "type": "text",

@@ -274,6 +274,7 @@ export type AnterCartService = {
     principal: CartPrincipal,
     lines: Array<{ productId: string; productVariantId: string | null; quantity: number }>,
     request: Request,
+    options?: { sourceRevisionId?: string | null },
   ): Promise<AnterCartAddLinesResult>
   updateLine(scope: CartScope, principal: CartPrincipal, lineId: string, input: AnterCartUpdateLineInput, request: Request): Promise<CartView>
   removeLine(scope: CartScope, principal: CartPrincipal, lineId: string, request: Request): Promise<CartView>
@@ -378,7 +379,8 @@ export function createAnterCartService(deps: {
      * half-filled cart. Quantity merges into a pre-existing line exactly as
      * `addLine` does, one product/variant at a time.
      */
-    async addLines(scope, principal, lines, request) {
+    async addLines(scope, principal, lines, request, options) {
+      const sourceRevisionId = options?.sourceRevisionId ?? null
       const cart = await getOrCreateActiveCart(em, scope, principal)
       enforceCommandOptimisticLock({ resourceKind: CART_RESOURCE_KIND, resourceId: cart.id, current: cart.updatedAt, request })
 
@@ -425,6 +427,7 @@ export function createAnterCartService(deps: {
               const created = em.create(AnterCartLine, {
                 id: randomUUID(),
                 cartId: cart.id,
+                revisionId: sourceRevisionId,
                 productId: item.productId,
                 productVariantId: item.productVariantId,
                 sku: item.pricing.sku,

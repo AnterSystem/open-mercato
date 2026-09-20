@@ -762,6 +762,39 @@
     setMode('click');
   }
 
+  function setNavDrawer(open) {
+    var drawer = document.getElementById('screen-nav');
+    var toggle = document.getElementById('nav-toggle');
+    var backdrop = document.getElementById('nav-backdrop');
+    if (!drawer || !toggle || !backdrop) return;
+    document.body.classList.toggle('nav-open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    drawer.setAttribute('aria-hidden', String(!open));
+    if (open) {
+      backdrop.hidden = false;
+      drawer.focus();
+    } else {
+      backdrop.hidden = true;
+    }
+  }
+
+  function buildNavDrawer() {
+    var drawer = document.getElementById('screen-nav');
+    var toggle = document.getElementById('nav-toggle');
+    var backdrop = document.getElementById('nav-backdrop');
+    if (!drawer || !toggle || !backdrop) return;
+    drawer.setAttribute('tabindex', '-1');
+    toggle.addEventListener('click', function () {
+      setNavDrawer(!document.body.classList.contains('nav-open'));
+    });
+    backdrop.addEventListener('click', function () { setNavDrawer(false); });
+    var closeButton = document.getElementById('nav-close');
+    if (closeButton) closeButton.addEventListener('click', function () { setNavDrawer(false); });
+    drawer.addEventListener('click', function (event) {
+      if (event.target.closest('a[href^="#"]')) setNavDrawer(false);
+    });
+  }
+
   function buildBackButton() {
     document.body.appendChild(element('button', {
       class: 'btn btn-outline proto-back', type: 'button', text: '← Back', onclick: goBack
@@ -773,6 +806,7 @@
     applyOperations();
     buildPanel();
     buildToolbar();
+    buildNavDrawer();
     buildBackButton();
     prepareHotspots();
     renderPins();
@@ -785,6 +819,10 @@
         reanchorThreadId = null;
         setMode('click');
         flashToast('Re-anchor cancelled.');
+        return;
+      }
+      if (event.key === 'Escape' && document.body.classList.contains('nav-open')) {
+        setNavDrawer(false);
         return;
       }
       if (event.key === 'Escape' && panel.classList.contains('open')) closePanel();

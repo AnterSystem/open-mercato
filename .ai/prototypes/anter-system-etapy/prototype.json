@@ -16,11 +16,11 @@
   "files": [
     {
       "path": "index.html",
-      "sha256": "ccb052cb53efd1a0171d05b05509c2a5daeb19e83a83a2c16e257a31615bb52e"
+      "sha256": "7679371cec8bfda9ea4cd02a7229a9b7164c98924f5d3735de13ae69f5e3f629"
     },
     {
       "path": "README.md",
-      "sha256": "b6da6cf5c606993122b9554e82f9f173d08fa4097bf9f36dc4543514ccd91ef6"
+      "sha256": "299b43f75016ae907671631ebe7d87c2d9a67a71cd88bda8c9d2b7f07ee4b185"
     },
     {
       "path": "story-map.md",
@@ -36,7 +36,7 @@
     },
     {
       "path": "screens.css",
-      "sha256": "e5bb1bf19836d93e7fd505aad11a295988d0052c2d20ef9614eb5325da3a039d"
+      "sha256": "0ce529fb080abb90ab2780b0a082c695e0eca4ee5a3895d5466f5b37bf83afbd"
     },
     {
       "path": "brand-anter.css",
@@ -56,7 +56,7 @@
     },
     {
       "path": "prototype.js",
-      "sha256": "b80e270abea81914a0f3054783c0f6336c58037252e4d462f5d1fc759d226db8"
+      "sha256": "cf7b85f0c70efa0f487f57e3c0f0b824dafcd55e7903903acbcfa2cbd24ff952"
     },
     {
       "path": "comments.js",
@@ -168,22 +168,50 @@
     }
   ],
   "navigation": {
+    "style": "hamburger-drawer",
     "grouped": true,
+    "groupedBy": "workflow",
+    "linkCount": 57,
     "groups": [
       {
-        "id": "backoffice",
-        "label": "Backoffice Anter",
-        "screens": 25
+        "id": "dystrybutor",
+        "label": "Dystrybutor / Partner B2B",
+        "flows": 6
       },
       {
-        "id": "portal",
-        "label": "Portal dystrybutora",
-        "screens": 13
+        "id": "sprzedaz",
+        "label": "Anter — sprzedaż i CRM",
+        "flows": 2
       },
       {
-        "id": "current",
-        "label": "Stan bieżący",
-        "screens": 8
+        "id": "konfigurator",
+        "label": "Anter — konfigurator i wycena",
+        "flows": 2
+      },
+      {
+        "id": "zamowienia",
+        "label": "Anter — obsługa zamówień",
+        "flows": 1
+      },
+      {
+        "id": "produkcja",
+        "label": "Anter — produkcja i zakupy",
+        "flows": 1
+      },
+      {
+        "id": "logistyka",
+        "label": "Anter — logistyka",
+        "flows": 1
+      },
+      {
+        "id": "dane-produktowe",
+        "label": "Anter — dane produktowe",
+        "flows": 1
+      },
+      {
+        "id": "stan-biezacy",
+        "label": "Stan bieżący (as-is)",
+        "flows": 2
       }
     ]
   },

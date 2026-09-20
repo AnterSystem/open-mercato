@@ -6,6 +6,7 @@ import { withAtomicFlush } from '@open-mercato/shared/lib/commands/flush'
 import { ensureOrganizationScope, ensureTenantScope } from '@open-mercato/shared/lib/commands/scope'
 import { CrudHttpError } from '@open-mercato/shared/lib/crud/errors'
 import {
+  AnterOffer,
   AnterPlanPoint,
   AnterProject,
   AnterProjectElement,
@@ -51,8 +52,10 @@ function nextRevisionLabel(label: string): string {
  * acceptance goes `stale` (a `confirm` gated on it, X10, must never read a
  * verdict about a drawing that no longer exists) and any still-open
  * submission on it moves to `revision_requested` — the queue's signal that
- * this ticket's answer is now "look at the new revision", not "wait".
- * Offers superseding (Phase J — no `AnterOffer` entity yet) is out of scope.
+ * this ticket's answer is now "look at the new revision", not "wait". Every
+ * `issued` offer bound to the previous revision becomes `superseded` too —
+ * an offer is a price commitment against a specific drawing, and that
+ * drawing no longer exists once this runs.
  */
 const revisionBranchCommand: CommandHandler<unknown, RevisionBranchResult> = {
   id: 'anter_configurator.revision.branch',
@@ -77,10 +80,11 @@ const revisionBranchCommand: CommandHandler<unknown, RevisionBranchResult> = {
     const project = await em.findOne(AnterProject, { id: previous.projectId, organizationId: parsed.organizationId, tenantId: parsed.tenantId })
     if (!project) throw new CrudHttpError(404, { error: '[internal] project not found' })
 
-    const [elements, points, openSubmissions] = await Promise.all([
+    const [elements, points, openSubmissions, issuedOffers] = await Promise.all([
       em.find(AnterProjectElement, { revisionId: previous.id }),
       em.find(AnterPlanPoint, { revisionId: previous.id }),
       em.find(AnterSubmission, { revisionId: previous.id, state: { $in: OPEN_SUBMISSION_STATES } }),
+      em.find(AnterOffer, { revisionId: previous.id, status: 'issued' }),
     ])
 
     const nextRevisionId = randomUUID()
@@ -155,6 +159,10 @@ const revisionBranchCommand: CommandHandler<unknown, RevisionBranchResult> = {
             organizationId: parsed.organizationId,
             tenantId: parsed.tenantId,
           }))
+        }
+
+        for (const offer of issuedOffers) {
+          offer.status = 'superseded'
         }
       },
     ], { transaction: true, label: 'anter_configurator.revision.branch' })

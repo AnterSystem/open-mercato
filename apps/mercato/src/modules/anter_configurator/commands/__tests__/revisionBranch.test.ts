@@ -1,5 +1,5 @@
 import revisionBranchCommand from '../revisionBranch'
-import { AnterProject, AnterProjectRevision, AnterSubmission } from '../../data/entities'
+import { AnterOffer, AnterProject, AnterProjectRevision, AnterSubmission } from '../../data/entities'
 
 const scope = { organizationId: '22222222-2222-4222-a222-222222222222', tenantId: '33333333-3333-4333-a333-333333333333' }
 const projectId = '44444444-4444-4444-a444-444444444444'
@@ -28,7 +28,20 @@ function makeState() {
     organizationId: scope.organizationId,
     tenantId: scope.tenantId,
   })
-  return { project, revision, openSubmission }
+  const issuedOffer = Object.assign(new AnterOffer(), {
+    id: '77777777-7777-4777-a777-777777777777',
+    projectId,
+    revisionId: oldRevisionId,
+    status: 'issued',
+    currencyCode: 'PLN',
+    validUntil: '2099-01-01',
+    subtotalNetAmount: '200',
+    grandTotalNetAmount: '200',
+    grandTotalGrossAmount: '246',
+    organizationId: scope.organizationId,
+    tenantId: scope.tenantId,
+  })
+  return { project, revision, openSubmission, issuedOffer }
 }
 
 function makeEm(state: ReturnType<typeof makeState>) {
@@ -41,6 +54,7 @@ function makeEm(state: ReturnType<typeof makeState>) {
     }),
     find: jest.fn(async (Entity: new () => unknown) => {
       if (Entity === AnterSubmission) return [state.openSubmission]
+      if (Entity === AnterOffer) return [state.issuedOffer]
       return []
     }),
     create: jest.fn((Entity: new () => unknown, data: Record<string, unknown>) => {
@@ -93,5 +107,13 @@ describe('anter_configurator.revision.branch (spec §3.8 supersession cascade)',
 
     expect(state.openSubmission.state).toBe('revision_requested')
     expect(state.openSubmission.closedAt).not.toBeNull()
+  })
+
+  it('supersedes every issued offer bound to the old revision (spec §3.8)', async () => {
+    const state = makeState()
+    const { em } = makeEm(state)
+    await revisionBranchCommand.execute!({ ...scope, revisionId: oldRevisionId }, makeCtx(em) as never)
+
+    expect(state.issuedOffer.status).toBe('superseded')
   })
 })

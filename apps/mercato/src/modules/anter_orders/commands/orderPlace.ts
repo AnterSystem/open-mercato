@@ -165,6 +165,7 @@ const orderPlaceCommand: CommandHandler<unknown, OrderPlaceResult> = {
           customerUserId: parsed.customerUserId,
           source: parsed.source,
           configuratorRevisionId: parsed.configuratorRevisionId ?? null,
+          offerId: parsed.offerId ?? null,
           currencyCode: parsed.currencyCode,
           deliveryMode: parsed.deliveryMode,
           deliveryAddressSnapshot: parsed.deliveryAddressSnapshot ?? null,

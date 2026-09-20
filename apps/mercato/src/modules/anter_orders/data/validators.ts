@@ -174,8 +174,13 @@ export const anterOrderPlaceSchema = z.object({
   // Configurator spec X7: set by `anter_portal`'s checkout when any line in
   // the cart came from `anter_configurator` (§3.2 — the order module never
   // resolves this itself, it only stores what the caller tells it).
-  source: z.enum(['catalog', 'configurator']).default('catalog'),
+  // `crm_offer` (X9) is set by `anter_configurator.offer.accept` when placing
+  // at an offer's frozen prices — that path never re-prices, unlike the cart
+  // branch, simply because it (like the cart branch) supplies its own
+  // `unitPriceNet` per line and this command never re-resolves prices itself.
+  source: z.enum(['catalog', 'configurator', 'crm_offer']).default('catalog'),
   configuratorRevisionId: z.string().uuid().nullable().optional(),
+  offerId: z.string().uuid().nullable().optional(),
   lines: z.array(anterOrderPlaceLineSchema).min(1),
 })
 

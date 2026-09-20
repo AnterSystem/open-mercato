@@ -29,6 +29,7 @@ type SubmissionDetail = {
   submissionNumber: string
   projectId: string
   projectName: string
+  revisionId: string
   revisionLabel: string
   track: string
   state: string
@@ -67,6 +68,7 @@ export default function AnterConfiguratorSubmissionDetailPage() {
   const [commentInternal, setCommentInternal] = React.useState(false)
   const [reasonDialog, setReasonDialog] = React.useState<'request-changes' | 'reject' | null>(null)
   const [reason, setReason] = React.useState('')
+  const [buildingOffer, setBuildingOffer] = React.useState(false)
 
   const { runMutation } = useGuardedMutation({ contextId: `anter_configurator.submission.${submissionId}` })
 
@@ -101,6 +103,25 @@ export default function AnterConfiguratorSubmissionDetailPage() {
       load()
     } catch {
       flash(t('anter_configurator.submissions.detail.decisionError', 'Could not record the decision'), 'error')
+    }
+  }
+
+  const handleBuildOffer = async () => {
+    if (!item) return
+    setBuildingOffer(true)
+    try {
+      const res = await apiCall<{ item: { offerId: string } }>('/api/anter_configurator/offers', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ revisionId: item.revisionId, submissionId: item.id }),
+      })
+      if (!res.ok || !res.result) {
+        flash(t('anter_configurator.submissions.detail.buildOfferError', 'Could not build the offer'), 'error')
+        return
+      }
+      router.push(`/backend/anter_configurator/offers/${res.result.item.offerId}`)
+    } finally {
+      setBuildingOffer(false)
     }
   }
 
@@ -167,6 +188,12 @@ export default function AnterConfiguratorSubmissionDetailPage() {
               {t('anter_configurator.submissions.detail.reject', 'Reject')}
             </Button>
           </div>
+        )}
+
+        {item.state === 'valuation' && (
+          <Button type="button" onClick={handleBuildOffer} disabled={buildingOffer}>
+            {t('anter_configurator.submissions.detail.buildOffer', 'Build offer')}
+          </Button>
         )}
 
         <div className="rounded-md border border-border" style={{ height: 480 }}>

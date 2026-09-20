@@ -118,3 +118,12 @@ export const anterRevisionComputeBomSchema = z.object({
   currencyCode: z.string().trim().length(3).default('PLN'),
 })
 export type AnterRevisionComputeBomInput = z.infer<typeof anterRevisionComputeBomSchema>
+
+export const anterOfferListSchema = paginationSchema.extend({
+  id: z.string().uuid().optional(),
+  projectId: z.string().uuid().optional(),
+  revisionId: z.string().uuid().optional(),
+  customerEntityId: z.string().uuid().optional(),
+  status: z.enum(['draft', 'issued', 'accepted', 'rejected', 'expired', 'superseded']).optional(),
+})
+export type AnterOfferListQuery = z.infer<typeof anterOfferListSchema>

@@ -657,3 +657,235 @@ export class AnterSubmissionEvent {
   @Property({ name: 'tenant_id', type: 'uuid' })
   tenantId!: string
 }
+
+@Entity({ tableName: 'anter_offer_sequences' })
+@Unique({ properties: ['tenantId', 'organizationId', 'year'] })
+export class AnterOfferSequence {
+  [OptionalProps]?: 'nextNumber' | 'createdAt' | 'updatedAt'
+
+  @PrimaryKey({ type: 'uuid', defaultRaw: 'gen_random_uuid()' })
+  id!: string
+
+  @Property({ name: 'tenant_id', type: 'uuid' })
+  tenantId!: string
+
+  @Property({ name: 'organization_id', type: 'uuid' })
+  organizationId!: string
+
+  @Property({ type: 'integer' })
+  year!: number
+
+  @Property({ name: 'next_number', type: 'integer', default: 1 })
+  nextNumber: number = 1
+
+  @Property({ name: 'created_at', type: Date, onCreate: () => new Date() })
+  createdAt: Date = new Date()
+
+  @Property({ name: 'updated_at', type: Date, onUpdate: () => new Date() })
+  updatedAt: Date = new Date()
+}
+
+// Phase J (spec §3.10, Data Model `anter_offers`). Bound to exactly one
+// revision; `offer_number` is assigned once at issue and never reused
+// (CC-4) — a `draft` offer carries no number at all.
+@Entity({ tableName: 'anter_offers' })
+@Index({ properties: ['projectId'] })
+@Index({ properties: ['revisionId'] })
+export class AnterOffer {
+  [OptionalProps]?:
+    | 'offerNumber'
+    | 'submissionId'
+    | 'customerEntityId'
+    | 'customerDealId'
+    | 'status'
+    | 'isIncomplete'
+    | 'incompleteReason'
+    | 'discountTotalAmount'
+    | 'shippingNetAmount'
+    | 'taxTotalAmount'
+    | 'deliveryTerms'
+    | 'paymentTermsText'
+    | 'leadTimeText'
+    | 'documentAttachmentId'
+    | 'issuedAt'
+    | 'acceptedAt'
+    | 'supersededByOfferId'
+    | 'createdAt'
+    | 'updatedAt'
+    | 'deletedAt'
+
+  @PrimaryKey({ type: 'uuid', defaultRaw: 'gen_random_uuid()' })
+  id!: string
+
+  // Null while `draft` — assigned once, at issue (CC-4).
+  @Property({ name: 'offer_number', type: 'text', nullable: true })
+  offerNumber?: string | null
+
+  @Property({ name: 'submission_id', type: 'uuid', nullable: true })
+  submissionId?: string | null
+
+  @Property({ name: 'project_id', type: 'uuid' })
+  projectId!: string
+
+  @Property({ name: 'revision_id', type: 'uuid' })
+  revisionId!: string
+
+  @Property({ name: 'customer_entity_id', type: 'uuid', nullable: true })
+  customerEntityId?: string | null
+
+  @Property({ name: 'customer_deal_id', type: 'uuid', nullable: true })
+  customerDealId?: string | null
+
+  // `draft` | `issued` | `accepted` | `rejected` | `expired` | `superseded`.
+  @Property({ type: 'text', default: 'draft' })
+  status: string = 'draft'
+
+  @Property({ name: 'currency_code', type: 'text' })
+  currencyCode!: string
+
+  @Property({ name: 'valid_until', type: 'date' })
+  validUntil!: string
+
+  @Property({ name: 'is_incomplete', type: 'boolean', default: false })
+  isIncomplete: boolean = false
+
+  @Property({ name: 'incomplete_reason', type: 'text', nullable: true })
+  incompleteReason?: string | null
+
+  @Property({ name: 'subtotal_net_amount', type: 'numeric', precision: 16, scale: 4 })
+  subtotalNetAmount!: string
+
+  @Property({ name: 'discount_total_amount', type: 'numeric', precision: 16, scale: 4, default: '0' })
+  discountTotalAmount: string = '0'
+
+  @Property({ name: 'shipping_net_amount', type: 'numeric', precision: 16, scale: 4, default: '0' })
+  shippingNetAmount: string = '0'
+
+  @Property({ name: 'tax_total_amount', type: 'numeric', precision: 16, scale: 4, default: '0' })
+  taxTotalAmount: string = '0'
+
+  @Property({ name: 'grand_total_net_amount', type: 'numeric', precision: 16, scale: 4 })
+  grandTotalNetAmount!: string
+
+  @Property({ name: 'grand_total_gross_amount', type: 'numeric', precision: 16, scale: 4 })
+  grandTotalGrossAmount!: string
+
+  @Property({ name: 'delivery_terms', type: 'text', nullable: true })
+  deliveryTerms?: string | null
+
+  @Property({ name: 'payment_terms_text', type: 'text', nullable: true })
+  paymentTermsText?: string | null
+
+  @Property({ name: 'lead_time_text', type: 'text', nullable: true })
+  leadTimeText?: string | null
+
+  @Property({ name: 'document_attachment_id', type: 'uuid', nullable: true })
+  documentAttachmentId?: string | null
+
+  @Property({ name: 'issued_at', type: Date, nullable: true })
+  issuedAt?: Date | null
+
+  @Property({ name: 'accepted_at', type: Date, nullable: true })
+  acceptedAt?: Date | null
+
+  @Property({ name: 'superseded_by_offer_id', type: 'uuid', nullable: true })
+  supersededByOfferId?: string | null
+
+  @Property({ name: 'organization_id', type: 'uuid' })
+  organizationId!: string
+
+  @Property({ name: 'tenant_id', type: 'uuid' })
+  tenantId!: string
+
+  @Property({ name: 'created_at', type: Date, onCreate: () => new Date() })
+  createdAt: Date = new Date()
+
+  @Property({ name: 'updated_at', type: Date, onUpdate: () => new Date() })
+  updatedAt: Date = new Date()
+
+  @Property({ name: 'deleted_at', type: Date, nullable: true })
+  deletedAt?: Date | null
+}
+
+@Entity({ tableName: 'anter_offer_lines' })
+@Index({ properties: ['offerId'] })
+export class AnterOfferLine {
+  [OptionalProps]?:
+    | 'bomLineId'
+    | 'customItemId'
+    | 'productVariantId'
+    | 'sku'
+    | 'discountAmount'
+    | 'taxRate'
+    | 'isAwaitingValuation'
+    | 'createdAt'
+    | 'updatedAt'
+
+  @PrimaryKey({ type: 'uuid', defaultRaw: 'gen_random_uuid()' })
+  id!: string
+
+  @Property({ name: 'offer_id', type: 'uuid' })
+  offerId!: string
+
+  @Property({ name: 'line_number', type: 'integer' })
+  lineNumber!: number
+
+  @Property({ name: 'bom_line_id', type: 'uuid', nullable: true })
+  bomLineId?: string | null
+
+  @Property({ name: 'custom_item_id', type: 'uuid', nullable: true })
+  customItemId?: string | null
+
+  @Property({ name: 'product_id', type: 'uuid', nullable: true })
+  productId?: string | null
+
+  @Property({ name: 'product_variant_id', type: 'uuid', nullable: true })
+  productVariantId?: string | null
+
+  @Property({ type: 'text', nullable: true })
+  sku?: string | null
+
+  @Property({ name: 'name_snapshot', type: 'text' })
+  nameSnapshot!: string
+
+  @Property({ type: 'numeric', precision: 16, scale: 4 })
+  quantity!: string
+
+  @Property({ name: 'unit_code', type: 'text' })
+  unitCode!: string
+
+  @Property({ name: 'list_unit_price_net', type: 'numeric', precision: 16, scale: 4, nullable: true })
+  listUnitPriceNet?: string | null
+
+  @Property({ name: 'unit_price_net', type: 'numeric', precision: 16, scale: 4, nullable: true })
+  unitPriceNet?: string | null
+
+  @Property({ name: 'discount_amount', type: 'numeric', precision: 16, scale: 4, default: '0' })
+  discountAmount: string = '0'
+
+  @Property({ name: 'tax_rate', type: 'numeric', precision: 7, scale: 4, default: '0' })
+  taxRate: string = '0'
+
+  @Property({ name: 'net_amount', type: 'numeric', precision: 16, scale: 4, nullable: true })
+  netAmount?: string | null
+
+  @Property({ name: 'gross_amount', type: 'numeric', precision: 16, scale: 4, nullable: true })
+  grossAmount?: string | null
+
+  // §3.6: the offer's own equivalent of a BOM line's `to_quote` — a custom
+  // item still `awaiting` at build time.
+  @Property({ name: 'is_awaiting_valuation', type: 'boolean', default: false })
+  isAwaitingValuation: boolean = false
+
+  @Property({ name: 'organization_id', type: 'uuid' })
+  organizationId!: string
+
+  @Property({ name: 'tenant_id', type: 'uuid' })
+  tenantId!: string
+
+  @Property({ name: 'created_at', type: Date, onCreate: () => new Date() })
+  createdAt: Date = new Date()
+
+  @Property({ name: 'updated_at', type: Date, onUpdate: () => new Date() })
+  updatedAt: Date = new Date()
+}

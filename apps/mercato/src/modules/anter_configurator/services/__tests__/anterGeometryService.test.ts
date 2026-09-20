@@ -2,6 +2,7 @@ import {
   AnterGeometryError,
   deriveAnchorCount,
   derivePostCount,
+  findNearestCoverageDistanceM,
   fitModules,
   isClosedLoop,
   metresPerUnitFromCalibration,
@@ -121,6 +122,18 @@ describe('anterGeometryService', () => {
 
     it('rejects coincident calibration points', () => {
       expect(() => metresPerUnitFromCalibration([0, 0], [0, 0], 5)).toThrow(AnterGeometryError)
+    })
+  })
+
+  describe('findNearestCoverageDistanceM', () => {
+    it('returns the nearest candidate distance converted to metres', () => {
+      // Nearest candidate is 3 plan units away; metresPerUnit 0.5 -> 1.5 m.
+      const distance = findNearestCoverageDistanceM([0, 0], [[3, 0], [10, 0]], 0.5)
+      expect(distance).toBe(1.5)
+    })
+
+    it('returns null when there are no candidates', () => {
+      expect(findNearestCoverageDistanceM([0, 0], [], 1)).toBeNull()
     })
   })
 })

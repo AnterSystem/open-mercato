@@ -70,6 +70,22 @@ export const anterRevisionCalibrationSchema = z.object({
 })
 export type AnterRevisionCalibrationInput = z.infer<typeof anterRevisionCalibrationSchema>
 
+export const anterPlanPointKindSchema = z.enum(['rack_corner', 'column', 'crossing', 'dock', 'technical_entrance', 'charging_station'])
+
+export const anterPlanPointInputSchema = z.object({
+  id: z.string().uuid().optional(),
+  pointKind: anterPlanPointKindSchema,
+  position: geometryVertexSchema,
+  coverageRadiusM: z.number().positive().default(1.5),
+  skipReason: z.string().trim().max(500).nullable().optional(),
+})
+export type AnterPlanPointInput = z.infer<typeof anterPlanPointInputSchema>
+
+export const anterRevisionPointsReplaceSchema = z.object({
+  points: z.array(anterPlanPointInputSchema),
+})
+export type AnterRevisionPointsReplaceInput = z.infer<typeof anterRevisionPointsReplaceSchema>
+
 export const anterCustomItemCreateSchema = z.object({
   revisionId: z.string().uuid(),
   description: z.string().trim().min(1).max(2000),

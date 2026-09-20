@@ -145,10 +145,10 @@ export default function AnterConfiguratorProjectDetailPage() {
             <table className="w-full text-sm">
               <thead className="bg-muted/50 text-left text-muted-foreground">
                 <tr>
-                  <th className="px-3 py-2">Rev.</th>
-                  <th className="px-3 py-2">State</th>
-                  <th className="px-3 py-2">Technical acceptance</th>
-                  <th className="px-3 py-2">BOM total</th>
+                  <th className="px-3 py-2">{t('anter_configurator.projects.detail.column.revision', 'Rev.')}</th>
+                  <th className="px-3 py-2">{t('anter_configurator.projects.detail.column.state', 'State')}</th>
+                  <th className="px-3 py-2">{t('anter_configurator.projects.detail.column.technicalAcceptance', 'Technical acceptance')}</th>
+                  <th className="px-3 py-2">{t('anter_configurator.projects.detail.column.bomTotal', 'BOM total')}</th>
                 </tr>
               </thead>
               <tbody>
@@ -181,14 +181,14 @@ export default function AnterConfiguratorProjectDetailPage() {
             <table className="w-full text-sm">
               <thead className="bg-muted/50 text-left text-muted-foreground">
                 <tr>
-                  <th className="px-3 py-2">Product</th>
-                  <th className="px-3 py-2">Origin</th>
-                  <th className="px-3 py-2">Qty</th>
-                  <th className="px-3 py-2">Realised (m)</th>
-                  <th className="px-3 py-2">Residual (m)</th>
-                  <th className="px-3 py-2">Posts</th>
-                  <th className="px-3 py-2">Anchors</th>
-                  <th className="px-3 py-2">Net amount</th>
+                  <th className="px-3 py-2">{t('anter_configurator.bom.column.product', 'Product')}</th>
+                  <th className="px-3 py-2">{t('anter_configurator.bom.column.origin', 'Origin')}</th>
+                  <th className="px-3 py-2">{t('anter_configurator.bom.column.quantity', 'Qty')}</th>
+                  <th className="px-3 py-2">{t('anter_configurator.bom.column.realised', 'Realised (m)')}</th>
+                  <th className="px-3 py-2">{t('anter_configurator.bom.column.residual', 'Residual (m)')}</th>
+                  <th className="px-3 py-2">{t('anter_configurator.bom.column.posts', 'Posts')}</th>
+                  <th className="px-3 py-2">{t('anter_configurator.bom.column.anchors', 'Anchors')}</th>
+                  <th className="px-3 py-2">{t('anter_configurator.bom.column.amount', 'Net amount')}</th>
                 </tr>
               </thead>
               <tbody>

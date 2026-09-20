@@ -8,7 +8,7 @@ import { runRouteMutationGuards } from '@open-mercato/shared/lib/crud/route-muta
 import { resolveTranslations } from '@open-mercato/shared/lib/i18n/server'
 import { AnterProjectRevision } from '../../../../data/entities'
 import { anterRevisionCalibrationSchema } from '../../../../data/validators'
-import { AnterGeometryError, metresPerUnitFromCalibration } from '../../../../services/anterGeometryService'
+import { applyCalibration } from '../../../../lib/calibrationService'
 import { resolveAnterConfiguratorCommandContext } from '../../../../lib/staffCommandContext'
 import { anterConfiguratorTag } from '../../../openapi'
 
@@ -63,30 +63,11 @@ export async function PUT(req: Request, routeCtx: RouteContext) {
 
     enforceCommandOptimisticLock({ resourceKind: 'anter_configurator.revision', resourceId: revision.id, current: revision.updatedAt, request: req })
 
-    if (revision.state !== 'draft') {
-      return NextResponse.json({ error: 'revision_locked', reason: 'calibrated_after_submission' }, { status: 409 })
-    }
-
-    const { pointA, pointB, realDistanceM } = parsed.data.calibrationPoints
-    let metresPerUnit: number
-    try {
-      metresPerUnit = metresPerUnitFromCalibration(pointA, pointB, realDistanceM)
-    } catch (error) {
-      if (error instanceof AnterGeometryError) {
-        return NextResponse.json({ error: error.code, message: error.message }, { status: 422 })
-      }
-      throw error
-    }
-
-    revision.metresPerUnit = String(metresPerUnit)
-    revision.calibrationPoints = { pointA, pointB, realDistanceM }
-    if (parsed.data.underlayWidthUnits != null) revision.underlayWidthUnits = String(parsed.data.underlayWidthUnits)
-    if (parsed.data.underlayHeightUnits != null) revision.underlayHeightUnits = String(parsed.data.underlayHeightUnits)
-    await em.flush()
+    const result = await applyCalibration(em, revision, parsed.data)
 
     await guardResult.runAfterSuccess()
 
-    return NextResponse.json({ item: { revisionId: revision.id, metresPerUnit } })
+    return NextResponse.json({ item: result })
   } catch (err) {
     if (isCrudHttpError(err)) return NextResponse.json(err.body, { status: err.status })
     if (err instanceof CrudHttpError) return NextResponse.json(err.body, { status: err.status })

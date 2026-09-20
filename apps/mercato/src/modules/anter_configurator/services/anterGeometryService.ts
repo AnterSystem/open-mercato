@@ -158,3 +158,23 @@ export function derivePostCount(moduleCount: number, postsPerRunExtra: number, c
 export function deriveAnchorCount(postCount: number, anchorsPerPost: number): number {
   return postCount * anchorsPerPost
 }
+
+/**
+ * §3.15: a plan point is `covered` when a drawn element lies within
+ * `coverageRadiusM` of it. `candidateVertices` are every vertex/position of
+ * every drawn (non-annotation) element, already in the same plan-unit space
+ * as `pointPosition`.
+ */
+export function findNearestCoverageDistanceM(
+  pointPosition: Vertex,
+  candidateVertices: Vertex[],
+  metresPerUnit: number,
+): number | null {
+  if (!candidateVertices.length) return null
+  let nearestUnits = Infinity
+  for (const candidate of candidateVertices) {
+    const distance = vertexDistance(pointPosition, candidate)
+    if (distance < nearestUnits) nearestUnits = distance
+  }
+  return Number.isFinite(nearestUnits) ? round4(nearestUnits * metresPerUnit) : null
+}

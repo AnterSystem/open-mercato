@@ -17,6 +17,14 @@ export const anterCartAddLineSchema = z.object({
 
 export type AnterCartAddLineInput = z.infer<typeof anterCartAddLineSchema>
 
+// Bulk add (spec X13): a BOM adds tens of lines at once; a per-line loop
+// would leave a half-filled cart on failure, so this is transactional.
+export const anterCartAddLinesSchema = z.object({
+  lines: z.array(anterCartAddLineSchema).min(1),
+})
+
+export type AnterCartAddLinesInput = z.infer<typeof anterCartAddLinesSchema>
+
 export const anterCartUpdateLineSchema = z.object({
   quantity: z.coerce.number().positive(),
 })

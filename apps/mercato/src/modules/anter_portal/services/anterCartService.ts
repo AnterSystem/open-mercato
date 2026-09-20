@@ -250,9 +250,29 @@ async function findOwnedLine(
   return line
 }
 
+export type AnterCartAddLinesLineResult = {
+  productId: string
+  productVariantId: string | null
+  lineId: string
+  /** `false` when this line merged quantity into a pre-existing line. */
+  wasCreated: boolean
+}
+
+export type AnterCartAddLinesResult = {
+  cartView: CartView
+  cartId: string
+  lines: AnterCartAddLinesLineResult[]
+}
+
 export type AnterCartService = {
   getCart(scope: CartScope, principal: CartPrincipal): Promise<CartView>
   addLine(scope: CartScope, principal: CartPrincipal, input: AnterCartAddLineInput, request: Request): Promise<CartView>
+  addLines(
+    scope: CartScope,
+    principal: CartPrincipal,
+    lines: Array<{ productId: string; productVariantId: string | null; quantity: number }>,
+    request: Request,
+  ): Promise<AnterCartAddLinesResult>
   updateLine(scope: CartScope, principal: CartPrincipal, lineId: string, input: AnterCartUpdateLineInput, request: Request): Promise<CartView>
   removeLine(scope: CartScope, principal: CartPrincipal, lineId: string, request: Request): Promise<CartView>
   updateHeader(scope: CartScope, principal: CartPrincipal, input: AnterCartUpdateHeaderInput, request: Request): Promise<CartView>
@@ -347,6 +367,85 @@ export function createAnterCartService(deps: {
       ], { transaction: true, label: 'anter_portal.cart.addLine' })
 
       return viewCart(scope, cart)
+    },
+
+    /**
+     * Bulk add (spec X13, called by `anter_configurator.revision.compute_bom`
+     * → `add-to-cart`): resolves pricing and availability for EVERY line
+     * before writing any of them, so a mid-batch failure never leaves a
+     * half-filled cart. Quantity merges into a pre-existing line exactly as
+     * `addLine` does, one product/variant at a time.
+     */
+    async addLines(scope, principal, lines, request) {
+      const cart = await getOrCreateActiveCart(em, scope, principal)
+      enforceCommandOptimisticLock({ resourceKind: CART_RESOURCE_KIND, resourceId: cart.id, current: cart.updatedAt, request })
+
+      const prepared: Array<{
+        productId: string
+        productVariantId: string | null
+        quantity: number
+        pricing: LinePricing
+        existing: AnterCartLine | null
+        nextQuantity: number
+      }> = []
+
+      for (const line of lines) {
+        const productVariantId = line.productVariantId ?? null
+        const pricing = await resolveLinePricing(deps, scope, principal, line.productId, productVariantId, line.quantity)
+        if (pricing.quoteOnly) {
+          throw new CrudHttpError(422, { error: 'quote_only', productId: line.productId })
+        }
+        const existing = await em.findOne(AnterCartLine, {
+          cartId: cart.id,
+          productId: line.productId,
+          productVariantId,
+          organizationId: scope.organizationId,
+          tenantId: scope.tenantId,
+        })
+        const nextQuantity = (existing ? Number(existing.quantity) : 0) + line.quantity
+        await assertAvailable(em, scope, line.productId, productVariantId, nextQuantity)
+        prepared.push({ productId: line.productId, productVariantId, quantity: line.quantity, pricing, existing, nextQuantity })
+      }
+
+      const results: AnterCartAddLinesLineResult[] = []
+
+      await withAtomicFlush(em, [
+        () => {
+          for (const item of prepared) {
+            if (item.existing) {
+              item.existing.quantity = String(item.nextQuantity)
+              item.existing.listUnitPriceNet = item.pricing.listUnitPriceNet != null ? String(item.pricing.listUnitPriceNet) : null
+              item.existing.partnerUnitPriceNet = item.pricing.partnerUnitPriceNet != null ? String(item.pricing.partnerUnitPriceNet) : null
+              item.existing.discountRate = String(item.pricing.discountRate)
+              item.existing.priceResolvedAt = new Date()
+              results.push({ productId: item.productId, productVariantId: item.productVariantId, lineId: item.existing.id, wasCreated: false })
+            } else {
+              const created = em.create(AnterCartLine, {
+                id: randomUUID(),
+                cartId: cart.id,
+                productId: item.productId,
+                productVariantId: item.productVariantId,
+                sku: item.pricing.sku,
+                nameSnapshot: item.pricing.nameSnapshot,
+                variantSnapshot: null,
+                quantity: String(item.quantity),
+                unitCode: item.pricing.unitCode,
+                listUnitPriceNet: item.pricing.listUnitPriceNet != null ? String(item.pricing.listUnitPriceNet) : null,
+                partnerUnitPriceNet: item.pricing.partnerUnitPriceNet != null ? String(item.pricing.partnerUnitPriceNet) : null,
+                discountRate: String(item.pricing.discountRate),
+                currencyCode: DEFAULT_CATALOG_CURRENCY,
+                priceResolvedAt: new Date(),
+                organizationId: scope.organizationId,
+                tenantId: scope.tenantId,
+              })
+              results.push({ productId: item.productId, productVariantId: item.productVariantId, lineId: created.id, wasCreated: true })
+            }
+          }
+          cart.updatedAt = new Date()
+        },
+      ], { transaction: true, label: 'anter_portal.cart.addLines' })
+
+      return { cartView: await viewCart(scope, cart), cartId: cart.id, lines: results }
     },
 
     async updateLine(scope, principal, lineId, input, request) {

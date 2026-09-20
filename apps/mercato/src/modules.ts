@@ -152,6 +152,7 @@ export const enabledModules: ModuleEntry[] = [
   { id: 'portal', from: '@open-mercato/core' },
   { id: 'anter_orders', from: '@app' },
   { id: 'anter_portal', from: '@app' },
+  { id: 'anter_configurator', from: '@app' },
   {
     id: 'example',
     from: '@app',

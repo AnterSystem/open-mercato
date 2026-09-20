@@ -1,0 +1,19 @@
+{
+  "anter_configurator.errors.invalidInput": "Invalid input",
+  "anter_configurator.errors.organizationRequired": "Organization context is required",
+  "anter_configurator.errors.unauthorized": "Unauthorized",
+  "anter_configurator.nav.group": "Anter",
+  "anter_configurator.nav.projects": "Configurator projects",
+  "anter_configurator.projects.column.currentRevision": "Revision",
+  "anter_configurator.projects.column.customer": "Partner",
+  "anter_configurator.projects.column.name": "Name",
+  "anter_configurator.projects.column.number": "Project",
+  "anter_configurator.projects.column.origin": "Origin",
+  "anter_configurator.projects.column.status": "Status",
+  "anter_configurator.projects.detail.bomTitle": "Bill of materials",
+  "anter_configurator.projects.detail.loadError": "Failed to load the project",
+  "anter_configurator.projects.detail.revisionsTitle": "Revisions",
+  "anter_configurator.projects.detail.title": "Project",
+  "anter_configurator.projects.loadError": "Failed to load projects",
+  "anter_configurator.projects.title": "Configurator projects"
+}

@@ -1,0 +1,191 @@
+/* Warstwa marki Anter System nałożona na tokeny Open Mercato.
+   Źródło: docs/anter-system/brand_book_anter_system.pdf (str. 3-4 logo, 7 kolory,
+   8-10 typografia, 15-16 rysunki techniczne).
+   Ładowana PO tokens.css — nadpisuje wyłącznie wartości zmiennych, nigdy struktury.
+   tokens.css jest generowany i pozostaje nietknięty. */
+
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,700&display=swap");
+
+:root {
+  /* ── Paleta marki (brand book, str. 7) ────────────────────────────── */
+  --anter-navy: #164194;
+  --anter-yellow: #FFCC00;
+
+  /* Rozjaśnienia granatu — "Anter Navy Blue and it's tints" */
+  --anter-navy-800: color-mix(in srgb, var(--anter-navy) 88%, #000000);
+  --anter-navy-600: color-mix(in srgb, var(--anter-navy) 78%, #ffffff);
+  --anter-navy-400: color-mix(in srgb, var(--anter-navy) 52%, #ffffff);
+  --anter-navy-200: color-mix(in srgb, var(--anter-navy) 24%, #ffffff);
+  --anter-navy-100: color-mix(in srgb, var(--anter-navy) 12%, #ffffff);
+  --anter-navy-050: color-mix(in srgb, var(--anter-navy) 6%, #ffffff);
+  --anter-navy-025: color-mix(in srgb, var(--anter-navy) 3.5%, #ffffff);
+  --anter-yellow-dark: color-mix(in srgb, var(--anter-yellow) 76%, #000000);
+
+  /* ── Typografia (brand book, str. 8-10) ───────────────────────────── */
+  --font-geist-sans: "Montserrat", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  /* ── Mapowanie na tokeny DS ───────────────────────────────────────── */
+  --primary: var(--anter-navy);
+  --primary-foreground: #ffffff;
+  --primary-hover: var(--anter-navy-800);
+
+  --secondary: var(--anter-navy-050);
+  --secondary-foreground: var(--anter-navy-800);
+  --accent: var(--anter-navy-050);
+  --accent-foreground: var(--anter-navy-800);
+  --muted: var(--anter-navy-025);
+  --muted-foreground: color-mix(in srgb, var(--anter-navy) 34%, #6b7280);
+
+  --border: var(--anter-navy-100);
+  --input: var(--anter-navy-100);
+  --ring: var(--anter-navy-400);
+  --focus-ring-inner: #ffffff;
+  --focus-ring-outer: color-mix(in srgb, var(--anter-navy) 24%, transparent);
+
+  --sidebar: #ffffff;
+  --sidebar-primary: var(--anter-navy);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: var(--anter-navy-050);
+  --sidebar-accent-foreground: var(--anter-navy-800);
+  --sidebar-border: var(--anter-navy-100);
+  --sidebar-ring: var(--anter-navy-400);
+
+  /* Akcenty markowe — żółty jest kolorem akcentu, nie statusu */
+  --brand-yellow: var(--anter-yellow);
+  --brand-lime: var(--anter-yellow);
+  --brand-lime-foreground: #171717;
+  --brand-violet: var(--anter-navy);
+  --brand-violet-soft: var(--anter-navy-050);
+  --brand-violet-foreground: #ffffff;
+  --badge-yellow-solid: var(--anter-yellow);
+  --badge-yellow-solid-foreground: #171717;
+  --badge-yellow-border: var(--anter-yellow-dark);
+
+  /* Wykresy w palecie marki zamiast tęczy DS */
+  --chart-1: var(--anter-navy);
+  --chart-2: var(--anter-yellow);
+  --chart-3: var(--anter-navy-400);
+  --chart-4: var(--anter-navy-200);
+  --chart-5: var(--anter-yellow-dark);
+  --chart-blue: var(--anter-navy);
+  --chart-indigo: var(--anter-navy-600);
+  --chart-amber: var(--anter-yellow);
+
+  /* ── Rysunek techniczny (brand book, str. 15-16) ──────────────────── */
+  --anter-draw-line: #171717;
+  --anter-draw-dim: color-mix(in srgb, var(--anter-navy) 45%, #ffffff);
+  --anter-draw-fill-profile: var(--anter-yellow);
+  --anter-draw-fill-connector: #171717;
+  --anter-draw-motion: var(--anter-navy);
+  --anter-draw-paper: #ffffff;
+}
+
+.dark {
+  /* Na ciemnym tle marka żyje jako rozjaśniony granat + żółty akcent
+     (brand book: biały logotyp na granacie). */
+  --anter-navy-800: color-mix(in srgb, var(--anter-navy) 62%, #ffffff);
+  --anter-navy-600: color-mix(in srgb, var(--anter-navy) 74%, #ffffff);
+  --anter-navy-400: color-mix(in srgb, var(--anter-navy) 55%, #ffffff);
+  --anter-navy-200: color-mix(in srgb, var(--anter-navy) 42%, #000000);
+  --anter-navy-100: color-mix(in srgb, var(--anter-navy) 30%, #000000);
+  --anter-navy-050: color-mix(in srgb, var(--anter-navy) 22%, #000000);
+  --anter-navy-025: color-mix(in srgb, var(--anter-navy) 14%, #000000);
+
+  /* Na ciemnym tle granat rozjaśniamy tylko tyle, by utrzymać kontrast
+     tekstu przycisku powyżej 4.5:1. */
+  --primary: color-mix(in srgb, var(--anter-navy) 84%, #ffffff);
+  --primary-foreground: #ffffff;
+  --primary-hover: color-mix(in srgb, var(--anter-navy) 70%, #ffffff);
+
+  --secondary: var(--anter-navy-050);
+  --secondary-foreground: #ffffff;
+  --accent: var(--anter-navy-050);
+  --accent-foreground: #ffffff;
+  --muted: var(--anter-navy-025);
+  --muted-foreground: color-mix(in srgb, var(--anter-navy-400) 55%, #a3a3a3);
+
+  --border: var(--anter-navy-100);
+  --input: var(--anter-navy-100);
+  --ring: var(--anter-navy-400);
+  --focus-ring-inner: var(--background);
+  --focus-ring-outer: color-mix(in srgb, var(--anter-navy-400) 40%, transparent);
+
+  --sidebar: color-mix(in srgb, var(--anter-navy) 18%, #0c0c0c);
+  --sidebar-primary: var(--anter-navy-600);
+  --sidebar-accent: var(--anter-navy-050);
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: var(--anter-navy-100);
+
+  --anter-draw-line: #ededed;
+  --anter-draw-dim: var(--anter-navy-400);
+  --anter-draw-fill-connector: #0c0c0c;
+  --anter-draw-paper: color-mix(in srgb, var(--anter-navy) 12%, #0c0c0c);
+}
+
+/* ── Logotyp ──────────────────────────────────────────────────────────
+   Znak firmowy zamiast inicjałów "AS". Geometria odtworzona z logo
+   (żółty kwadrat prawy-górny, granatowy lewy-dolny, pole wspólne puste). */
+.brand-mark {
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: transparent;
+  font-size: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23FFCC00' d='M8 3h10a3 3 0 0 1 3 3v10H8z'/%3E%3Cpath fill='%23164194' d='M3 8h13v13H6a3 3 0 0 1-3-3z'/%3E%3Crect x='8' y='8' width='8' height='8' fill='%23fff'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 1.75rem 1.75rem;
+}
+.sidebar-brand { font-weight: 600; letter-spacing: -0.01em; }
+
+/* Backoffice i ekran logowania portalu noszą sam logotyp Anter System.
+   Pozostałe ekrany portalu: logotyp, a pod nim nazwa partnera po znaku "×". */
+.sidebar-brand-logo { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+.sidebar-brand-logo:hover { background: transparent; }
+.sidebar-brand-partner {
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  text-align: center;
+}
+.sidebar-brand-partner:hover { background: transparent; }
+.brand-partner {
+  display: block;
+  max-width: 100%;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--foreground);
+}
+.brand-partner-x {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--muted-foreground);
+}
+.brand-logo-auth { margin-bottom: 0.25rem; }
+.brand-logo {
+  display: block;
+  width: 100%;
+  max-width: 9.5rem;
+  aspect-ratio: 1868 / 511;
+  background-image: url("anter-logo.png");
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: contain;
+}
+.dark .brand-logo { background-image: url("anter-logo-white.png"); }
+
+/* ── Hierarchia typograficzna (brand book, str. 10) ───────────────────
+   Nagłówki wyraźnie grubsze od tekstu bieżącego. */
+.t-page-title { font-weight: 700; letter-spacing: -0.02em; }
+.t-section, .t-table-title { font-weight: 700; letter-spacing: -0.01em; }
+.doc-head h1 { font-weight: 800; }
+.t-overline { color: var(--anter-navy-600); }
+
+/* ── Żółty jako akcent nawigacyjny ───────────────────────────────────── */
+.nav-item.active::before { background: var(--anter-yellow); }
+.nav-item.active { color: var(--primary); font-weight: 600; }
+.screen-nav a[aria-current="page"] { box-shadow: inset 0 -2px 0 0 var(--anter-yellow); }
+.btn-primary:focus-visible { box-shadow: 0 0 0 2px var(--focus-ring-inner), 0 0 0 4px var(--anter-yellow); }

@@ -24,6 +24,8 @@ const partnerTermsListItemSchema = z.object({
   default_discount_rate: z.string(),
   price_list_code: z.string().nullable().optional(),
   is_blocked: z.boolean(),
+  account_type: z.string(),
+  account_owner_user_id: z.string().uuid().nullable().optional(),
   organization_id: z.string().uuid().nullable().optional(),
   tenant_id: z.string().uuid().nullable().optional(),
   updatedAt: z.string().nullable().optional(),
@@ -52,7 +54,7 @@ export const { metadata, GET, POST, PUT, DELETE } = makeCrudRoute({
   list: {
     schema: anterPartnerTermsListSchema,
     entityId: ENTITY_ID,
-    fields: ['id', 'customer_entity_id', 'default_discount_rate', 'price_list_code', 'is_blocked', 'organization_id', 'tenant_id', 'updated_at'],
+    fields: ['id', 'customer_entity_id', 'default_discount_rate', 'price_list_code', 'is_blocked', 'account_type', 'account_owner_user_id', 'organization_id', 'tenant_id', 'updated_at'],
     sortFieldMap: {
       id: 'id',
       customer_entity_id: 'customer_entity_id',
@@ -73,6 +75,8 @@ export const { metadata, GET, POST, PUT, DELETE } = makeCrudRoute({
       priceListCode: input.priceListCode ?? null,
       isBlocked: input.isBlocked ?? false,
       notes: input.notes ?? null,
+      accountType: input.accountType ?? 'full',
+      accountOwnerUserId: input.accountOwnerUserId ?? null,
     }),
     response: (entity) => ({ id: String(entity.id) }),
   },
@@ -85,6 +89,8 @@ export const { metadata, GET, POST, PUT, DELETE } = makeCrudRoute({
       if (input.priceListCode !== undefined) entity.priceListCode = input.priceListCode ?? null
       if (input.isBlocked !== undefined) entity.isBlocked = input.isBlocked
       if (input.notes !== undefined) entity.notes = input.notes ?? null
+      if (input.accountType !== undefined) entity.accountType = input.accountType
+      if (input.accountOwnerUserId !== undefined) entity.accountOwnerUserId = input.accountOwnerUserId ?? null
     },
     response: () => ({ ok: true }),
   },

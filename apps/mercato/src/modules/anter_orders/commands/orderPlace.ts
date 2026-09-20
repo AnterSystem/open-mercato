@@ -163,6 +163,9 @@ const orderPlaceCommand: CommandHandler<unknown, OrderPlaceResult> = {
           orderNumber,
           customerEntityId: parsed.customerEntityId,
           customerUserId: parsed.customerUserId,
+          source: parsed.source,
+          configuratorRevisionId: parsed.configuratorRevisionId ?? null,
+          offerId: parsed.offerId ?? null,
           currencyCode: parsed.currencyCode,
           deliveryMode: parsed.deliveryMode,
           deliveryAddressSnapshot: parsed.deliveryAddressSnapshot ?? null,
@@ -234,6 +237,8 @@ const orderPlaceCommand: CommandHandler<unknown, OrderPlaceResult> = {
       tenantId: order.tenantId,
       grandTotalNetAmount: calculation.totals.grandTotalNetAmount,
       grandTotalGrossAmount: calculation.totals.grandTotalGrossAmount,
+      source: order.source,
+      configuratorRevisionId: order.configuratorRevisionId ?? null,
     }, {
       persistent: true,
       tenantId: order.tenantId,

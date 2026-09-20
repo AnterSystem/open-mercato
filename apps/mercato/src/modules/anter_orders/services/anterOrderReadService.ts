@@ -122,9 +122,16 @@ function toOrderView(order: AnterOrder, lines: AnterOrderLine[], hasInvoice: boo
   }
 }
 
+export type OrderSourceInfo = { id: string; source: string; configuratorRevisionId: string | null; status: string }
+
 export type AnterOrderReadService = {
   listForPartner(scope: OrderReadScope, customerEntityId: string, query: { page: number; pageSize: number }): Promise<OrderListResult>
   getForPartner(scope: OrderReadScope, customerEntityId: string, orderId: string): Promise<OrderDetailView | null>
+  // Configurator spec X10: the confirm mutation guard (registered from
+  // `anter_configurator`) reads this instead of importing `AnterOrder`
+  // directly — `anter_configurator → anter_orders` is the allowed direction,
+  // but only through this module's own public service (§3.2).
+  getSourceInfo(scope: OrderReadScope, orderId: string): Promise<OrderSourceInfo | null>
 }
 
 /**
@@ -229,6 +236,21 @@ export function createAnterOrderReadService(deps: { em: EntityManager }): AnterO
           currencyCode: invoice.currencyCode,
           attachmentId: invoice.attachmentId ?? null,
         } : null,
+      }
+    },
+
+    async getSourceInfo(scope, orderId) {
+      const order = await em.findOne(AnterOrder, {
+        id: orderId,
+        organizationId: scope.organizationId,
+        tenantId: scope.tenantId,
+      })
+      if (!order) return null
+      return {
+        id: order.id,
+        source: order.source,
+        configuratorRevisionId: order.configuratorRevisionId ?? null,
+        status: order.status,
       }
     },
   }

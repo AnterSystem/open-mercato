@@ -4,7 +4,16 @@ import { OptionalProps } from '@mikro-orm/core'
 @Entity({ tableName: 'anter_partner_terms' })
 @Unique({ properties: ['customerEntityId'] })
 export class AnterPartnerTerms {
-  [OptionalProps]?: 'defaultDiscountRate' | 'priceListCode' | 'isBlocked' | 'notes' | 'createdAt' | 'updatedAt' | 'deletedAt'
+  [OptionalProps]?:
+    | 'defaultDiscountRate'
+    | 'priceListCode'
+    | 'isBlocked'
+    | 'notes'
+    | 'accountType'
+    | 'accountOwnerUserId'
+    | 'createdAt'
+    | 'updatedAt'
+    | 'deletedAt'
 
   @PrimaryKey({ type: 'uuid', defaultRaw: 'gen_random_uuid()' })
   id!: string
@@ -24,6 +33,17 @@ export class AnterPartnerTerms {
   @Property({ type: 'text', nullable: true })
   notes?: string | null
 
+  // Configurator spec X1: `full` sees prices, `hidden` never does (the
+  // partner_unpriced track), `preview` is denied outright. New column
+  // defaults to `full` so every existing row behaves exactly as before.
+  @Property({ name: 'account_type', type: 'text', default: 'full' })
+  accountType: string = 'full'
+
+  // Configurator spec X2: the opiekun named in the `denied`/`quote_request`
+  // bodies and used for CRM assignment. Nullable — not every partner has one yet.
+  @Property({ name: 'account_owner_user_id', type: 'uuid', nullable: true })
+  accountOwnerUserId?: string | null
+
   @Property({ name: 'organization_id', type: 'uuid' })
   organizationId!: string
 
@@ -38,6 +58,39 @@ export class AnterPartnerTerms {
 
   @Property({ name: 'deleted_at', type: Date, nullable: true })
   deletedAt?: Date | null
+}
+
+@Entity({ tableName: 'anter_partner_price_list_scope' })
+@Index({ properties: ['partnerTermsId'] })
+export class AnterPartnerPriceListScope {
+  [OptionalProps]?: 'isIncluded' | 'createdAt' | 'updatedAt'
+
+  @PrimaryKey({ type: 'uuid', defaultRaw: 'gen_random_uuid()' })
+  id!: string
+
+  @Property({ name: 'partner_terms_id', type: 'uuid' })
+  partnerTermsId!: string
+
+  @Property({ name: 'catalog_category_id', type: 'uuid' })
+  catalogCategoryId!: string
+
+  // Configurator spec X3: no rows means everything is included — this table
+  // only ever needs to carry EXCLUSIONS in practice, but the column stays
+  // explicit so a future "included-only" scope doesn't need a schema change.
+  @Property({ name: 'is_included', type: 'boolean', default: false })
+  isIncluded: boolean = false
+
+  @Property({ name: 'organization_id', type: 'uuid' })
+  organizationId!: string
+
+  @Property({ name: 'tenant_id', type: 'uuid' })
+  tenantId!: string
+
+  @Property({ name: 'created_at', type: Date, onCreate: () => new Date() })
+  createdAt: Date = new Date()
+
+  @Property({ name: 'updated_at', type: Date, onUpdate: () => new Date() })
+  updatedAt: Date = new Date()
 }
 
 @Entity({ tableName: 'anter_partner_group_discounts' })
@@ -158,6 +211,8 @@ export class AnterOrder {
     | 'partnerReference'
     | 'notes'
     | 'sourceCartId'
+    | 'configuratorRevisionId'
+    | 'offerId'
     | 'placedAt'
     | 'confirmedAt'
     | 'closedAt'
@@ -221,6 +276,18 @@ export class AnterOrder {
 
   @Property({ name: 'source_cart_id', type: 'uuid', nullable: true })
   sourceCartId?: string | null
+
+  // Configurator spec X7: set when `source` is `configurator` — the revision
+  // whose technical acceptance the confirm mutation guard checks (X10). Never
+  // an ORM relation: `anter_orders` has no compile-time dependency on
+  // `anter_configurator` (§3.2's "nothing points back").
+  @Property({ name: 'configurator_revision_id', type: 'uuid', nullable: true })
+  configuratorRevisionId?: string | null
+
+  // Configurator spec X7: set once an `anter_configurator` offer converts
+  // into this order (Phase J). FK-id only, same reasoning as above.
+  @Property({ name: 'offer_id', type: 'uuid', nullable: true })
+  offerId?: string | null
 
   @Property({ name: 'placed_at', type: Date, nullable: true })
   placedAt?: Date | null

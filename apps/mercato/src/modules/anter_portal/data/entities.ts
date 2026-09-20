@@ -59,13 +59,20 @@ export class AnterCart {
 @Entity({ tableName: 'anter_cart_lines' })
 @Index({ properties: ['cartId'] })
 export class AnterCartLine {
-  [OptionalProps]?: 'productVariantId' | 'sku' | 'nameSnapshot' | 'variantSnapshot' | 'unitCode' | 'listUnitPriceNet' | 'partnerUnitPriceNet' | 'discountRate' | 'priceResolvedAt' | 'createdAt' | 'updatedAt'
+  [OptionalProps]?: 'productVariantId' | 'sku' | 'nameSnapshot' | 'variantSnapshot' | 'unitCode' | 'listUnitPriceNet' | 'partnerUnitPriceNet' | 'discountRate' | 'priceResolvedAt' | 'revisionId' | 'createdAt' | 'updatedAt'
 
   @PrimaryKey({ type: 'uuid', defaultRaw: 'gen_random_uuid()' })
   id!: string
 
   @Property({ name: 'cart_id', type: 'uuid' })
   cartId!: string
+
+  // Configurator spec X6: set when this line came from
+  // `anter_configurator.cart.add_lines` — checkout reads it to mark the
+  // resulting order `source: 'configurator'` (X7). FK-id only, no ORM
+  // relation to the other module.
+  @Property({ name: 'revision_id', type: 'uuid', nullable: true })
+  revisionId?: string | null
 
   @Property({ name: 'product_id', type: 'uuid' })
   productId!: string

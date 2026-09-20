@@ -26,6 +26,7 @@ type Availability =
   | { status: 'in_stock' }
   | { status: 'expected'; expectedRestockAt: string | null }
   | { status: 'quote_only' }
+  | { status: 'outside_price_list' }
 
 type CatalogRow = {
   productId: string
@@ -36,6 +37,8 @@ type CatalogRow = {
   partnerUnitPriceNet: number | null
   discountRate: number | null
   availability: Availability
+  priceVisible: boolean
+  parameters: string | null
 }
 
 type CatalogResponse = { items: CatalogRow[]; total: number; page: number; pageSize: number }
@@ -54,6 +57,9 @@ function AvailabilityBadge({ availability, t }: { availability: Availability; t:
   }
   if (availability.status === 'expected') {
     return <StatusBadge variant="info">{t('anter_portal.catalog.availability.expected', 'On order')}</StatusBadge>
+  }
+  if (availability.status === 'outside_price_list') {
+    return <StatusBadge variant="warning">{t('anter_portal.catalog.availability.outsidePriceList', 'Outside your price list')}</StatusBadge>
   }
   return <StatusBadge variant="neutral">{t('anter_portal.catalog.quoteOnly', 'Quote only')}</StatusBadge>
 }
@@ -149,6 +155,11 @@ export default function AnterPortalCatalogPage({ params }: Props) {
     flash(t('anter_portal.catalog.addSuccess', 'Added to cart'), 'success')
   }, [addToCart, t])
 
+  // Configurator spec X5: a `hidden` account_type never sees a price
+  // anywhere in the catalogue — this is a property of the caller, uniform
+  // across every row on the page, so the whole column set switches once.
+  const priceVisible = rows.length === 0 || rows.every((row) => row.priceVisible)
+
   const columns = React.useMemo<ColumnDef<CatalogRow>[]>(() => [
     {
       id: 'title',
@@ -161,20 +172,29 @@ export default function AnterPortalCatalogPage({ params }: Props) {
       ),
       meta: { truncate: true, maxWidth: 320 },
     },
-    {
-      id: 'listPrice',
-      header: t('anter_portal.catalog.column.listPrice', 'List price'),
-      cell: ({ row }) => formatMoney(row.original.listUnitPriceNet, row.original.currencyCode),
-      meta: { maxWidth: 140 },
-    },
-    {
-      id: 'partnerPrice',
-      header: t('anter_portal.catalog.column.yourPrice', 'Your price'),
-      cell: ({ row }) => (
-        <span className="font-medium text-foreground">{formatMoney(row.original.partnerUnitPriceNet, row.original.currencyCode)}</span>
-      ),
-      meta: { maxWidth: 140 },
-    },
+    ...(priceVisible ? [
+      {
+        id: 'listPrice',
+        header: t('anter_portal.catalog.column.listPrice', 'List price'),
+        cell: ({ row }: { row: { original: CatalogRow } }) => formatMoney(row.original.listUnitPriceNet, row.original.currencyCode),
+        meta: { maxWidth: 140 },
+      },
+      {
+        id: 'partnerPrice',
+        header: t('anter_portal.catalog.column.yourPrice', 'Your price'),
+        cell: ({ row }: { row: { original: CatalogRow } }) => (
+          <span className="font-medium text-foreground">{formatMoney(row.original.partnerUnitPriceNet, row.original.currencyCode)}</span>
+        ),
+        meta: { maxWidth: 140 },
+      },
+    ] : [
+      {
+        id: 'parameters',
+        header: t('anter_portal.catalog.column.parameters', 'Parameters'),
+        cell: ({ row }: { row: { original: CatalogRow } }) => row.original.parameters ?? '—',
+        meta: { maxWidth: 200 },
+      },
+    ]),
     {
       id: 'availability',
       header: t('anter_portal.catalog.column.availability', 'Availability'),
@@ -184,18 +204,24 @@ export default function AnterPortalCatalogPage({ params }: Props) {
     {
       id: 'action',
       header: '',
-      meta: { maxWidth: 140 },
+      meta: { maxWidth: 160 },
       cell: ({ row }) => (
-        <Button
-          size="sm"
-          disabled={row.original.availability.status === 'quote_only'}
-          onClick={() => handleAddToCart(row.original)}
-        >
-          {t('anter_portal.catalog.addToCart', 'Add to cart')}
-        </Button>
+        row.original.priceVisible ? (
+          <Button
+            size="sm"
+            disabled={row.original.availability.status !== 'in_stock' && row.original.availability.status !== 'expected'}
+            onClick={() => handleAddToCart(row.original)}
+          >
+            {t('anter_portal.catalog.addToCart', 'Add to cart')}
+          </Button>
+        ) : (
+          <Button size="sm" variant="outline" asChild>
+            <Link href={`/${params.orgSlug}/portal/configurator`}>{t('anter_portal.catalog.requestQuote', 'Zapytaj o wycenę')}</Link>
+          </Button>
+        )
       ),
     },
-  ], [t, params.orgSlug, handleAddToCart])
+  ], [t, params.orgSlug, handleAddToCart, priceVisible])
 
   if (loading) {
     return <div className="flex items-center justify-center py-20"><Spinner /></div>
@@ -266,16 +292,24 @@ export default function AnterPortalCatalogPage({ params }: Props) {
                 {row.sku ? <span className="block text-overline text-muted-foreground">{row.sku}</span> : null}
               </Link>
               <div className="flex items-center justify-between">
-                <span className="font-medium text-foreground">{formatMoney(row.partnerUnitPriceNet, row.currencyCode)}</span>
+                <span className="font-medium text-foreground">
+                  {row.priceVisible ? formatMoney(row.partnerUnitPriceNet, row.currencyCode) : (row.parameters ?? '—')}
+                </span>
                 <AvailabilityBadge availability={row.availability} t={t} />
               </div>
-              <Button
-                size="sm"
-                disabled={row.availability.status === 'quote_only'}
-                onClick={() => handleAddToCart(row)}
-              >
-                {t('anter_portal.catalog.addToCart', 'Add to cart')}
-              </Button>
+              {row.priceVisible ? (
+                <Button
+                  size="sm"
+                  disabled={row.availability.status !== 'in_stock' && row.availability.status !== 'expected'}
+                  onClick={() => handleAddToCart(row)}
+                >
+                  {t('anter_portal.catalog.addToCart', 'Add to cart')}
+                </Button>
+              ) : (
+                <Button size="sm" variant="outline" asChild>
+                  <Link href={`/${params.orgSlug}/portal/configurator`}>{t('anter_portal.catalog.requestQuote', 'Zapytaj o wycenę')}</Link>
+                </Button>
+              )}
             </div>
           ))}
         </div>

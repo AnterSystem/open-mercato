@@ -10,6 +10,7 @@ import type { PriceRow, PricingContext } from '@open-mercato/core/modules/catalo
 import type { CacheStrategy } from '@open-mercato/cache'
 import { AnterStockItem } from '../../anter_orders/data/entities'
 import type { AnterPartnerTermsService } from '../../anter_orders/services/anterPartnerTermsService'
+import type { AnterPartnerPriceListScopeService } from '../../anter_orders/services/anterPartnerPriceListScopeService'
 import { loadPartnerDiscountLookup } from '../lib/partnerDiscount'
 import { anterCatalogPageCacheKey, getCachedCatalogPage, setCachedCatalogPage } from '../lib/catalogCache'
 
@@ -32,6 +33,10 @@ export type CatalogAvailability =
   | { status: 'in_stock' }
   | { status: 'expected'; expectedRestockAt: string | null }
   | { status: 'quote_only' }
+  // Configurator spec X6, C14: a list price EXISTS but this partner's
+  // contract does not cover its category — distinct from `quote_only`
+  // (no list price at all), because the remedy differs (§Deviations 3).
+  | { status: 'outside_price_list' }
 
 export type CatalogListItem = {
   productId: string
@@ -42,6 +47,13 @@ export type CatalogListItem = {
   partnerUnitPriceNet: number | null
   discountRate: number | null
   availability: CatalogAvailability
+  /**
+   * Configurator spec X6: `false` for a `hidden` account — the caller MUST
+   * treat a null price as "not shown", not "free", and render `parameters`
+   * instead (X5's no-price catalogue rendering).
+   */
+  priceVisible: boolean
+  parameters: string | null
 }
 
 export type CatalogListResult = {
@@ -101,12 +113,33 @@ export function createAnterCatalogService(deps: {
   em: EntityManager
   catalogPricingService: CatalogPricingService
   anterPartnerTermsService: AnterPartnerTermsService
+  anterPartnerPriceListScopeService?: AnterPartnerPriceListScopeService | null
   cache?: CacheStrategy | null
 }) {
-  const { em, catalogPricingService, anterPartnerTermsService, cache } = deps
+  const { em, catalogPricingService, anterPartnerTermsService, anterPartnerPriceListScopeService, cache } = deps
 
   const loadPartnerDiscount = (scope: CatalogScope, categoryIdsByProduct: Map<string, string[]>) =>
     loadPartnerDiscountLookup(em, anterPartnerTermsService, scope, categoryIdsByProduct)
+
+  /**
+   * Configurator spec X1/X6: `hidden` never shows a price; a list price that
+   * exists but whose category the partner's contract excludes (X3) is
+   * `outside_price_list`, not `quote_only` (C14).
+   */
+  async function loadPriceVisibility(scope: CatalogScope, categoryIdsByProduct: Map<string, string[]>) {
+    if (!scope.customerId) return { hidden: false, excludedProductIds: new Set<string>() }
+    const terms = await anterPartnerTermsService.getByCustomerEntityId(scope.customerId, scope)
+    if (!terms || !anterPartnerPriceListScopeService) return { hidden: terms?.accountType === 'hidden', excludedProductIds: new Set<string>() }
+
+    const excludedCategoryIds = await anterPartnerPriceListScopeService.getExcludedCategoryIds(terms.id, scope)
+    const excludedProductIds = new Set<string>()
+    if (excludedCategoryIds.size) {
+      for (const [productId, categoryIds] of categoryIdsByProduct) {
+        if (categoryIds.some((categoryId) => excludedCategoryIds.has(categoryId))) excludedProductIds.add(productId)
+      }
+    }
+    return { hidden: terms.accountType === 'hidden', excludedProductIds }
+  }
 
   /**
    * The cacheable layer (spec §Performance: "product and list-price layer
@@ -217,12 +250,17 @@ export function createAnterCatalogService(deps: {
 
     const categoryIdsByProduct = new Map(productPage.categoryIdsByProduct)
     const discountLookup = await loadPartnerDiscount(scope, categoryIdsByProduct)
+    const { hidden, excludedProductIds } = await loadPriceVisibility(scope, categoryIdsByProduct)
 
     const items: CatalogListItem[] = productPage.entries.map((entry) => {
       const stock = stockByProduct.get(entry.productId)
       const hasListPrice = entry.listUnitPriceNet != null && !entry.isQuoteOnly
+      const outsidePriceListScope = hasListPrice && excludedProductIds.has(entry.productId)
 
-      if (!hasListPrice) {
+      if (!hasListPrice || outsidePriceListScope || hidden) {
+        const availability = outsidePriceListScope
+          ? { status: 'outside_price_list' as const }
+          : availabilityFor(stock?.onHand, stock?.expectedRestockAt, true, false)
         return {
           productId: entry.productId,
           title: entry.title,
@@ -231,7 +269,9 @@ export function createAnterCatalogService(deps: {
           listUnitPriceNet: null,
           partnerUnitPriceNet: null,
           discountRate: null,
-          availability: availabilityFor(stock?.onHand, stock?.expectedRestockAt, true, false),
+          availability: hasListPrice ? availability : { status: 'quote_only' as const },
+          priceVisible: false,
+          parameters: null,
         }
       }
 
@@ -247,6 +287,8 @@ export function createAnterCatalogService(deps: {
         partnerUnitPriceNet,
         discountRate,
         availability: availabilityFor(stock?.onHand, stock?.expectedRestockAt, false, true),
+        priceVisible: true,
+        parameters: null,
       }
     })
 
@@ -303,6 +345,8 @@ export function createAnterCatalogService(deps: {
     const categoryIds = categoryAssignments.map((a) => (typeof a.category === 'string' ? a.category : a.category.id))
     const categoryIdsByProduct = new Map<string, string[]>([[productId, categoryIds]])
     const discountLookup = await loadPartnerDiscount(scope, categoryIdsByProduct)
+    const { hidden, excludedProductIds } = await loadPriceVisibility(scope, categoryIdsByProduct)
+    const outsidePriceListScope = excludedProductIds.has(productId)
 
     const stockByVariant = new Map<string, AnterStockItem>()
     let productLevelStock: AnterStockItem | undefined
@@ -330,7 +374,10 @@ export function createAnterCatalogService(deps: {
     ): CatalogVariantItem => {
       const listUnitPriceNet = resolved?.unitPriceNet != null ? Number(resolved.unitPriceNet) : null
       const hasListPrice = listUnitPriceNet != null && !product.isQuoteOnly
-      if (!hasListPrice) {
+      if (!hasListPrice || outsidePriceListScope || hidden) {
+        const availability = hasListPrice && outsidePriceListScope
+          ? { status: 'outside_price_list' as const }
+          : { status: 'quote_only' as const }
         return {
           productId,
           variantId: variantId ?? productId,
@@ -341,7 +388,9 @@ export function createAnterCatalogService(deps: {
           listUnitPriceNet: null,
           partnerUnitPriceNet: null,
           discountRate: null,
-          availability: availabilityFor(stock?.onHand, stock?.expectedRestockAt, true, false),
+          availability: hasListPrice ? availability : availabilityFor(stock?.onHand, stock?.expectedRestockAt, true, false),
+          priceVisible: false,
+          parameters: null,
         }
       }
       const discountRate = discountLookup ? discountLookup.discountRateFor(productId) : 0
@@ -357,6 +406,8 @@ export function createAnterCatalogService(deps: {
         partnerUnitPriceNet,
         discountRate,
         availability: availabilityFor(stock?.onHand, stock?.expectedRestockAt, false, true),
+        priceVisible: true,
+        parameters: null,
       }
     }
 

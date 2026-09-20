@@ -2,9 +2,11 @@ import { asFunction } from 'awilix'
 import type { AppContainer } from '@open-mercato/shared/lib/di/container'
 import { createAnterConfiguratorPricingService } from './services/anterConfiguratorPricingService'
 import { createAnterProjectNumberService } from './services/anterProjectNumberService'
+import { createAnterSubmissionNumberService } from './services/anterSubmissionNumberService'
 
 export const ANTER_CONFIGURATOR_PRICING_SERVICE = 'anterConfiguratorPricingService' as const
 export const ANTER_PROJECT_NUMBER_SERVICE = 'anterProjectNumberService' as const
+export const ANTER_SUBMISSION_NUMBER_SERVICE = 'anterSubmissionNumberService' as const
 
 export function register(container: AppContainer) {
   container.register({
@@ -14,6 +16,7 @@ export function register(container: AppContainer) {
     // explanation of why this is load-bearing, not decorative).
     [ANTER_CONFIGURATOR_PRICING_SERVICE]: asFunction(createAnterConfiguratorPricingService).scoped().proxy(),
     [ANTER_PROJECT_NUMBER_SERVICE]: asFunction(createAnterProjectNumberService).scoped().proxy(),
+    [ANTER_SUBMISSION_NUMBER_SERVICE]: asFunction(createAnterSubmissionNumberService).scoped().proxy(),
   })
 }
 

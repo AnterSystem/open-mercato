@@ -9,6 +9,7 @@ import { AnterBomLine, AnterCustomItem } from '../../../../../data/entities'
 import { computeBomIfCalibrated } from '../../../../../lib/revisionElementsService'
 import { loadOwnedRevision } from '../../../../../lib/portalOwnership'
 import { resolveAnterConfiguratorPortalContext } from '../../../../../lib/portalContext'
+import { requirePortalConfiguratorMode } from '../../../../../lib/mode'
 import { anterConfiguratorTag } from '../../../../openapi'
 
 export const metadata = { POST: { requireAuth: false } }
@@ -35,6 +36,16 @@ export async function POST(req: Request, routeCtx: RouteContext) {
   const contextOrResponse = await resolveAnterConfiguratorPortalContext(req, ['portal.configurator.use'])
   if (contextOrResponse instanceof Response) return contextOrResponse
   const context = contextOrResponse
+
+  const modeOrResponse = await requirePortalConfiguratorMode(context)
+  if (modeOrResponse instanceof Response) return modeOrResponse
+  if (modeOrResponse.mode !== 'partner_priced') {
+    // The unpriced track uses quote-request, never the cart (§3.9 "track is
+    // decided by whether the configuration had a price") — this is a
+    // distinct condition from `configuration_not_orderable`, which fires for
+    // a `partner_priced` caller with an unpriced LINE.
+    return NextResponse.json({ error: 'configurator_unavailable', missing: 'account_type', accountType: 'hidden' }, { status: 403 })
+  }
 
   try {
     const { revision } = await loadOwnedRevision(context.em, revisionId, context)

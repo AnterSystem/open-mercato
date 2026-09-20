@@ -37,6 +37,7 @@ export const { metadata, GET } = makeCrudRoute({
     fields: [
       'id', 'project_id', 'revision_label', 'state', 'metres_per_unit', 'bom_computed_at',
       'bom_total_net_amount', 'bom_currency_code', 'has_unpriced_items', 'technical_acceptance_state',
+      'underlay_attachment_id', 'underlay_width_units', 'underlay_height_units', 'grid_size_m',
       'organization_id', 'tenant_id', 'updated_at', 'created_at',
     ],
     sortFieldMap: {

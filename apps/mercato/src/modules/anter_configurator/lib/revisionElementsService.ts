@@ -22,6 +22,12 @@ export async function replaceRevisionElements(
   revisionId: string,
   elements: AnterProjectElementInput[],
   scope: RevisionScope,
+  /**
+   * Product ids outside the bound partner's price-list scope (X3) — drives
+   * s9's dashed rendering (§3.7). Internal mode only; the portal caller IS
+   * the partner, so this is always omitted there.
+   */
+  outsidePriceListProductIds?: Set<string>,
 ): Promise<string[]> {
   const resolvedIds = elements.map((element) => element.id ?? randomUUID())
 
@@ -42,6 +48,7 @@ export async function replaceRevisionElements(
           hostElementId: input.hostElementId ?? null,
           hostOffsetRatio: input.hostOffsetRatio != null ? String(input.hostOffsetRatio) : null,
           label: input.label ?? null,
+          isOutsidePriceList: input.productId ? (outsidePriceListProductIds?.has(input.productId) ?? false) : false,
           sortOrder: input.sortOrder,
           organizationId: scope.organizationId,
           tenantId: scope.tenantId,

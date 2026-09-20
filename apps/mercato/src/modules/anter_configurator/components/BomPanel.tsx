@@ -20,6 +20,10 @@ export type ServerBomLine = {
   anchorCount: number | null
   priceState: string
   netAmount: number | null
+  /** Internal mode only, behind `anter_configurator.margin.view` (§3.7, R6). */
+  unitCostNet?: number | null
+  marginAtListNet?: number | null
+  marginAfterDiscountNet?: number | null
 }
 
 export type ServerBom = {
@@ -90,6 +94,7 @@ export function BomPanel({ elements, metresPerUnit, productGeometryByProductId, 
   }, [elements, metresPerUnit, productGeometryByProductId])
 
   if (serverBom) {
+    const showMargin = serverBom.lines.some((line) => line.unitCostNet !== undefined)
     return (
       <div className="overflow-hidden rounded-md border border-border">
         <table className="w-full text-sm">
@@ -100,6 +105,12 @@ export function BomPanel({ elements, metresPerUnit, productGeometryByProductId, 
               <th className="px-3 py-2">{t('anter_configurator.bom.column.realised', 'Realised (m)')}</th>
               <th className="px-3 py-2">{t('anter_configurator.bom.column.residual', 'Residual (m)')}</th>
               <th className="px-3 py-2">{t('anter_configurator.bom.column.amount', 'Net amount')}</th>
+              {showMargin ? (
+                <>
+                  <th className="px-3 py-2">{t('anter_configurator.bom.column.cost', 'Cost')}</th>
+                  <th className="px-3 py-2">{t('anter_configurator.bom.column.margin', 'Margin')}</th>
+                </>
+              ) : null}
             </tr>
           </thead>
           <tbody>
@@ -117,12 +128,18 @@ export function BomPanel({ elements, metresPerUnit, productGeometryByProductId, 
                     ? <StatusBadge variant="warning">{t('anter_configurator.bom.toQuote', 'To quote')}</StatusBadge>
                     : formatMoney(line.netAmount, serverBom.bomCurrencyCode)}
                 </td>
+                {showMargin ? (
+                  <>
+                    <td className="px-3 py-2">{formatMoney(line.unitCostNet ?? null, serverBom.bomCurrencyCode)}</td>
+                    <td className="px-3 py-2">{formatMoney(line.marginAfterDiscountNet ?? line.marginAtListNet ?? null, serverBom.bomCurrencyCode)}</td>
+                  </>
+                ) : null}
               </tr>
             ))}
           </tbody>
           <tfoot>
             <tr className="border-t border-border bg-muted/30 font-medium">
-              <td className="px-3 py-2" colSpan={4}>{t('anter_configurator.bom.total', 'Total (excluding items awaiting valuation)')}</td>
+              <td className="px-3 py-2" colSpan={showMargin ? 6 : 4}>{t('anter_configurator.bom.total', 'Total (excluding items awaiting valuation)')}</td>
               <td className="px-3 py-2">{formatMoney(serverBom.bomTotalNetAmount, serverBom.bomCurrencyCode)}</td>
             </tr>
           </tfoot>

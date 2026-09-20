@@ -59,6 +59,8 @@ const NO_TERMS: AnterPartnerTermsRecord = {
   defaultDiscountRate: 0,
   priceListCode: null,
   isBlocked: false,
+  accountType: 'full',
+  accountOwnerUserId: null,
 }
 
 function toCartLineView(line: AnterCartLine): CartLineView {

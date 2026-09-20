@@ -6,16 +6,51 @@ import { CrudHttpError, isCrudHttpError } from '@open-mercato/shared/lib/crud/er
 import { enforceCommandOptimisticLock } from '@open-mercato/shared/lib/crud/optimistic-lock-command'
 import { runRouteMutationGuards } from '@open-mercato/shared/lib/crud/route-mutation-guard'
 import { resolveTranslations } from '@open-mercato/shared/lib/i18n/server'
-import { AnterProjectRevision } from '../../../../data/entities'
+import { AnterProject, AnterProjectElement, AnterProjectRevision } from '../../../../data/entities'
 import { anterRevisionElementsReplaceSchema } from '../../../../data/validators'
 import { resolveAnterConfiguratorCommandContext } from '../../../../lib/staffCommandContext'
 import { replaceRevisionElements, computeBomIfCalibrated } from '../../../../lib/revisionElementsService'
+import { resolveOutsidePriceListProductIds } from '../../../../lib/priceListScope'
+import type { AnterPartnerTermsService } from '../../../../../anter_orders/services/anterPartnerTermsService'
+import type { AnterPartnerPriceListScopeService } from '../../../../../anter_orders/services/anterPartnerPriceListScopeService'
 import { anterConfiguratorTag } from '../../../openapi'
 
-export const metadata = { PUT: { requireAuth: true, requireFeatures: ['anter_configurator.internal'] } }
+export const metadata = {
+  GET: { requireAuth: true, requireFeatures: ['anter_configurator.view'] },
+  PUT: { requireAuth: true, requireFeatures: ['anter_configurator.internal'] },
+}
 
 type RouteParams = { id: string }
 type RouteContext = { params: Promise<RouteParams> }
+
+/** The current element set, for opening the internal-mode workspace (s9). */
+export async function GET(req: Request, routeCtx: RouteContext) {
+  const params = await routeCtx.params
+  const revisionId = params.id?.trim()
+  if (!revisionId) return NextResponse.json({ error: '[internal] invalid input' }, { status: 400 })
+
+  const { container, organizationId, tenantId } = await resolveAnterConfiguratorCommandContext(req)
+  const em = (container.resolve('em') as EntityManager).fork()
+
+  const revision = await em.findOne(AnterProjectRevision, { id: revisionId, organizationId, tenantId, deletedAt: null })
+  if (!revision) return NextResponse.json({ error: '[internal] revision not found' }, { status: 404 })
+
+  const elements = await em.find(AnterProjectElement, { revisionId: revision.id }, { orderBy: { sortOrder: 'asc' } })
+  return NextResponse.json({
+    items: elements.map((element) => ({
+      id: element.id,
+      elementKind: element.elementKind,
+      productId: element.productId,
+      productVariantId: element.productVariantId,
+      geometry: element.geometry,
+      hostElementId: element.hostElementId,
+      hostOffsetRatio: element.hostOffsetRatio != null ? Number(element.hostOffsetRatio) : null,
+      label: element.label,
+      sortOrder: element.sortOrder,
+      isOutsidePriceList: element.isOutsidePriceList,
+    })),
+  })
+}
 
 /**
  * Whole-revision element replace (spec §API Contracts Back office table).
@@ -68,11 +103,24 @@ export async function PUT(req: Request, routeCtx: RouteContext) {
     }
 
     const scope = { organizationId, tenantId }
-    const resolvedIds = await replaceRevisionElements(em, revision.id, parsed.data.elements, scope)
+    const project = await em.findOne(AnterProject, { id: revision.projectId })
+    const customerEntityId = project?.customerEntityId ?? null
+
+    const productIds = [...new Set(parsed.data.elements.map((element) => element.productId).filter((id): id is string => !!id))]
+    const outsidePriceListProductIds = await resolveOutsidePriceListProductIds({
+      em,
+      anterPartnerTermsService: container.resolve<AnterPartnerTermsService>('anterPartnerTermsService'),
+      anterPartnerPriceListScopeService: container.resolve<AnterPartnerPriceListScopeService>('anterPartnerPriceListScopeService'),
+      customerEntityId,
+      productIds,
+      scope,
+    })
+
+    const resolvedIds = await replaceRevisionElements(em, revision.id, parsed.data.elements, scope, outsidePriceListProductIds)
 
     await guardResult.runAfterSuccess()
 
-    const bom = await computeBomIfCalibrated(container, ctx, revision, scope, 'PLN', null)
+    const bom = await computeBomIfCalibrated(container, ctx, revision, scope, 'PLN', customerEntityId)
 
     return NextResponse.json({ item: { revisionId: revision.id, elementCount: resolvedIds.length }, bom })
   } catch (err) {

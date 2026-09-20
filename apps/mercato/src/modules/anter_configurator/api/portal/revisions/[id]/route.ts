@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 import { CrudHttpError, isCrudHttpError } from '@open-mercato/shared/lib/crud/errors'
 import { loadOwnedRevision } from '../../../../lib/portalOwnership'
 import { resolveAnterConfiguratorPortalContext } from '../../../../lib/portalContext'
+import { requirePortalConfiguratorMode } from '../../../../lib/mode'
 
 export const metadata = { GET: { requireAuth: false } }
 
@@ -18,6 +19,9 @@ export async function GET(req: Request, routeCtx: RouteContext) {
   if (contextOrResponse instanceof Response) return contextOrResponse
   const context = contextOrResponse
 
+  const modeOrResponse = await requirePortalConfiguratorMode(context)
+  if (modeOrResponse instanceof Response) return modeOrResponse
+
   try {
     const { revision } = await loadOwnedRevision(context.em, revisionId, context)
     return NextResponse.json({
@@ -32,6 +36,7 @@ export async function GET(req: Request, routeCtx: RouteContext) {
         gridSizeM: Number(revision.gridSizeM),
         hasUnpricedItems: revision.hasUnpricedItems,
         updatedAt: revision.updatedAt.toISOString(),
+        mode: modeOrResponse.mode,
       },
     })
   } catch (err) {

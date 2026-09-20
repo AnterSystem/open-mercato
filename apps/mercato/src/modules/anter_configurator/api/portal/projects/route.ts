@@ -10,6 +10,7 @@ import { AnterProject, AnterProjectRevision } from '../../../data/entities'
 import { anterProjectCreateSchema } from '../../../data/validators'
 import type { AnterProjectNumberService } from '../../../services/anterProjectNumberService'
 import { resolveAnterConfiguratorPortalContext } from '../../../lib/portalContext'
+import { requirePortalConfiguratorMode } from '../../../lib/mode'
 import { anterConfiguratorTag, anterConfiguratorCreatedSchema } from '../../openapi'
 
 export const metadata = {
@@ -27,6 +28,9 @@ export async function GET(req: Request) {
   const contextOrResponse = await resolveAnterConfiguratorPortalContext(req, ['portal.configurator.use'])
   if (contextOrResponse instanceof Response) return contextOrResponse
   const context = contextOrResponse
+
+  const modeOrResponse = await requirePortalConfiguratorMode(context)
+  if (modeOrResponse instanceof Response) return modeOrResponse
 
   const url = new URL(req.url)
   const page = Math.max(1, Number(url.searchParams.get('page') ?? '1') || 1)
@@ -70,6 +74,9 @@ export async function POST(req: Request) {
   const contextOrResponse = await resolveAnterConfiguratorPortalContext(req, ['portal.configurator.use'])
   if (contextOrResponse instanceof Response) return contextOrResponse
   const context = contextOrResponse
+
+  const modeOrResponse = await requirePortalConfiguratorMode(context)
+  if (modeOrResponse instanceof Response) return modeOrResponse
 
   const { translate } = await resolveTranslations()
   let body: unknown = {}

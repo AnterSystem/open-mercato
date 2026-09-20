@@ -466,3 +466,114 @@ export class AnterCustomItem {
   @Property({ name: 'deleted_at', type: Date, nullable: true })
   deletedAt?: Date | null
 }
+
+@Entity({ tableName: 'anter_submission_sequences' })
+@Unique({ properties: ['tenantId', 'organizationId', 'year'] })
+export class AnterSubmissionSequence {
+  [OptionalProps]?: 'nextNumber' | 'createdAt' | 'updatedAt'
+
+  @PrimaryKey({ type: 'uuid', defaultRaw: 'gen_random_uuid()' })
+  id!: string
+
+  @Property({ name: 'tenant_id', type: 'uuid' })
+  tenantId!: string
+
+  @Property({ name: 'organization_id', type: 'uuid' })
+  organizationId!: string
+
+  @Property({ type: 'integer' })
+  year!: number
+
+  @Property({ name: 'next_number', type: 'integer', default: 1 })
+  nextNumber: number = 1
+
+  @Property({ name: 'created_at', type: Date, onCreate: () => new Date() })
+  createdAt: Date = new Date()
+
+  @Property({ name: 'updated_at', type: Date, onUpdate: () => new Date() })
+  updatedAt: Date = new Date()
+}
+
+// The Phase I queue (assignee, comments, SLA counters, the three decisions)
+// is not built yet — this Phase H slice only needs enough of the submission
+// to (a) exist as the thing `quote_request.sent` refers to and (b) lock the
+// revision it binds to (§3.8, §3.9's "revision becomes immutable").
+@Entity({ tableName: 'anter_submissions' })
+@Index({ properties: ['projectId'] })
+@Index({ properties: ['revisionId'] })
+export class AnterSubmission {
+  [OptionalProps]?:
+    | 'customerEntityId'
+    | 'assignedUserId'
+    | 'dueAt'
+    | 'closedAt'
+    | 'resultingOrderId'
+    | 'resultingOfferId'
+    | 'valueNetAmount'
+    | 'currencyCode'
+    | 'positionCount'
+    | 'createdAt'
+    | 'updatedAt'
+
+  @PrimaryKey({ type: 'uuid', defaultRaw: 'gen_random_uuid()' })
+  id!: string
+
+  @Property({ name: 'submission_number', type: 'text' })
+  submissionNumber!: string
+
+  @Property({ name: 'project_id', type: 'uuid' })
+  projectId!: string
+
+  @Property({ name: 'revision_id', type: 'uuid' })
+  revisionId!: string
+
+  @Property({ name: 'customer_entity_id', type: 'uuid', nullable: true })
+  customerEntityId?: string | null
+
+  // `priced` | `unpriced` (§3.9).
+  @Property({ type: 'text' })
+  track!: string
+
+  // `technical_review` | `valuation` | `closed_order` | `closed_offer` | `revision_requested` | `rejected`.
+  @Property({ type: 'text', default: 'technical_review' })
+  state: string = 'technical_review'
+
+  @Property({ name: 'assigned_user_id', type: 'uuid', nullable: true })
+  assignedUserId?: string | null
+
+  @Property({ name: 'due_at', type: Date, nullable: true })
+  dueAt?: Date | null
+
+  @Property({ name: 'submitted_at', type: Date })
+  submittedAt!: Date
+
+  @Property({ name: 'closed_at', type: Date, nullable: true })
+  closedAt?: Date | null
+
+  @Property({ name: 'resulting_order_id', type: 'uuid', nullable: true })
+  resultingOrderId?: string | null
+
+  @Property({ name: 'resulting_offer_id', type: 'uuid', nullable: true })
+  resultingOfferId?: string | null
+
+  @Property({ name: 'value_net_amount', type: 'numeric', precision: 16, scale: 4, nullable: true })
+  valueNetAmount?: string | null
+
+  @Property({ name: 'currency_code', type: 'text', nullable: true })
+  currencyCode?: string | null
+
+  @Property({ name: 'position_count', type: 'integer', default: 0 })
+  positionCount: number = 0
+
+  @Property({ name: 'organization_id', type: 'uuid' })
+  organizationId!: string
+
+  @Property({ name: 'tenant_id', type: 'uuid' })
+  tenantId!: string
+
+  @Property({ name: 'created_at', type: Date, onCreate: () => new Date() })
+  createdAt: Date = new Date()
+
+  @Property({ name: 'updated_at', type: Date, onUpdate: () => new Date() })
+  updatedAt: Date = new Date()
+}

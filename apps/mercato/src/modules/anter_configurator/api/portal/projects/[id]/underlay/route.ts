@@ -6,6 +6,7 @@ import { runRouteMutationGuards } from '@open-mercato/shared/lib/crud/route-muta
 import type { AttachmentService } from '@open-mercato/core/modules/attachments/lib/attachment-service'
 import { AnterProject, AnterProjectRevision } from '../../../../../data/entities'
 import { resolveAnterConfiguratorPortalContext } from '../../../../../lib/portalContext'
+import { requirePortalConfiguratorMode } from '../../../../../lib/mode'
 import { ANTER_CONFIGURATOR_UNDERLAY_PARTITION_CODE } from '../../../../../setup'
 import { anterConfiguratorTag } from '../../../../openapi'
 
@@ -44,6 +45,9 @@ export async function POST(req: Request, routeCtx: RouteContext) {
   const contextOrResponse = await resolveAnterConfiguratorPortalContext(req, ['portal.configurator.use'])
   if (contextOrResponse instanceof Response) return contextOrResponse
   const context = contextOrResponse
+
+  const modeOrResponse = await requirePortalConfiguratorMode(context)
+  if (modeOrResponse instanceof Response) return modeOrResponse
 
   try {
     const project = await context.em.findOne(AnterProject, {

@@ -1,11 +1,15 @@
 import { z } from 'zod'
 
+export const anterAccountTypeSchema = z.enum(['full', 'hidden', 'preview'])
+
 export const anterPartnerTermsCreateSchema = z.object({
   customerEntityId: z.string().uuid(),
   defaultDiscountRate: z.coerce.number().min(0).max(1).default(0),
   priceListCode: z.string().trim().max(64).nullable().optional(),
   isBlocked: z.boolean().default(false),
   notes: z.string().trim().max(2000).nullable().optional(),
+  accountType: anterAccountTypeSchema.default('full'),
+  accountOwnerUserId: z.string().uuid().nullable().optional(),
 })
 
 export const anterPartnerTermsUpdateSchema = anterPartnerTermsCreateSchema.partial().extend({
@@ -27,6 +31,14 @@ export const anterPartnerGroupDiscountUpdateSchema = anterPartnerGroupDiscountCr
 
 export type AnterPartnerGroupDiscountCreateInput = z.infer<typeof anterPartnerGroupDiscountCreateSchema>
 export type AnterPartnerGroupDiscountUpdateInput = z.infer<typeof anterPartnerGroupDiscountUpdateSchema>
+
+// Configurator spec X3: `anter_partner_price_list_scope` rows are always
+// exclusions — no rows means everything is included for that partner.
+export const anterPartnerPriceListScopeSetSchema = z.object({
+  partnerTermsId: z.string().uuid(),
+  excludedCategoryIds: z.array(z.string().uuid()),
+})
+export type AnterPartnerPriceListScopeSetInput = z.infer<typeof anterPartnerPriceListScopeSetSchema>
 
 export const anterStockItemCreateSchema = z.object({
   productId: z.string().uuid(),

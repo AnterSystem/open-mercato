@@ -9,6 +9,7 @@ import { anterRevisionElementsReplaceSchema } from '../../../../../data/validato
 import { replaceRevisionElements, computeBomIfCalibrated } from '../../../../../lib/revisionElementsService'
 import { loadOwnedRevision } from '../../../../../lib/portalOwnership'
 import { resolveAnterConfiguratorPortalContext } from '../../../../../lib/portalContext'
+import { requirePortalConfiguratorMode } from '../../../../../lib/mode'
 import { anterConfiguratorTag } from '../../../../openapi'
 
 export const metadata = { GET: { requireAuth: false }, PUT: { requireAuth: false } }
@@ -25,6 +26,9 @@ export async function GET(req: Request, routeCtx: RouteContext) {
   const contextOrResponse = await resolveAnterConfiguratorPortalContext(req, ['portal.configurator.use'])
   if (contextOrResponse instanceof Response) return contextOrResponse
   const context = contextOrResponse
+
+  const modeOrResponse = await requirePortalConfiguratorMode(context)
+  if (modeOrResponse instanceof Response) return modeOrResponse
 
   try {
     const { revision } = await loadOwnedRevision(context.em, revisionId, context)
@@ -78,6 +82,9 @@ export async function PUT(req: Request, routeCtx: RouteContext) {
   const contextOrResponse = await resolveAnterConfiguratorPortalContext(req, ['portal.configurator.use'])
   if (contextOrResponse instanceof Response) return contextOrResponse
   const context = contextOrResponse
+
+  const modeOrResponse = await requirePortalConfiguratorMode(context)
+  if (modeOrResponse instanceof Response) return modeOrResponse
 
   try {
     const { revision } = await loadOwnedRevision(context.em, revisionId, context)

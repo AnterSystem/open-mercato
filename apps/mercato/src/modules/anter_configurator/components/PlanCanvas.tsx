@@ -379,7 +379,10 @@ function PlanElementShape({ element, selected, onSelect }: {
   selected: boolean
   onSelect: (event: React.SyntheticEvent) => void
 }) {
-  const strokeClass = selected ? 'stroke-status-info-icon' : 'stroke-primary'
+  const strokeClass = element.isOutsidePriceList
+    ? 'stroke-status-warning-icon'
+    : selected ? 'stroke-status-info-icon' : 'stroke-primary'
+  const dashArray = element.isOutsidePriceList ? '6 4' : undefined
 
   if (element.elementKind === 'run' && element.geometry.vertices) {
     return (
@@ -388,6 +391,7 @@ function PlanElementShape({ element, selected, onSelect }: {
         className={strokeClass}
         fill="none"
         strokeWidth={selected ? 3 : 2}
+        strokeDasharray={dashArray}
         onClick={onSelect}
         role="img"
         aria-label={element.label ?? element.elementKind}
@@ -404,6 +408,7 @@ function PlanElementShape({ element, selected, onSelect }: {
         r={selected ? 8 : 6}
         className={strokeClass}
         fill="currentColor"
+        strokeDasharray={dashArray}
         onClick={onSelect}
         role="img"
         aria-label={element.label ?? element.elementKind}

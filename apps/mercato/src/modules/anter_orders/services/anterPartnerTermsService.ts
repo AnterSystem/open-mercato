@@ -9,6 +9,8 @@ export type AnterPartnerTermsRecord = {
   defaultDiscountRate: number
   priceListCode: string | null
   isBlocked: boolean
+  accountType: string
+  accountOwnerUserId: string | null
 }
 
 export type AnterPartnerTermsScope = {
@@ -27,6 +29,8 @@ function toRecord(entity: AnterPartnerTerms): AnterPartnerTermsRecord {
     defaultDiscountRate: Number(entity.defaultDiscountRate),
     priceListCode: entity.priceListCode ?? null,
     isBlocked: entity.isBlocked,
+    accountType: entity.accountType,
+    accountOwnerUserId: entity.accountOwnerUserId ?? null,
   }
 }
 

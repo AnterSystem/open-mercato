@@ -32,8 +32,10 @@ type Revision = {
   gridSizeM: number
   hasUnpricedItems: boolean
   updatedAt: string
+  mode: 'partner_priced' | 'partner_unpriced'
 }
 type DrawableProduct = ProductOption & Omit<AnterProductGeometry, 'productId' | 'productVariantId'>
+type DeniedInfo = { contactOwnerName: string | null; contactOwnerEmail: string | null }
 
 type ElementsMutationContext = {
   moduleId: string
@@ -63,10 +65,12 @@ export default function AnterConfiguratorPortalWorkspacePage({ params }: Props) 
   const [isCalibrating, setIsCalibrating] = React.useState(false)
   const [isLoading, setIsLoading] = React.useState(true)
   const [error, setError] = React.useState<string | null>(null)
+  const [deniedInfo, setDeniedInfo] = React.useState<DeniedInfo | null>(null)
 
   const saveMutation = useGuardedMutation<ElementsMutationContext>({ contextId: 'anter_configurator.revision.elements.replace' })
   const calibrationMutation = useGuardedMutation<ElementsMutationContext>({ contextId: 'anter_configurator.revision.calibration' })
   const cartMutation = useGuardedMutation<ElementsMutationContext>({ contextId: 'anter_configurator.revision.add_to_cart' })
+  const quoteRequestMutation = useGuardedMutation<ElementsMutationContext>({ contextId: 'anter_configurator.revision.quote_request' })
 
   React.useEffect(() => {
     if (!loading && !user) router.replace(`/${params.orgSlug}/portal/login`)
@@ -76,8 +80,14 @@ export default function AnterConfiguratorPortalWorkspacePage({ params }: Props) 
     if (!user) return
     setIsLoading(true)
     setError(null)
+    setDeniedInfo(null)
 
     const projectRes = await apiCall<{ items: Project[] }>(`/api/anter_configurator/portal/projects?id=${params.projectId}`)
+    if (projectRes.status === 403) {
+      setDeniedInfo(projectRes.result as unknown as DeniedInfo)
+      setIsLoading(false)
+      return
+    }
     const loadedProject = projectRes.ok ? projectRes.result?.items?.[0] : null
     if (!loadedProject || !loadedProject.currentRevisionId) {
       setError(t('anter_configurator.portal.workspace.loadError', 'Failed to load the project'))
@@ -92,6 +102,11 @@ export default function AnterConfiguratorPortalWorkspacePage({ params }: Props) 
       apiCall<{ items: DrawableProduct[] }>('/api/anter_configurator/portal/drawable-products'),
       apiCall<{ items: PlanPointView[] }>(`/api/anter_configurator/portal/revisions/${loadedProject.currentRevisionId}/points`),
     ])
+    if (revisionRes.status === 403) {
+      setDeniedInfo(revisionRes.result as unknown as DeniedInfo)
+      setIsLoading(false)
+      return
+    }
     if (revisionRes.ok && revisionRes.result) setRevision(revisionRes.result.item)
     if (elementsRes.ok && elementsRes.result) setElements(elementsRes.result.items)
     if (productsRes.ok && productsRes.result) {
@@ -99,6 +114,11 @@ export default function AnterConfiguratorPortalWorkspacePage({ params }: Props) 
       setSelectedProductId((current) => current ?? productsRes.result!.items[0]?.id ?? null)
     }
     if (pointsRes.ok && pointsRes.result) setPoints(pointsRes.result.items)
+
+    if (revisionRes.ok && revisionRes.result?.item.metresPerUnit != null) {
+      const bomRes = await apiCall<{ item: ServerBom }>(`/api/anter_configurator/portal/revisions/${loadedProject.currentRevisionId}/bom`)
+      if (bomRes.ok && bomRes.result) setServerBom(bomRes.result.item)
+    }
 
     setIsLoading(false)
   }, [user, params.projectId, t])
@@ -131,7 +151,7 @@ export default function AnterConfiguratorPortalWorkspacePage({ params }: Props) 
     const result = await saveMutation.runMutation({
       operation: () => withScopedApiRequestHeaders(
         buildOptimisticLockHeader(revision.updatedAt),
-        () => apiCall<{ item: { revisionId: string }; bom: ServerBom | null }>(`/api/anter_configurator/portal/revisions/${revision.id}/elements`, {
+        () => apiCall<{ item: { revisionId: string } }>(`/api/anter_configurator/portal/revisions/${revision.id}/elements`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           credentials: 'include',
@@ -153,7 +173,9 @@ export default function AnterConfiguratorPortalWorkspacePage({ params }: Props) 
       flash(t('anter_configurator.portal.workspace.saveError', 'Could not save the drawing'), 'error')
       return
     }
-    setServerBom(result.result.bom)
+    // The PUT response only carries a terse aggregate; the full, mode-redacted
+    // line list is a separate GET so this page never duplicates that
+    // redaction logic (§3.7 rule 2 lives in exactly one place: `bom/route.ts`).
     await loadWorkspace()
   }, [revision, elements, saveMutation, loadWorkspace, t])
 
@@ -215,6 +237,31 @@ export default function AnterConfiguratorPortalWorkspacePage({ params }: Props) 
     router.push(`/${params.orgSlug}/portal/cart`)
   }, [revision, cartMutation, router, params.orgSlug, t])
 
+  const handleQuoteRequest = React.useCallback(async () => {
+    if (!revision) return
+    const result = await quoteRequestMutation.runMutation({
+      operation: () => apiCall<{ item: { submissionNumber: string } }>(`/api/anter_configurator/portal/revisions/${revision.id}/quote-request`, {
+        method: 'POST',
+        credentials: 'include',
+      }),
+      context: {
+        moduleId: 'anter_configurator',
+        entityId: 'anter_configurator.submission',
+        operation: 'create',
+        resourceKind: 'anter_configurator.submission',
+        resourceId: revision.id,
+        formId: 'anter_configurator.revision.quote_request',
+        retryLastMutation: quoteRequestMutation.retryLastMutation,
+      },
+    })
+    if (!result.ok || !result.result) {
+      flash(t('anter_configurator.portal.workspace.quoteRequestError', 'Could not send the quote request'), 'error')
+      return
+    }
+    flash(t('anter_configurator.portal.workspace.quoteRequestSuccess', 'Quote request sent'), 'success')
+    await loadWorkspace()
+  }, [revision, quoteRequestMutation, loadWorkspace, t])
+
   const handleUnderlayUpload = React.useCallback(async (file: File) => {
     if (!project) return
     const form = new FormData()
@@ -232,6 +279,22 @@ export default function AnterConfiguratorPortalWorkspacePage({ params }: Props) 
   }, [project, loadWorkspace, t])
 
   if (loading || isLoading) return <LoadingMessage label={t('anter_configurator.portal.workspace.loading', 'Loading…')} />
+  if (deniedInfo) {
+    return (
+      <PortalCard>
+        <PortalCardHeader title={t('anter_configurator.portal.workspace.deniedTitle', 'Configurator unavailable for this account')} />
+        <p className="text-sm text-muted-foreground">
+          {t('anter_configurator.portal.workspace.deniedDescription', 'Contact your account owner to enable the configurator.')}
+        </p>
+        {deniedInfo.contactOwnerName || deniedInfo.contactOwnerEmail ? (
+          <p className="mt-2 text-sm text-foreground">
+            {deniedInfo.contactOwnerName ?? deniedInfo.contactOwnerEmail}
+            {deniedInfo.contactOwnerEmail ? ` — ${deniedInfo.contactOwnerEmail}` : ''}
+          </p>
+        ) : null}
+      </PortalCard>
+    )
+  }
   if (error || !project || !revision) return <ErrorMessage label={error ?? t('anter_configurator.portal.workspace.loadError', 'Failed to load the project')} />
 
   const underlayUrl = revision.underlayAttachmentId ? `/api/anter_configurator/portal/revisions/${revision.id}/underlay` : null
@@ -308,14 +371,25 @@ export default function AnterConfiguratorPortalWorkspacePage({ params }: Props) 
                 productGeometryByProductId={productGeometryByProductId}
                 serverBom={serverBom}
               />
-              <Button
-                type="button"
-                className="mt-3 w-full"
-                onClick={handleAddToCart}
-                disabled={!serverBom || serverBom.hasUnpricedItems}
-              >
-                {t('anter_configurator.portal.workspace.addToCart', 'Add to cart')}
-              </Button>
+              {revision.mode === 'partner_unpriced' ? (
+                <Button
+                  type="button"
+                  className="mt-3 w-full"
+                  onClick={handleQuoteRequest}
+                  disabled={revision.state !== 'draft' || !elements.length}
+                >
+                  {t('anter_configurator.portal.workspace.quoteRequest', 'Send quote request')}
+                </Button>
+              ) : (
+                <Button
+                  type="button"
+                  className="mt-3 w-full"
+                  onClick={handleAddToCart}
+                  disabled={!serverBom || serverBom.hasUnpricedItems}
+                >
+                  {t('anter_configurator.portal.workspace.addToCart', 'Add to cart')}
+                </Button>
+              )}
             </PortalCard>
           </div>
         </div>

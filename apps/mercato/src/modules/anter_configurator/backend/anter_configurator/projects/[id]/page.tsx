@@ -1,8 +1,9 @@
 "use client"
 
 import * as React from 'react'
-import { useParams } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import { Page, PageBody } from '@open-mercato/ui/backend/Page'
+import { Button } from '@open-mercato/ui/primitives/button'
 import { StatusBadge, type StatusBadgeVariant } from '@open-mercato/ui/primitives/status-badge'
 import { ErrorMessage, LoadingMessage } from '@open-mercato/ui/backend/detail'
 import { apiCall } from '@open-mercato/ui/backend/utils/apiCall'
@@ -69,6 +70,7 @@ function formatMoney(value: number | null, currencyCode: string | null): string 
 
 export default function AnterConfiguratorProjectDetailPage() {
   const t = useT()
+  const router = useRouter()
   const params = useParams<{ id: string }>()
   const projectId = params?.id as string
 
@@ -132,9 +134,17 @@ export default function AnterConfiguratorProjectDetailPage() {
             <h1 className="text-xl font-semibold text-foreground">{project.name}</h1>
             <p className="text-sm text-muted-foreground">{project.project_number}</p>
           </div>
-          <StatusBadge variant={project.status === 'closed' ? 'success' : project.status === 'abandoned' ? 'warning' : 'info'}>
-            {project.status}
-          </StatusBadge>
+          <div className="flex items-center gap-2">
+            <StatusBadge variant={project.status === 'closed' ? 'success' : project.status === 'abandoned' ? 'warning' : 'info'}>
+              {project.status}
+            </StatusBadge>
+            <Button type="button" variant="outline" size="sm" onClick={() => router.push(`/backend/anter_configurator/projects/${project.id}/draw`)}>
+              {t('anter_configurator.projects.detail.draw', 'Draw (internal mode)')}
+            </Button>
+            <Button type="button" variant="outline" size="sm" onClick={() => router.push(`/backend/anter_configurator/projects/${project.id}/valuation`)}>
+              {t('anter_configurator.projects.detail.valuation', 'Valuation')}
+            </Button>
+          </div>
         </div>
 
         <section className="mb-6">

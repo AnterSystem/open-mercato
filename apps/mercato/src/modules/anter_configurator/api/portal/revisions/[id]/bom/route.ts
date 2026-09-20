@@ -3,6 +3,7 @@ import { CrudHttpError, isCrudHttpError } from '@open-mercato/shared/lib/crud/er
 import { AnterBomLine } from '../../../../../data/entities'
 import { loadOwnedRevision } from '../../../../../lib/portalOwnership'
 import { resolveAnterConfiguratorPortalContext } from '../../../../../lib/portalContext'
+import { requirePortalConfiguratorMode, redactBomForMode } from '../../../../../lib/mode'
 
 export const metadata = { GET: { requireAuth: false } }
 
@@ -11,9 +12,10 @@ type RouteContext = { params: Promise<RouteParams> }
 
 /**
  * Portal BOM read (spec §API Contracts Portal table). Cost and margin are
- * NEVER present in a portal response, in any mode (§3.7 rule 2, §Risks R6) —
- * unlike the staff route, there is no feature check here that could ever add
- * them back.
+ * NEVER present in a portal response, in any mode (§3.7 rule 2, §Risks R6).
+ * Prices are additionally omitted entirely for a `partner_unpriced` caller,
+ * even on an already-priced line (§3.7 rule 2) — the redaction runs by mode,
+ * not by the line's own `priceState`.
  */
 export async function GET(req: Request, routeCtx: RouteContext) {
   const params = await routeCtx.params
@@ -24,38 +26,42 @@ export async function GET(req: Request, routeCtx: RouteContext) {
   if (contextOrResponse instanceof Response) return contextOrResponse
   const context = contextOrResponse
 
+  const modeOrResponse = await requirePortalConfiguratorMode(context)
+  if (modeOrResponse instanceof Response) return modeOrResponse
+  const { mode } = modeOrResponse
+
   try {
     const { revision } = await loadOwnedRevision(context.em, revisionId, context)
     const lines = await context.em.find(AnterBomLine, { revisionId: revision.id }, { orderBy: { createdAt: 'asc' } })
 
-    return NextResponse.json({
-      item: {
-        revisionId: revision.id,
-        bomComputedAt: revision.bomComputedAt ? revision.bomComputedAt.toISOString() : null,
-        bomTotalNetAmount: revision.bomTotalNetAmount != null ? Number(revision.bomTotalNetAmount) : null,
-        bomCurrencyCode: revision.bomCurrencyCode,
-        hasUnpricedItems: revision.hasUnpricedItems,
-        lines: lines.map((line) => ({
-          id: line.id,
-          productId: line.productId,
-          productVariantId: line.productVariantId,
-          sku: line.sku,
-          nameSnapshot: line.nameSnapshot,
-          origin: line.origin,
-          quantity: Number(line.quantity),
-          unitCode: line.unitCode,
-          realisedLengthM: line.realisedLengthM != null ? Number(line.realisedLengthM) : null,
-          residualLengthM: line.residualLengthM != null ? Number(line.residualLengthM) : null,
-          moduleCount: line.moduleCount,
-          postCount: line.postCount,
-          anchorCount: line.anchorCount,
-          ...(line.priceState === 'priced'
-            ? { partnerUnitPriceNet: line.partnerUnitPriceNet != null ? Number(line.partnerUnitPriceNet) : null, netAmount: line.netAmount != null ? Number(line.netAmount) : null }
-            : {}),
-          priceState: line.priceState,
-        })),
-      },
-    })
+    const item = {
+      revisionId: revision.id,
+      bomComputedAt: revision.bomComputedAt ? revision.bomComputedAt.toISOString() : null,
+      bomTotalNetAmount: revision.bomTotalNetAmount != null ? Number(revision.bomTotalNetAmount) : null,
+      bomCurrencyCode: revision.bomCurrencyCode,
+      hasUnpricedItems: revision.hasUnpricedItems,
+      lines: lines.map((line) => ({
+        id: line.id,
+        productId: line.productId,
+        productVariantId: line.productVariantId,
+        sku: line.sku,
+        nameSnapshot: line.nameSnapshot,
+        origin: line.origin,
+        quantity: Number(line.quantity),
+        unitCode: line.unitCode,
+        realisedLengthM: line.realisedLengthM != null ? Number(line.realisedLengthM) : null,
+        residualLengthM: line.residualLengthM != null ? Number(line.residualLengthM) : null,
+        moduleCount: line.moduleCount,
+        postCount: line.postCount,
+        anchorCount: line.anchorCount,
+        ...(line.priceState === 'priced'
+          ? { partnerUnitPriceNet: line.partnerUnitPriceNet != null ? Number(line.partnerUnitPriceNet) : null, netAmount: line.netAmount != null ? Number(line.netAmount) : null }
+          : {}),
+        priceState: line.priceState,
+      })),
+    }
+
+    return NextResponse.json({ item: redactBomForMode(item, mode) })
   } catch (err) {
     if (isCrudHttpError(err)) return NextResponse.json(err.body, { status: err.status })
     if (err instanceof CrudHttpError) return NextResponse.json(err.body, { status: err.status })

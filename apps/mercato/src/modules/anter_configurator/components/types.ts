@@ -12,6 +12,8 @@ export type ElementDraft = {
   hostOffsetRatio?: number | null
   label?: string | null
   sortOrder: number
+  /** Internal mode only (spec §3.7, X3) — s9's dashed rendering. */
+  isOutsidePriceList?: boolean
 }
 
 export type ProductOption = {

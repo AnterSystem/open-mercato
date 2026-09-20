@@ -1,7 +1,6 @@
 "use client"
 
 import * as React from 'react'
-import { useParams } from 'next/navigation'
 import { Page, PageBody } from '@open-mercato/ui/backend/Page'
 import { Button } from '@open-mercato/ui/primitives/button'
 import { StatusBadge, type StatusBadgeVariant } from '@open-mercato/ui/primitives/status-badge'
@@ -57,10 +56,9 @@ function formatMoney(value: number, currencyCode: string): string {
   return new Intl.NumberFormat(undefined, { style: 'currency', currency: currencyCode }).format(value)
 }
 
-export default function AnterOrderBackendDetailPage() {
+export default function AnterOrderBackendDetailPage({ params }: { params?: { id?: string } }) {
   const t = useT()
-  const params = useParams<{ id: string }>()
-  const orderId = params?.id as string
+  const orderId = params?.id ?? ''
 
   const [order, setOrder] = React.useState<Order | null>(null)
   const [lines, setLines] = React.useState<OrderLine[]>([])

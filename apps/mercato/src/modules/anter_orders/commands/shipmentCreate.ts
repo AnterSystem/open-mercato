@@ -67,8 +67,11 @@ const shipmentCreateCommand: CommandHandler<unknown, ShipmentCreateResult> = {
 
     enforceCommandOptimisticLock({ resourceKind: ORDER_RESOURCE_KIND, resourceId: order.id, current: order.updatedAt, request: ctx.request })
 
-    const lineIds = parsed.lines.map((entry) => entry.orderLineId)
-    const orderLines = await em.find(AnterOrderLine, { id: { $in: lineIds }, orderId: order.id })
+    // Every line on the order, not just the ones in this shipment: the status
+    // derivation below asks whether EVERY line is fully shipped. Loading only
+    // the shipped subset made that check trivially true, so a partial shipment
+    // closed the order as `shipped` and `shipped_partially` was unreachable.
+    const orderLines = await em.find(AnterOrderLine, { orderId: order.id })
     const orderLineById = new Map(orderLines.map((line) => [line.id, line]))
     for (const entry of parsed.lines) {
       const line = orderLineById.get(entry.orderLineId)

@@ -23,7 +23,7 @@ type OrderRow = {
 }
 
 type OrderListResponse = { items: OrderRow[]; total: number; page: number; pageSize: number; totalPages: number }
-type CompanyListResponse = { items: Array<{ id: string; name: string }> }
+type CompanyListResponse = { items: Array<{ id: string; display_name?: string }> }
 
 const STATUS_VARIANTS: Record<string, StatusBadgeVariant> = {
   placed: 'neutral',
@@ -84,7 +84,9 @@ export default function AnterOrdersBackendListPage() {
         if (!res.ok || !res.result) return
         setPartnerNames((prev) => {
           const next = { ...prev }
-          for (const company of res.result!.items) next[company.id] = company.name
+          for (const company of res.result!.items) {
+            if (company.display_name) next[company.id] = company.display_name
+          }
           return next
         })
       })
@@ -161,7 +163,7 @@ export default function AnterOrdersBackendListPage() {
 
   const kpis = React.useMemo(() => {
     const awaitingStock = rows.filter((row) => row.status === 'awaiting_stock').length
-    const netTotal = rows.reduce((sum, row) => sum + row.grand_total_net_amount, 0)
+    const netTotal = rows.reduce((sum, row) => sum + (Number(row.grand_total_net_amount) || 0), 0)
     return { count: total, awaitingStock, netTotal }
   }, [rows, total])
 

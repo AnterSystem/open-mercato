@@ -244,7 +244,7 @@ export default function AnterPortalOrderDetailPage({ params }: Props) {
                 router.push(`/${params.orgSlug}/portal/cart`)
               }}
             >
-              {t('anter_portal.orders.reorder', 'Ponów')}
+              {t('anter_portal.orders.reorder', 'Reorder')}
             </Button>
           )}
         />

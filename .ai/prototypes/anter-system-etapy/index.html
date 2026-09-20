@@ -55,77 +55,215 @@
 <symbol id="ic-move" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9 2 12l3 3"/><path d="m9 5 3-3 3 3"/><path d="m15 19-3 3-3-3"/><path d="m19 9 3 3-3 3"/><path d="M2 12h20"/><path d="M12 2v20"/></symbol>
 <symbol id="ic-zap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></symbol>
 <symbol id="ic-sparkle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v4"/><path d="M12 17v4"/><path d="M3 12h4"/><path d="M17 12h4"/><path d="m5.6 5.6 2.9 2.9"/><path d="m15.5 15.5 2.9 2.9"/><path d="m18.4 5.6-2.9 2.9"/><path d="m8.5 15.5-2.9 2.9"/></symbol>
+<symbol id="ic-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></symbol>
 </defs></svg>
 
 <div class="doc-toolbar">
+  <button class="nav-toggle" id="nav-toggle" type="button" aria-controls="screen-nav" aria-expanded="false">
+    <svg><use href="#ic-menu"/></svg> <span>Ekrany</span>
+  </button>
   <strong style="font-size:0.875rem">Anter System — etapy 0–6</strong>
-  <nav class="screen-nav" aria-label="Ekrany">
-    <div class="nav-section">
-      <span class="nav-section-label">Backoffice Anter <span class="nav-section-count">· 25</span></span>
-      <div class="nav-section-links">
-        <a href="#s1">0 · Leady</a>
-        <a href="#s2">0 · Kwalifikacja</a>
-        <a href="#s3">0 · Szansa</a>
-        <a href="#s4">1 · Produkty</a>
-        <a href="#s5">1 · Karta</a>
-        <a href="#s6">1 · Reguły</a>
-        <a href="#s7">1 · Komponenty</a>
-        <a href="#s8">1 · Pusta baza</a>
-        <a href="#s9">2 · Konfigurator</a>
-        <a href="#s10">2 · Nietypowe</a>
-        <a href="#s11">2 · Wycena</a>
-        <a href="#s12">2 · Bez marży</a>
-        <a href="#s16">3 · Karta partnera</a>
-        <a href="#s17">3 · Warunki</a>
-        <a href="#s18">4 · Produkcja</a>
-        <a href="#s19">4 · Zlecenie</a>
-        <a href="#s20">4 · Zakupy</a>
-        <a href="#s21">4 · Awaria ERP</a>
-        <a href="#s22">5 · Transport</a>
-        <a href="#s23">5 · Przesyłki</a>
-        <a href="#s43">4 · Zamówienia BO</a>
-        <a href="#s44">4 · Produkcja lista</a>
-        <a href="#s46">2 · Zgłoszenia konfig.</a>
-        <a href="#s40">5 · Zwolnienia</a>
-        <a href="#s41">5 · Wysyłka częściowa</a>
-      </div>
-    </div>
-    <div class="nav-section nav-section-portal">
-      <span class="nav-section-label">Portal dystrybutora <span class="nav-section-count">· 13</span></span>
-      <div class="nav-section-links">
-        <a href="#s13">3 · Konfigurator B2B</a>
-        <a href="#s14">3 · Konfigurator bez cen</a>
-        <a href="#s15">3 · B2B statusy</a>
-        <a href="#s24">6 · Learning</a>
-        <a href="#s33">3 · Logowanie</a>
-        <a href="#s34">3 · Pulpit</a>
-        <a href="#s35">3 · Katalog</a>
-        <a href="#s36">3 · Karta produktu</a>
-        <a href="#s37">3 · Koszyk</a>
-        <a href="#s38">3 · Zamówienie złożone</a>
-        <a href="#s39">3 · Szczegóły zamówienia</a>
-        <a href="#s42">3 · Katalog kafle</a>
-        <a href="#s45">3 · Katalog bez cen</a>
-      </div>
-    </div>
-    <div class="nav-section">
-      <span class="nav-section-label">Stan bieżący <span class="nav-section-count">· 8</span></span>
-      <div class="nav-section-links">
-        <a href="#s25">Wizja</a>
-        <a href="#s26">Plan</a>
-        <a href="#s27">Raport</a>
-        <a href="#s28">Projekty</a>
-        <a href="#s29">Akceptacje</a>
-        <a href="#s30">Wyceny</a>
-        <a href="#s31">Biblioteka</a>
-        <a href="#s32">Energia</a>
-      </div>
-    </div>
-  </nav>
   <button class="btn btn-outline btn-sm" id="theme-toggle" type="button">
     <svg><use href="#ic-sun"/></svg> Motyw
   </button>
 </div>
+
+<div class="nav-backdrop" id="nav-backdrop" hidden></div>
+
+<nav class="screen-nav" id="screen-nav" aria-label="Ekrany" aria-hidden="true">
+  <div class="nav-head">
+    <span class="nav-head-title">Ekrany wg przepływu</span>
+    <button class="nav-close" id="nav-close" type="button" aria-label="Zamknij menu">
+      <svg><use href="#ic-x"/></svg>
+    </button>
+  </div>
+  <p class="nav-hint">46 ekranów uporządkowanych według roli i ścieżki użytkownika. Kroki czyta się od lewej do prawej.</p>
+
+  <section class="nav-persona">
+    <h3 class="nav-persona-label"><svg><use href="#ic-users"/></svg> Dystrybutor / Partner B2B</h3>
+
+    <div class="nav-flow">
+      <span class="nav-flow-label">Logowanie → zamówienie z katalogu <em>(z cenami partnerskimi)</em></span>
+      <ol class="nav-steps">
+        <li><a href="#s33">Logowanie</a></li>
+        <li><a href="#s34">Pulpit</a></li>
+        <li><a href="#s35">Katalog — lista</a></li>
+        <li><a href="#s42">Katalog — kafle</a></li>
+        <li><a href="#s36">Karta produktu</a></li>
+        <li><a href="#s37">Koszyk</a></li>
+        <li><a href="#s38">Zamówienie złożone</a></li>
+        <li><a href="#s39">Szczegóły zamówienia</a></li>
+      </ol>
+    </div>
+
+    <div class="nav-flow">
+      <span class="nav-flow-label">Logowanie → zamówienie z katalogu <em>(konto bez cen)</em></span>
+      <ol class="nav-steps">
+        <li><a href="#s33">Logowanie</a></li>
+        <li><a href="#s45">Katalog bez cen</a></li>
+        <li><a href="#s36">Karta produktu</a></li>
+        <li><a href="#s37">Koszyk / zapytanie</a></li>
+        <li><a href="#s38">Zapytanie złożone</a></li>
+      </ol>
+    </div>
+
+    <div class="nav-flow">
+      <span class="nav-flow-label">Logowanie → konfigurator → zamówienie <em>(z ceną)</em></span>
+      <ol class="nav-steps">
+        <li><a href="#s33">Logowanie</a></li>
+        <li><a href="#s13">Konfigurator na planie</a></li>
+        <li><a href="#s37">Koszyk</a></li>
+        <li><a href="#s38">Zamówienie złożone</a></li>
+        <li><a href="#s46">Akceptacja w Anter</a></li>
+      </ol>
+    </div>
+
+    <div class="nav-flow">
+      <span class="nav-flow-label">Logowanie → konfigurator → zapytanie <em>(bez ceny)</em></span>
+      <ol class="nav-steps">
+        <li><a href="#s33">Logowanie</a></li>
+        <li><a href="#s14">Konfigurator bez cen</a></li>
+        <li><a href="#s46">Wycena w Anter</a></li>
+      </ol>
+    </div>
+
+    <div class="nav-flow">
+      <span class="nav-flow-label">Śledzenie realizacji</span>
+      <ol class="nav-steps">
+        <li><a href="#s39">Szczegóły zamówienia</a></li>
+        <li><a href="#s15">Statusy z ERP</a></li>
+      </ol>
+    </div>
+
+    <div class="nav-flow">
+      <span class="nav-flow-label">Rozwój kompetencji</span>
+      <ol class="nav-steps">
+        <li><a href="#s24">Moduł szkoleniowy</a></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="nav-persona">
+    <h3 class="nav-persona-label"><svg><use href="#ic-target"/></svg> Anter — sprzedaż i CRM</h3>
+
+    <div class="nav-flow">
+      <span class="nav-flow-label">Lead → kwalifikacja → szansa</span>
+      <ol class="nav-steps">
+        <li><a href="#s1">Leady</a></li>
+        <li><a href="#s2">Kwalifikacja</a></li>
+        <li><a href="#s3">Szansa inwestycyjna</a></li>
+      </ol>
+    </div>
+
+    <div class="nav-flow">
+      <span class="nav-flow-label">Obsługa partnera → warunki w portalu</span>
+      <ol class="nav-steps">
+        <li><a href="#s16">Karta partnera</a></li>
+        <li><a href="#s17">Warunki handlowe</a></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="nav-persona">
+    <h3 class="nav-persona-label"><svg><use href="#ic-sliders"/></svg> Anter — konfigurator i wycena</h3>
+
+    <div class="nav-flow">
+      <span class="nav-flow-label">Konfiguracja → wycena oferty</span>
+      <ol class="nav-steps">
+        <li><a href="#s9">Konfigurator wewnętrzny</a></li>
+        <li><a href="#s10">Przypadek nietypowy</a></li>
+        <li><a href="#s11">Wycena i wyjście</a></li>
+        <li><a href="#s12">Wycena bez marży</a></li>
+      </ol>
+    </div>
+
+    <div class="nav-flow">
+      <span class="nav-flow-label">Zgłoszenia z portalu → akceptacja</span>
+      <ol class="nav-steps">
+        <li><a href="#s46">Kolejka zgłoszeń</a></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="nav-persona">
+    <h3 class="nav-persona-label"><svg><use href="#ic-cart"/></svg> Anter — obsługa zamówień</h3>
+
+    <div class="nav-flow">
+      <span class="nav-flow-label">Przegląd zamówień → zwolnienie do wysyłki</span>
+      <ol class="nav-steps">
+        <li><a href="#s43">Zamówienia</a></li>
+        <li><a href="#s44">Pozycje do produkcji</a></li>
+        <li><a href="#s40">Kolejka zwolnień</a></li>
+        <li><a href="#s41">Wysyłka częściowa</a></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="nav-persona">
+    <h3 class="nav-persona-label"><svg><use href="#ic-factory"/></svg> Anter — produkcja i zakupy</h3>
+
+    <div class="nav-flow">
+      <span class="nav-flow-label">Kolejka zleceń → braki → zakupy</span>
+      <ol class="nav-steps">
+        <li><a href="#s18">Kolejka zleceń</a></li>
+        <li><a href="#s19">Zlecenie i braki</a></li>
+        <li><a href="#s20">Zapotrzebowanie zakupowe</a></li>
+        <li><a href="#s21">Awaria integracji ERP</a></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="nav-persona">
+    <h3 class="nav-persona-label"><svg><use href="#ic-truck"/></svg> Anter — logistyka</h3>
+
+    <div class="nav-flow">
+      <span class="nav-flow-label">Wycena transportu → dostawa</span>
+      <ol class="nav-steps">
+        <li><a href="#s22">Wycena transportu</a></li>
+        <li><a href="#s23">Przesyłki i statusy</a></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="nav-persona">
+    <h3 class="nav-persona-label"><svg><use href="#ic-box"/></svg> Anter — dane produktowe</h3>
+
+    <div class="nav-flow">
+      <span class="nav-flow-label">Uruchomienie bazy → reguły → warianty</span>
+      <ol class="nav-steps">
+        <li><a href="#s8">Pusta baza</a></li>
+        <li><a href="#s4">Baza produktów</a></li>
+        <li><a href="#s5">Karta produktu</a></li>
+        <li><a href="#s6">Reguły i wykluczenia</a></li>
+        <li><a href="#s7">Struktura wariantu</a></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="nav-persona nav-persona-current">
+    <h3 class="nav-persona-label"><svg><use href="#ic-layers"/></svg> Stan bieżący (as-is)</h3>
+
+    <div class="nav-flow">
+      <span class="nav-flow-label">Konfigurator — warsztat projektanta</span>
+      <ol class="nav-steps">
+        <li><a href="#s25">Panel „Projekt”</a></li>
+        <li><a href="#s26">Plan i zestawienie</a></li>
+        <li><a href="#s27">Raport techniczny</a></li>
+        <li><a href="#s28">Projekty terenowe</a></li>
+        <li><a href="#s31">Biblioteka i konta</a></li>
+        <li><a href="#s32">Kalkulator energii</a></li>
+      </ol>
+    </div>
+
+    <div class="nav-flow">
+      <span class="nav-flow-label">Współpraca B2B — dzisiaj</span>
+      <ol class="nav-steps">
+        <li><a href="#s29">Akceptacje techniczne</a></li>
+        <li><a href="#s30">Wyceny i zamówienia</a></li>
+      </ol>
+    </div>
+  </section>
+</nav>
 
 <div class="doc">
 

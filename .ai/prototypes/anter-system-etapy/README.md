@@ -20,18 +20,31 @@ Portal ma teraz dwie drogi do zamówienia: **katalog → karta produktu → kosz
 dla pozycji cennikowych oraz **konfigurator** (ekran 13, bez zmian) dla realizacji niestandardowych.
 Ekran 35 pokazuje granicę między nimi: brama przesuwna nie ma ceny katalogowej i kieruje do konfiguratora.
 
-Pasek nawigacji na górze dokumentu jest podzielony na trzy grupy, bo ekrany należą do trzech
-różnych powierzchni i mieszanie ich w jednej liście zacierało granicę:
+Nawigacja jest schowana pod **hamburgerem „Ekrany"** w lewym rogu paska (szuflada otwierana
+kliknięciem, zamykana `Escape`, tłem lub wyborem ekranu). Płaska lista 46 pozycji nie mieściła
+się już w pasku i nie mówiła, kto i kiedy ogląda dany ekran — dlatego ekrany są pogrupowane
+**według roli i przepływu**, a nie według powierzchni aplikacji. Wewnątrz przepływu kroki czyta
+się od lewej do prawej, tak jak przebiega scenariusz:
 
-| Grupa | Ekrany | Co to jest |
-| --- | --- | --- |
-| Backoffice Anter | 25 | Wnętrze firmy: CRM, baza produktów, konfigurator wewnętrzny, ERP, transport |
-| Portal dystrybutora | 13 | Powierzchnia partnerska — jedyne ekrany widziane spoza Anter System (wyróżnione obwódką) |
-| Stan bieżący | 8 | Odtworzenie działającej aplikacji Anter Site Configurator, nie propozycja projektowa |
+| Rola | Przepływy |
+| --- | --- |
+| Dystrybutor / Partner B2B | logowanie → katalog z cenami → koszyk → zamówienie → szczegóły; ten sam tor na koncie bez cen (zapytanie); logowanie → konfigurator → zamówienie (z ceną) oraz wariant bez ceny kończący się wyceną w Anter; śledzenie realizacji; moduł szkoleniowy |
+| Anter — sprzedaż i CRM | lead → kwalifikacja → szansa; karta partnera → warunki handlowe wypychane do portalu |
+| Anter — konfigurator i wycena | konfigurator wewnętrzny → przypadek nietypowy → wycena (z marżą i bez); kolejka zgłoszeń z portalu |
+| Anter — obsługa zamówień | zamówienia → pozycje do produkcji → kolejka zwolnień → wysyłka częściowa |
+| Anter — produkcja i zakupy | kolejka zleceń → braki → zapotrzebowanie zakupowe → awaria integracji ERP |
+| Anter — logistyka | wycena transportu → przesyłki i statusy |
+| Anter — dane produktowe | pusta baza → baza produktów → karta → reguły → struktura wariantu |
+| Stan bieżący (as-is) | warsztat projektanta w konfiguratorze; dzisiejsza współpraca B2B |
 
-**Pasek śledzi bieżący ekran.** Wpis odpowiadający oglądanemu ekranowi jest podświetlony
-(`aria-current="page"`), więc przy 41 ekranach widać, gdzie się jest. Podświetlenie nadąża za
-wszystkimi trzema sposobami nawigacji: kliknięciem w pasku, przejściem wewnątrz mockupu
+Ekrany wspólne dla kilku ścieżek (logowanie, koszyk, potwierdzenie, akceptacja w Anter)
+powtarzają się w każdym przepływie, w którym faktycznie występują — 57 pozycji menu na
+46 ekranów. Tor bez cen jest osobnym wpisem, a nie wariantem w nawiasie, bo różni się
+wynikiem: kończy się zapytaniem, nie zamówieniem.
+
+**Menu śledzi bieżący ekran.** Wpis odpowiadający oglądanemu ekranowi jest podświetlony
+(`aria-current="page"`), więc przy 46 ekranach widać, gdzie się jest. Podświetlenie nadąża za
+wszystkimi trzema sposobami nawigacji: kliknięciem w menu, przejściem wewnątrz mockupu
 (przyciski i wiersze z `data-goto`) oraz zwykłym przewijaniem dokumentu. Działa też w trybie
 prezentacji, gdzie widoczny jest tylko jeden ekran.
 

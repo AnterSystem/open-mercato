@@ -161,7 +161,7 @@ export default function AnterPortalOrdersPage({ params }: Props) {
       cell: ({ row }) => (
         <Button size="sm" variant="secondary" onClick={(event) => handleReorder(row.original, event)}>
           <RotateCcw className="mr-1.5 size-3.5" aria-hidden="true" />
-          {t('anter_portal.orders.reorder', 'Ponów')}
+          {t('anter_portal.orders.reorder', 'Reorder')}
         </Button>
       ),
       meta: { maxWidth: 140 },

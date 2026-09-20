@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from 'react'
-import { useParams, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { Page, PageBody } from '@open-mercato/ui/backend/Page'
 import { Button } from '@open-mercato/ui/primitives/button'
 import { Input } from '@open-mercato/ui/primitives/input'
@@ -28,7 +28,7 @@ type Order = {
   id: string
   order_number: string
   currency_code: string
-  shipping_net_amount: number
+  shipping_net_amount: number | string
   updatedAt: string
 }
 
@@ -44,11 +44,10 @@ function formatMoney(value: number, currencyCode: string): string {
   return new Intl.NumberFormat(undefined, { style: 'currency', currency: currencyCode }).format(value)
 }
 
-export default function AnterReleaseDetailPage() {
+export default function AnterReleaseDetailPage({ params }: { params?: { orderId?: string } }) {
   const t = useT()
   const router = useRouter()
-  const params = useParams<{ orderId: string }>()
-  const orderId = params?.orderId as string
+  const orderId = params?.orderId ?? ''
 
   const [order, setOrder] = React.useState<Order | null>(null)
   const [lines, setLines] = React.useState<OrderLine[]>([])
@@ -100,8 +99,11 @@ export default function AnterReleaseDetailPage() {
   }
 
   const selectedLineCount = Object.keys(selected).length
-  const remainderEstimate = order ? Math.max(0, order.shipping_net_amount - (Number(shippingCostNet) || 0)) : 0
-  const difference = order ? (Number(shippingCostNet) || 0) - order.shipping_net_amount : 0
+  // The API serialises numeric columns as strings, so every arithmetic use of
+  // shipping_net_amount has to coerce first or the split-cost figures render NaN.
+  const quotedShippingNet = Number(order?.shipping_net_amount) || 0
+  const remainderEstimate = order ? Math.max(0, quotedShippingNet - (Number(shippingCostNet) || 0)) : 0
+  const difference = order ? (Number(shippingCostNet) || 0) - quotedShippingNet : 0
 
   const handleSubmit = React.useCallback(async () => {
     if (!order || !selectedLineCount) return
@@ -206,7 +208,7 @@ export default function AnterReleaseDetailPage() {
           <section className="rounded-xl border border-border bg-card p-4">
             <h2 className="mb-3 text-sm font-semibold">{t('anter_orders.releases.detail.costComparison', 'Split-cost comparison')}</h2>
             <div className="flex flex-col gap-2 text-sm">
-              <div className="flex justify-between"><span className="text-muted-foreground">{t('anter_orders.releases.detail.quotedShipping', 'Quoted shipping (whole order)')}</span><span>{formatMoney(order.shipping_net_amount, order.currency_code)}</span></div>
+              <div className="flex justify-between"><span className="text-muted-foreground">{t('anter_orders.releases.detail.quotedShipping', 'Quoted shipping (whole order)')}</span><span>{formatMoney(quotedShippingNet, order.currency_code)}</span></div>
               <div className="flex justify-between"><span className="text-muted-foreground">{t('anter_orders.releases.detail.thisShipment', 'This shipment')}</span><span>{formatMoney(Number(shippingCostNet) || 0, order.currency_code)}</span></div>
               <div className="flex justify-between"><span className="text-muted-foreground">{t('anter_orders.releases.detail.remainderEstimate', 'Estimated remainder')}</span><span>{formatMoney(remainderEstimate, order.currency_code)}</span></div>
               <div className="flex justify-between font-medium"><span>{t('anter_orders.releases.detail.difference', 'Difference vs quote')}</span><span className={difference > 0 ? 'text-status-error-text' : ''}>{formatMoney(difference, order.currency_code)}</span></div>

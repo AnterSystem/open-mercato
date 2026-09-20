@@ -94,7 +94,7 @@
   "anter_portal.orders.empty.title": "No orders yet",
   "anter_portal.orders.invoiceAvailable": "Invoice available",
   "anter_portal.orders.loadError": "Failed to load your orders",
-  "anter_portal.orders.reorder": "Ponów",
+  "anter_portal.orders.reorder": "Volver a pedir",
   "anter_portal.orders.reorderError": "Could not reorder",
   "anter_portal.orders.reorderSuccess": "Added to your cart",
   "anter_portal.orders.title": "Orders"

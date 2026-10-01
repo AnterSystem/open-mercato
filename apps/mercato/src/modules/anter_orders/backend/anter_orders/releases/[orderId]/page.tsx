@@ -22,6 +22,7 @@ type OrderLine = {
   quantity: number
   shipped_quantity: number
   line_status: string
+  expected_at: string | null
 }
 
 type Order = {
@@ -42,6 +43,11 @@ const LINE_STATUS_VARIANTS: Record<string, StatusBadgeVariant> = {
 
 function formatMoney(value: number, currencyCode: string): string {
   return new Intl.NumberFormat(undefined, { style: 'currency', currency: currencyCode }).format(value)
+}
+
+/** Quantities are stored as numerics, so a raw render reads "8.0000". */
+function formatQuantity(value: number): string {
+  return new Intl.NumberFormat(undefined, { maximumFractionDigits: 4 }).format(value)
 }
 
 export default function AnterReleaseDetailPage({ params }: { params?: { orderId?: string } }) {
@@ -84,9 +90,20 @@ export default function AnterReleaseDetailPage({ params }: { params?: { orderId?
     }
   }, [orderId, t])
 
-  const shippableLines = React.useMemo(
-    () => lines.filter((line) => line.line_status !== 'awaiting_stock' && line.shipped_quantity < line.quantity),
+  const openLines = React.useMemo(
+    () => lines.filter((line) => line.shipped_quantity < line.quantity),
     [lines],
+  )
+  const shippableLines = React.useMemo(
+    () => openLines.filter((line) => line.line_status !== 'awaiting_stock'),
+    [openLines],
+  )
+  // Spec s41: a blocked line is shown disabled AND dated, not hidden. Dropping
+  // it from the screen is what makes "why is this order not complete?"
+  // unanswerable from the release queue.
+  const blockedLines = React.useMemo(
+    () => openLines.filter((line) => line.line_status === 'awaiting_stock'),
+    [openLines],
   )
 
   const toggleLine = (line: OrderLine, checked: boolean) => {
@@ -99,6 +116,13 @@ export default function AnterReleaseDetailPage({ params }: { params?: { orderId?
   }
 
   const selectedLineCount = Object.keys(selected).length
+  // The partner sees `shipped` only when nothing is left open after this
+  // shipment — any blocked line keeps the order `shipped_partially`.
+  const willCloseOrder = React.useMemo(
+    () => blockedLines.length === 0
+      && shippableLines.every((line) => (selected[line.id] ?? 0) >= line.quantity - line.shipped_quantity),
+    [blockedLines, shippableLines, selected],
+  )
   // The API serialises numeric columns as strings, so every arithmetic use of
   // shipping_net_amount has to coerce first or the split-cost figures render NaN.
   const quotedShippingNet = Number(order?.shipping_net_amount) || 0
@@ -186,6 +210,25 @@ export default function AnterReleaseDetailPage({ params }: { params?: { orderId?
             {shippableLines.length === 0 ? (
               <div className="px-4 py-6 text-center text-sm text-muted-foreground">{t('anter_orders.releases.detail.noLines', 'No lines are ready to ship')}</div>
             ) : null}
+            {blockedLines.map((line) => (
+              <div key={line.id} className="flex items-center gap-3 bg-muted/30 px-4 py-3">
+                <Checkbox checked={false} disabled aria-label={t('anter_orders.releases.detail.blockedLine', 'Waiting for stock')} />
+                <div className="min-w-0 flex-1">
+                  <p className="truncate font-medium text-muted-foreground">{line.name_snapshot}</p>
+                  <p className="text-overline text-muted-foreground">
+                    {line.expected_at
+                      ? t('anter_orders.releases.detail.expectedAt', 'Expected {date}').replace('{date}', new Date(line.expected_at).toLocaleDateString())
+                      : t('anter_orders.releases.detail.noExpectedDate', 'No restock date yet')}
+                  </p>
+                </div>
+                <StatusBadge variant={LINE_STATUS_VARIANTS[line.line_status] ?? 'neutral'}>
+                  {t(`anter_portal.lineStatus.${line.line_status}`, line.line_status)}
+                </StatusBadge>
+                <span className="w-16 text-right text-sm text-muted-foreground">
+                  / {formatQuantity(line.quantity - line.shipped_quantity)}
+                </span>
+              </div>
+            ))}
           </div>
         </section>
 
@@ -215,6 +258,50 @@ export default function AnterReleaseDetailPage({ params }: { params?: { orderId?
             </div>
           </section>
         </div>
+
+        <section className="mb-4 rounded-xl border border-border bg-card p-4">
+          <h2 className="mb-3 text-sm font-semibold">
+            {t('anter_orders.releases.detail.partnerPreview', 'What the partner will see')}
+          </h2>
+          <div className="flex flex-col gap-2 text-sm">
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">{t('anter_orders.releases.detail.previewStatus', 'Order status')}</span>
+              <StatusBadge variant={willCloseOrder ? 'info' : 'warning'}>
+                {willCloseOrder
+                  ? t('anter_portal.orderStatus.shipped', 'Shipped')
+                  : t('anter_portal.orderStatus.shipped_partially', 'Partially shipped')}
+              </StatusBadge>
+            </div>
+            {selectedLineCount === 0 ? (
+              <p className="text-muted-foreground">
+                {t('anter_orders.releases.detail.previewEmpty', 'Select lines to see what this shipment tells the partner.')}
+              </p>
+            ) : (
+              <div className="flex flex-col divide-y divide-border">
+                {lines
+                  .filter((line) => line.id in selected)
+                  .map((line) => (
+                    <div key={line.id} className="flex items-center justify-between gap-3 py-2">
+                      <span className="min-w-0 truncate text-foreground">{line.name_snapshot}</span>
+                      <span className="text-muted-foreground">×{formatQuantity(selected[line.id])}</span>
+                      <StatusBadge variant="info">{t('anter_portal.lineStatus.shipped', 'Shipped')}</StatusBadge>
+                    </div>
+                  ))}
+                {blockedLines.map((line) => (
+                  <div key={line.id} className="flex items-center justify-between gap-3 py-2">
+                    <span className="min-w-0 truncate text-muted-foreground">{line.name_snapshot}</span>
+                    <span className="text-muted-foreground">
+                      {line.expected_at
+                        ? t('anter_orders.releases.detail.expectedAt', 'Expected {date}').replace('{date}', new Date(line.expected_at).toLocaleDateString())
+                        : t('anter_orders.releases.detail.noExpectedDate', 'No restock date yet')}
+                    </span>
+                    <StatusBadge variant="info">{t('anter_portal.lineStatus.awaiting_stock', 'Awaiting stock')}</StatusBadge>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
 
         <Button onClick={handleSubmit} disabled={submitting || selectedLineCount === 0}>
           {t('anter_orders.releases.detail.createShipment', 'Create shipment')}

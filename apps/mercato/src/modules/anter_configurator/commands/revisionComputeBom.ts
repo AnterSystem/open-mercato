@@ -184,8 +184,19 @@ const revisionComputeBomCommand: CommandHandler<unknown, RevisionComputeBomResul
     const bomElements = elementEntities.map(toBomElement).filter((el): el is AnterBomElement => el !== null)
 
     const drawableProductIds = [...new Set(bomElements.filter((el) => el.productId).map((el) => el.productId as string))]
+    // `tenantFallbacks` is not optional: with no tenant candidate the loader
+    // filters `tenantId IS NULL` and reads back nothing, so every product
+    // would look geometry-less and the BOM would be empty (§3.3, C4).
     const cfByProduct = drawableProductIds.length
-      ? await loadCustomFieldValues({ em, entityId: CATALOG_PRODUCT_ENTITY_ID, recordIds: drawableProductIds })
+      ? await loadCustomFieldValues({
+          em,
+          entityId: CATALOG_PRODUCT_ENTITY_ID,
+          recordIds: drawableProductIds,
+          tenantFallbacks: [parsed.tenantId],
+          organizationIdByRecord: Object.fromEntries(
+            drawableProductIds.map((id) => [id, parsed.organizationId]),
+          ),
+        })
       : {}
     const productGeometryByProductId: Record<string, AnterProductGeometry> = {}
     for (const productId of drawableProductIds) {

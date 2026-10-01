@@ -101,6 +101,32 @@ export const anterOrderLineListSchema = paginationSchema.extend({
 
 export type AnterOrderLineListQuery = z.infer<typeof anterOrderLineListSchema>
 
+/**
+ * Order detail shows allocations per line, so the common read is "every
+ * allocation behind these lines" — hence the csv `orderLineIds`, which keeps
+ * the page to one request instead of one per line.
+ */
+export const anterStockAllocationListSchema = paginationSchema.extend({
+  id: z.string().uuid().optional(),
+  orderLineId: z.string().uuid().optional(),
+  // The query parser already splits repeated and comma-separated params into
+  // an array, so accept both shapes rather than only the raw csv string.
+  orderLineIds: z
+    .union([z.string(), z.array(z.string())])
+    .optional()
+    .transform((value) => {
+      if (value == null) return undefined
+      const parts = Array.isArray(value) ? value : value.split(',')
+      const ids = parts.map((part) => part.trim()).filter(Boolean)
+      return ids.length ? ids : undefined
+    }),
+  status: z.string().optional(),
+  sortField: z.enum(['id', 'order_line_id', 'created_at']).optional().default('created_at'),
+  sortDir: z.enum(['asc', 'desc']).optional().default('desc'),
+})
+
+export type AnterStockAllocationListQuery = z.infer<typeof anterStockAllocationListSchema>
+
 export const anterShipmentListSchema = paginationSchema.extend({
   id: z.string().uuid().optional(),
   orderId: z.string().uuid().optional(),
@@ -155,7 +181,7 @@ export const anterOrderPlaceLineSchema = z.object({
   unitCode: z.string().trim().max(32).nullable().optional(),
   listUnitPriceNet: z.coerce.number().min(0),
   unitPriceNet: z.coerce.number().min(0),
-  taxRate: z.coerce.number().min(0).max(1).default(0),
+  taxRate: z.coerce.number().min(0).max(100).default(0),
 })
 
 export const anterOrderPlaceSchema = z.object({

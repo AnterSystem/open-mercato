@@ -41,7 +41,7 @@ type CatalogRow = {
   parameters: string | null
 }
 
-type CatalogResponse = { items: CatalogRow[]; total: number; page: number; pageSize: number }
+type CatalogResponse = { items: CatalogRow[]; total: number; page: number; pageSize: number; pricesVisible: boolean }
 type CategoriesResponse = { items: Array<{ id: string; name: string }> }
 
 const ALL_CATEGORIES = '__all__'
@@ -75,6 +75,12 @@ export default function AnterPortalCatalogPage({ params }: Props) {
   const [categoryId, setCategoryId] = React.useState<string>(ALL_CATEGORIES)
   const [rows, setRows] = React.useState<CatalogRow[]>([])
   const [total, setTotal] = React.useState(0)
+  // Configurator spec X5/C3: a `hidden` account_type never sees a price
+  // anywhere in the catalogue. That is a property of the CALLER, so it comes
+  // from the response envelope — deriving it from the rows would let a single
+  // legitimately `quote_only` product (which carries no list price of its own)
+  // strip the prices off every priced row on the page.
+  const [pricesVisible, setPricesVisible] = React.useState(true)
   const [page, setPage] = React.useState(1)
   const [pageSize] = React.useState(24)
   const [isLoading, setIsLoading] = React.useState(true)
@@ -114,6 +120,7 @@ export default function AnterPortalCatalogPage({ params }: Props) {
         }
         setRows(res.result.items)
         setTotal(res.result.total)
+        setPricesVisible(res.result.pricesVisible !== false)
       })
       .catch(() => {
         if (!cancelled) {
@@ -155,11 +162,6 @@ export default function AnterPortalCatalogPage({ params }: Props) {
     flash(t('anter_portal.catalog.addSuccess', 'Added to cart'), 'success')
   }, [addToCart, t])
 
-  // Configurator spec X5: a `hidden` account_type never sees a price
-  // anywhere in the catalogue — this is a property of the caller, uniform
-  // across every row on the page, so the whole column set switches once.
-  const priceVisible = rows.length === 0 || rows.every((row) => row.priceVisible)
-
   const columns = React.useMemo<ColumnDef<CatalogRow>[]>(() => [
     {
       id: 'title',
@@ -172,18 +174,22 @@ export default function AnterPortalCatalogPage({ params }: Props) {
       ),
       meta: { truncate: true, maxWidth: 320 },
     },
-    ...(priceVisible ? [
+    ...(pricesVisible ? [
       {
         id: 'listPrice',
         header: t('anter_portal.catalog.column.listPrice', 'List price'),
-        cell: ({ row }: { row: { original: CatalogRow } }) => formatMoney(row.original.listUnitPriceNet, row.original.currencyCode),
+        cell: ({ row }: { row: { original: CatalogRow } }) => (
+          row.original.priceVisible ? formatMoney(row.original.listUnitPriceNet, row.original.currencyCode) : '—'
+        ),
         meta: { maxWidth: 140 },
       },
       {
         id: 'partnerPrice',
         header: t('anter_portal.catalog.column.yourPrice', 'Your price'),
         cell: ({ row }: { row: { original: CatalogRow } }) => (
-          <span className="font-medium text-foreground">{formatMoney(row.original.partnerUnitPriceNet, row.original.currencyCode)}</span>
+          row.original.priceVisible
+            ? <span className="font-medium text-foreground">{formatMoney(row.original.partnerUnitPriceNet, row.original.currencyCode)}</span>
+            : <span className="text-muted-foreground">{row.original.parameters ?? '—'}</span>
         ),
         meta: { maxWidth: 140 },
       },
@@ -221,7 +227,7 @@ export default function AnterPortalCatalogPage({ params }: Props) {
         )
       ),
     },
-  ], [t, params.orgSlug, handleAddToCart, priceVisible])
+  ], [t, params.orgSlug, handleAddToCart, pricesVisible])
 
   if (loading) {
     return <div className="flex items-center justify-center py-20"><Spinner /></div>

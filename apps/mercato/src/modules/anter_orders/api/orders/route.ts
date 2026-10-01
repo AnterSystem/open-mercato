@@ -32,6 +32,9 @@ export const { metadata, GET } = makeCrudRoute({
     fields: [
       'id', 'order_number', 'customer_entity_id', 'source', 'status', 'currency_code',
       'delivery_mode', 'partner_reference', 'grand_total_net_amount', 'grand_total_gross_amount',
+      // The release screen's split-cost comparison is quoted-vs-actual, so it
+      // needs the quote: without this field every figure there reads zero.
+      'shipping_net_amount',
       'placed_at', 'confirmed_at', 'closed_at', 'organization_id', 'tenant_id', 'updated_at',
     ],
     sortFieldMap: {

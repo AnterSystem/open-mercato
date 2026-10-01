@@ -36,7 +36,16 @@ export async function GET(req: Request) {
       tenantId: context.tenantId,
       deletedAt: null,
     }),
-    loadCustomFieldValues({ em: context.em, entityId: CATALOG_PRODUCT_ENTITY_ID, recordIds: productIds }),
+    // `tenantFallbacks` is not optional: with no tenant candidate the loader
+    // filters `tenantId IS NULL` and reads back nothing, so every geometry
+    // field would silently fall through to its default (§3.3).
+    loadCustomFieldValues({
+      em: context.em,
+      entityId: CATALOG_PRODUCT_ENTITY_ID,
+      recordIds: productIds,
+      tenantFallbacks: [context.tenantId],
+      organizationIdByRecord: Object.fromEntries(productIds.map((id) => [id, context.organizationId])),
+    }),
   ])
 
   return NextResponse.json({

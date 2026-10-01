@@ -1,12 +1,34 @@
-import { createHash } from 'node:crypto'
+import { createHash, randomUUID } from 'node:crypto'
 import type { AwilixContainer } from 'awilix'
+import type { EntityManager } from '@mikro-orm/postgresql'
 import type { ModuleSetupConfig } from '@open-mercato/shared/modules/setup'
 import { createLogger } from '@open-mercato/shared/lib/logger'
 import { AttachmentPartition } from '@open-mercato/core/modules/attachments/data/entities'
+import { CustomFieldEntityConfig } from '@open-mercato/core/modules/entities/data/entities'
+import type { CustomFieldsetDefinition, EntityFieldsetConfig } from '@open-mercato/core/modules/entities/lib/fieldsets'
 import { ANTER_CONFIGURATOR_ABANDONMENT_QUEUE } from './workers/projectAbandonment'
 import { ANTER_CONFIGURATOR_OFFER_EXPIRY_QUEUE } from './workers/offerExpiry'
 
 export const ANTER_CONFIGURATOR_UNDERLAY_PARTITION_CODE = 'anter_configurator_underlays'
+
+const CATALOG_PRODUCT_ENTITY_ID = 'catalog:catalog_product'
+
+export const ANTER_GEOMETRY_FIELDSET_CODE = 'anter_geometry'
+
+/**
+ * Spec §3.3 / C11: the geometry layer lives on the catalogue product record,
+ * so it needs a fieldset on the product form. `ce.ts` can declare the FIELDS
+ * (`CustomEntitySpec` has no fieldsets key) but nothing declares the SECTION
+ * they belong to — without this row the fields install and stay unreachable,
+ * because the form only renders fieldsets listed in the entity config.
+ */
+const ANTER_GEOMETRY_FIELDSET: CustomFieldsetDefinition = {
+  code: ANTER_GEOMETRY_FIELDSET_CODE,
+  label: 'Configurator geometry',
+  icon: 'solar:ruler-linear',
+  description: 'Drawing kind, module length, posts and anchors — what the configurator needs to turn a drawing into a bill of materials.',
+  groups: [{ code: 'anter_geometry', title: 'Configurator geometry' }],
+}
 
 const logger = createLogger('anter_configurator').child({ component: 'setup' })
 
@@ -15,6 +37,55 @@ type SchedulerServiceLike = { register: (registration: Record<string, unknown>) 
 function stableScheduleUuid(stableKey: string): string {
   const hex = createHash('sha256').update(stableKey).digest('hex')
   return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20, 32)}`
+}
+
+/**
+ * Adds the geometry fieldset to the catalogue product's entity config.
+ *
+ * Deliberately a MERGE, not the wholesale overwrite `catalog/seed/examples.ts`
+ * does: that row is shared with the catalogue's own example fieldsets, and
+ * replacing `configJson.fieldsets` would delete them. Re-running is a no-op.
+ */
+export async function ensureGeometryFieldset(
+  em: EntityManager,
+  scope: { tenantId?: string | null; organizationId?: string | null },
+): Promise<void> {
+  const now = new Date()
+  const organizationId = scope.organizationId ?? null
+  const tenantId = scope.tenantId ?? null
+
+  let config = await em.findOne(CustomFieldEntityConfig, {
+    entityId: CATALOG_PRODUCT_ENTITY_ID,
+    organizationId,
+    tenantId,
+  })
+  if (!config) {
+    config = em.create(CustomFieldEntityConfig, {
+      id: randomUUID(),
+      entityId: CATALOG_PRODUCT_ENTITY_ID,
+      organizationId,
+      tenantId,
+      isActive: true,
+      createdAt: now,
+      updatedAt: now,
+    })
+  }
+
+  const current = (config.configJson ?? {}) as Partial<EntityFieldsetConfig>
+  const fieldsets = Array.isArray(current.fieldsets) ? [...current.fieldsets] : []
+  const existingIndex = fieldsets.findIndex((fieldset) => fieldset?.code === ANTER_GEOMETRY_FIELDSET_CODE)
+  if (existingIndex >= 0) fieldsets[existingIndex] = ANTER_GEOMETRY_FIELDSET
+  else fieldsets.push(ANTER_GEOMETRY_FIELDSET)
+
+  config.configJson = {
+    ...current,
+    fieldsets,
+    singleFieldsetPerRecord: current.singleFieldsetPerRecord ?? true,
+  }
+  config.isActive = true
+  config.updatedAt = now
+  em.persist(config)
+  await em.flush()
 }
 
 /**
@@ -90,6 +161,8 @@ export const setup: ModuleSetupConfig = {
       }))
       await em.flush()
     }
+
+    await ensureGeometryFieldset(em as EntityManager, { tenantId, organizationId })
 
     if (tenantId && organizationId) {
       await registerDailySchedules(container, { tenantId, organizationId })

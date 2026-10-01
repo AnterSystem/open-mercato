@@ -153,6 +153,7 @@ export const enabledModules: ModuleEntry[] = [
   { id: 'anter_orders', from: '@app' },
   { id: 'anter_portal', from: '@app' },
   { id: 'anter_configurator', from: '@app' },
+  { id: 'anter_demo', from: '@app' },
   {
     id: 'example',
     from: '@app',

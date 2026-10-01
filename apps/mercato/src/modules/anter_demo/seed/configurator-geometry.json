@@ -1,0 +1,106 @@
+{
+  "comment": "Configurator geometry (spec §3.3, C11) for the demo catalogue. Kept out of catalog.json because that file is regenerated from the source workbook by `mercato anter_demo build-catalog-fixture` and the workbook carries no geometry columns.",
+  "currencyCode": "PLN",
+  "taxRate": 23,
+  "products": [
+    {
+      "sku": "ANTER-POST-STD",
+      "handle": "anter-post-std",
+      "title": "Safety barrier post",
+      "description": "Standard floor-mounted post consumed at every joint of a drawn barrier run.",
+      "categoryKey": "Accessories",
+      "price": 185
+    },
+    {
+      "sku": "ANTER-ANCHOR-M12",
+      "handle": "anter-anchor-m12",
+      "title": "Floor anchor M12",
+      "description": "Chemical floor anchor. Four per post on standard concrete.",
+      "categoryKey": "Accessories",
+      "price": 12
+    }
+  ],
+  "geometry": [
+    {
+      "sku": "TRAFFIC-R2",
+      "anter_drawing_kind": "line",
+      "anter_module_length_m": 1.8,
+      "anter_module_fit_policy": "round_down",
+      "anter_post_sku": "ANTER-POST-STD",
+      "anter_posts_per_run_extra": 1,
+      "anter_anchor_sku": "ANTER-ANCHOR-M12",
+      "anter_anchors_per_post": 4,
+      "anter_impact_energy_kj": 100,
+      "anter_mounting_conditions": "Concrete floor, minimum 160 mm, C25/30 or better.",
+      "anter_unit_cost_net": 582
+    },
+    {
+      "sku": "PEDESTRIAN-R2",
+      "anter_drawing_kind": "line",
+      "anter_module_length_m": 1.5,
+      "anter_module_fit_policy": "round_down",
+      "anter_post_sku": "ANTER-POST-STD",
+      "anter_posts_per_run_extra": 1,
+      "anter_anchor_sku": "ANTER-ANCHOR-M12",
+      "anter_anchors_per_post": 4,
+      "anter_impact_energy_kj": 12,
+      "anter_mounting_conditions": "Concrete floor, minimum 120 mm.",
+      "anter_unit_cost_net": 291
+    },
+    {
+      "sku": "GB-125",
+      "anter_drawing_kind": "line",
+      "anter_module_length_m": 1.2,
+      "anter_module_fit_policy": "round_down",
+      "anter_post_sku": "ANTER-POST-STD",
+      "anter_posts_per_run_extra": 1,
+      "anter_anchor_sku": "ANTER-ANCHOR-M12",
+      "anter_anchors_per_post": 2,
+      "anter_impact_energy_kj": 8,
+      "anter_mounting_conditions": "Concrete floor, minimum 100 mm.",
+      "anter_unit_cost_net": 201
+    },
+    {
+      "sku": "COLUMN-GUARD-ROUND",
+      "anter_drawing_kind": "point",
+      "anter_anchor_sku": "ANTER-ANCHOR-M12",
+      "anter_anchors_per_post": 4,
+      "anter_posts_per_run_extra": 0,
+      "anter_impact_energy_kj": 20,
+      "anter_mounting_conditions": "Wraps a round column up to 400 mm diameter.",
+      "anter_unit_cost_net": 129
+    },
+    {
+      "sku": "PA-HD",
+      "anter_drawing_kind": "point",
+      "anter_anchor_sku": "ANTER-ANCHOR-M12",
+      "anter_anchors_per_post": 4,
+      "anter_posts_per_run_extra": 0,
+      "anter_impact_energy_kj": 15,
+      "anter_mounting_conditions": "Concrete floor, minimum 140 mm.",
+      "anter_unit_cost_net": 177
+    },
+    {
+      "sku": "TRAFFIC-GATE",
+      "anter_drawing_kind": "insert",
+      "anter_insert_clear_width_m": 1.5,
+      "anter_post_sku": "ANTER-POST-STD",
+      "anter_posts_per_run_extra": 2,
+      "anter_anchor_sku": "ANTER-ANCHOR-M12",
+      "anter_anchors_per_post": 4,
+      "anter_mounting_conditions": "Needs 1.5 m clear opening in the host run.",
+      "anter_unit_cost_net": 507
+    },
+    {
+      "sku": "SGA-LEAF",
+      "anter_drawing_kind": "insert",
+      "anter_insert_clear_width_m": 1.0,
+      "anter_post_sku": "ANTER-POST-STD",
+      "anter_posts_per_run_extra": 2,
+      "anter_anchor_sku": "ANTER-ANCHOR-M12",
+      "anter_anchors_per_post": 4,
+      "anter_mounting_conditions": "Needs 1.0 m clear opening in the host run.",
+      "anter_unit_cost_net": 492
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from 'react'
-import { useParams, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { Page, PageBody } from '@open-mercato/ui/backend/Page'
 import { LoadingMessage, ErrorMessage } from '@open-mercato/ui/backend/detail'
 import { StatusBadge, type StatusBadgeVariant } from '@open-mercato/ui/primitives/status-badge'
@@ -55,11 +55,10 @@ const STATE_VARIANTS: Record<string, StatusBadgeVariant> = {
   closed_offer: 'success',
 }
 
-export default function AnterConfiguratorSubmissionDetailPage() {
+export default function AnterConfiguratorSubmissionDetailPage({ params }: { params?: { id?: string } }) {
   const t = useT()
   const router = useRouter()
-  const params = useParams<{ id: string }>()
-  const submissionId = params.id
+  const submissionId = params?.id ?? ''
 
   const [item, setItem] = React.useState<SubmissionDetail | null>(null)
   const [isLoading, setIsLoading] = React.useState(true)

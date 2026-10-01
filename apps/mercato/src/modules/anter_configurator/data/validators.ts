@@ -18,6 +18,7 @@ export type AnterProjectCreateInput = z.infer<typeof anterProjectCreateSchema>
 export const anterProjectListSchema = paginationSchema.extend({
   id: z.string().uuid().optional(),
   customerEntityId: z.string().uuid().optional(),
+  customerDealId: z.string().uuid().optional(),
   status: z.enum(['active', 'abandoned', 'closed']).optional(),
 })
 export type AnterProjectListQuery = z.infer<typeof anterProjectListSchema>

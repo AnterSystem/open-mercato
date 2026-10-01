@@ -1,7 +1,6 @@
 "use client"
 
 import * as React from 'react'
-import { useParams } from 'next/navigation'
 import { Page, PageBody } from '@open-mercato/ui/backend/Page'
 import { Button } from '@open-mercato/ui/primitives/button'
 import { ErrorMessage, LoadingMessage } from '@open-mercato/ui/backend/detail'
@@ -33,10 +32,9 @@ function formatMoney(value: number | null, currencyCode: string | null): string 
  * the same totals plus an explicit "Niedostępne w tej roli" list — never a
  * greyed-out empty field (s12's principle).
  */
-export default function AnterConfiguratorValuationPage() {
+export default function AnterConfiguratorValuationPage({ params }: { params?: { id?: string } }) {
   const t = useT()
-  const params = useParams<{ id: string }>()
-  const projectId = params?.id as string
+  const projectId = params?.id ?? ''
 
   const [project, setProject] = React.useState<Project | null>(null)
   const [revision, setRevision] = React.useState<Revision | null>(null)
@@ -83,7 +81,11 @@ export default function AnterConfiguratorValuationPage() {
       }
 
       if (!cancelled) setIsLoading(false)
-    })()
+    })().catch(() => {
+      if (cancelled) return
+      setError(t('anter_configurator.backend.valuation.loadError', 'Failed to load the project'))
+      setIsLoading(false)
+    })
 
     return () => {
       cancelled = true

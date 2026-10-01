@@ -1,7 +1,6 @@
 "use client"
 
 import * as React from 'react'
-import { useParams } from 'next/navigation'
 import { Page, PageBody } from '@open-mercato/ui/backend/Page'
 import { Button } from '@open-mercato/ui/primitives/button'
 import { ErrorMessage, LoadingMessage } from '@open-mercato/ui/backend/detail'
@@ -46,10 +45,9 @@ type MutationContext = {
  * elements, and cost/margin rows behind `anter_configurator.margin.view`
  * (enforced server-side by the BOM route, not by this page).
  */
-export default function AnterConfiguratorDrawPage() {
+export default function AnterConfiguratorDrawPage({ params }: { params?: { id?: string } }) {
   const t = useT()
-  const params = useParams<{ id: string }>()
-  const projectId = params?.id as string
+  const projectId = params?.id ?? ''
 
   const [project, setProject] = React.useState<Project | null>(null)
   const [revision, setRevision] = React.useState<Revision | null>(null)
@@ -108,8 +106,11 @@ export default function AnterConfiguratorDrawPage() {
   }, [projectId, t])
 
   React.useEffect(() => {
-    void loadWorkspace()
-  }, [loadWorkspace])
+    loadWorkspace().catch(() => {
+      setError(t('anter_configurator.backend.draw.loadError', 'Failed to load the project'))
+      setIsLoading(false)
+    })
+  }, [loadWorkspace, t])
 
   const productGeometryByProductId = React.useMemo(() => {
     const map: Record<string, AnterProductGeometry> = {}

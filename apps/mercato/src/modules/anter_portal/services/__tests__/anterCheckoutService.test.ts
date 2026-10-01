@@ -47,7 +47,7 @@ function makeLine(overrides: Partial<AnterCartLine> = {}): AnterCartLine {
 }
 
 function makeProduct(overrides: Partial<CatalogProduct> = {}): CatalogProduct {
-  return { id: 'product-1', title: 'Gate opener', sku: 'GATE-1', isQuoteOnly: false, taxRate: '0.23', ...overrides } as CatalogProduct
+  return { id: 'product-1', title: 'Gate opener', sku: 'GATE-1', isQuoteOnly: false, taxRate: '23', ...overrides } as CatalogProduct
 }
 
 type MockEmOptions = {

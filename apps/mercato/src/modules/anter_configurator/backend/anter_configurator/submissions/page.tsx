@@ -116,6 +116,36 @@ export default function AnterConfiguratorSubmissionsPage() {
           <KpiCard title={t('anter_configurator.submissions.kpi.revisionRequested', 'Revision requested')} value={kpi.revision_requested ?? 0} />
         </div>
 
+        {/*
+          Spec s46: the queue's value is that each reviewer sees only what they
+          can decide, which only works if the two tracks are legible. Technique
+          comes before money on both; they diverge after the constructor.
+        */}
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <div className="rounded-xl border border-border bg-card p-4">
+            <div className="mb-1 flex items-center gap-2">
+              <Tag variant="success">{t('anter_configurator.submissions.track.priced', 'Priced')}</Tag>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              {t(
+                'anter_configurator.submissions.tracks.pricedBody',
+                'The partner already has prices, so the order exists from the moment they placed it. A constructor checks the drawing can be installed; acceptance is what lets the order be confirmed.',
+              )}
+            </p>
+          </div>
+          <div className="rounded-xl border border-border bg-card p-4">
+            <div className="mb-1 flex items-center gap-2">
+              <Tag variant="info">{t('anter_configurator.submissions.track.unpriced', 'No-price')}</Tag>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              {t(
+                'anter_configurator.submissions.tracks.unpricedBody',
+                'There is no price yet. A constructor checks the drawing first, then the back office values it and issues an offer the partner can turn into an order.',
+              )}
+            </p>
+          </div>
+        </div>
+
         <SegmentedControl value={state} onValueChange={(value) => { setState(value as typeof STATE_TABS[number]); setPage(1) }}>
           {STATE_TABS.map((tab) => (
             <SegmentedControlItem key={tab} value={tab}>

@@ -31,6 +31,7 @@ const catalogListResponseSchema = z.object({
   total: z.number().int().nonnegative(),
   page: z.number().int().min(1),
   pageSize: z.number().int().min(1),
+  pricesVisible: z.boolean(),
 })
 
 export async function GET(req: Request) {

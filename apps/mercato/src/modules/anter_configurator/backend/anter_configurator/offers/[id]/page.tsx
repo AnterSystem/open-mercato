@@ -1,7 +1,6 @@
 "use client"
 
 import * as React from 'react'
-import { useParams } from 'next/navigation'
 import { Page, PageBody } from '@open-mercato/ui/backend/Page'
 import { LoadingMessage, ErrorMessage } from '@open-mercato/ui/backend/detail'
 import { StatusBadge, type StatusBadgeVariant } from '@open-mercato/ui/primitives/status-badge'
@@ -44,10 +43,9 @@ const STATUS_VARIANTS: Record<string, StatusBadgeVariant> = {
   superseded: 'neutral',
 }
 
-export default function AnterConfiguratorOfferDetailPage() {
+export default function AnterConfiguratorOfferDetailPage({ params }: { params?: { id?: string } }) {
   const t = useT()
-  const params = useParams<{ id: string }>()
-  const offerId = params.id
+  const offerId = params?.id ?? ''
 
   const [item, setItem] = React.useState<OfferDetail | null>(null)
   const [isLoading, setIsLoading] = React.useState(true)

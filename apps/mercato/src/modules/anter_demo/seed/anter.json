@@ -1,0 +1,1875 @@
+{
+  "orderSequences": [
+    {
+      "year": 2026,
+      "nextNumber": 7
+    }
+  ],
+  "partnerTerms": [
+    {
+      "companyRef": "wss-eu.com",
+      "defaultDiscountRate": 0.15,
+      "priceListCode": "WSS-TRADE",
+      "isBlocked": false,
+      "notes": "WSS Europe trade terms - 15% partner discount, 30 day payment."
+    }
+  ],
+  "partnerGroupDiscounts": [],
+  "stockItems": [
+    {
+      "productSku": "KB-80",
+      "variantSku": "KB-80-1000-MM",
+      "onHand": 120,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "KB-80",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "JST-SECURE-JST2-1",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RALX-5-E",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "SHOCK-ABSOBER-CORNER",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "TRAFFIC-GATE-WITH-LOCK",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RE",
+      "variantSku": "RE-1000-MM",
+      "onHand": 80,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RE",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RACK-LEG-PROTECTOR-S",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "BACKSTOP-SMART-ALARM",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "GATE-PROTECTOR",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RE-DOUBLE",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RE-DOUBLE",
+      "variantSku": "RE-DOUBLE-1000-MM",
+      "onHand": 60,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "TRAFFIC-R3",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "TRAFFIC-R3",
+      "variantSku": "TRAFFIC-R3-1000-MM",
+      "onHand": 45,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "SGA",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "SGA",
+      "variantSku": "SGA-1000-MM",
+      "onHand": 30,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "KB-100",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "KB-100",
+      "variantSku": "KB-100-1000-MM",
+      "onHand": 4,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "GOLINE",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "PA-HD",
+      "variantSku": "PA-HD-1000",
+      "onHand": 25,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "PA-HD",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "GB-HIGH-H500",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "GB-HIGH-H500",
+      "variantSku": "GB-HIGH-H500-1000-MM",
+      "onHand": 50,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "TRAFFIC-R3-SUPER-HD",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "PA-DUAL-TAPE-HD",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "SAFE-TUNNEL-GB",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RE-DOUBLE-LITE-90",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "LOCK-AND-STOP",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "JST-HOLD-JST1-1",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RAL-2-W",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "TRAFFIC-GATE",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RALX-5-E-HD",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "SGA-PROTECTOR-SMART",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "GB-HD",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RAL-4-W",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "TRAFFIC-R3-HD-GB",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RALX-5-L",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RALX-5-SINGLE-SIDE-HD",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "ROTATING-RING-FOR-PA",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "GB-DOUBLE",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "PA-ONE-TAPE-HD",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "SLIDE-GATE-TRAFFIC-R3-HD",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RALX-4-E-HD",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RALX-4-SINGLE-SIDE-HD",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "BARRIERS-INFORMACTION-SIGN",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "DOCK-ROLLER",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "PEDESTRIAN-R3-HD-KB",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RALX-4-U-HD",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RAL-5",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "SWING-GATE-R3",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "ACCESS-RESTRICTOR-ONE-TAPE",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "PEDESTRIAN-R2-HD",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RE-DOUBLE-HD",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "ALARM-BAR",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "PA-DUAL-TAPE-SUPER-HD",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RALX-3-SINGLE-SIDE-HD",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RALX-5-U",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "SWING-GATE-R3-HD",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "TRAFFIC-R2",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "WALL-PROTECTOR-HD-WITH-EXTRA-SUPPORTS",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "TRAFFIC-R3-KB",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "WALL-FENCE-MESH",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "SGRL",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "PA-DUAL-TAPE",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "MANUAL-WHEEL-LOCK",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RALX-3-L-HD",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "TRAFFIC-GATE-DOUBLE-AUTOMATIC",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "SAFE-TUNNEL-WALL",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RALX-2-SINGLE-SIDE",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "PEDESTRIAN-R2-HD-GB",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "PEDESTRIAN-R2-HD-KB",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RALX-2-U",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "GB-HIGH-DOUBLE-LITE",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "GATE-PROTECTOR-LED",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RALX-4-L-HD",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "PEDESTRIAN-R2-LTD-HD",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "PA-140",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RALX-3-L",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "CORNER-BUMPER-W",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "GB-HIGH-DOUBLE-H800",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "PEDESTRIAN-R2-LT",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "PEDESTRIAN-R3-HD-GB",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "COLUMN-GUARD-ROUND",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "WHEEL-GUIDE",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "ACCESS-RESTRICTOR",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RALX-4-E",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "SAFE-TUNNEL",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "WALL-FENCE-MESH-RE",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "JST-HOLD-G-JST1-2",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "PA-160",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RALX-2-SINGLE-SIDE-HD",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "WHEEL-CHOCK-WITH-STOP-PLATE",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "CORNER-BUMPER-F",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "GB-HIGH-DOUBLE-H600",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "PA-ONE-TAPE-SUPER-HD",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "FLEX",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "SLIDE-GATE-PEDESTRIAN-R2-HD",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RALX-5-L-HD",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "PEDESTRIAN-R2-KB",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RALX-2-HD",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "COLUMN-GUARD-SQUARE",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "TRAFFIC-R2-HD-KB",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RALX-3-U",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "WARNING-BAR",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "JSTR-QUICK-JST-R2",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RAL-4",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "WALL-FENCE-VISION",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "SAFE-TUNNEL-KB",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "SIGNUM",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "SLIDE-GATE-TRAFFIC-R2-HD",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "SLIDE-GATE-TRAFFIC-R2",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "JST-SECURE-G-JST2-2",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "PEDESTRIAN-R3-HD",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "WALL-PROTECTOR-HD",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RALX-3-U-HD",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RALX-2-L",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "KB-160",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "WALL-PROTECTOR",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "JSTR-THREAD-JST-R",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "TRAFFIC-R2-HD-GB",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "PEDESTRIAN-R2-LT-HD",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "KB-60",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "TRAFFIC-R2-GB",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "SWAP-BODY-LOCK",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RAL-2",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "TRAFFIC-R3-GB",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "TRAFFIC-MAX",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "GB-DOUBLE-HD",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "SLIDE-GATE-TRAFFIC-R3",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RALX-4",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RAL-3-W",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "AI-VISION-SYSTEM",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RALX-2-L-HD",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "PA-SUPER-HD",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RACK-GUARD-SPECIAL",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "PEDESTRIAN-R2-LITE",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RALX-5",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "TRAFFIC-R2-KB",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RALX-4-L",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "GB-HIGH-H300",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RALX-5-SINGLE-SIDE",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "GB-125",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "PEDESTRIAN-R3",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "PA-ONE-TAPE",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RAL-3",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "PEDESTRIAN-R3-LT",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "PEDESTRIAN-R3-KB",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "SGR",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RALX-4-U",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "TRAFFIC-R2-HD",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RALX-2",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "PEDESTRIAN-R2-LTD",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RALX-3-HD",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "BOLLARD-WARNING-INFORMATION-SIGN",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "WALL-PROTECTOR-GB",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "PEDESTRIAN-R2",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "KB-120",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "KB-140",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RE-HD",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "PA-125",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RALX-4-SINGLE-SIDE",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RALX-3-E",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RAL-5-W",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "PEDESTRIAN-R3-LITE",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "COLUMN-GUARD-HEXAGONAL",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "PA-LED",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "SGL",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "SGR-DOUBLE",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RALX-3-SINGLE-SIDE",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RALX-2-U-HD",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "DOCK-GATE-HIGH",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "SLIDE-PLATE",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "PEDESTRIAN-R3-LT-HD",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "PEDESTRIAN-R2-GB",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "WALL-FENCE-VISION-RE",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RACK-LEG-PROTECTOR-L",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "TRAFFIC-GATE-DOUBLE",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "LIFT-GATE",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "TRAFFIC-R3-HD",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "TRAFFIC-GUARDRAIL",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "GB-140",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RACK-LEG-PROTECTOR-XL",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RALX-5-U-HD",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "PEDESTRIAN-R3-GB",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "FORKLIFT-AI-VIEW-ASSIST",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RALX-4-HD",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "SGA-LEAF",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "GB-160",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RE-LITE-90",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "SHOCK-ABSOBER-PLATE",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "WALL-PROTECTOR-HD-GB",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "TRAFFIC-R3-HD-KB",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "TRAFFIC-GATE-AUTOMATIC",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RALX-3-E-HD",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RACK-LEG-PROTECTOR-M",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "KB-40",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RALX-3",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "SGF",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "DOCK-GATE-LOW",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "RALX-5-HD",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    },
+    {
+      "productSku": "SLIDE-GATE-PEDESTRIAN-R3-HD",
+      "variantSku": null,
+      "onHand": 250,
+      "expectedRestockAt": null
+    }
+  ],
+  "orders": [
+    {
+      "orderNumber": "ZAM-2026-0001",
+      "companyRef": "wss-eu.com",
+      "customerUserRef": "w+wss3@they.dev",
+      "notes": "Portsmouth DC — bollard restock.",
+      "source": "catalog",
+      "status": "delivered",
+      "currencyCode": "PLN",
+      "deliveryMode": "partner_warehouse",
+      "deliveryAddressSnapshot": null,
+      "partnerReference": "WSS-PO-4401",
+      "paymentTermsDays": 30,
+      "subtotalNetAmount": 5298,
+      "discountTotalAmount": 0,
+      "shippingNetAmount": 0,
+      "taxTotalAmount": 1050.6,
+      "grandTotalNetAmount": 5298,
+      "grandTotalGrossAmount": 6348.6,
+      "placedAt": "2026-09-20T09:03:11.469+00:00",
+      "confirmedAt": "2026-09-20T09:03:11.622+00:00",
+      "closedAt": "2026-09-20T09:03:11.643+00:00",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "productSku": "KB-80",
+          "variantSku": "KB-80-1000-MM",
+          "sku": "KB-80-1000-MM",
+          "nameSnapshot": "KB 80 (1000 mm)",
+          "variantSnapshot": null,
+          "quantity": 20,
+          "unitCode": "pcs",
+          "listUnitPriceNet": 189,
+          "unitPriceNet": 160.65,
+          "discountAmount": 0,
+          "taxRate": 20,
+          "netAmount": 3213,
+          "grossAmount": 3855.6,
+          "fulfilmentMode": "stock",
+          "lineStatus": "delivered",
+          "shippedQuantity": 20,
+          "expectedAt": null
+        },
+        {
+          "lineNumber": 2,
+          "productSku": "RE",
+          "variantSku": "RE-1000-MM",
+          "sku": "RE-1000-MM",
+          "nameSnapshot": "RE (1000 mm)",
+          "variantSnapshot": null,
+          "quantity": 10,
+          "unitCode": "pcs",
+          "listUnitPriceNet": 240,
+          "unitPriceNet": 204,
+          "discountAmount": 0,
+          "taxRate": 20,
+          "netAmount": 2040,
+          "grossAmount": 2448,
+          "fulfilmentMode": "stock",
+          "lineStatus": "delivered",
+          "shippedQuantity": 10,
+          "expectedAt": null
+        }
+      ]
+    },
+    {
+      "orderNumber": "ZAM-2026-0002",
+      "companyRef": "wss-eu.com",
+      "customerUserRef": "w+wss3@they.dev",
+      "notes": "Direct to end customer — Midlands plant.",
+      "source": "catalog",
+      "status": "shipped",
+      "currencyCode": "PLN",
+      "deliveryMode": "end_customer",
+      "deliveryAddressSnapshot": null,
+      "partnerReference": "WSS-PO-4402",
+      "paymentTermsDays": 30,
+      "subtotalNetAmount": 5409.5,
+      "discountTotalAmount": 0,
+      "shippingNetAmount": 0,
+      "taxTotalAmount": 1065.9,
+      "grandTotalNetAmount": 5409.5,
+      "grandTotalGrossAmount": 6475.4,
+      "placedAt": "2026-09-20T09:03:11.668+00:00",
+      "confirmedAt": "2026-09-20T09:03:11.686+00:00",
+      "closedAt": "2026-09-20T09:03:11.695+00:00",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "productSku": "TRAFFIC-R3",
+          "variantSku": "TRAFFIC-R3-1000-MM",
+          "sku": "TRAFFIC-R3-1000-MM",
+          "nameSnapshot": "Traffic R3 (1000 mm)",
+          "variantSnapshot": null,
+          "quantity": 12,
+          "unitCode": "pcs",
+          "listUnitPriceNet": 310,
+          "unitPriceNet": 263.5,
+          "discountAmount": 0,
+          "taxRate": 20,
+          "netAmount": 3162,
+          "grossAmount": 3794.4,
+          "fulfilmentMode": "stock",
+          "lineStatus": "shipped",
+          "shippedQuantity": 12,
+          "expectedAt": null
+        },
+        {
+          "lineNumber": 2,
+          "productSku": "SGA",
+          "variantSku": "SGA-1000-MM",
+          "sku": "SGA-1000-MM",
+          "nameSnapshot": "SGA (1000 mm)",
+          "variantSnapshot": null,
+          "quantity": 6,
+          "unitCode": "pcs",
+          "listUnitPriceNet": 425,
+          "unitPriceNet": 361.25,
+          "discountAmount": 0,
+          "taxRate": 20,
+          "netAmount": 2167.5,
+          "grossAmount": 2601,
+          "fulfilmentMode": "stock",
+          "lineStatus": "shipped",
+          "shippedQuantity": 6,
+          "expectedAt": null
+        }
+      ]
+    },
+    {
+      "orderNumber": "ZAM-2026-0003",
+      "companyRef": "wss-eu.com",
+      "customerUserRef": "w+wss3@they.dev",
+      "notes": "Split delivery agreed with buyer.",
+      "source": "catalog",
+      "status": "shipped_partially",
+      "currencyCode": "PLN",
+      "deliveryMode": "partner_warehouse",
+      "deliveryAddressSnapshot": null,
+      "partnerReference": "WSS-PO-4403",
+      "paymentTermsDays": 30,
+      "subtotalNetAmount": 6898.25,
+      "discountTotalAmount": 0,
+      "shippingNetAmount": 0,
+      "taxTotalAmount": 1367.65,
+      "grandTotalNetAmount": 6898.25,
+      "grandTotalGrossAmount": 8265.9,
+      "placedAt": "2026-09-20T09:03:11.712+00:00",
+      "confirmedAt": "2026-09-20T09:03:11.726+00:00",
+      "closedAt": null,
+      "lines": [
+        {
+          "lineNumber": 1,
+          "productSku": "RE-DOUBLE",
+          "variantSku": "RE-DOUBLE-1000-MM",
+          "sku": "RE-DOUBLE-1000-MM",
+          "nameSnapshot": "RE Double (1000 mm)",
+          "variantSnapshot": null,
+          "quantity": 15,
+          "unitCode": "pcs",
+          "listUnitPriceNet": 395,
+          "unitPriceNet": 335.75,
+          "discountAmount": 0,
+          "taxRate": 20,
+          "netAmount": 5036.25,
+          "grossAmount": 6043.5,
+          "fulfilmentMode": "stock",
+          "lineStatus": "shipped",
+          "shippedQuantity": 15,
+          "expectedAt": null
+        },
+        {
+          "lineNumber": 2,
+          "productSku": "PA-HD",
+          "variantSku": "PA-HD-1000",
+          "sku": "PA-HD-1000",
+          "nameSnapshot": "PA HD+ (1000 mm)",
+          "variantSnapshot": null,
+          "quantity": 8,
+          "unitCode": "pcs",
+          "listUnitPriceNet": 265,
+          "unitPriceNet": 225.25,
+          "discountAmount": 0,
+          "taxRate": 20,
+          "netAmount": 1802,
+          "grossAmount": 2162.4,
+          "fulfilmentMode": "stock",
+          "lineStatus": "allocated",
+          "shippedQuantity": 0,
+          "expectedAt": null
+        }
+      ]
+    },
+    {
+      "orderNumber": "ZAM-2026-0004",
+      "companyRef": "wss-eu.com",
+      "customerUserRef": "w+wss3@they.dev",
+      "notes": "Confirmed, awaiting pick.",
+      "source": "catalog",
+      "status": "confirmed",
+      "currencyCode": "PLN",
+      "deliveryMode": "partner_warehouse",
+      "deliveryAddressSnapshot": null,
+      "partnerReference": "WSS-PO-4404",
+      "paymentTermsDays": 30,
+      "subtotalNetAmount": 3052.5,
+      "discountTotalAmount": 0,
+      "shippingNetAmount": 0,
+      "taxTotalAmount": 603.5,
+      "grandTotalNetAmount": 3052.5,
+      "grandTotalGrossAmount": 3656,
+      "placedAt": "2026-09-20T09:03:11.742+00:00",
+      "confirmedAt": "2026-09-20T09:03:11.753+00:00",
+      "closedAt": null,
+      "lines": [
+        {
+          "lineNumber": 1,
+          "productSku": "GB-HIGH-H500",
+          "variantSku": "GB-HIGH-H500-1000-MM",
+          "sku": "GB-HIGH-H500-1000-MM",
+          "nameSnapshot": "GB High H500 (1000 mm)",
+          "variantSnapshot": null,
+          "quantity": 10,
+          "unitCode": "pcs",
+          "listUnitPriceNet": 355,
+          "unitPriceNet": 301.75,
+          "discountAmount": 0,
+          "taxRate": 20,
+          "netAmount": 3017.5,
+          "grossAmount": 3621,
+          "fulfilmentMode": "stock",
+          "lineStatus": "allocated",
+          "shippedQuantity": 0,
+          "expectedAt": null
+        }
+      ]
+    },
+    {
+      "orderNumber": "ZAM-2026-0005",
+      "companyRef": "wss-eu.com",
+      "customerUserRef": "w+wss3@they.dev",
+      "notes": "KB 100 short — restock due.",
+      "source": "catalog",
+      "status": "awaiting_stock",
+      "currencyCode": "PLN",
+      "deliveryMode": "self_collection",
+      "deliveryAddressSnapshot": null,
+      "partnerReference": "WSS-PO-4405",
+      "paymentTermsDays": 30,
+      "subtotalNetAmount": 5159.5,
+      "discountTotalAmount": 0,
+      "shippingNetAmount": 0,
+      "taxTotalAmount": 1031.9,
+      "grandTotalNetAmount": 5159.5,
+      "grandTotalGrossAmount": 6191.4,
+      "placedAt": "2026-09-20T09:03:11.77+00:00",
+      "confirmedAt": null,
+      "closedAt": null,
+      "lines": [
+        {
+          "lineNumber": 1,
+          "productSku": "KB-100",
+          "variantSku": "KB-100-1000-MM",
+          "sku": "KB-100-1000-MM",
+          "nameSnapshot": "KB 100 (1000 mm)",
+          "variantSnapshot": null,
+          "quantity": 25,
+          "unitCode": "pcs",
+          "listUnitPriceNet": 205,
+          "unitPriceNet": 174.25,
+          "discountAmount": 0,
+          "taxRate": 20,
+          "netAmount": 4356.25,
+          "grossAmount": 5227.5,
+          "fulfilmentMode": "stock",
+          "lineStatus": "awaiting_stock",
+          "shippedQuantity": 0,
+          "expectedAt": null
+        },
+        {
+          "lineNumber": 2,
+          "productSku": "KB-80",
+          "variantSku": "KB-80-1000-MM",
+          "sku": "KB-80-1000-MM",
+          "nameSnapshot": "KB 80 (1000 mm)",
+          "variantSnapshot": null,
+          "quantity": 5,
+          "unitCode": "pcs",
+          "listUnitPriceNet": 189,
+          "unitPriceNet": 160.65,
+          "discountAmount": 0,
+          "taxRate": 20,
+          "netAmount": 803.25,
+          "grossAmount": 963.9,
+          "fulfilmentMode": "stock",
+          "lineStatus": "allocated",
+          "shippedQuantity": 0,
+          "expectedAt": null
+        }
+      ]
+    },
+    {
+      "orderNumber": "ZAM-2026-0006",
+      "companyRef": "wss-eu.com",
+      "customerUserRef": "w+wss3@they.dev",
+      "notes": "Just placed via portal.",
+      "source": "catalog",
+      "status": "placed",
+      "currencyCode": "PLN",
+      "deliveryMode": "partner_warehouse",
+      "deliveryAddressSnapshot": null,
+      "partnerReference": "WSS-PO-4406",
+      "paymentTermsDays": 30,
+      "subtotalNetAmount": 856,
+      "discountTotalAmount": 0,
+      "shippingNetAmount": 0,
+      "taxTotalAmount": 163.2,
+      "grandTotalNetAmount": 856,
+      "grandTotalGrossAmount": 1019.2,
+      "placedAt": "2026-09-20T09:03:11.787+00:00",
+      "confirmedAt": null,
+      "closedAt": null,
+      "lines": [
+        {
+          "lineNumber": 1,
+          "productSku": "RE",
+          "variantSku": "RE-1000-MM",
+          "sku": "RE-1000-MM",
+          "nameSnapshot": "RE (1000 mm)",
+          "variantSnapshot": null,
+          "quantity": 4,
+          "unitCode": "pcs",
+          "listUnitPriceNet": 240,
+          "unitPriceNet": 204,
+          "discountAmount": 0,
+          "taxRate": 20,
+          "netAmount": 816,
+          "grossAmount": 979.2,
+          "fulfilmentMode": "stock",
+          "lineStatus": "allocated",
+          "shippedQuantity": 0,
+          "expectedAt": null
+        }
+      ]
+    }
+  ],
+  "shipments": [
+    {
+      "orderNumber": "ZAM-2026-0001",
+      "shipmentNumber": "ZAM-2026-0001-S1",
+      "sequenceNumber": 1,
+      "status": "dispatched",
+      "carrierName": "DPD UK",
+      "trackingNumber": "TRK-4401",
+      "weightKg": null,
+      "packageCount": null,
+      "shippingCostNet": 0,
+      "dispatchedAt": "2026-09-20T09:03:11.652+00:00",
+      "deliveredAt": null
+    },
+    {
+      "orderNumber": "ZAM-2026-0002",
+      "shipmentNumber": "ZAM-2026-0002-S1",
+      "sequenceNumber": 1,
+      "status": "dispatched",
+      "carrierName": "DPD UK",
+      "trackingNumber": "TRK-4402",
+      "weightKg": null,
+      "packageCount": null,
+      "shippingCostNet": 0,
+      "dispatchedAt": "2026-09-20T09:03:11.701+00:00",
+      "deliveredAt": null
+    },
+    {
+      "orderNumber": "ZAM-2026-0003",
+      "shipmentNumber": "ZAM-2026-0003-S1",
+      "sequenceNumber": 1,
+      "status": "dispatched",
+      "carrierName": "DPD UK",
+      "trackingNumber": "TRK-4403",
+      "weightKg": null,
+      "packageCount": null,
+      "shippingCostNet": 0,
+      "dispatchedAt": "2026-09-20T09:03:11.736+00:00",
+      "deliveredAt": null
+    }
+  ],
+  "stockAllocations": [
+    {
+      "orderLineRef": {
+        "orderNumber": "ZAM-2026-0001",
+        "lineNumber": 1
+      },
+      "stockRef": {
+        "productSku": "KB-80",
+        "variantSku": "KB-80-1000-MM"
+      },
+      "quantity": 20,
+      "status": "shipped"
+    },
+    {
+      "orderLineRef": {
+        "orderNumber": "ZAM-2026-0001",
+        "lineNumber": 2
+      },
+      "stockRef": {
+        "productSku": "RE",
+        "variantSku": "RE-1000-MM"
+      },
+      "quantity": 10,
+      "status": "shipped"
+    },
+    {
+      "orderLineRef": {
+        "orderNumber": "ZAM-2026-0002",
+        "lineNumber": 1
+      },
+      "stockRef": {
+        "productSku": "TRAFFIC-R3",
+        "variantSku": "TRAFFIC-R3-1000-MM"
+      },
+      "quantity": 12,
+      "status": "shipped"
+    },
+    {
+      "orderLineRef": {
+        "orderNumber": "ZAM-2026-0002",
+        "lineNumber": 2
+      },
+      "stockRef": {
+        "productSku": "SGA",
+        "variantSku": "SGA-1000-MM"
+      },
+      "quantity": 6,
+      "status": "shipped"
+    },
+    {
+      "orderLineRef": {
+        "orderNumber": "ZAM-2026-0003",
+        "lineNumber": 2
+      },
+      "stockRef": {
+        "productSku": "PA-HD",
+        "variantSku": "PA-HD-1000"
+      },
+      "quantity": 8,
+      "status": "allocated"
+    },
+    {
+      "orderLineRef": {
+        "orderNumber": "ZAM-2026-0003",
+        "lineNumber": 1
+      },
+      "stockRef": {
+        "productSku": "RE-DOUBLE",
+        "variantSku": "RE-DOUBLE-1000-MM"
+      },
+      "quantity": 15,
+      "status": "shipped"
+    },
+    {
+      "orderLineRef": {
+        "orderNumber": "ZAM-2026-0004",
+        "lineNumber": 1
+      },
+      "stockRef": {
+        "productSku": "GB-HIGH-H500",
+        "variantSku": "GB-HIGH-H500-1000-MM"
+      },
+      "quantity": 10,
+      "status": "allocated"
+    },
+    {
+      "orderLineRef": {
+        "orderNumber": "ZAM-2026-0005",
+        "lineNumber": 1
+      },
+      "stockRef": {
+        "productSku": "KB-100",
+        "variantSku": "KB-100-1000-MM"
+      },
+      "quantity": 4,
+      "status": "allocated"
+    },
+    {
+      "orderLineRef": {
+        "orderNumber": "ZAM-2026-0005",
+        "lineNumber": 2
+      },
+      "stockRef": {
+        "productSku": "KB-80",
+        "variantSku": "KB-80-1000-MM"
+      },
+      "quantity": 5,
+      "status": "allocated"
+    },
+    {
+      "orderLineRef": {
+        "orderNumber": "ZAM-2026-0006",
+        "lineNumber": 1
+      },
+      "stockRef": {
+        "productSku": "RE",
+        "variantSku": "RE-1000-MM"
+      },
+      "quantity": 4,
+      "status": "allocated"
+    }
+  ],
+  "shipmentLines": [
+    {
+      "shipmentNumber": "ZAM-2026-0001-S1",
+      "orderLineRef": {
+        "orderNumber": "ZAM-2026-0001",
+        "lineNumber": 1
+      },
+      "quantity": 20
+    },
+    {
+      "shipmentNumber": "ZAM-2026-0001-S1",
+      "orderLineRef": {
+        "orderNumber": "ZAM-2026-0001",
+        "lineNumber": 2
+      },
+      "quantity": 10
+    },
+    {
+      "shipmentNumber": "ZAM-2026-0002-S1",
+      "orderLineRef": {
+        "orderNumber": "ZAM-2026-0002",
+        "lineNumber": 1
+      },
+      "quantity": 12
+    },
+    {
+      "shipmentNumber": "ZAM-2026-0002-S1",
+      "orderLineRef": {
+        "orderNumber": "ZAM-2026-0002",
+        "lineNumber": 2
+      },
+      "quantity": 6
+    },
+    {
+      "shipmentNumber": "ZAM-2026-0003-S1",
+      "orderLineRef": {
+        "orderNumber": "ZAM-2026-0003",
+        "lineNumber": 1
+      },
+      "quantity": 15
+    }
+  ],
+  "carts": [
+    {
+      "ref": "cf9d720e-b450-4d26-bdac-178190904242",
+      "companyRef": "wss-eu.com",
+      "customerUserRef": "w+wss3@they.dev",
+      "currencyCode": "PLN",
+      "deliveryMode": null,
+      "deliveryAddressSnapshot": null,
+      "partnerReference": null,
+      "notes": null,
+      "status": "active",
+      "lines": [
+        {
+          "productSku": "BACKSTOP-SMART-ALARM",
+          "variantSku": null,
+          "revisionRef": null,
+          "sku": "BACKSTOP-SMART-ALARM",
+          "nameSnapshot": "Backstop Smart Alarm",
+          "variantSnapshot": null,
+          "quantity": 4,
+          "unitCode": null,
+          "listUnitPriceNet": 260,
+          "partnerUnitPriceNet": 221,
+          "discountRate": 0.15,
+          "currencyCode": "PLN"
+        }
+      ]
+    }
+  ],
+  "projectSequences": [
+    {
+      "year": 2026,
+      "nextNumber": 2
+    }
+  ],
+  "projects": [
+    {
+      "projectNumber": "KNF-P-2026-0001",
+      "name": "WSS Portsmouth DC - bay layout",
+      "companyRef": "wss-eu.com",
+      "customerUserRef": "w+wss3@they.dev",
+      "origin": "portal",
+      "status": "active",
+      "siteAddressSnapshot": null,
+      "currentRevisionLabel": "A",
+      "revisions": [
+        {
+          "revisionLabel": "A",
+          "state": "draft",
+          "underlayFile": "site-plan.png",
+          "underlayWidthUnits": null,
+          "underlayHeightUnits": null,
+          "metresPerUnit": 0.05,
+          "calibrationPoints": {
+            "pointA": [
+              0,
+              0
+            ],
+            "pointB": [
+              100,
+              0
+            ],
+            "realDistanceM": 5
+          },
+          "gridSizeM": 0.5,
+          "changeDescription": null,
+          "bomTotalNetAmount": null,
+          "bomCurrencyCode": null,
+          "hasUnpricedItems": false,
+          "technicalAcceptanceState": "none"
+        }
+      ]
+    }
+  ],
+  "invoices": [
+    {
+      "orderNumber": "ZAM-2026-0001",
+      "invoiceNumber": "INV-4401",
+      "issuedAt": "2026-09-20T09:03:11.659+00:00",
+      "netAmount": 5298,
+      "grossAmount": 6348.6,
+      "currencyCode": "PLN"
+    },
+    {
+      "orderNumber": "ZAM-2026-0002",
+      "invoiceNumber": "INV-4402",
+      "issuedAt": "2026-09-20T09:03:11.707+00:00",
+      "netAmount": 5409.5,
+      "grossAmount": 6475.4,
+      "currencyCode": "PLN"
+    }
+  ]
+}

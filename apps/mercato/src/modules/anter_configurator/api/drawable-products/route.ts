@@ -30,7 +30,16 @@ export async function GET(req: Request) {
 
   const [products, cfByProduct] = await Promise.all([
     em.find(CatalogProduct, { id: { $in: productIds }, organizationId, tenantId, deletedAt: null }),
-    loadCustomFieldValues({ em, entityId: CATALOG_PRODUCT_ENTITY_ID, recordIds: productIds }),
+    // `tenantFallbacks` is not optional: with no tenant candidate the loader
+    // filters `tenantId IS NULL` and reads back nothing, so every geometry
+    // field would silently fall through to its default (§3.3).
+    loadCustomFieldValues({
+      em,
+      entityId: CATALOG_PRODUCT_ENTITY_ID,
+      recordIds: productIds,
+      tenantFallbacks: [tenantId],
+      organizationIdByRecord: Object.fromEntries(productIds.map((id) => [id, organizationId])),
+    }),
   ])
 
   return NextResponse.json({

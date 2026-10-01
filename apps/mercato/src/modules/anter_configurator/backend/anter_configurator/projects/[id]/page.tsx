@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from 'react'
-import { useParams, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { Page, PageBody } from '@open-mercato/ui/backend/Page'
 import { Button } from '@open-mercato/ui/primitives/button'
 import { StatusBadge, type StatusBadgeVariant } from '@open-mercato/ui/primitives/status-badge'
@@ -68,11 +68,10 @@ function formatMoney(value: number | null, currencyCode: string | null): string 
   return new Intl.NumberFormat(undefined, { style: 'currency', currency: currencyCode }).format(value)
 }
 
-export default function AnterConfiguratorProjectDetailPage() {
+export default function AnterConfiguratorProjectDetailPage({ params }: { params?: { id?: string } }) {
   const t = useT()
   const router = useRouter()
-  const params = useParams<{ id: string }>()
-  const projectId = params?.id as string
+  const projectId = params?.id ?? ''
 
   const [project, setProject] = React.useState<Project | null>(null)
   const [revisions, setRevisions] = React.useState<Revision[]>([])
@@ -101,6 +100,10 @@ export default function AnterConfiguratorProjectDetailPage() {
       setProject(loadedProject)
       setRevisions(loadedRevisions)
       setSelectedRevisionId(loadedProject.current_revision_id ?? loadedRevisions[0]?.id ?? null)
+      setIsLoading(false)
+    }).catch(() => {
+      if (cancelled) return
+      setError(t('anter_configurator.projects.detail.loadError', 'Failed to load the project'))
       setIsLoading(false)
     })
     return () => {

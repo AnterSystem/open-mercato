@@ -24,6 +24,11 @@ function round(value: number): number {
  * line's own single taxRate, no cross-line adjustments/promotions/discount
  * engine. This matches the spec's "no adjustments, single tax rate" framing
  * for the absent-module path — it is not a substitute for the real engine.
+ *
+ * `taxRate` is a PERCENT, matching `SalesLineSnapshot.taxRate` as the real
+ * engine reads it (`sales/lib/calculations.ts` divides by 100). A stored rate
+ * of 23 means 23%, so this fallback must divide too — otherwise disabling
+ * `sales` would silently charge 2300% tax.
  */
 export function createAnterFallbackCalculationService(): OrderCalculationService {
   return {
@@ -31,7 +36,7 @@ export function createAnterFallbackCalculationService(): OrderCalculationService
       const lines: SalesLineCalculationResult[] = opts.lines.map((line) => {
         const quantity = line.quantity
         const unitPriceNet = line.unitPriceNet ?? 0
-        const taxRate = line.taxRate ?? 0
+        const taxRate = (line.taxRate ?? 0) / 100
         const netAmount = round(unitPriceNet * quantity)
         const taxAmount = round(netAmount * taxRate)
         const grossAmount = round(netAmount + taxAmount)

@@ -56,12 +56,14 @@ export default function AnterOrdersBackendListPage() {
   const [partnerNames, setPartnerNames] = React.useState<Record<string, string>>({})
 
   const statusFilter = typeof filterValues.status === 'string' ? filterValues.status : ''
+  const partnerFilter = typeof filterValues.partner === 'string' ? filterValues.partner : ''
 
   React.useEffect(() => {
     let cancelled = false
     setIsLoading(true)
     const query = new URLSearchParams({ page: String(page), pageSize: String(pageSize) })
     if (statusFilter) query.set('status', statusFilter)
+    if (partnerFilter) query.set('customerEntityId', partnerFilter)
     apiCall<OrderListResponse>(`/api/anter_orders/orders?${query.toString()}`)
       .then((res) => {
         if (cancelled || !res.ok || !res.result) return
@@ -74,7 +76,7 @@ export default function AnterOrdersBackendListPage() {
     return () => {
       cancelled = true
     }
-  }, [page, pageSize, statusFilter])
+  }, [page, pageSize, statusFilter, partnerFilter])
 
   React.useEffect(() => {
     const missing = Array.from(new Set(rows.map((row) => row.customer_entity_id))).filter((id) => !(id in partnerNames))
@@ -101,6 +103,16 @@ export default function AnterOrdersBackendListPage() {
       row.order_number.toLowerCase().includes(term) || (row.partner_reference ?? '').toLowerCase().includes(term))
   }, [rows, search])
 
+  const loadPartnerOptions = React.useCallback(async (query?: string) => {
+    const params = new URLSearchParams({ page: '1', pageSize: '50', sortField: 'display_name', sortDir: 'asc' })
+    if (query) params.set('search', query)
+    const res = await apiCall<CompanyListResponse>(`/api/customers/companies?${params.toString()}`)
+    if (!res.ok || !res.result) return []
+    return res.result.items
+      .filter((company) => Boolean(company.display_name))
+      .map((company) => ({ value: company.id, label: company.display_name as string }))
+  }, [])
+
   const filters = React.useMemo<FilterDef[]>(() => [
     {
       id: 'status',
@@ -108,7 +120,13 @@ export default function AnterOrdersBackendListPage() {
       type: 'select',
       options: STATUS_OPTIONS.map((status) => ({ value: status, label: t(`anter_portal.orderStatus.${status}`, status) })),
     },
-  ], [t])
+    {
+      id: 'partner',
+      label: t('anter_orders.orders.filter.partner', 'Partner'),
+      type: 'combobox',
+      loadOptions: loadPartnerOptions,
+    },
+  ], [t, loadPartnerOptions])
 
   const columns = React.useMemo<ColumnDef<OrderRow>[]>(() => [
     {

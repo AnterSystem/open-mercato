@@ -61,6 +61,13 @@ export type CatalogListResult = {
   total: number
   page: number
   pageSize: number
+  /**
+   * Configurator spec C3/X6: whether THIS ACCOUNT sees prices at all, which is
+   * a property of the caller and not of the rows. A priced account still
+   * receives `priceVisible: false` items (a `quote_only` product has no list
+   * price), so a client must never infer the account mode from the rows.
+   */
+  pricesVisible: boolean
 }
 
 export type CatalogVariantItem = CatalogListItem & {
@@ -235,7 +242,10 @@ export function createAnterCatalogService(deps: {
       productPage = await loadProductPage(scope, input, page, pageSize)
       await setCachedCatalogPage(cache, cacheKey, productPage, scope)
     }
-    if (!productPage.entries.length) return { items: [], total: productPage.total, page, pageSize }
+    if (!productPage.entries.length) {
+      const { hidden: hiddenForEmptyPage } = await loadPriceVisibility(scope, new Map())
+      return { items: [], total: productPage.total, page, pageSize, pricesVisible: !hiddenForEmptyPage }
+    }
 
     const productIds = productPage.entries.map((entry) => entry.productId)
     const stockItems = await em.find(AnterStockItem, {
@@ -292,7 +302,7 @@ export function createAnterCatalogService(deps: {
       }
     })
 
-    return { items, total: productPage.total, page, pageSize }
+    return { items, total: productPage.total, page, pageSize, pricesVisible: !hidden }
   }
 
   async function getCatalogProduct(scope: CatalogScope, productId: string): Promise<CatalogProductDetail | null> {

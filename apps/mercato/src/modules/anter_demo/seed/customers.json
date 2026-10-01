@@ -1,0 +1,119 @@
+{
+  "companies": [
+    {
+      "ref": "wss-eu.com",
+      "display_name": "WSS Europe Ltd",
+      "description": "Workplace safety specialists providing safety markings, barriers, floor repairs and site audits for manufacturing and distribution facilities.",
+      "primary_email": "mail@wss-eu.com",
+      "primary_phone": "+448000554737",
+      "status": "active",
+      "lifecycle_stage": "customer",
+      "legal_name": "WSS Europe Ltd",
+      "brand_name": "WSS Europe",
+      "domain": "wss-eu.com",
+      "website_url": "https://wss-eu.com",
+      "industry": "Workplace Safety"
+    }
+  ],
+  "people": [
+    {
+      "ref": "w+wss5@they.dev",
+      "display_name": "Nathan Harwin",
+      "primary_email": "w+wss5@they.dev",
+      "status": "active",
+      "lifecycle_stage": "customer",
+      "first_name": "Nathan",
+      "last_name": "Harwin",
+      "job_title": "Project Delivery Manager",
+      "companyRef": "wss-eu.com"
+    },
+    {
+      "ref": "w+wss4@they.dev",
+      "display_name": "Neil Potter",
+      "primary_email": "w+wss4@they.dev",
+      "status": "active",
+      "lifecycle_stage": "customer",
+      "first_name": "Neil",
+      "last_name": "Potter",
+      "job_title": "Marketing Director",
+      "companyRef": "wss-eu.com"
+    },
+    {
+      "ref": "w+wss3@they.dev",
+      "display_name": "Declan Spencer",
+      "primary_email": "w+wss3@they.dev",
+      "status": "active",
+      "lifecycle_stage": "customer",
+      "first_name": "Declan",
+      "last_name": "Spencer",
+      "job_title": "Sales Director",
+      "companyRef": "wss-eu.com"
+    },
+    {
+      "ref": "w+wss7@they.dev",
+      "display_name": "Chris Reynolds",
+      "primary_email": "w+wss7@they.dev",
+      "status": "active",
+      "lifecycle_stage": "customer",
+      "first_name": "Chris",
+      "last_name": "Reynolds",
+      "job_title": "Area Sales Manager",
+      "companyRef": "wss-eu.com"
+    },
+    {
+      "ref": "w+wss1@they.dev",
+      "display_name": "Tony Mann",
+      "primary_email": "w+wss1@they.dev",
+      "status": "active",
+      "lifecycle_stage": "customer",
+      "first_name": "Tony",
+      "last_name": "Mann",
+      "job_title": "Group Managing Director",
+      "companyRef": "wss-eu.com"
+    },
+    {
+      "ref": "w+wss8@they.dev",
+      "display_name": "Pedro Spencer",
+      "primary_email": "w+wss8@they.dev",
+      "status": "active",
+      "lifecycle_stage": "customer",
+      "first_name": "Pedro",
+      "last_name": "Spencer",
+      "job_title": "New Business Manager",
+      "companyRef": "wss-eu.com"
+    },
+    {
+      "ref": "w+wss9@they.dev",
+      "display_name": "Jesse Taylor",
+      "primary_email": "w+wss9@they.dev",
+      "status": "active",
+      "lifecycle_stage": "customer",
+      "first_name": "Jesse",
+      "last_name": "Taylor",
+      "job_title": "Office Manager",
+      "companyRef": "wss-eu.com"
+    },
+    {
+      "ref": "w+wss2@they.dev",
+      "display_name": "Bert Spencer",
+      "primary_email": "w+wss2@they.dev",
+      "status": "active",
+      "lifecycle_stage": "customer",
+      "first_name": "Bert",
+      "last_name": "Spencer",
+      "job_title": "Managing Director",
+      "companyRef": "wss-eu.com"
+    },
+    {
+      "ref": "w+wss6@they.dev",
+      "display_name": "Emilie Ruos",
+      "primary_email": "w+wss6@they.dev",
+      "status": "active",
+      "lifecycle_stage": "customer",
+      "first_name": "Emilie",
+      "last_name": "Ruos",
+      "job_title": "Compliance Manager",
+      "companyRef": "wss-eu.com"
+    }
+  ]
+}

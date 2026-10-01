@@ -45,6 +45,7 @@ const { metadata: crudMetadata, GET } = makeCrudRoute({
       const filters: Record<string, unknown> = {}
       if (query.id) filters.id = query.id
       if (query.customerEntityId) filters.customer_entity_id = query.customerEntityId
+      if (query.customerDealId) filters.customer_deal_id = query.customerDealId
       if (query.status) filters.status = query.status
       return filters
     },

@@ -194,17 +194,6 @@ export const enabledModules: ModuleEntry[] = [
       acl: {
         features: { 'example.manage': null },
       },
-      // The three portal dashboard widgets below render hardcoded demo data
-      // (fixed order/invoice/quote counts and a canned activity feed), which
-      // misrepresents real portal state. Disabled here rather than deleted so
-      // the example module keeps documenting the injection API.
-      widgets: {
-        injection: {
-          'example.injection.portal-stats': null,
-          'example.injection.portal-recent-activity': null,
-          'example.injection.portal-quick-links': null,
-        },
-      },
       // Keep the real-bootstrap nav override probe isolated from normal app behavior. The integration
       // runner sets OM_INTEGRATION_TEST, while development and production keep Example at the tail.
       nav: parseBooleanWithDefault(process.env.OM_INTEGRATION_TEST, false)
@@ -223,7 +212,17 @@ export const enabledModules: ModuleEntry[] = [
         // Keyed by the generated registry `key`, NOT by `example.injection.override-probe`:
         // injection tables reference the `widgetId`, so this spelling only reaches the
         // table filter through the alias resolution added for #5152.
-        injection: { 'example:override-probe:widget': null },
+        //
+        // The three portal dashboard widgets render hardcoded demo data (fixed
+        // order/invoice/quote counts and a canned activity feed), which misrepresents
+        // real portal state. Disabled here rather than deleted so the example module
+        // keeps documenting the injection API.
+        injection: {
+          'example:override-probe:widget': null,
+          'example.injection.portal-stats': null,
+          'example.injection.portal-recent-activity': null,
+          'example.injection.portal-quick-links': null,
+        },
       },
       routes: {
         api: {

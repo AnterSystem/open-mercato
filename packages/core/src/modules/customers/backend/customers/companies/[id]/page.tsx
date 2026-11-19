@@ -14,7 +14,8 @@ import { buildOptimisticLockHeader } from '@open-mercato/ui/backend/utils/optimi
 import { collectCustomFieldValues } from '@open-mercato/ui/backend/utils/customFieldValues'
 import { mapCrudServerErrorToFormErrors } from '@open-mercato/ui/backend/utils/serverErrors'
 import { E } from '#generated/entities.ids.generated'
-import { useT } from '@open-mercato/shared/lib/i18n/context'
+import { useLocale, useT } from '@open-mercato/shared/lib/i18n/context'
+import { parseLocaleNumber } from '@open-mercato/shared/lib/number'
 import { RecordNotFoundState, ErrorMessage } from '@open-mercato/ui/backend/detail'
 import { useConfirmDialog } from '@open-mercato/ui/backend/confirm-dialog'
 import { DetailFieldsSection, type DetailFieldConfig } from '@open-mercato/ui/backend/detail'
@@ -104,6 +105,7 @@ type SectionKey = 'notes' | 'activities' | 'deals' | 'people' | 'addresses' | 't
 export default function CustomerCompanyDetailPage({ params }: { params?: { id?: string } }) {
   const id = params?.id
   const t = useT()
+  const locale = useLocale()
   const { confirm, ConfirmDialogElement } = useConfirmDialog()
   const detailTranslator = React.useMemo(() => createTranslatorWithFallback(t), [t])
   const notesAdapter = React.useMemo(() => createCustomerNotesAdapter(detailTranslator), [detailTranslator])
@@ -204,8 +206,10 @@ export default function CustomerCompanyDetailPage({ params }: { params?: { id?: 
     sectionAction.onClick()
   }, [sectionAction])
 
-  React.useEffect(() => {
+  const handleTabChange = React.useCallback((tab: SectionKey) => {
+    if (tab === activeTab) return
     setSectionAction(null)
+    setActiveTab(tab)
   }, [activeTab])
 
   const validators = React.useMemo(() => ({
@@ -235,14 +239,13 @@ export default function CustomerCompanyDetailPage({ params }: { params?: { id?: 
     },
     annualRevenue: (value: string) => {
       if (!value) return null
-      const normalized = value.replace(/[, ]+/g, '')
-      const amount = Number(normalized)
-      if (Number.isNaN(amount) || amount < 0) {
+      const amount = parseLocaleNumber(value, locale)
+      if (amount === null || amount < 0) {
         return t('customers.companies.detail.inline.annualRevenueInvalid', 'Enter a non-negative number.')
       }
       return null
     },
-  }), [t])
+  }), [locale, t])
 
   const { widgets: injectedTabWidgets } = useInjectionWidgets('customers.company.detail:tabs', {
     context: injectionContext,
@@ -484,16 +487,25 @@ export default function CustomerCompanyDetailPage({ params }: { params?: { id?: 
   )
 
   const handleAnnualRevenueChange = React.useCallback(
-    async ({ amount, currency }: { amount: number | null; currency: string | null }) => {
+    async ({
+      amount,
+      amountExact,
+      currency,
+    }: {
+      amount: number | null
+      amountExact?: string | null
+      currency: string | null
+    }) => {
+      const exactRevenue = amountExact ?? (amount === null ? null : String(amount))
       await saveCompany(
-        { annualRevenue: amount ?? null },
+        { annualRevenue: exactRevenue },
         (prev) => {
           if (!prev.profile) return prev
           return {
             ...prev,
             profile: {
               ...prev.profile,
-              annualRevenue: amount === null ? null : String(amount),
+              annualRevenue: exactRevenue,
             },
           }
         }
@@ -836,7 +848,7 @@ export default function CustomerCompanyDetailPage({ params }: { params?: { id?: 
             className="space-y-6"
             tabs={tabs}
             activeTab={activeTab}
-            onTabChange={setActiveTab}
+            onTabChange={handleTabChange}
             sectionAction={sectionAction}
             onSectionAction={handleSectionAction}
             navAriaLabel={t('customers.companies.detail.tabs.label', 'Company detail sections')}

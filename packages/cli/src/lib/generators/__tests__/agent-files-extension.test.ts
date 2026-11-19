@@ -94,6 +94,13 @@ describe('createAgentFilesExtension', () => {
     expect(manifest).toContain("id: \"deals.health_check\"")
     expect(manifest).toContain("openCodeAgentName: \"deals_health_check\"")
     expect(manifest).toContain('export const fileAgentDescriptors')
+    expect(manifest).toContain(
+      "import type { JsonSchemaNode, OutcomeKind } from '../lib/sdk/outcomeSchema'",
+    )
+    expect(manifest).toContain(
+      "import type { AgentTokenUsage, FileAgentFile } from '../lib/tokens/types'",
+    )
+    expect(manifest).not.toContain('@open-mercato/enterprise/modules/agent_orchestrator/lib/')
 
     const dockerFile = path.join(repoRoot, 'docker/opencode/agents/deals_health_check.md')
     expect(fs.existsSync(dockerFile)).toBe(true)
@@ -214,6 +221,79 @@ describe('createAgentFilesExtension', () => {
     ).toThrow(/malformed SAMPLE\.json/)
   })
 
+  function writeAgentMd(appBase: string, extraFrontmatter: string[]): string {
+    const agentDir = path.join(appBase, 'agents', 'deals_health_check')
+    fs.writeFileSync(
+      path.join(agentDir, 'AGENT.md'),
+      [
+        '---',
+        'id: deals.health_check',
+        'label: Deal health check',
+        'description: Assess a deal.',
+        ...extraFrontmatter,
+        '---',
+        'You assess a deal.',
+      ].join('\n'),
+      'utf8',
+    )
+    return agentDir
+  }
+
+  function readManifest(root: string): string {
+    return fs.readFileSync(
+      path.join(root, 'packages/enterprise/src/modules/agent_orchestrator/generated/file-agents.generated.ts'),
+      'utf8',
+    )
+  }
+
+  it('emits inline-list requiredFeatures into the manifest (deduped)', () => {
+    const fixture = makeRepoFixture()
+    repoRoot = fixture.repoRoot
+    writeAgentMd(fixture.appBase, ['requiredFeatures: [deals.health.run, customers.deals.view, deals.health.run]'])
+
+    const extension = createAgentFilesExtension()
+    extension.scanModule(createScanContext('agent_examples', fixture.appBase, fixture.pkgBase))
+    extension.generateOutput()
+
+    const manifest = readManifest(repoRoot)
+    expect(manifest).toContain('requiredFeatures: ["deals.health.run","customers.deals.view"],')
+    expect(manifest).toContain('  requiredFeatures?: string[]')
+  })
+
+  it('emits block-list requiredFeatures into the manifest', () => {
+    const fixture = makeRepoFixture()
+    repoRoot = fixture.repoRoot
+    writeAgentMd(fixture.appBase, ['requiredFeatures:', '  - deals.health.run', '  - customers.*'])
+
+    const extension = createAgentFilesExtension()
+    extension.scanModule(createScanContext('agent_examples', fixture.appBase, fixture.pkgBase))
+    extension.generateOutput()
+
+    expect(readManifest(repoRoot)).toContain('requiredFeatures: ["deals.health.run","customers.*"],')
+  })
+
+  it('omits requiredFeatures from a descriptor that declares none', () => {
+    const fixture = makeRepoFixture()
+    repoRoot = fixture.repoRoot
+
+    const extension = createAgentFilesExtension()
+    extension.scanModule(createScanContext('agent_examples', fixture.appBase, fixture.pkgBase))
+    extension.generateOutput()
+
+    expect(readManifest(repoRoot)).not.toContain('requiredFeatures: [')
+  })
+
+  it('fails generation on a malformed requiredFeatures entry', () => {
+    const fixture = makeRepoFixture()
+    repoRoot = fixture.repoRoot
+    writeAgentMd(fixture.appBase, ['requiredFeatures: [deals health run]'])
+
+    const extension = createAgentFilesExtension()
+    expect(() =>
+      extension.scanModule(createScanContext('agent_examples', fixture.appBase, fixture.pkgBase)),
+    ).toThrow(/invalid requiredFeatures entry "deals health run"/)
+  })
+
   it('emits an agent FACTS.json into the manifest as facts', () => {
     const fixture = makeRepoFixture()
     repoRoot = fixture.repoRoot
@@ -257,6 +337,78 @@ describe('createAgentFilesExtension', () => {
     expect(() =>
       extension.scanModule(createScanContext('agent_examples', fixture.appBase, fixture.pkgBase)),
     ).toThrow(/malformed FACTS\.json/)
+  })
+
+  it('emits an agent GOVERNANCE.json into the manifest as governance', () => {
+    const fixture = makeRepoFixture()
+    repoRoot = fixture.repoRoot
+    const agentDir = path.join(fixture.appBase, 'agents', 'deals_health_check')
+    const governance = {
+      principal: { roleFeatures: ['customers.deals.view'], toolAcl: 'intersect' },
+      untrustedInputs: [{ label: 'Notes', path: 'deal.notes' }],
+      modelSettings: { temperature: 0 },
+    }
+    fs.writeFileSync(path.join(agentDir, 'GOVERNANCE.json'), JSON.stringify(governance), 'utf8')
+
+    const extension = createAgentFilesExtension()
+    extension.scanModule(createScanContext('agent_examples', fixture.appBase, fixture.pkgBase))
+    extension.generateOutput()
+
+    const manifest = fs.readFileSync(
+      path.join(repoRoot, 'packages/enterprise/src/modules/agent_orchestrator/generated/file-agents.generated.ts'),
+      'utf8',
+    )
+    expect(manifest).toContain(
+      'governance: {"principal":{"roleFeatures":["customers.deals.view"],"toolAcl":"intersect"},"modelSettings":{"temperature":0},"untrustedInputs":[{"label":"Notes","path":"deal.notes"}]}',
+    )
+    expect(manifest).toContain('export type FileAgentGovernance')
+    expect(manifest).toContain('"path":"GOVERNANCE.json"')
+  })
+
+  it('omits governance when GOVERNANCE.json is an empty object', () => {
+    const fixture = makeRepoFixture()
+    repoRoot = fixture.repoRoot
+    const agentDir = path.join(fixture.appBase, 'agents', 'deals_health_check')
+    fs.writeFileSync(path.join(agentDir, 'GOVERNANCE.json'), '{}', 'utf8')
+
+    const extension = createAgentFilesExtension()
+    extension.scanModule(createScanContext('agent_examples', fixture.appBase, fixture.pkgBase))
+    extension.generateOutput()
+
+    const manifest = fs.readFileSync(
+      path.join(repoRoot, 'packages/enterprise/src/modules/agent_orchestrator/generated/file-agents.generated.ts'),
+      'utf8',
+    )
+    expect(manifest).not.toContain('governance: {')
+  })
+
+  it.each([
+    ['an unknown key', { allowedActions: [] }, /unknown key "allowedActions"/],
+    ['a non-array integrity', { integrity: { id: 'x' } }, /"integrity" must be an array/],
+    ['a non-object principal', { principal: ['customers.deals.view'] }, /"principal" must be an object/],
+    ['a top-level array', [], /expected a JSON object/],
+  ])('fails generation on a GOVERNANCE.json with %s', (_label, content, message) => {
+    const fixture = makeRepoFixture()
+    repoRoot = fixture.repoRoot
+    const agentDir = path.join(fixture.appBase, 'agents', 'deals_health_check')
+    fs.writeFileSync(path.join(agentDir, 'GOVERNANCE.json'), JSON.stringify(content), 'utf8')
+
+    const extension = createAgentFilesExtension()
+    expect(() =>
+      extension.scanModule(createScanContext('agent_examples', fixture.appBase, fixture.pkgBase)),
+    ).toThrow(message)
+  })
+
+  it('fails generation on a GOVERNANCE.json that is not valid JSON', () => {
+    const fixture = makeRepoFixture()
+    repoRoot = fixture.repoRoot
+    const agentDir = path.join(fixture.appBase, 'agents', 'deals_health_check')
+    fs.writeFileSync(path.join(agentDir, 'GOVERNANCE.json'), '{ principal: ', 'utf8')
+
+    const extension = createAgentFilesExtension()
+    expect(() =>
+      extension.scanModule(createScanContext('agent_examples', fixture.appBase, fixture.pkgBase)),
+    ).toThrow(/malformed GOVERNANCE\.json/)
   })
 
   it('fails generation on a malformed agent dir (missing OUTCOME.md)', () => {
@@ -388,6 +540,39 @@ describe('createAgentFilesExtension', () => {
     expect(() =>
       extension.scanModule(createScanContext('agent_examples', fixture.appBase, fixture.pkgBase)),
     ).toThrow(/unsupported keyword "oneOf"/)
+  })
+
+  it('warns, without failing, about an OUTCOME.md object that declares no properties (A-2)', () => {
+    const fixture = makeRepoFixture()
+    const agentDir = path.join(fixture.appBase, 'agents', 'deals_health_check')
+    fs.writeFileSync(
+      path.join(agentDir, 'OUTCOME.md'),
+      [
+        '---',
+        'kind: research',
+        '---',
+        '```json',
+        JSON.stringify({
+          type: 'object',
+          properties: { summary: { type: 'string' }, meta: { type: 'object' }, rows: { type: 'array', items: { type: 'object' } } },
+        }),
+        '```',
+      ].join('\n'),
+      'utf8',
+    )
+    const warn = jest.spyOn(console, 'warn').mockImplementation(() => {})
+    try {
+      const extension = createAgentFilesExtension()
+      expect(() =>
+        extension.scanModule(createScanContext('agent_examples', fixture.appBase, fixture.pkgBase)),
+      ).not.toThrow()
+      const messages = warn.mock.calls.map((call) => String(call[0]))
+      expect(messages.some((message) => message.includes('the object at $.meta declares no properties'))).toBe(true)
+      expect(messages.some((message) => message.includes('the object at $.rows[] declares no properties'))).toBe(true)
+      expect(messages.some((message) => message.includes('$.summary'))).toBe(false)
+    } finally {
+      warn.mockRestore()
+    }
   })
 
   it('fails generation when an OUTCOME.md schema node has no supported type (M2)', () => {
@@ -559,7 +744,18 @@ describe('createAgentFilesExtension', () => {
         'file-agents.generated.ts',
       )
       expect(fs.existsSync(manifestPath)).toBe(true)
-      expect(fs.readFileSync(manifestPath, 'utf8')).toContain('id: "deals.health_check"')
+      const manifest = fs.readFileSync(manifestPath, 'utf8')
+      expect(manifest).toContain('id: "deals.health_check"')
+      // Standalone layout: type imports must use the public package path — the
+      // monorepo-relative `../lib/...` form does not resolve from `.mercato/generated/`.
+      expect(manifest).toContain(
+        "import type { JsonSchemaNode, OutcomeKind } from '@open-mercato/enterprise/modules/agent_orchestrator/lib/sdk/outcomeSchema'",
+      )
+      expect(manifest).toContain(
+        "import type { AgentTokenUsage, FileAgentFile } from '@open-mercato/enterprise/modules/agent_orchestrator/lib/tokens/types'",
+      )
+      expect(manifest).not.toContain("from '../lib/sdk/outcomeSchema'")
+      expect(manifest).not.toContain("from '../lib/tokens/types'")
 
       // It must NOT write into node_modules, which yarn install rewrites.
       expect(
